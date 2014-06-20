@@ -28,15 +28,23 @@ function f_cron()
 	{
 	$d = dirname(__FILE__).'/rencontre_cron.txt';
 	$d1 = dirname(__FILE__).'/rencontre_cronOn.txt';
+	$d2 = dirname(__FILE__).'/rencontre_cronListe.txt'; if (!file_exists($d2)) {$t=@fopen($d2,'w'); @fwrite($t,'0'); @fclose($t);}
+	$d3 = dirname(__FILE__).'/rencontre_cronListeOn.txt';
 	$options = get_option('rencontre_options');
 	$t = time(); $hcron = $options['hcron']+0;
-	if (!file_exists($d) || (date("j",filemtime($d))!=date("j",$t) && date("G",$t-3600*$hcron)<12) && $t>filemtime($d)+7200 ) // !existe ou (jour different et dans les 12 heures qui suivent hcron et plus de 2 heures apres precedent)
-		{
+	$u1 = date("G",$t-3600*$hcron);
+	if (!file_exists($d) || (date("j",filemtime($d))!=date("j",$t) && $u1<12) && $t>filemtime($d)+7200 ) // !existe ou (jour different et dans les 12 heures qui suivent hcron et plus de 2 heures apres precedent)
+		{ // MSG MENSUEL
 		if (!file_exists($d1) || $t>filemtime($d1)+120)
 			{
 			$t=fopen($d1, 'w'); fclose($t); // CRON une seule fois
 			f_cron_on();
 			}
+		}
+	else if ($t>filemtime($d)+3661 && $t>filemtime($d2)+3661 && $u1<23 && (!file_exists($d3) || $t>filemtime($d3)+120))
+		{
+		$t=fopen($d3, 'w'); fclose($t); // CRON LISTE une seule fois
+		f_cron_liste($d2); // MSG ACTION
 		}
 	// else f_cron_on(); // mode force
 	}
@@ -45,6 +53,7 @@ function f_cron_on()
 	{
 	// NETTOYAGE QUOTIDIEN
 	global $wpdb; $upl = wp_upload_dir(); $options = get_option('rencontre_options');
+	$bn = get_bloginfo('name');
 	// 1. Efface les _transient dans wp_option
         $wpdb->query("DELETE FROM ".$wpdb->prefix."options WHERE option_name like '\_transient\_namespace\_%' OR option_name like '\_transient\_timeout\_namespace\_%' ");
 	// 2. Supprime le cache portraits page d'accueil. Remise a jour a la premiere visite (fiches libre)
@@ -59,7 +68,6 @@ function f_cron_on()
 		if ($s && strpos($t,'admin')===false && strpos($t,'editor')===false && strpos($t,'author')===false && strpos($t,'contributor')===false) $wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$r->user_id));
 		}
 	// 4. Suppression des utilisateur sans compte rencontre
-	//$d = date("Y-m-d H:i:s", mktime(0,0,0,date("m"),date("d"),date("Y"))-100000); // ~30 heures
 	$q = $wpdb->get_results("SELECT U.ID FROM ".$wpdb->prefix."users U LEFT OUTER JOIN ".$wpdb->prefix."rencontre_users R ON U.ID=R.user_id WHERE R.user_id IS NULL");
 	if ($q) foreach($q as $r)
 		{
@@ -106,33 +114,36 @@ function f_cron_on()
 	$free=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d")-$options['prison'], date("Y")));
 	$wpdb->query("DELETE FROM ".$wpdb->prefix."rencontre_prison WHERE d_prison<'".$free."' ");
 	// 8 Mail mensuel vers les membres
+	$cm = 0; // compteur de mail
 	if ($options['mailmois'])
 		{
 		$j = floor((floor(time()/86400)/60 - floor(floor(time()/86400)/60)) * 60 +.00001);
 		$j1 = ($j>29)?$j-30:$j+30;
 		$s1 = "";
-		$max = max(0, $options['qmail']-2);
+		$max = floor(max(0, $options['qmail']*.8));
 		$q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action 
 			FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P 
 			WHERE (SECOND(U.user_registered)='".$j."' OR SECOND(U.user_registered)='".$j1."') AND U.ID=P.user_id LIMIT ".$max);
 		if ($q) foreach($q as $r)
 			{
 			$action= json_decode($r->t_action,true);
-			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>Bonjour ".$r->user_login.","."\r\n";
+			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>".__('Bonjour','rencontre')."&nbsp;".$r->user_login.","."\r\n";
 			if ($options['textmail'] && strlen($options['textmail'])>10) $s .= "<br />".nl2br(stripslashes($options['textmail']))."\r\n";
-			$s .= "<br />Votre profil a &eacute;t&eacute; visit&eacute; ".count($action['visite'])." fois."."\r\n";
+			$s .= "<br />".__('Votre profil a &eacute;t&eacute; visit&eacute;','rencontre')."&nbsp;".count($action['visite'])."&nbsp;".__('fois','rencontre')."\r\n";
 			if (count($action['sourireIn']))
 				{
-				$t = "<br />Vous avez re&ccedil;u un sourire de<table><tr>";
+				$t = "<br />".__('Vous avez re&ccedil;u un sourire de','rencontre')."<table><tr>";
+				$c = 0;
 				for ($v=0; $v<count($action['sourireIn']);++$v)
 					{
 					$q1 = $wpdb->get_var("SELECT U.user_login FROM ".$wpdb->prefix."users U WHERE ID='".$action['sourireIn'][$v]['i']."'");
 					if ($q1)
 						{
-						if (file_exists($upl['basedir']."/portrait/".floor($action['sourireIn'][$v]['i']/1000)."/".($action['sourireIn'][$v]['i']*10+$v)."-mini.jpg")) $u = $upl['baseurl']."/portrait/".floor($action['sourireIn'][$v]['i']/1000)."/".($action['sourireIn'][$v]['i']*10+$v)."-mini.jpg";
+						++$c;
+						if (file_exists($upl['basedir']."/portrait/".floor($action['sourireIn'][$v]['i']/1000)."/".($action['sourireIn'][$v]['i']*10)."-mini.jpg")) $u = $upl['baseurl']."/portrait/".floor($action['sourireIn'][$v]['i']/1000)."/".($action['sourireIn'][$v]['i']*10)."-mini.jpg";
 						else $u = plugins_url('rencontre/images/no-photo60.jpg');
 						$s .= $t . "<td><img src='".$u."' alt=''/><br />".substr($q1,0,10)."</td>"."\r\n";
-						if (($v+1)/6==floor(($v+1)/6)) $s .="</tr><tr>";
+						if ($c/6==floor($c/6)) $s .="</tr><tr>";
 						$t = "";
 						}
 					}
@@ -140,27 +151,30 @@ function f_cron_on()
 				}
 			if (count($action['contactIn']))
 				{
-				$t = "<br />Vous avez re&ccedil;u une demande de contact de<table><tr>";
+				$t = "<br />".__('Vous avez re&ccedil;u une demande de contact de','rencontre')."<table><tr>";
+				$c = 0;
 				for ($v=0; $v<count($action['contactIn']);++$v)
 					{
 					$q1 = $wpdb->get_var("SELECT U.user_login FROM ".$wpdb->prefix."users U WHERE ID='".$action['contactIn'][$v]['i']."'");
 					if ($q1)
 						{
-						if (file_exists($upl['basedir']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10+$v)."-mini.jpg")) $u = $upl['baseurl']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10+$v)."-mini.jpg";
+						++$c;
+						if (file_exists($upl['basedir']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10)."-mini.jpg")) $u = $upl['baseurl']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10)."-mini.jpg";
 						else $u = plugins_url('rencontre/images/no-photo60.jpg');
 						$s .= $t . "<td><img src='".$u."' alt=''/><br />".substr($q1,0,10)."</td>"."\r\n";
-						if (($v+1)/6==floor(($v+1)/6)) $s .="</tr><tr>";
+						if ($c/6==floor($c/6)) $s .="</tr><tr>";
 						$t = "";
 						}
 					}
 				if ($t=="") $s .= "</tr></table>"."\r\n";
 				}
 			$n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_msg M WHERE M.recipient='".$r->user_login."' and M.read=0 and M.deleted=0");
-			if ($n) $s .= "<br />Vous avez ".$n." message".(($n>1)?"s":"")." dans votre boite de r&eacute;ception.";
-			$n = $wpdb->get_var("SELECT O.option_value FROM ".$wpdb->prefix."options O WHERE O.option_name='blogname' ");
-			$s .= "<br />N'h&eacute;sitez pas &agrave; nous faire part de vos remarques.<br /><br />Cordialement,<br />".$n."</div>";
+			if ($n) $s .= "<br />".__('Vous avez','rencontre')."&nbsp;".$n.(($n>1)?__('messages','rencontre'):__('message','rencontre'))."&nbsp;".__('dans votre boite de r&eacute;ception.','rencontre');
+			$s .= "<br />".__("N'h&eacute;sitez pas &agrave; nous faire part de vos remarques.",'rencontre')."<br /><br />".__('Cordialement,','rencontre')."<br />".$bn."</div>";
 			$s1 .= $s;
-			@wp_mail($r->user_email, get_bloginfo('name'), $s);
+			@wp_mail($r->user_email, $bn, $s);
+			++$cm;
+			if (file_exists(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt')) @unlink(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt');
 			}
 		}
 	// 9. anniversaire du jour
@@ -169,17 +183,108 @@ function f_cron_on()
 		$q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, R.user_id FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R WHERE d_naissance LIKE '%".date('m-d')."' AND U.ID=R.user_id LIMIT 5 ");
 		foreach($q as $r)
 			{
-			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>Bonjour ".$r->user_login.","."\r\n";
+			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>".__('Bonjour','rencontre')." ".$r->user_login.","."\r\n";
 			if ($options['textanniv'] && strlen($options['textanniv'])>10) $s .= "<br />".nl2br(stripslashes($options['textanniv']))."\r\n";
-			@wp_mail($r->user_email, get_bloginfo('name'), $s);
+			@wp_mail($r->user_email, $bn, $s);
+			++$cm;
 			$s1 .= $s;
 			}
 		}
+	// 10. Efface une fois par semaine les statistiques du nombre de mail par heure
+	if (date("N")=="1")  // le lundi
+		{
+		$t=@fopen(dirname(__FILE__).'/rencontre_cronListe.txt','w'); @fwrite($t,'0'); @fclose($t);
+		$t=@fopen(dirname(__FILE__).'/rencontre_cron.txt','w'); @fwrite($t,$cm); @fclose($t);
+		}
 	//
-	$d = dirname(__FILE__).'/rencontre_cron.txt';
-	$t=@fopen($d, 'w'); @fclose($t);
+	if (date("N")!="1")$t=@fopen(dirname(__FILE__).'/rencontre_cron.txt', 'w'); @fwrite($t,max((file_get_contents(dirname(__FILE__).'/rencontre_cron.txt')+0),$cm)); @fclose($t);
 	@unlink(dirname(__FILE__).'/rencontre_cronOn.txt');
 	clearstatcache();
+	}
+//
+function f_cron_liste($d2)
+	{
+	// USERS separes en 20 groupes G : (ID + G) / 20 INTEGER
+	global $wpdb; $options = get_option('rencontre_options'); $upl = wp_upload_dir();
+	$max = floor(max(0, $options['qmail']*.8));
+	$u2 = file_get_contents($d2);
+	$s1 = "";
+	$cm = 0; // compteur de mail
+	// 1. listing des USERS en attente
+	if ($dh = opendir(dirname(__FILE__).'/cron_liste/'))
+		{
+		$bn = get_bloginfo('name');
+		$lis = '(';
+		$fi = Array();
+		$c = 0;
+		while (($file = readdir($dh))!==false)
+			{
+			$lid=explode('.',$file);
+			if ($file!='.' && $file!='..')
+				{
+				$fi[$c][0] = filemtime(dirname(__FILE__).'/cron_liste/'.$file); // date - en premier pour le sort
+				$fi[$c][1] = $lid[0]; // nom
+				++$c;
+				}
+			}
+		sort($fi); // les plus ancien en premier
+		$c = 0;
+		foreach ($fi as $r)
+			{
+			++$c;
+			if($c>$max) break;
+			$lis .= $r[1].",";
+			}
+		if (strlen($lis)>2) $lis = substr($lis,0,-1) . ')'; else $lis='(0)';
+		closedir($dh);
+		$q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action 
+			FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P 
+			WHERE U.ID IN ".$lis." AND U.ID=P.user_id LIMIT ".$max); // clause IN : WHERE U.ID IN ( 250, 220, 170 );
+		$las = 0;
+		if($q) foreach($q as $r)
+			{
+			$b = 0;
+			$action= json_decode($r->t_action,true);
+			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;color:#000;'>".__('Bonjour','rencontre')."&nbsp;".$r->user_login.","."\r\n";
+			if (count($action['contactIn']))
+				{
+				$b = 1;
+				$s .= "<br />".__('Vous avez re&ccedil;u une demande de contact de','rencontre')."<table><tr>";
+				$v = count($action['contactIn'])-1;
+				$q1 = $wpdb->get_var("SELECT U.user_login FROM ".$wpdb->prefix."users U WHERE ID='".$action['contactIn'][$v]['i']."'");
+				if ($q1)
+					{
+					if (file_exists($upl['basedir']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10)."-mini.jpg")) $u = $upl['baseurl']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10)."-mini.jpg";
+					else $u = plugins_url('rencontre/images/no-photo60.jpg');
+					$s .= "<td>".$q1."</td><td><img src='".$u."' alt=''/></td>"."\r\n";
+					}
+				$s .= "</tr></table>"."\r\n";
+				}
+			$n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_msg M WHERE M.recipient='".$r->user_login."' and M.read=0 and M.deleted=0");
+			if ($n)
+				{
+				$b = 1;
+				$s .= "<br />".__('Vous avez','rencontre')."&nbsp;".$n."&nbsp;".(($n>1)?__('messages','rencontre'):__('message','rencontre'))."&nbsp;".__('dans votre boite de r&eacute;ception.','rencontre');
+				}
+			$s .= "<br /><br />".__('Cordialement,','rencontre')."<br />".$bn."</div>";
+			if($b)
+				{
+				$s1 .= $s;
+				@wp_mail($r->user_email, $bn." - ".__('Un membre vous contacte','rencontre'), $s);
+				++$cm;
+				}
+			$d = filemtime(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt');
+			if($d>$las) $las = $d;
+			@unlink(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt');
+			}
+		foreach ($fi as $r)
+			{
+			if($r[0]>$las) break;
+			else if(file_exists(dirname(__FILE__).'/cron_liste/'.$r[1].".txt")) @unlink(dirname(__FILE__).'/cron_liste/'.$r[1].".txt");  // suppression non traite car ID inexistant
+			}
+		}
+	$t=@fopen($d2,'w'); @fwrite($t,max(($u2+0),$cm)); @fclose($t);
+	@unlink(dirname(__FILE__).'/rencontre_cronListeOn.txt');
 	}
 //
 function f_admin_menu ($wp_admin_bar)

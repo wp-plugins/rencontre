@@ -2,6 +2,7 @@
 //
 class RencontreWidget extends WP_widget
 	{
+	var $op;
  	function __construct()
 		{
 		parent::__construct(
@@ -16,6 +17,7 @@ class RencontreWidget extends WP_widget
 		if(current_user_can("administrator")) return;
 		wp_enqueue_style('rencontre', plugins_url('rencontre/css/rencontre.css'));
 		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre.js?r='.rand()));
+		$this->op = get_option('rencontre_options');
 		$options = get_option('rencontre_options');
 		$nbSearch = $options['nbSearch'];
 		global $user_ID; global $current_user;
@@ -62,7 +64,7 @@ class RencontreWidget extends WP_widget
 						</ul>
 					</div>
 				</form>
-				<div class="rencBonjour"><?php _e('Bonjour ','rencontre'); echo ($current_user->user_login); ?></div>
+				<div class="rencBonjour"><?php _e('Bonjour ','rencontre'); echo ($current_user->user_login); echo "***".$options['tchat']; ?></div>
 			</div>
 		<?php 
 		//
@@ -966,7 +968,8 @@ class RencontreWidget extends WP_widget
 			}
 		}
 	//
-	static function f_miniPortrait($f)
+//	static function f_miniPortrait($f)
+	function f_miniPortrait($f)
 		{
 		// entree : id
 		// sortie : code HTML avec le mini portrait
@@ -994,7 +997,18 @@ class RencontreWidget extends WP_widget
 					$pays = str_replace("'", "", stripslashes($pays));
 					$cpays = str_replace("'", "&#39;", stripslashes($s->c_pays));
 					if($s->c_pays!="") echo '<img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$pays.'.png" alt="'.$cpays.'" title="'.$cpays.'" />'; ?>
-					
+
+
+
+
+
+
+
+<?php echo "***".$this->op['tchat']."***"; ?>	
+
+
+
+
 				</div><!-- .miniPortrait -->
 		<?php
 		}
@@ -1132,6 +1146,9 @@ class RencontreWidget extends WP_widget
 		$a = $wpdb->get_var("SELECT user_login FROM ".$wpdb->prefix."users WHERE ID='".strip_tags($_POST["id"])."'");
 		$wpdb->insert($wpdb->prefix.'rencontre_msg', array('subject'=>strip_tags($_POST["sujet"]), 'content'=>strip_tags($_POST["contenu"]), 'sender'=>$f, 'recipient'=>$a, 'date'=>date('Y-m-d H:i:s'), 'read'=>0, 'deleted'=>0));
 		if ($_POST["msg"]) $wpdb->update($wpdb->prefix.'rencontre_msg', array('read'=>2), array('id'=>strip_tags($_POST["msg"]))); // repondu
+		// memo pour mail CRON
+		if (!is_dir(dirname(__FILE__).'/cron_liste/')) mkdir(dirname(__FILE__).'/cron_liste/');
+		if (!file_exists(dirname(__FILE__).'/cron_liste/'.strip_tags($_POST["id"]).'.txt')){ $t=fopen(dirname(__FILE__).'/cron_liste/'.strip_tags($_POST["id"]).'.txt', 'w'); fclose($t); }
 		}
 	//
 	static function f_cherchePlus($f)
@@ -1566,6 +1583,9 @@ class RencontreWidget extends WP_widget
 		$action['contactIn'][$c]['d'] = date("Y-m-d");
 		$out = json_encode($action);
 		$wpdb->update($wpdb->prefix.'rencontre_users_profil', array('t_action'=>$out), array('user_id'=>$f));
+		// memo pour mail CRON
+		if (!is_dir(dirname(__FILE__).'/cron_liste/')) mkdir(dirname(__FILE__).'/cron_liste/');
+		if (!file_exists(dirname(__FILE__).'/cron_liste/'.$f.'.txt')){ $t=fopen(dirname(__FILE__).'/cron_liste/'.$f.'.txt', 'w'); fclose($t); }
 		_e('demande de contact envoy&eacute;e','rencontre');
 		}
 	//
