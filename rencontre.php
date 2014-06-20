@@ -2,9 +2,9 @@
 /*
 Plugin Name: Rencontre
 Author: Jacques Malgrange
-Plugin URI: http://www.boiteasite.fr
+Plugin URI: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
 Description: Plugin pour faire un site de rencontre
-Version: 1.0.0
+Version: 1.1
 Author URI: http://www.boiteasite.fr
 */
 
@@ -239,8 +239,22 @@ class Rencontre
 						<td><input type="checkbox" name="mailsupp" value="1" <?php if ($options['mailsupp'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Envoi automatique d\'un mail mensuel de synth&egrave;se aux membres', 'rencontre'); ?></label></th>
-						<td><input type="checkbox" name="mailmois" value="1" <?php if ($options['mailmois'])echo 'checked'; ?>></td>
+						<th scope="row"><label><?php _e('Envoi automatique d\'un mail mensuel de synth&egrave;se aux membres (r&eacute;parti sur le mois)', 'rencontre'); ?></label></th>
+						<td>
+							<input type="checkbox" name="mailmois" value="1" <?php if ($options['mailmois'])echo 'checked'; ?>>
+							<?php 
+							$d2 = dirname(__FILE__).'/inc/rencontre_cron.txt';
+							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Maximum cette semaine :', 'rencontre')."&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/j', 'rencontre')."<br />(".__('envoy&eacute;s lors de la maintenance', 'rencontre').")</p>";
+							?>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label><?php _e('Heure des t&acirc;ches de maintenance (heures creuses)', 'rencontre'); ?></label></th>
+						<td>
+							<select name="hcron">
+								<?php for ($v=0;$v<24;++$v) {echo '<option value="'.$v.'" '.(($options['hcron']==$v)?'selected':'').'>'.$v.__(' heures','rencontre').'</option>';} ?>
+							</select>
+						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label><?php _e('Texte d\'introduction pour le mail mensuel (Apr&egrave;s bonjour login - Avant les sourires et demandes de contact)', 'rencontre'); ?></label></th>
@@ -255,16 +269,14 @@ class Rencontre
 						<td><textarea name="textanniv"><?php echo stripslashes($options['textanniv']); ?></textarea></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Heure des t&acirc;ches de maintenance (heures creuses)', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Nombre max de mail envoy&eacute;s par heure', 'rencontre'); ?></label></th>
 						<td>
-							<select name="hcron">
-								<?php for ($v=0;$v<24;++$v) {echo '<option value="'.$v.'" '.(($options['hcron']==$v)?'selected':'').'>'.$v.__(' heures','rencontre').'</option>';} ?>
-							</select>
+							<input type="text" class="regular-text" name="qmail" value="<?php echo $options['qmail']; ?>" />
+							<?php 
+							$d2 = dirname(__FILE__).'/inc/rencontre_cronListe.txt';
+							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Maximum cette semaine :', 'rencontre')."&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/h', 'rencontre')."<br />(".__('hors p&eacute;riode de maintenance', 'rencontre').")</p>";
+							?>
 						</td>
-					</tr>
-					<tr valign="top">
-						<th scope="row"><label><?php _e('Nombre max de mail envoy&eacute;s par jour', 'rencontre'); ?></label></th>
-						<td><input type="text" class="regular-text" name="qmail" value="<?php echo $options['qmail']; ?>" /></td>
 					</tr>
 				</table>
 				<p class="submit">
@@ -469,6 +481,10 @@ class Rencontre
 			<h2><?php _e('Rencontre ','rencontre');?><span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
 			<h2><?php _e('Membres', 'rencontre'); ?></h2>
 			<?php 
+			$nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users");
+			$np = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=P.user_id AND R.i_photo>0 AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30");
+			echo "<p style='color:#D54E21;'>".__('Nombre de membres inscrits','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$nm."</span></p>";
+			echo "<p style='color:#D54E21;'>".__('Nombre de membres avec profil et photo','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$np."</span></p>";
 			//get_option('admin_email'); // mail admin (options general)
 			if (!$_GET["id"]) {
 			if ($_POST["a1"] && $_POST["a2"]) 
