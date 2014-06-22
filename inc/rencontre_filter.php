@@ -68,6 +68,7 @@ function f_cron_on()
 		if ($s && strpos($t,'admin')===false && strpos($t,'editor')===false && strpos($t,'author')===false && strpos($t,'contributor')===false) $wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$r->user_id));
 		}
 	// 4. Suppression des utilisateur sans compte rencontre
+	//$d = date("Y-m-d H:i:s", mktime(0,0,0,date("m"),date("d"),date("Y"))-100000); // ~30 heures
 	$q = $wpdb->get_results("SELECT U.ID FROM ".$wpdb->prefix."users U LEFT OUTER JOIN ".$wpdb->prefix."rencontre_users R ON U.ID=R.user_id WHERE R.user_id IS NULL");
 	if ($q) foreach($q as $r)
 		{
@@ -208,7 +209,6 @@ function f_cron_liste($d2)
 	global $wpdb; $options = get_option('rencontre_options'); $upl = wp_upload_dir();
 	$max = floor(max(0, $options['qmail']*.8));
 	$u2 = file_get_contents($d2);
-	$s1 = "";
 	$cm = 0; // compteur de mail
 	// 1. listing des USERS en attente
 	if ($dh = opendir(dirname(__FILE__).'/cron_liste/'))
@@ -269,7 +269,6 @@ function f_cron_liste($d2)
 			$s .= "<br /><br />".__('Cordialement,','rencontre')."<br />".$bn."</div>";
 			if($b)
 				{
-				$s1 .= $s;
 				@wp_mail($r->user_email, $bn." - ".__('Un membre vous contacte','rencontre'), $s);
 				++$cm;
 				}
@@ -382,9 +381,9 @@ function f_fbok() // connexion via Facebook
 	{
 	if (!is_user_logged_in())
 		{
-		$m = strip_tags($_POST['fb']);
+		$m = $_POST['fb'];
 		global $wpdb;
-		$u = $wpdb->get_var("SELECT user_login FROM ".$wpdb->prefix."users WHERE user_email='".$m['email']."'");
+		$u = $wpdb->get_var("SELECT user_login FROM ".$wpdb->prefix."users WHERE user_email='".strip_tags($m['email'])."'");
 		if (!$u) // adresse mail inconnue => creation user
 			{
 			$u = $m["first_name"].substr($m["id"],5,4);
