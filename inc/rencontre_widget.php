@@ -8,7 +8,7 @@ class RencontreWidget extends WP_widget
 		parent::__construct(
 			'rencontre-widget', // Nom en BDD : widget_nom (table wp_options - colonne option_name)
 			__('Rencontre', 'rencontre'), // Name (nom en admin sur le widget)
-			array( 'description' => __( 'Widget pour integrer le site de rencontre', 'rencontre' ), ) // Description en admin sur le widget
+			array( 'description' => __('Widget pour integrer le site de rencontre', 'rencontre'), ) // Description en admin sur le widget
 			);
 		}
 	//
@@ -64,7 +64,7 @@ class RencontreWidget extends WP_widget
 						</ul>
 					</div>
 				</form>
-				<div class="rencBonjour"><?php _e('Bonjour ','rencontre'); echo ($current_user->user_login); echo "***".$options['tchat']; ?></div>
+				<div class="rencBonjour"><?php _e('Bonjour','rencontre'); echo '&nbsp;'.($current_user->user_login); ?></div>
 			</div>
 		<?php 
 		//
@@ -77,7 +77,7 @@ class RencontreWidget extends WP_widget
 			<div class="pleineBox">
 				<div class="rencBox">
 					<div class="rencNouveau">
-						<h3><?php _e('Votre adresse mail est actuellement en quarantaine. D&eacute;sol&eacute; ','rencontre'); ?></h3>
+						<h3><?php _e('Votre adresse mail est actuellement en quarantaine. D&eacute;sol&eacute;','rencontre'); ?>&nbsp;</h3>
 					</div>
 				</div>
 			</div>
@@ -86,7 +86,7 @@ class RencontreWidget extends WP_widget
 			<div class="pleineBox">
 				<div class="rencBox">
 					<div class="rencNouveau">
-						<h3><?php _e('Bonjour ','rencontre'); echo ($current_user->user_login); echo ", ".__('bienvenue sur le site ','rencontre'); bloginfo( 'name' ); ?></h3>
+						<h3><?php _e('Bonjour','rencontre'); echo '&nbsp;'.($current_user->user_login); echo ", ".__('bienvenue sur le site','rencontre').'&nbsp;'; bloginfo( 'name' ); ?></h3>
 						<p>
 						<?php _e('Vous pourrez acc&eacute;der &agrave; l\'ensemble des possibilit&eacute;s offertes par le site dans quelques minutes.','rencontre'); ?>
 						<?php _e('Avant cela, vous devez fournir quelques &eacute;l&eacute;ments demand&eacute;s ci-dessous.','rencontre'); ?>
@@ -168,13 +168,13 @@ class RencontreWidget extends WP_widget
 							<tr>
 								<td>
 									<select name="taille" size=6>
-										<?php for ($v=140;$v<220;++$v) {echo '<option value="'.$v.'">'.$v.__(' cm','rencontre').'</option>';}?>
+										<?php for ($v=140;$v<220;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('cm','rencontre').'</option>';}?>
 										
 									</select>
 								</td>
 								<td>
 									<select name="poids" size=6>
-										<?php for ($v=40;$v<140;++$v) {echo '<option value="'.$v.'">'.$v.__(' kg','rencontre').'</option>';}?>
+										<?php for ($v=40;$v<140;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('kg','rencontre').'</option>';}?>
 										
 									</select>
 								</td>
@@ -201,11 +201,11 @@ class RencontreWidget extends WP_widget
 								</td>
 								<td>
 									<select name="zageMin" size=6 onChange="f_min(this.options[this.selectedIndex].value,'formNouveau','zageMin','zageMax');">
-										<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'">'.$v.__(' ans','rencontre').'</option>';}?>
+										<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('ans','rencontre').'</option>';}?>
 										
 									</select>
 									<select name="zageMax" size=6 onChange="f_max(this.options[this.selectedIndex].value,'formNouveau','zageMin','zageMax');">
-										<?php for ($v=18;$v<100;++$v) {echo '<option value="'.$v.'">'.$v.__(' ans','rencontre').'</option>';}?>
+										<?php for ($v=18;$v<100;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('ans','rencontre').'</option>';}?>
 										
 									</select>
 								</td>
@@ -274,14 +274,14 @@ class RencontreWidget extends WP_widget
 						<div class="grid_10">
 							<h3><?php echo $s->display_name; if($bl) echo '<span style="font-weight:bold;color:red;text-transform:uppercase;">&nbsp;'.__('(bloqu&eacute;)','rencontre').'</span>'; ?></h3>
 							<div class="ville"><?php echo $s->c_ville; if($s->c_region) echo ' <em>('.$s->c_region.')</em>'; ?></div>
-							<div class="renc1"><?php echo Rencontre::f_age($s->d_naissance).__(' ans','rencontre'); ?>&nbsp;&nbsp;-&nbsp;&nbsp;<?php echo $s->i_taille; ?> cm&nbsp;&nbsp;-&nbsp;&nbsp;<?php echo $s->i_poids; ?> kg</div>
+							<div class="renc1"><?php echo Rencontre::f_age($s->d_naissance).'&nbsp;'.__('ans','rencontre'); ?>&nbsp;&nbsp;-&nbsp;&nbsp;<?php echo $s->i_taille; ?> cm&nbsp;&nbsp;-&nbsp;&nbsp;<?php echo $s->i_poids; ?> kg</div>
 							<div class="titre"><?php echo stripslashes($s->t_titre); ?></div>
 						</div>
 						<p><?php echo stripslashes($s->t_annonce); ?></p>
 						<div class="abso225">
-							<?php echo __('Je cherche ','rencontre').(($s->i_zsex==1)?__('une femme','rencontre'):__('un homme','rencontre'));
-							echo __(' entre ','rencontre').$s->i_zage_min.__(' et ','rencontre').$s->i_zage_max.__(' ans','rencontre');
-							echo __(' pour ','rencontre').(($s->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($s->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))); ?>
+							<?php echo __('Je cherche','rencontre').'&nbsp;'.(($s->i_zsex==1)?__('une femme','rencontre'):__('un homme','rencontre'));
+							echo '&nbsp;'.__('entre','rencontre').'&nbsp;'.$s->i_zage_min.'&nbsp;'.__('et','rencontre').'&nbsp;'.$s->i_zage_max.'&nbsp;'.__('ans','rencontre');
+							echo '&nbsp;'.__('pour','rencontre').'&nbsp;'.(($s->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($s->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))); ?>
 						</div>
 					</div>
 					<?php if ($id!=$mid) { ?>
@@ -461,7 +461,7 @@ class RencontreWidget extends WP_widget
 						echo $out1.$out2;
 						?>
 						
-							<em id="infoChange"><?php if ($_POST["a1"]=="sauvProfil") _e('Effectu&eacute;e ','rencontre'); ?></em>
+							<em id="infoChange"><?php if ($_POST["a1"]=="sauvProfil") _e('Effectu&eacute;e','rencontre'); ?>&nbsp;</em>
 						</div>
 					</div>
 				</form>
@@ -493,14 +493,14 @@ class RencontreWidget extends WP_widget
 					$pays = str_replace("'", "", stripslashes($pays));
 					$cpays = str_replace("'", "&#39;", stripslashes($s->c_pays));
 					if($s->c_pays!="") echo '<img class="monFlag" src="'.plugins_url('rencontre/images/drapeaux/').$pays.'.png" alt="'.$cpays.'" title="'.$cpays.'" />'; ?>
-					<div class="monAge"><?php _e('Age : ','rencontre'); echo Rencontre::f_age($s->d_naissance); _e(' ans','rencontre'); ?></div>
-					<div class="maVille"><?php _e('Ville : ','rencontre'); echo $s->c_ville; ?></div>
+					<div class="monAge"><?php _e('Age','rencontre'); echo '&nbsp;:&nbsp;'.Rencontre::f_age($s->d_naissance).'&nbsp;'; _e('ans','rencontre'); ?></div>
+					<div class="maVille"><?php _e('Ville','rencontre'); echo '&nbsp;:&nbsp;'.$s->c_ville; ?></div>
 					<div id="tauxProfil"></div>
-					<div class="maRecherche"><?php _e('Je recherche','rencontre');?><em> <?php echo (($s->i_zsex==1)?__('une femme','rencontre'):__('un homme','rencontre')).'</em>'.__(' pour ','rencontre').'<em>'.(($s->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($s->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))).'</em>'; ?></div>
+					<div class="maRecherche"><?php _e('Je recherche','rencontre');?><em> <?php echo (($s->i_zsex==1)?__('une femme','rencontre'):__('un homme','rencontre')).'</em>&nbsp;'.__('pour','rencontre').'&nbsp;<em>'.(($s->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($s->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))).'</em>'; ?></div>
 					<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='change';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><?php _e('Modifier mon profil','rencontre');?></a></div>
-					<div class="mesSourire"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='cherche';document.forms['rencMenu'].elements['id'].value='sourireIn';document.forms['rencMenu'].submit();"><?php _e('Sourire : ','rencontre'); echo (count($action['sourireIn'])>49)?'>50':count($action['sourireIn']); ?></a></div>
-					<div class="mesSourire"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='cherche';document.forms['rencMenu'].elements['id'].value='visite';document.forms['rencMenu'].submit();"><?php _e('Regard : ','rencontre'); echo (count($action['visite'])>49)?'>50':count($action['visite']); ?></a></div>
-					<div class="mesSourire"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='cherche';document.forms['rencMenu'].elements['id'].value='contactIn';document.forms['rencMenu'].submit();"><?php _e('Demandes de contact : ','rencontre'); echo (count($action['contactIn'])>49)?'>50':count($action['contactIn']); ?></a></div>
+					<div class="mesSourire"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='cherche';document.forms['rencMenu'].elements['id'].value='sourireIn';document.forms['rencMenu'].submit();"><?php _e('Sourire','rencontre'); echo '&nbsp;:&nbsp;'.(count($action['sourireIn'])>49)?'>50':count($action['sourireIn']); ?></a></div>
+					<div class="mesSourire"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='cherche';document.forms['rencMenu'].elements['id'].value='visite';document.forms['rencMenu'].submit();"><?php _e('Regard','rencontre'); echo '&nbsp;:&nbsp;'.(count($action['visite'])>49)?'>50':count($action['visite']); ?></a></div>
+					<div class="mesSourire"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='cherche';document.forms['rencMenu'].elements['id'].value='contactIn';document.forms['rencMenu'].submit();"><?php _e('Demandes de contact','rencontre'); echo '&nbsp;:&nbsp;'.(count($action['contactIn'])>49)?'>50':count($action['contactIn']); ?></a></div>
 				</div>
 				<div class="rencBox">
 					<div class="rencItem"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='cherche';document.forms['rencMenu'].elements['id'].value='sourireOut';document.forms['rencMenu'].submit();"><?php _e('A qui j\'ai souri ?','rencontre');?></a></div>
@@ -511,27 +511,27 @@ class RencontreWidget extends WP_widget
 					<h3><?php _e('Recherche rapide','rencontre');?></h3>
 					<form name='formMonAccueil' method='post' action=''>
 						<input type='hidden' name='page' value='' /><input type='hidden' name='sex' value='<?php echo $s->i_zsex; ?>' />
-						<div class="rencItem"><?php _e('Age : ','rencontre');?><span><?php _e('de&nbsp;','rencontre');?>
+						<div class="rencItem"><?php _e('Age','rencontre');?>&nbsp;<span><?php _e('de','rencontre');?>&nbsp;
 							<select name="ageMin" onChange="f_min(this.options[this.selectedIndex].value,'formMonAccueil','ageMin','ageMax');">
-								<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'">'.$v.__(' ans','rencontre').'</option>';}?>
+								<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('ans','rencontre').'</option>';}?>
 								
 							</select>
 							</span>
-							<span><?php _e(' &agrave;&nbsp;','rencontre');?>
+							<span>&nbsp;<?php _e('&agrave;','rencontre');?>&nbsp;
 							<select name="ageMax" onChange="f_max(this.options[this.selectedIndex].value,'formMonAccueil','ageMin','ageMax');">
-								<?php for ($v=18;$v<98;++$v) {echo '<option value="'.$v.'">'.$v.__(' ans','rencontre').'</option>';}?>
+								<?php for ($v=18;$v<98;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('ans','rencontre').'</option>';}?>
 								
 								<option value="99" selected><?php _e('99 ans','rencontre');?></option>
 							</select>
 							</span>
 						</div>
-						<div class="rencItem"><?php _e('Pays :','rencontre');?>
+						<div class="rencItem"><?php _e('Pays','rencontre');?>&nbsp;:
 							<select name="pays" onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect1');">
 								<?php RencontreWidget::f_pays(); ?>
 								
 							</select>
 						</div>
-						<div class="rencItem"><?php _e('R&eacute;gion :','rencontre');?>
+						<div class="rencItem"><?php _e('R&eacute;gion','rencontre');?>&nbsp;:
 							<select id="regionSelect1" name="region">
 								<?php RencontreWidget::f_regionBDD(); ?>
 								
@@ -640,51 +640,51 @@ class RencontreWidget extends WP_widget
 				}
 			else if ($_POST['id']=='sourireOut')
 				{
-				echo '<h3 style="text-align:center;">'.__('J\'ai souri &agrave; ...','rencontre').'</h3>';
+				echo '<h3 style="text-align:center;">'.__('J\'ai souri &agrave;','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
 				$q = ''; $c = 0;
-				if ($action['sourireOut']) {krsort($action['sourireOut']); foreach ($action['sourireOut'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); $q[$c]->date=$r['d']; ++$c; }}
+				if ($action['sourireOut']) {krsort($action['sourireOut']); foreach ($action['sourireOut'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
 				}
 			else if ($_POST['id']=='sourireIn')
 				{
-				echo '<h3 style="text-align:center;">'.__('J\'ai re&ccedil;u un sourire de ...','rencontre').'</h3>';
+				echo '<h3 style="text-align:center;">'.__('J\'ai re&ccedil;u un sourire de','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
 				$q = ''; $c = 0;
-				if ($action['sourireIn']) {krsort($action['sourireIn']); foreach ($action['sourireIn'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); $q[$c]->date=$r['d']; ++$c; }}
+				if ($action['sourireIn']) {krsort($action['sourireIn']); foreach ($action['sourireIn'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
 				}
 			else if ($_POST['id']=='contactOut')
 				{
-				echo '<h3 style="text-align:center;">'.__('J\'ai demand&eacute; un contact &agrave; ...','rencontre').'</h3>';
+				echo '<h3 style="text-align:center;">'.__('J\'ai demand&eacute; un contact &agrave;','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
 				$q = ''; $c = 0;
-				if ($action['contactOut']) {krsort($action['contactOut']); foreach ($action['contactOut'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); $q[$c]->date=$r['d']; ++$c; }}
+				if ($action['contactOut']) {krsort($action['contactOut']); foreach ($action['contactOut'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
 				}
 			else if ($_POST['id']=='contactIn')
 				{
-				echo '<h3 style="text-align:center;">'.__('J\'ai eu une demande de contact de ...','rencontre').'</h3>';
+				echo '<h3 style="text-align:center;">'.__('J\'ai eu une demande de contact de','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
 				$q = '';$c = 0;
-				if ($action['contactIn']) {krsort($action['contactIn']); foreach ($action['contactIn'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); $q[$c]->date=$r['d']; ++$c; }}
+				if ($action['contactIn']) {krsort($action['contactIn']); foreach ($action['contactIn'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
 				}
 			else if ($_POST['id']=='visite')
 				{
-				echo '<h3 style="text-align:center;">'.__('J\'ai &eacute;t&eacute; regard&eacute; par ...','rencontre').'</h3>';
+				echo '<h3 style="text-align:center;">'.__('J\'ai &eacute;t&eacute; regard&eacute; par','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
 				$q = ''; $c = 0;
-				if ($action['visite']) {krsort($action['visite']); foreach ($action['visite'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); $q[$c]->date=$r['d']; ++$c; }}
+				if ($action['visite']) {krsort($action['visite']); foreach ($action['visite'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
 				}
 			else if ($_POST['id']=='bloque')
 				{
-				echo '<h3 style="text-align:center;">'.__('J\'ai bloqu&eacute; ...','rencontre').'</h3>';
+				echo '<h3 style="text-align:center;">'.__('J\'ai bloqu&eacute;','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
 				$q = ''; $c = 0;
-				if ($action['bloque']) {krsort($action['bloque']); foreach ($action['bloque'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); $q[$c]->date=$r['d']; ++$c; }}
+				if ($action['bloque']) {krsort($action['bloque']); foreach ($action['bloque'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
 				}
 			?>
 				<?php if($q) foreach($q as $r)
@@ -692,15 +692,15 @@ class RencontreWidget extends WP_widget
 					$bl1=RencontreWidget::f_etat_bloque1($r->user_id,$mid,$r->t_action); // je suis bloque ?
 					?>
 					<div class="rencBox">
-					<?php if ($r->date) echo '<div class="rencDate">'.__('Le ','rencontre').substr($r->date,8,2).'.'.substr($r->date,5,2).'.'.substr($r->date,0,4).'</div>'; ?>
+					<?php if ($r->date) echo '<div class="rencDate">'.__('Le','rencontre').'&nbsp;'.substr($r->date,8,2).'.'.substr($r->date,5,2).'.'.substr($r->date,0,4).'</div>'; ?>
 						<?php RencontreWidget::f_miniPortrait($r->user_id); ?>
 						<div class="maxiBox right rel">
 								<?php echo stripslashes($r->t_annonce); ?>
 							<div style="height:40px;"></div>
 							<div class="abso225">
-								<?php echo __('Je cherche ','rencontre').(($r->i_zsex==1)?__('une femme','rencontre'):__('un homme','rencontre')).'<br />';
-								echo __(' entre ','rencontre').$r->i_zage_min.__(' et ','rencontre').$r->i_zage_max.__(' ans','rencontre').'<br />';
-								echo __('pour ','rencontre').(($r->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($r->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))); ?>
+								<?php echo __('Je cherche','rencontre').'&nbsp;'.(($r->i_zsex==1)?__('une femme','rencontre'):__('un homme','rencontre')).'<br />';
+								echo '&nbsp;'.__('entre','rencontre').'&nbsp;'.$r->i_zage_min.'&nbsp;'.__('et','rencontre').'&nbsp;'.$r->i_zage_max.'&nbsp;'.__('ans','rencontre').'<br />';
+								echo __('pour','rencontre').'&nbsp;'.(($r->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($r->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))); ?>
 							</div>
 							<div class="abso135">
 								<?php if (!$bl1) { ?>
@@ -754,14 +754,14 @@ class RencontreWidget extends WP_widget
 			
 			<div class="grandeBox left">
 				<div class="rencBox">
-					<h3><?php _e('Envoyer un message &agrave; ','rencontre'); echo $q->user_login; ?></h3>
+					<h3><?php _e('Envoyer un message &agrave;','rencontre'); echo '&nbsp;'.$q->user_login; ?></h3>
 					<div id="rencMsg">
 					<form name="formEcrire" method='post' action=''>
 					<input type='hidden' name='page' value='' /><input type='hidden' name='id' value='' /><input type='hidden' name='msg' value='' />
 					<?php if($q->i_photo!=0) echo '<img class="tete" src="'.$upl['baseurl'].'/portrait/'.floor(($q->i_photo)/10000).'/'.(floor(($q->i_photo)/10)*10).'-mini.jpg" alt="" />';
 					else echo '<img class="tete" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" />'; ?>
-						<label><?php _e('Sujet :','rencontre');?></label><input name="sujet" type="text" /><br />
-						<label><?php _e('Message :','rencontre');?></label><textarea name="contenu" rows="8"></textarea><br />
+						<label><?php _e('Sujet','rencontre');?>&nbsp;:</label><input name="sujet" type="text" /><br />
+						<label><?php _e('Message','rencontre');?>&nbsp;:</label><textarea name="contenu" rows="8"></textarea><br />
 						<div class="button"><a href="javascript:void(0)" onClick="document.forms['formEcrire'].elements['page'].value='portrait';document.forms['formEcrire'].elements['id'].value='<?php echo $_POST["id"]; ?>'<?php if($_POST["msg"]) echo ';document.forms[\'formEcrire\'].elements[\'msg\'].value=\''.strip_tags($_POST["msg"]).'\''; ?>;document.forms['formEcrire'].submit();"><?php _e('Envoi','rencontre');?></a></div>
 						<div class="clear"></div>
 					</form>
@@ -988,7 +988,7 @@ class RencontreWidget extends WP_widget
 					</a>
 					<div>
 						<h3><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='portrait';document.forms['rencMenu'].elements['id'].value='<?php echo $f; ?>';document.forms['rencMenu'].submit();"><?php echo $s->display_name; ?></a></h3>
-						<div class="monAge"><?php echo Rencontre::f_age($s->d_naissance); _e(' ans','rencontre');?></div>
+						<div class="monAge"><?php echo Rencontre::f_age($s->d_naissance).'&nbsp;'; _e('ans','rencontre');?></div>
 						<div class="maVille"><?php echo $s->c_ville; ?></div>
 					</div>
 					<p><?php echo stripslashes($s->t_titre); ?></p>
@@ -997,18 +997,7 @@ class RencontreWidget extends WP_widget
 					$pays = str_replace("'", "", stripslashes($pays));
 					$cpays = str_replace("'", "&#39;", stripslashes($s->c_pays));
 					if($s->c_pays!="") echo '<img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$pays.'.png" alt="'.$cpays.'" title="'.$cpays.'" />'; ?>
-
-
-
-
-
-
-
-<?php echo "***".$this->op['tchat']."***"; ?>	
-
-
-
-
+					
 				</div><!-- .miniPortrait -->
 		<?php
 		}
@@ -1029,7 +1018,7 @@ class RencontreWidget extends WP_widget
 					
 					<div>
 						<h3><?php echo $s->display_name; ?></h3>
-						<div class="monAge"><?php echo Rencontre::f_age($s->d_naissance); _e(' ans','rencontre');?></div>
+						<div class="monAge"><?php echo Rencontre::f_age($s->d_naissance).'&nbsp;'; _e('ans','rencontre');?></div>
 						<div class="maVille"><?php echo $s->c_ville; ?></div>
 					</div>
 					<p><?php echo stripslashes($s->t_titre); ?></p>
@@ -1067,8 +1056,8 @@ class RencontreWidget extends WP_widget
 		$n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_msg M WHERE M.recipient='".$f."' and M.read=0 and M.deleted=0");
 		?>
 			
-			<h3><?php _e('Boite de r&eacute;ception&nbsp;&nbsp;&nbsp;','rencontre');?><a href="javascript:void(0)" onClick="f_boite_envoi('<? echo $f; ?>','<?php echo admin_url('admin-ajax.php'); ?>');"><?php _e('Messages envoy&eacute;s','rencontre');?></a></h3>
-			<h4><?php _e('Vous avez ','rencontre'); echo count($q); _e(' message','rencontre'); echo ((count($q)>1)?'s':'').' ('.$n.__(' non lu','rencontre');?>)</h4>
+			<h3><?php _e('Boite de r&eacute;ception','rencontre');?>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onClick="f_boite_envoi('<? echo $f; ?>','<?php echo admin_url('admin-ajax.php'); ?>');"><?php _e('Messages envoy&eacute;s','rencontre');?></a></h3>
+			<h4><?php _e('Vous avez','rencontre'); echo '&nbsp;'.count($q).'&nbsp;'; _e('message','rencontre'); echo ((count($q)>1)?'s':'').' ('.$n.'&nbsp;'.__('non lu','rencontre');?>)</h4>
 			<table><tr><th></th><th style="width:20%;"><?php _e('Emetteur','rencontre');?></th><th style="width:50%;"><?php _e('Sujet','rencontre');?></th><th style="width:25%;"><?php _e('Date','rencontre');?></th><th></th></tr>
 			<?php foreach ($q as $r)
 				{
@@ -1087,7 +1076,7 @@ class RencontreWidget extends WP_widget
 		$q = $wpdb->get_results("SELECT M.id, M.subject, M.content, M.recipient, M.date, M.read, M.deleted FROM ".$wpdb->prefix."rencontre_msg M WHERE M.sender='".$f."' and M.deleted!=2 ORDER BY M.date DESC");
 		 ?>
 
-			<h3><a href="javascript:void(0)" onClick="f_boite_reception('<? echo $f; ?>','<?php echo admin_url('admin-ajax.php'); ?>');"><?php _e('Boite de r&eacute;ception','rencontre');?></a><?php _e('&nbsp;&nbsp;&nbsp;Messages envoy&eacute;s','rencontre');?></h3>
+			<h3><a href="javascript:void(0)" onClick="f_boite_reception('<? echo $f; ?>','<?php echo admin_url('admin-ajax.php'); ?>');"><?php _e('Boite de r&eacute;ception','rencontre');?></a>&nbsp;&nbsp;&nbsp;<?php _e('Messages envoy&eacute;s','rencontre');?></h3>
 			<table><tr><th></th><th style="width:20%;"><?php _e('Destinataire','rencontre');?></th><th style="width:50%;"><?php _e('Sujet','rencontre');?></th><th style="width:25%;"><?php _e('Date','rencontre');?></th><th></th></tr>
 			<?php foreach ($q as $r)
 				{
@@ -1114,10 +1103,10 @@ class RencontreWidget extends WP_widget
 			<h3><a href="javascript:void(0)" onClick="f_boite_reception('<? echo $a; ?>','<?php echo admin_url('admin-ajax.php'); ?>');"><?php _e('Boite de r&eacute;ception','rencontre');?></a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onClick="f_boite_envoi('<? echo $a; ?>','<?php echo admin_url('admin-ajax.php'); ?>');"><?php _e('Messages envoy&eacute;s','rencontre');?></a></h3>
 			<h3><?php _e('Message','rencontre');?></h3>
 			<div style="width:87%;">
-				<div class="left"><?php _e('De : ','rencontre'); echo $q->sender; ?></div>
-				<div class="right"><?php _e('Date : ','rencontre'); echo $q->date; ?></div>
+				<div class="left"><?php _e('De','rencontre'); echo '&nbsp;:&nbsp;'.$q->sender; ?></div>
+				<div class="right"><?php _e('Date','rencontre'); echo '&nbsp;:&nbsp;'.$q->date; ?></div>
 			</div>
-			<div class="clear"><?php _e('A : ','rencontre'); echo $q->recipient; ?></div>
+			<div class="clear"><?php _e('A','rencontre'); echo '&nbsp;:&nbsp;'.$q->recipient; ?></div>
 			
 			<h4><?php echo stripslashes($q->subject); ?></h4>
 			<div class="rencBox"><?php echo stripslashes($q->content); ?></div>
@@ -1164,58 +1153,58 @@ class RencontreWidget extends WP_widget
 							<input type='hidden' name='zsex' value='<?php echo $sex; ?>' />
 							<table>
 							<tr>
-								<td><?php _e('Age : ','rencontre');?></td>
-								<td><span><?php _e('de&nbsp;','rencontre');?>
+								<td><?php _e('Age','rencontre');?>&nbsp;:&nbsp;</td>
+								<td><span><?php _e('de','rencontre');?>&nbsp;
 									<select name="ageMin" onChange="f_min(this.options[this.selectedIndex].value,'formTrouve','ageMin','ageMax');">
-										<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'">'.$v.__(' ans','rencontre').'</option>';}?>
+										<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('ans','rencontre').'</option>';}?>
 										
 									</select>
 									</span>
-									<span><?php _e(' &agrave;&nbsp;','rencontre');?>
+									<span>&nbsp;<?php _e('&agrave;','rencontre');?>&nbsp;
 									<select name="ageMax" onChange="f_max(this.options[this.selectedIndex].value,'formTrouve','ageMin','ageMax');">
-										<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'">'.$v.__(' ans','rencontre').'</option>';}?>
+										<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('ans','rencontre').'</option>';}?>
 										
-										<option value="99" selected>99<?php _e(' ans','rencontre');?></option>
+										<option value="99" selected>99&nbsp;<?php _e('ans','rencontre');?></option>
 									</select>
 									</span>
 								</td>
 							</tr>
-								<td><?php _e('Taille : ','rencontre');?></td>
-								<td><span><?php _e('de&nbsp;','rencontre');?>
+								<td><?php _e('Taille','rencontre');?>&nbsp;:&nbsp;</td>
+								<td><span><?php _e('de','rencontre');?>&nbsp;
 									<select name="tailleMin" onChange="f_min(this.options[this.selectedIndex].value,'formTrouve','tailleMin','tailleMax');">
-										<?php for ($v=140;$v<220;++$v) {echo '<option value="'.$v.'">'.$v.__(' cm','rencontre').'</option>';}?>
+										<?php for ($v=140;$v<220;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('cm','rencontre').'</option>';}?>
 										
 									</select>
 									</span>
-									<span><?php _e(' &agrave;&nbsp;','rencontre');?>
+									<span>&nbsp;<?php _e('&agrave;','rencontre');?>&nbsp;
 									<select name="tailleMax" onChange="f_max(this.options[this.selectedIndex].value,'formTrouve','tailleMin','tailleMax');">
-										<?php for ($v=140;$v<220;++$v) {echo '<option value="'.$v.'">'.$v.__(' cm','rencontre').'</option>';}?>
+										<?php for ($v=140;$v<220;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('cm','rencontre').'</option>';}?>
 										
-										<option value="220" selected>220<?php _e(' cm','rencontre');?></option>
+										<option value="220" selected>220&nbsp;<?php _e('cm','rencontre');?></option>
 									</select>
 									</span>
 								</td>
 							</tr>
 							<tr>
-								<td><?php _e('Poids : ','rencontre');?></td>
-								<td><span><?php _e('de&nbsp;','rencontre');?>
+								<td><?php _e('Poids','rencontre');?>&nbsp;:&nbsp;</td>
+								<td><span><?php _e('de','rencontre');?>&nbsp;
 									<select name="poidsMin" onChange="f_min(this.options[this.selectedIndex].value,'formTrouve','poidsMin','poidsMax');">
-										<option value="140" selected>40<?php _e(' kg','rencontre');?></option>
-										<?php for ($v=41;$v<140;++$v) {echo '<option value="'.($v+100).'">'.$v.__(' kg','rencontre').'</option>';}?>
+										<option value="140" selected>40&nbsp;<?php _e('kg','rencontre');?></option>
+										<?php for ($v=41;$v<140;++$v) {echo '<option value="'.($v+100).'">'.$v.'&nbsp;'.__('kg','rencontre').'</option>';}?>
 										
 									</select>
 									</span>
-									<span><?php _e(' &agrave;&nbsp;','rencontre');?>
+									<span>&nbsp;<?php _e('&agrave;','rencontre');?>&nbsp;
 									<select name="poidsMax" onChange="f_max(this.options[this.selectedIndex].value,'formTrouve','poidsMin','poidsMax');">
-										<?php for ($v=40;$v<140;++$v) {echo '<option value="'.($v+100).'">'.$v.__(' kg','rencontre').'</option>';}?>
+										<?php for ($v=40;$v<140;++$v) {echo '<option value="'.($v+100).'">'.$v.'&nbsp;'.__('kg','rencontre').'</option>';}?>
 										
-										<option value="240" selected>140<?php _e(' kg','rencontre');?></option>
+										<option value="240" selected>140&nbsp;<?php _e('kg','rencontre');?></option>
 									</select>
 									</span>
 								</td>
 							</tr>
 							<tr>
-								<td><?php _e('Pays :','rencontre');?></td>
+								<td><?php _e('Pays','rencontre');?>&nbsp;:</td>
 								<td><select name="pays" onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect2');">
 									<?php RencontreWidget::f_pays(1); ?>
 									
@@ -1223,7 +1212,7 @@ class RencontreWidget extends WP_widget
 								</td>
 							</tr>
 							<tr>
-								<td><?php _e('R&eacute;gion :','rencontre');?></td>
+								<td><?php _e('R&eacute;gion','rencontre');?>&nbsp;:</td>
 								<td><select id="regionSelect2" name="region">
 									<?php RencontreWidget::f_regionBDD(1); ?>
 									
@@ -1231,23 +1220,23 @@ class RencontreWidget extends WP_widget
 								</td>
 							</tr>
 							<tr>
-								<td><?php _e('Ville :','rencontre');?></td>
+								<td><?php _e('Ville','rencontre');?>&nbsp;:</td>
 								<td><input type="text" name="ville" /></td>
 							</tr>
 							<tr>
-								<td><?php _e('Uniquement avec photo ','rencontre');?></td>
+								<td><?php _e('Uniquement avec photo','rencontre');?>&nbsp;</td>
 								<td><input type="checkbox" name="photo" value="0" /></td>
 							</tr>
 							<tr>
-								<td><?php _e('Affinit&eacute; avec mon profil ','rencontre');?></td>
+								<td><?php _e('Affinit&eacute; avec mon profil','rencontre');?>&nbsp;</td>
 								<td><input type="checkbox" name="profil" value="0" disabled/></td>
 							</tr>
 							<tr>
-								<td><?php _e('Mot dans l\'annonce :','rencontre');?></td>
+								<td><?php _e('Mot dans l\'annonce','rencontre');?>&nbsp;:</td>
 								<td><input type="text" name="mot" /></td>
 							</tr>
 							<tr>
-								<td><?php _e('Pseudo :','rencontre');?></td>
+								<td><?php _e('Pseudo','rencontre');?>&nbsp;:</td>
 								<td><input type="text" name="pseudo" /></td>
 							</tr>
 							<tr><td></td>
@@ -1291,9 +1280,9 @@ class RencontreWidget extends WP_widget
 					<?php echo stripslashes($r->t_annonce); ?>
 					<div style="height:38px;"></div>
 					<div class="abso225">
-						<?php echo __('Je cherche ','rencontre').(($r->i_zsex==1)?__('une femme','rencontre'):__('un homme','rencontre')).'<br />';
-						echo __(' entre ','rencontre').$r->i_zage_min.__(' et ','rencontre').$r->i_zage_max.__(' ans','rencontre').'<br />';
-						echo __('pour ','rencontre').(($r->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($r->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))); ?>
+						<?php echo __('Je cherche','rencontre').'&nbsp;'.(($r->i_zsex==1)?__('une femme','rencontre'):__('un homme','rencontre')).'<br />';
+						echo '&nbsp;'.__('entre','rencontre').'&nbsp;'.$r->i_zage_min.'&nbsp;'.__('et','rencontre').'&nbsp;'.$r->i_zage_max.'&nbsp;'.__('ans','rencontre').'<br />';
+						echo __('pour','rencontre').'&nbsp;'.(($r->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($r->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))); ?>
 					</div>
 					<div class="abso135">
 						<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Envoyer un mail','rencontre');?></a></div>
@@ -1466,13 +1455,13 @@ class RencontreWidget extends WP_widget
 				<tr>
 					<td>
 						<select name="taille" size=6>
-							<?php for ($v=140;$v<220;++$v) {echo '<option value="'.$v.'"'.(($v==$q->i_taille)?' selected':'').'>'.$v.__(' cm','rencontre').'</option>';}?>
+							<?php for ($v=140;$v<220;++$v) {echo '<option value="'.$v.'"'.(($v==$q->i_taille)?' selected':'').'>'.$v.'&nbsp;'.__('cm','rencontre').'</option>';}?>
 							
 						</select>
 					</td>
 					<td>
 						<select name="poids" size=6>
-							<?php for ($v=40;$v<140;++$v) {echo '<option value="'.$v.'"'.(($v==$q->i_poids)?' selected':'').'>'.$v.__(' kg','rencontre').'</option>';}?>
+							<?php for ($v=40;$v<140;++$v) {echo '<option value="'.$v.'"'.(($v==$q->i_poids)?' selected':'').'>'.$v.'&nbsp;'.__('kg','rencontre').'</option>';}?>
 							
 						</select>
 					</td>
@@ -1490,11 +1479,11 @@ class RencontreWidget extends WP_widget
 					</td>
 					<td>
 						<select name="zageMin" size=6 onChange="f_min(this.options[this.selectedIndex].value,'formNouveau','zageMin','zageMax');">
-							<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'"'.(($v==$q->i_zage_min)?' selected':'').'>'.$v.__(' ans','rencontre').'</option>';}?>
+							<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'"'.(($v==$q->i_zage_min)?' selected':'').'>'.$v.'&nbsp;'.__('ans','rencontre').'</option>';}?>
 							
 						</select>
 						<select name="zageMax" size=6 onChange="f_max(this.options[this.selectedIndex].value,'formNouveau','zageMin','zageMax');">
-							<?php for ($v=18;$v<100;++$v) {echo '<option value="'.$v.'"'.(($v==$q->i_zage_max)?' selected':'').'>'.$v.__(' ans','rencontre').'</option>';}?>
+							<?php for ($v=18;$v<100;++$v) {echo '<option value="'.$v.'"'.(($v==$q->i_zage_max)?' selected':'').'>'.$v.'&nbsp;'.__('ans','rencontre').'</option>';}?>
 							
 						</select>
 					</td>
@@ -1521,10 +1510,10 @@ class RencontreWidget extends WP_widget
 			<form name="formFin" method='post' action=''>
 			<input type='hidden' name='page' value='' /><input type='hidden' name='id' value='' />
 			<table><tr><th style="text-align:left;">
-				<?php _e('Cette action provoquera la suppression compl&egrave;te de votre compte et de tout ce qui vous concerne de notre serveur. Nous ne conservons aucun historique des comptes supprim&eacutes.','rencontre');?>
+				<?php _e('Cette action provoquera la suppression compl&egrave;te de votre compte et de tout ce qui vous concerne de notre serveur. Nous ne conservons aucun historique des comptes supprim&eacute;s.','rencontre');?>
 				</th></tr>
 				<tr><td>
-				<strong><?php _e('Attention, cette action est irr&eacuteversible !','rencontre');?></strong>
+				<strong><?php _e('Attention, cette action est irr&eacute;versible !','rencontre');?></strong>
 				<div id="buttonPass" class="button"><a href="javascript:void(0)" onClick="f_fin(document.forms['formFin'].elements['id'].value,<?php echo $mid; ?>)"><?php _e('Supprimer le compte','rencontre');?></a></div>
 			</td></tr></table>
 			</form>
