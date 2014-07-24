@@ -13,22 +13,23 @@ A free powerful and exhaustive dating plugin with private messaging, webcam chat
 == Description ==
 
 This WordPress plugin allows you to create a real dating website with Wordpress. It is simple to install and administer. The features are as follows:
+* Login Required to access functionality ;
+* Home unconnected with overview of the latest registered members ;
+* Private messaging between members ;
+* Extended profiles ;
+* Private Members chat with webcam ;
+* Sending smiles and contact requests ;
+* Advanced Search ;
+* Reporting of non-compliant member profiles ;
+* Connecting with a FaceBook account ;
+* Sending regular emails to members in accordance with the quota server ;
+* Using the wp_users table for members to benefit of WordPress functions ;
+* Daily cleaning to maintain the level of performance ;
+* Low resource ;
+* Multilingual ;
+* Easy administration with filtering members ;
 
-* Login Required to access functionality
-* Home unconnected with overview of the latest registered members
-* Private messaging between members
-* Extended profiles
-* Private Members chat with webcam
-* Sending smiles and contact requests
-* Advanced Search
-* Reporting of non-compliant member profiles
-* Connecting with a FaceBook account
-* Sending regular emails to members in accordance with the quota server
-* Using the wp_users table for members to benefit of WordPress functions
-* Daily cleaning to maintain the level of performance
-* Low resource 
-* Multilingual
-* Easy administration with filtering members
+available languages : FR, US, ES (thanks to Sanjay Gandhi).
 
 == Installation ==
 
@@ -67,9 +68,18 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 = 1.1 =
 19/06/2014 :
 
-* email sending : optimization and improvement.
-* emails translation.
-* fixed some bug...
+* Email sending : optimization and improvement.
+* Emails translation.
+* Fixed some bug...
+
+22/06/2014 : Update 1
+
+* Fix Facebook connect bug.
+
+24/07/2014 : Update 2
+
+* Add Spanish language (thanks to Sanjay Gandhi).
+* Fixed some bug...
 
 = 1.0 =
 09/06/2014 - First stable version.

@@ -126,7 +126,7 @@ class Rencontre
 	private $class_name = 'rencontre';
 	private $width      = '100%';
 	private $height     = '200px';
-	private $version = '1.0';
+	private $version = '1.1';
 	function __construct()
 		{
 		$this->get_options();
@@ -186,7 +186,7 @@ class Rencontre
 		?>
 		<div class='wrap'>
 			<div class='icon32' id='icon-options-general'><br/></div>
-			<h2><?php _e('Rencontre ','rencontre');?><span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
+			<h2><?php _e('Rencontre','rencontre');?>&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
 			<h2><?php _e('G&eacute;n&eacute;ral', 'rencontre'); ?></h2>
 			<form method="post" name="rencontre_options" action="admin.php?page=rencontre.php">
 				<table class="form-table">
@@ -199,7 +199,7 @@ class Rencontre
 						<td><input type="text" class="regular-text" name="fblog" value="<?php echo $options['fblog']; ?>" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Nombre de portrait en page d\'accueil non conn&eacute;ct&eacute;', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Nombre de portrait en page d\'accueil non connect&eacute;', 'rencontre'); ?></label></th>
 						<td><input type="text" class="regular-text" name="npa" value="<?php echo $options['npa']; ?>" /></td>
 					</tr>
 					<tr valign="top">
@@ -244,7 +244,7 @@ class Rencontre
 							<input type="checkbox" name="mailmois" value="1" <?php if ($options['mailmois'])echo 'checked'; ?>>
 							<?php 
 							$d2 = dirname(__FILE__).'/inc/rencontre_cron.txt';
-							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Maximum cette semaine :', 'rencontre')."&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/j', 'rencontre')."<br />(".__('envoy&eacute;s lors de la maintenance', 'rencontre').")</p>";
+							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Maximum cette semaine', 'rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/j', 'rencontre')."<br />(".__('envoy&eacute;s lors de la maintenance', 'rencontre').")</p>";
 							?>
 						</td>
 					</tr>
@@ -252,7 +252,7 @@ class Rencontre
 						<th scope="row"><label><?php _e('Heure des t&acirc;ches de maintenance (heures creuses)', 'rencontre'); ?></label></th>
 						<td>
 							<select name="hcron">
-								<?php for ($v=0;$v<24;++$v) {echo '<option value="'.$v.'" '.(($options['hcron']==$v)?'selected':'').'>'.$v.__(' heures','rencontre').'</option>';} ?>
+								<?php for ($v=0;$v<24;++$v) {echo '<option value="'.$v.'" '.(($options['hcron']==$v)?'selected':'').'>&nbsp;'.$v.__('heures','rencontre').'</option>';} ?>
 							</select>
 						</td>
 					</tr>
@@ -274,13 +274,13 @@ class Rencontre
 							<input type="text" class="regular-text" name="qmail" value="<?php echo $options['qmail']; ?>" />
 							<?php 
 							$d2 = dirname(__FILE__).'/inc/rencontre_cronListe.txt';
-							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Maximum cette semaine :', 'rencontre')."&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/h', 'rencontre')."<br />(".__('hors p&eacute;riode de maintenance', 'rencontre').")</p>";
+							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Maximum cette semaine', 'rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/h', 'rencontre')."<br />(".__('hors p&eacute;riode de maintenance', 'rencontre').")</p>";
 							?>
 						</td>
 					</tr>
 				</table>
 				<p class="submit">
-					<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
+					<input type="submit" class="button-primary" value="<?php _e('Sauvegarde','rencontre') ?>" />
 				</p>
 			</form>
 		</div>
@@ -314,7 +314,7 @@ class Rencontre
 				<input type='hidden' name='a4' value='' /><input type='hidden' name='a5' value='' /><input type='hidden' name='a6' value='' />
 			</form>
 			<div class='icon32' id='icon-options-general'><br/></div>
-			<h2><?php _e('Rencontre ','rencontre');?><span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
+			<h2><?php _e('Rencontre','rencontre');?>&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
 			<h2><?php _e('Profil', 'rencontre'); ?></h2>
 			<?php $n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_profil");
 			if($n==0)
@@ -338,7 +338,7 @@ class Rencontre
 			<p>
 				<?php _e('Attention, ce n\'est pas sans cons&eacute;quences. Les changements seront appliqu&eacute;s sur les profils des membres ce qui peut choquer. Prudence !', 'rencontre'); ?>&nbsp;
 			</p>
-			<h3><?php _e('Langue de r&eacute;f&eacute;rence', 'rencontre'); echo ' : <span style="color:#700;">'.$loc.'</span> --- ' . __('Autres : ', 'rencontre');
+			<h3><?php _e('Langue de r&eacute;f&eacute;rence', 'rencontre'); echo ' : <span style="color:#700;">'.$loc.'</span> --- ' . __('Autres', 'rencontre').'&nbsp;:&nbsp;';
 			$ls = '';
 			foreach($q2 as $r2)
 				{
@@ -478,7 +478,7 @@ class Rencontre
 		?>
 		<div class='wrap'>
 			<div class='icon32' id='icon-options-general'><br/></div>
-			<h2><?php _e('Rencontre ','rencontre');?><span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
+			<h2><?php _e('Rencontre','rencontre');?>&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
 			<h2><?php _e('Membres', 'rencontre'); ?></h2>
 			<?php 
 			$nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users");
@@ -523,7 +523,7 @@ class Rencontre
 					WHERE R.user_id=P.user_id and R.user_id=U.ID ".$tri." 
 					LIMIT ".(($pagenum-1)*$limit).",".$limit);
 				$total = $wpdb->get_var("SELECT COUNT(user_id) FROM ".$wpdb->prefix . "rencontre_users");
-				$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>__('&laquo;','aag'),'next_text'=>__('&raquo;','aag'),'total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
+				$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>'&laquo;','next_text'=>'&raquo;','total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
 				if ($page_links) echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">'.$page_links.'</div></div>';
 			?>
 			<form name='listUser' method='post' action=''><input type='hidden' name='a1' value='' /><input type='hidden' name='a2' value='' />
@@ -609,7 +609,7 @@ class Rencontre
 			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_ville, R.i_photo, P.t_titre, P.t_annonce, P.t_profil FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$id." and R.user_id=P.user_id and R.user_id=U.ID");
 			echo $before_widget ."\n"; ?>
 			<h3><?php _e('Modifier un profil','rencontre');?></h3>
-			<div class="bouton"><a href="javascript:void(0)" onclick="javascript:history.back();"><?php _e('Page pr&eacutec&eacute;dente','rencontre');?></a></div>
+			<div class="bouton"><a href="javascript:void(0)" onclick="javascript:history.back();"><?php _e('Page pr&eacute;c&eacute;dente','rencontre');?></a></div>
 			<div class="bouton"><a href="<?php echo admin_url(); ?>admin.php?page=membres"><?php _e('Retour Membres','rencontre');?></a></div>
 			<div class="rencPortrait">
 				<form name='portraitChange' method='post' enctype="multipart/form-data" action=''>
@@ -685,7 +685,7 @@ class Rencontre
 						echo $out1.$out2;
 						?>
 						
-							<em id="infoChange"><?php if ($_POST["a1"]=="sauvProfil") _e('Effectu&eacute;e ','rencontre'); ?></em>
+							<em id="infoChange"><?php if ($_POST["a1"]=="sauvProfil") _e('Effectu&eacute;e','rencontre'); ?>&nbsp;</em>
 						</div>
 					</div>
 				</form>
@@ -709,7 +709,7 @@ class Rencontre
 		?>
 		<div class='wrap'>
 			<div class='icon32' id='icon-options-general'><br/></div>
-			<h2><?php _e('Rencontre ','rencontre');?><span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
+			<h2><?php _e('Rencontre','rencontre');?>&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
 			<h2><?php _e('Prison', 'rencontre'); ?></h2>
 			<?php 
 			if ($_POST["a1"]) 
@@ -730,7 +730,7 @@ class Rencontre
 				$limit = 100;
 				$q = $wpdb->get_results("SELECT Q.id, Q.d_prison, Q.c_mail, Q.c_ip FROM ".$wpdb->prefix."rencontre_prison Q ".$tri." LIMIT ".(($pagenum-1)*$limit).",".$limit);
 				$total = $wpdb->get_var("SELECT COUNT(id) FROM ".$wpdb->prefix . "rencontre_prison");
-				$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>__('&laquo;','aag'),'next_text'=>__('&raquo;','aag'),'total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
+				$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>'&laquo;','next_text'=>'&raquo;','total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
 				if ($page_links) echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">'.$page_links.'</div></div>';
 			?>
 			<form name='listPrison' method='post' action=''><input type='hidden' name='a1' value='' />
@@ -854,7 +854,7 @@ class Rencontre
 					}
 				else $out.='<img class="tete" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$r->display_name.'" />';
 				$out.='<div><h3>'.$r->display_name.'</h3>';
-				$out.='<div class="monAge">'.Rencontre::f_age($r->d_naissance).__(' ans','rencontre').'</div>';
+				$out.='<div class="monAge">'.Rencontre::f_age($r->d_naissance).'&nbsp;'.__('ans','rencontre').'</div>';
 				$out.='<div class="maVille">'.$r->c_ville.'</div></div>';
 				$out.='<p style="width:100%;">'.$b.'</p>';
 				$out.='</a></div><div style="font-size:0.8em;padding:2px 2px 0 4px;">'.$a; 
