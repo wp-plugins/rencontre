@@ -13,6 +13,7 @@ A free powerful and exhaustive dating plugin with private messaging, webcam chat
 == Description ==
 
 This WordPress plugin allows you to create a real dating website with Wordpress. It is simple to install and administer. The features are as follows:
+
 * Login Required to access functionality ;
 * Home unconnected with overview of the latest registered members ;
 * Private messaging between members ;
