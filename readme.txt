@@ -50,10 +50,10 @@ $renc=new RencontreWidget; $renc->widget(0,0);} ?&gt;`
 
 Method 2 : With a Widget :
 
- 1- Create a widget area that uses the entire width of the page if it doesn't exist. See register_sidebar in 'functions.php' or in WP Support.
- 2- Active this area in the page of your theme :
+* Create a widget area that uses the entire width of the page if it doesn't exist. See register_sidebar in 'functions.php' or in WP Support.
+* Active this area in the page of your theme :
 `&lt;?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('my-area-name')) : endif; ?&gt;`
- 3- In admin panel, move the 'rencontre' widget to 'my-area-name' area.
+* In admin panel, move the 'rencontre' widget to 'my-area-name' area.
 
 For visitors not connected, you can view thumbnails and small profile of the last registered members using the shortcode [rencontre_libre] or php
 `&lt;?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?&gt;`
