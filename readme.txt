@@ -44,7 +44,7 @@ available languages : FR, US, ES (thanks to Sanjay Gandhi).
 Method 1 : In your theme :
 
 In the page used for the dating part, add in the content :
-`<?php if(is_user_logged_in()) {$renc=new RencontreWidget; $renc->widget(0,0);} ?>`
+`&lt;?php if(is_user_logged_in()) {$renc=new RencontreWidget; $renc->widget(0,0);} ?&gt;`
 
 Method 2 : With a Widget :
 
@@ -52,17 +52,14 @@ Method 2 : With a Widget :
 2. Active this area in the page of your theme : `<?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('my-area-name')) : endif; ?>`
 3. In admin panel, move the 'rencontre' widget to 'my-area-name' area.
 
-
 For visitors not connected, you can view thumbnails and small profile of the last registered members using the shortcode [rencontre_libre] or php
-`<?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?>`
-
+`&lt;?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?&gt;`
 
 You can add this in the header to have the WP and the Facebook connections links :
-`<?php rencontre::f_loginFB(); 
-	wp_loginout(home_url()); if (!is_user_logged_in()) { ?>
-		<a href="wp-login.php?action=register"><?php _e('Register'); ?></a>
-<?php } ?>`
-
+`&lt;?php rencontre::f_loginFB(); 
+	wp_loginout(home_url()); if (!is_user_logged_in()) { ?&gt;
+		&lt;a href="wp-login.php?action=register"&gt;&lt;?php _e('Register'); ?&gt;&lt;/a&gt;
+&lt;?php } ?&gt;`
 
 == Frequently Asked Questions ==
 
