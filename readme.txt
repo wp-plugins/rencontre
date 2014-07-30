@@ -13,6 +13,7 @@ A free powerful and exhaustive dating plugin with private messaging, webcam chat
 == Description ==
 
 This WordPress plugin allows you to create a real dating website with Wordpress. It is simple to install and administer. The features are as follows:
+
 * Login Required to access functionality ;
 * Home unconnected with overview of the latest registered members ;
 * Private messaging between members ;
@@ -27,7 +28,7 @@ This WordPress plugin allows you to create a real dating website with Wordpress.
 * Daily cleaning to maintain the level of performance ;
 * Low resource ;
 * Multilingual ;
-* Easy administration with filtering members.
+* Easy administration with filtering members ;
 
 available languages : FR, US, ES (thanks to Sanjay Gandhi).
 
@@ -50,7 +51,8 @@ $renc=new RencontreWidget; $renc->widget(0,0);} ?&gt;`
 Method 2 : With a Widget :
 
 1. Create a widget area that uses the entire width of the page if it doesn't exist. See register_sidebar in 'functions.php' or in WP Support.
-2. Active this area in the page of your theme : `<?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('my-area-name')) : endif; ?>`
+2. Active this area in the page of your theme :
+`&lt;?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('my-area-name')) : endif; ?&gt;`
 3. In admin panel, move the 'rencontre' widget to 'my-area-name' area.
 
 For visitors not connected, you can view thumbnails and small profile of the last registered members using the shortcode [rencontre_libre] or php
