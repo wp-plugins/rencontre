@@ -44,7 +44,8 @@ available languages : FR, US, ES (thanks to Sanjay Gandhi).
 Method 1 : In your theme :
 
 In the page used for the dating part, add in the content :
-`&lt;?php if(is_user_logged_in()) {$renc=new RencontreWidget; $renc->widget(0,0);} ?&gt;`
+`&lt;?php if(is_user_logged_in()) {
+$renc=new RencontreWidget; $renc->widget(0,0);} ?&gt;`
 
 Method 2 : With a Widget :
 
