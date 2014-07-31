@@ -59,7 +59,7 @@ For visitors not connected, you can view thumbnails and small profile of the las
 `&lt;?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?&gt;`
 
 You can add this in the header to have the WP and the Facebook connections links :
-`&lt;?php rencontre::f_loginFB(); 
+`&lt;?php Rencontre::f_loginFB(); 
 	wp_loginout(home_url()); if (!is_user_logged_in()) { ?&gt;
 		&lt;a href="wp-login.php?action=register"&gt;&lt;?php _e('Register'); ?&gt;&lt;/a&gt;
 &lt;?php } ?&gt;`
@@ -99,6 +99,11 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 * Add Spanish language (thanks to Sanjay Gandhi).
 * Fixed some bug...
+
+31/07/2014 : Update 3
+
+* Memory of the search.
+* Update installation page in readme file.
 
 = 1.0 =
 09/06/2014 - First stable version.
