@@ -116,7 +116,7 @@ function creation_table()
 	}
 //
 // **********************************************************************************
-// CLASSE rencontre
+// CLASSE Rencontre
 // **********************************************************************************
 require(dirname (__FILE__) . '/inc/base.php');
 new Rencontre();
@@ -774,6 +774,7 @@ class Rencontre
 		else if ($_POST['page']=='change') $_SESSION['rencontre']='change,menu';
 		else if ($_POST['page']=='cherche') $_SESSION['rencontre']='cherche,accueil,menu';
 		else if ($_POST['page']=='trouve') $_SESSION['rencontre']='trouve,accueil,menu';
+		else if ($_POST['page']=='liste') $_SESSION['rencontre']='trouve,liste,accueil,menu';
 		else if ($_POST['page']=='msg') $_SESSION['rencontre']='msg,accueil,menu';
 		else if ($_POST['page']=='ecrire') $_SESSION['rencontre']='ecrire,accueil,menu';
 		else if ($_POST['page']=='compte') $_SESSION['rencontre']='compte,accueil,menu';
