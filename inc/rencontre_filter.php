@@ -16,7 +16,6 @@ add_action('wp_ajax_voirMsg', 'f_voirMsg'); function f_voirMsg() {RencontreWidge
 add_action('wp_ajax_suppMsg', 'f_suppMsg'); function f_suppMsg() {RencontreWidget::f_suppMsg($_POST['msg'],$_POST['alias']);}
 add_action('wp_ajax_boiteEnvoi', 'f_boiteEnvoi'); function f_boiteEnvoi() {RencontreWidget::f_boiteEnvoi($_POST['alias']);}
 add_action('wp_ajax_boiteReception', 'f_boiteReception'); function f_boiteReception() {RencontreWidget::f_boiteReception($_POST['alias']);}
-add_action('wp_ajax_trouve', 'f_trouver'); function f_trouver() {RencontreWidget::f_trouver();}
 add_action('wp_ajax_pseudo', 'f_pseudo');
 add_action('wp_ajax_iniPass', 'f_iniPass'); // premiere connexion - changement mot de passe initial et pseudo
 add_action('wp_ajax_testPass', 'f_testPass'); // changement du mot de passe
