@@ -29,6 +29,7 @@ This WordPress plugin allows you to create a real dating website with Wordpress.
 * Low resource ;
 * Multilingual ;
 * Easy administration with filtering members ;
+* Standalone, not depend on other services ;
 
 available languages : FR, US, ES (thanks to Sanjay Gandhi).
 
@@ -104,6 +105,10 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 * Memory of the search.
 * Update installation page in readme file.
+
+../08/2014 : Update 4
+
+* Limit number of result in search.
 
 = 1.0 =
 09/06/2014 - First stable version.

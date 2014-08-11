@@ -3,7 +3,7 @@
 Plugin Name: Rencontre
 Author: Jacques Malgrange
 Plugin URI: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
-Description: Plugin pour faire un site de rencontre
+Description: A free powerful and exhaustive dating plugin with private messaging, webcam chat, search by profile and automatic sending of email. No third party.
 Version: 1.1
 Author URI: http://www.boiteasite.fr
 */
