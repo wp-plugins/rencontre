@@ -19,7 +19,7 @@ class RencontreWidget extends WP_widget
 		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre.js?r='.rand()));
 		$this->op = get_option('rencontre_options');
 		$options = get_option('rencontre_options');
-		$nbSearch = $options['nbSearch'];
+		$limit = $options['limit'];
 		global $user_ID; global $current_user;
 		get_currentuserinfo();
 		$mid=$current_user->ID; // Mon id
@@ -623,7 +623,6 @@ class RencontreWidget extends WP_widget
 			
 			<div class="grandeBox left">
 			<?php global $wpdb;
-			$limit = 20;
 			if ($_POST['sex']!=NULL)
 				{
 				$s="SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R WHERE P.user_id=R.user_id";
@@ -1258,7 +1257,8 @@ class RencontreWidget extends WP_widget
 	static function f_trouver()
 		{
 		// Resultat de la recherche plus
-		$limit=20;
+		$options = get_option('rencontre_options');
+		$limit = $options['limit'];
 		global $wpdb;
 		if ($_POST['pseudo']) $s="SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."users U WHERE U.user_login LIKE '%".strip_tags($_POST['pseudo'])."%' and R.i_sex=".strip_tags($_POST['zsex'])." and U.ID=R.user_id and P.user_id=R.user_id";
 		else
