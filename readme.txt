@@ -106,7 +106,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Memory of the search.
 * Update installation page in readme file.
 
-../08/2014 : Update 4
+11/08/2014 : Update 4
 
 * Limit number of result in search.
 
