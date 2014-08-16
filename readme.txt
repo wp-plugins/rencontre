@@ -110,5 +110,10 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 * Limit number of result in search.
 
+16/08/2014 : Update 5
+
+* Fix Deletion of the Admin account by cron schedule.
+* Add CSS clear in fiche libre.
+
 = 1.0 =
 09/06/2014 - First stable version.
