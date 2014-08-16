@@ -867,9 +867,10 @@ class Rencontre
 				$out.='</div><div class="clear"></div></div>'."\r\n";
 				++$c;
 				}
+			$out.="\r\n".'<div class="clear">&nbsp;</div></div><!-- #widgRenc -->'."\r\n";
 			$t = fopen(plugin_dir_path( __FILE__ ).'/cache/cache_portraits_accueil.html', 'w');
 			if ($t) { fwrite($t,$out); fclose($t); }
-			echo $out."\r\n".'<div class="clear">&nbsp;</div></div><!-- #widgRenc -->'."\r\n";
+			echo $out;
 			}
 		else include(plugin_dir_path( __FILE__ ).'/cache/cache_portraits_accueil.html');
 		}
