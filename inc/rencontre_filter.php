@@ -72,8 +72,8 @@ function f_cron_on()
 	if ($q) foreach($q as $r)
 		{
 		$s = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE ID='".$r->ID."' and user_registered<'".$d."' ");
-		$t = $wpdb->get_var("SELECT meta_value FROM ".$wpdb->prefix."usermeta WHERE user_id='".$r->ID."' and meta_key='wp_capabilities' ");
-		if ($s && !$t) $wpdb->delete($wpdb->prefix.'users', array('ID'=>$r->ID));
+		$t = $wpdb->get_var("SELECT meta_value FROM ".$wpdb->prefix."usermeta WHERE user_id='".$r->ID."' and meta_key='wp_user_level' ");
+		if ($s && (!$t || ($t+0)<1)) $wpdb->delete($wpdb->prefix.'users', array('ID'=>$r->ID));
 		}
 	// 5. Suppression fichiers anciens dans UPLOADS/SESSION/ et UPLOADS/TCHAT/
 	if (!is_dir($upl['basedir'].'/session/')) mkdir($upl['basedir'].'/session/');
