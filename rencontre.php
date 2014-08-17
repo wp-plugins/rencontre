@@ -820,7 +820,8 @@ class Rencontre
 		if (!file_exists(plugin_dir_path( __FILE__ ).'/cache/cache_portraits_accueil.html'))
 			{
 			$options = get_option('rencontre_options');
-			$out = '<script type="text/javascript" src="'.plugins_url('rencontre/js/rencontre-libre.js').'"></script>'."\r\n";
+			$out = '<link rel="stylesheet" type="text/css" href="'.plugins_url('rencontre/css/rencontre.css').'" media="all" />'."\r\n";
+			$out .= '<script type="text/javascript" src="'.plugins_url('rencontre/js/rencontre-libre.js').'"></script>'."\r\n";
 			$out .= '<div id="widgRenc">'."\r\n";
 			$upl = wp_upload_dir(); 
 			if (!is_dir($upl['basedir'].'/portrait/libre/')) mkdir($upl['basedir'].'/portrait/libre/');

@@ -114,6 +114,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 * Fix Deletion of the Admin account by cron schedule.
 * Add CSS clear in fiche libre.
+* Input default CSS file in fiche libre.
 
 = 1.0 =
 09/06/2014 - First stable version.
