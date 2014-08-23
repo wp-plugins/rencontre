@@ -3,7 +3,7 @@ Contributors: jacques malgrange
 Donate link: http://www.boiteasite.fr/
 Tags: date, dating, meet, love, chat, webcam, rencontres
 Requires at least: 3.0.1
-Tested up to: 3.7
+Tested : WP 3.7 - 3.8 - 3.9
 Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -115,6 +115,13 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix Deletion of the Admin account by cron schedule.
 * Add CSS clear in fiche libre.
 * Input default CSS file in fiche libre.
+
+23/08/2014 : Update 6
+
+* Remove auto-zoom in fiche libre (unconnected).
+* Fix CSS in fiche libre.
+* Fix bug if no WPLANG in wp-config.php.
+* Add my homepage setup in admin.
 
 = 1.0 =
 09/06/2014 - First stable version.
