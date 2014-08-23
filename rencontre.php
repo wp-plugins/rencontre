@@ -140,7 +140,7 @@ class Rencontre
 		{
 		if (!$options = get_option('rencontre_options'))
 			{
-			$options = array('facebook'=>'','fblog'=>'','limit'=>20,'tchat'=>0,'hcron'=>4,'mailmois'=>0,'textmail'=>'','mailanniv'=>0,'textanniv'=>'','qmail'=>25,'npa'=>12,'jlibre'=>7,'anniv'=>1,'ligne'=>1,'mailsupp'=>1,'onlyphoto'=>1,'imcopyright'=>1);
+			$options = array('facebook'=>'','fblog'=>'','home'=>'','limit'=>20,'tchat'=>0,'hcron'=>4,'mailmois'=>0,'textmail'=>'','mailanniv'=>0,'textanniv'=>'','qmail'=>25,'npa'=>12,'jlibre'=>3,'anniv'=>1,'ligne'=>1,'mailsupp'=>1,'onlyphoto'=>1,'imcopyright'=>1);
 			update_option('rencontre_options', $options);
 			}
 		$this->options = get_option('rencontre_options'); 
@@ -160,8 +160,9 @@ class Rencontre
 		$options = get_option('rencontre_options');
 		if ($f['facebook']) $options['facebook'] = stripslashes($f['facebook']);
 		if ($f['fblog']) $options['fblog'] = $f['fblog'];
+		if ($f['home']) $options['home'] = $f['home']; else $options['home'] = "";
 		if ($f['limit']) $options['limit'] = $f['limit'];
-		if ($f['jlibre']) $options['jlibre'] = $f['jlibre'];
+		if ($f['jlibre']) $options['jlibre'] = $f['jlibre']; else $options['jlibre'] = 0;
 		if ($f['prison']) $options['prison'] = $f['prison'];
 		if ($f['tchat']) $options['tchat'] = 1; else $options['tchat'] = 0;
 		if ($f['hcron']) $options['hcron'] = $f['hcron'];
@@ -198,6 +199,20 @@ class Rencontre
 						<th scope="row"><label><?php _e('AppID pour connexion par Facebook (vide si pas install&eacute;)', 'rencontre'); ?></label></th>
 						<td><input type="text" class="regular-text" name="fblog" value="<?php echo $options['fblog']; ?>" /></td>
 					</tr>
+					
+					<tr valign="top">
+						<th scope="row"><label><?php _e('Page ou est install&eacute; le plugin', 'rencontre'); ?></label></th>
+						<td>
+							<select name="home">
+								<option value="" <?php echo ($options['home']?'':'selected'); ?>>Index</option>
+								<?php $pages = get_pages(); $tmp = '';
+								foreach($pages as $page) { $tmp .= '<option value="'.get_page_link($page->ID).'" '.($options['home']==get_page_link($page->ID)?'selected':'').'>'.$page->post_title.'</option>'; }
+								echo $tmp; ?>
+
+							</select>
+						</td>
+					</tr>
+				
 					<tr valign="top">
 						<th scope="row"><label><?php _e('Nombre de portrait en page d\'accueil non connect&eacute;', 'rencontre'); ?></label></th>
 						<td><input type="text" class="regular-text" name="npa" value="<?php echo $options['npa']; ?>" /></td>
@@ -821,7 +836,7 @@ class Rencontre
 			{
 			$options = get_option('rencontre_options');
 			$out = '<link rel="stylesheet" type="text/css" href="'.plugins_url('rencontre/css/rencontre.css').'" media="all" />'."\r\n";
-			$out .= '<script type="text/javascript" src="'.plugins_url('rencontre/js/rencontre-libre.js').'"></script>'."\r\n";
+		//	$out .= '<script type="text/javascript" src="'.plugins_url('rencontre/js/rencontre-libre.js').'"></script>'."\r\n"; // Zoom automatique sur chaque personne
 			$out .= '<div id="widgRenc">'."\r\n";
 			$upl = wp_upload_dir(); 
 			if (!is_dir($upl['basedir'].'/portrait/libre/')) mkdir($upl['basedir'].'/portrait/libre/');
@@ -845,7 +860,7 @@ class Rencontre
 				$b = str_replace(array($m[0]), array(''), $b);
 				$b = str_replace(', ', ',', $b); $b = str_replace(',', ', ', $b);
 				$b = strtr($b, "0123456789#(){[]}", ".................");
-				$out.='<div class="rencBox" style="float:left;width:31.32%;padding:0.5%;margin:0.5%;max-height:109px;overflow:hidden;">';
+				$out.='<div class="rencBox" style="float:left;width:31.32%;padding:1px;margin:0.5%;max-height:109px;overflow:hidden;">';
 				$out.='<div class="miniPortrait miniBox"><a href="wp-login.php?action=register">';
 				if ($r->i_photo!=0)
 					{
