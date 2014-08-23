@@ -14,6 +14,7 @@ class RencontreWidget extends WP_widget
 	//
 	function widget($arguments, $data) // Partie Site
 		{
+		$langue = ((WPLANG)?WPLANG:get_locale());
 		if(current_user_can("administrator")) return;
 		wp_enqueue_style('rencontre', plugins_url('rencontre/css/rencontre.css'));
 		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre.js?r='.rand()));
@@ -43,7 +44,7 @@ class RencontreWidget extends WP_widget
 					<input type='hidden' name='page' value='' /><input type='hidden' name='id' value='' />
 					<div class="rencBox">
 						<ul>
-							<a href="<?php echo home_url(); ?>"><li><?php _e('Ma page d\'accueil','rencontre');?></li></a>
+							<a href="<?php echo $options['home']; ?>"><li><?php _e('Ma page d\'accueil','rencontre');?></li></a>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='portrait';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Ma fiche','rencontre');?></li></a>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='change';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li <?php if(!$fantome) echo 'class="boutonred"'; ?>><?php _e('Modifier mon profil','rencontre');?></li></a>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='msg';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Messagerie','rencontre'); echo RencontreWidget::f_count_inbox($alias); ?></li></a>
@@ -320,7 +321,7 @@ class RencontreWidget extends WP_widget
 					$profil = json_decode($s->t_profil,true);
 					if ($profil) foreach($profil as $h)
 						{
-						$q = $wpdb->get_row("SELECT c_categ, c_label, t_valeur, i_type FROM ".$wpdb->prefix."rencontre_profil WHERE id=".$h['i']." AND i_poids<5 AND c_lang='".substr(WPLANG,0,2)."'");
+						$q = $wpdb->get_row("SELECT c_categ, c_label, t_valeur, i_type FROM ".$wpdb->prefix."rencontre_profil WHERE id=".$h['i']." AND i_poids<5 AND c_lang='".substr($langue,0,2)."'");
 						if ($q)
 							{
 							if ($q->i_type<3) $out[$q->c_categ][$q->c_label] = $h['v'];
@@ -367,7 +368,7 @@ class RencontreWidget extends WP_widget
 			{
 			global $wpdb;
 			// recuperation de la table profil : $in[]
-			$q = $wpdb->get_results("SELECT P.id, P.c_categ, P.c_label, P.t_valeur, P.i_type FROM ".$wpdb->prefix."rencontre_profil P WHERE P.c_lang='".substr(WPLANG,0,2)."' AND P.i_poids<5 ORDER BY P.c_categ");
+			$q = $wpdb->get_results("SELECT P.id, P.c_categ, P.c_label, P.t_valeur, P.i_type FROM ".$wpdb->prefix."rencontre_profil P WHERE P.c_lang='".substr($langue,0,2)."' AND P.i_poids<5 ORDER BY P.c_categ");
 			$in = '';
 			foreach ($q as $r)
 				{
@@ -437,25 +438,28 @@ class RencontreWidget extends WP_widget
 							$out[$r['i']] = $r['v'];
 							}
 						$out1="";$out2=""; $c=0; $d="";
-						foreach ($in as $r=>$r1)
+						if($in)
 							{
-							if ($d!=$r1[1]) // nouvel onglet
+							foreach ($in as $r=>$r1)
 								{
-								if ($d!="") $out2.='</table>'."\n";
-								$out1.='<span class="portraitOnglet '.(($c==0)?'rencTab':'').'" id="portraitOnglet'.$c.'" onclick="javascript:f_onglet('.$c.');">'.$r1[1].'</span>'."\n";
-								$out2.='<table '.(($c==0)?'style="display:table;" ':'').'id="portraitTable'.$c.'" border="0">'."\n";
-								++$c;
+								if ($d!=$r1[1]) // nouvel onglet
+									{
+									if ($d!="") $out2.='</table>'."\n";
+									$out1.='<span class="portraitOnglet '.(($c==0)?'rencTab':'').'" id="portraitOnglet'.$c.'" onclick="javascript:f_onglet('.$c.');">'.$r1[1].'</span>'."\n";
+									$out2.='<table '.(($c==0)?'style="display:table;" ':'').'id="portraitTable'.$c.'" border="0">'."\n";
+									++$c;
+									}
+								switch ($r1[0])
+									{
+									case 1: $out2.='<tr><td>'.$r1[2].'</td><td><input type="text" name="text'.$r.'" value="'.$out[$r].'" /></td></tr>'."\n"; break;
+									case 2: $out2.='<tr><td>'.$r1[2].'</td><td><textarea name="area'.$r.'" rows="4" cols="50">'.$out[$r].'</textarea></td></tr>'."\n"; break;
+									case 3: $out2.='<tr><td>'.$r1[2].'</td><td><select name="select'.$r.'"><option value="0">&nbsp;</option>'; $list = json_decode($r1[3]); $c1=0;
+										foreach ($list as $r2) { $out2.='<option value="'.($c1+1).'"'.(($c1===$out[$r])?' selected':'').'>'.$r2.'</option>'; ++$c1;}$out2.='</select></td></tr>'."\n"; break;
+									case 4: $out2.='<tr><td>'.$r1[2].'</td><td>'; $list = json_decode($r1[3]); $c1=0; if ($out[$r]) $c3=" ".implode(" ",$out[$r])." "; else $c3="";
+										foreach ($list as $r2) { $out2.=$r2.' : <input type="checkbox" name="check'.$r.'[]" value="'.$c1.'" '.((strstr($c3, " ".$c1." ")!=false)?'checked':'').' />'; ++$c1;}$out2.='</td></tr>'."\n"; break;
+									}
+								$d=$r1[1];
 								}
-							switch ($r1[0])
-								{
-								case 1: $out2.='<tr><td>'.$r1[2].'</td><td><input type="text" name="text'.$r.'" value="'.$out[$r].'" /></td></tr>'."\n"; break;
-								case 2: $out2.='<tr><td>'.$r1[2].'</td><td><textarea name="area'.$r.'" rows="4" cols="50">'.$out[$r].'</textarea></td></tr>'."\n"; break;
-								case 3: $out2.='<tr><td>'.$r1[2].'</td><td><select name="select'.$r.'"><option value="0">&nbsp;</option>'; $list = json_decode($r1[3]); $c1=0;
-									foreach ($list as $r2) { $out2.='<option value="'.($c1+1).'"'.(($c1===$out[$r])?' selected':'').'>'.$r2.'</option>'; ++$c1;}$out2.='</select></td></tr>'."\n"; break;
-								case 4: $out2.='<tr><td>'.$r1[2].'</td><td>'; $list = json_decode($r1[3]); $c1=0; if ($out[$r]) $c3=" ".implode(" ",$out[$r])." "; else $c3="";
-									foreach ($list as $r2) { $out2.=$r2.' : <input type="checkbox" name="check'.$r.'[]" value="'.$c1.'" '.((strstr($c3, " ".$c1." ")!=false)?'checked':'').' />'; ++$c1;}$out2.='</td></tr>'."\n"; break;
-								}
-							$d=$r1[1];
 							}
 						$out2.='</table>'."\n";
 						echo $out1.$out2;
@@ -589,7 +593,7 @@ class RencontreWidget extends WP_widget
 				{
 				$tab=''; $d=$upl['basedir'].'/session/';
 				if ($dh=opendir($d)){while (($file = readdir($dh))!==false) { if ($file!='.' && $file!='..' && (filemtime($d.$file)>time()-180)) $tab.="'".basename($file, ".txt")."',"; }closedir($dh);}
-				$q = $wpdb->get_results("SELECT user_id FROM ".$wpdb->prefix."rencontre_users WHERE user_id IN (".substr($tab,0,-1).") AND i_sex=".$zsex." LIMIT 4"); // AND d_naissance>'".$zmax."' AND d_naissance<'".$zmin."' ?>
+				$q = $wpdb->get_results("SELECT user_id FROM ".$wpdb->prefix."rencontre_users WHERE user_id IN (".substr($tab,0,-1).") AND i_sex=".$zsex." LIMIT 16"); // AND d_naissance>'".$zmax."' AND d_naissance<'".$zmin."' ?>
 				<div class="rencBox">
 					<h3><?php _e('Actuellement en ligne','rencontre');?></h3>
 						<?php foreach ($q as $r)
@@ -601,7 +605,7 @@ class RencontreWidget extends WP_widget
 					<div class="clear"></div>
 				</div><!-- .rencBox -->
 			<?php } ?>
-			<?php $q = $wpdb->get_results("SELECT DISTINCT(R.user_id) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=U.ID AND R.user_id=P.user_id AND R.i_sex=".$zsex.(($options['onlyphoto'])?" AND R.i_photo>0 ":" ")."AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30 ORDER BY U.ID DESC LIMIT 4"); ?>
+			<?php $q = $wpdb->get_results("SELECT DISTINCT(R.user_id) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=U.ID AND R.user_id=P.user_id AND R.i_sex=".$zsex.(($options['onlyphoto'])?" AND R.i_photo>0 ":" ")."AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30 ORDER BY U.ID DESC LIMIT 12"); ?>
 			
 				<div class="rencBox">
 					<h3><?php _e('Nouveaux inscrits','rencontre');?></h3>
@@ -858,14 +862,17 @@ class RencontreWidget extends WP_widget
 		// entree : Sauvegarde du profil
 		// sortie bdd : [{"i":10,"v":"Sur une ile deserte avec mon amoureux."},{"i":35,"v":0},{"i":53,"v":[0,4,6]}]
 		$u = "";
-		foreach ($in as $r=>$r1) 
+		if($in)
 			{
-			switch ($r1[0])
+			foreach ($in as $r=>$r1) 
 				{
-				case 1: if ($_POST['text'.$r]!="") $u.='{"i":'.$r.',"v":"'.str_replace('"','',strip_tags(stripslashes($_POST['text'.$r]))).'"},'; break;
-				case 2: if ($_POST['area'.$r]!="") $u.='{"i":'.$r.',"v":"'.str_replace('"','',strip_tags(stripslashes($_POST['area'.$r]))).'"},'; break;
-				case 3: if ($_POST['select'.$r]>0) $u.='{"i":'.$r.',"v":'.(strip_tags($_POST['select'.$r]-1)).'},'; break;
-				case 4: if (!empty($_POST['check'.$r])) {$u.='{"i":'.$r.',"v":['; foreach ($_POST['check'.$r] as $r2) { $u.=$r2.',';} $u=substr($u, 0, -1).']},';} break;
+				switch ($r1[0])
+					{
+					case 1: if ($_POST['text'.$r]!="") $u.='{"i":'.$r.',"v":"'.str_replace('"','',strip_tags(stripslashes($_POST['text'.$r]))).'"},'; break;
+					case 2: if ($_POST['area'.$r]!="") $u.='{"i":'.$r.',"v":"'.str_replace('"','',strip_tags(stripslashes($_POST['area'.$r]))).'"},'; break;
+					case 3: if ($_POST['select'.$r]>0) $u.='{"i":'.$r.',"v":'.(strip_tags($_POST['select'.$r]-1)).'},'; break;
+					case 4: if (!empty($_POST['check'.$r])) {$u.='{"i":'.$r.',"v":['; foreach ($_POST['check'.$r] as $r2) { $u.=$r2.',';} $u=substr($u, 0, -1).']},';} break;
+					}
 				}
 			}
 		global $wpdb;
