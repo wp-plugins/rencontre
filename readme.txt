@@ -59,8 +59,7 @@ Method 2 : With a Widget :
 For visitors not connected, you can view thumbnails and small profile of the last registered members using the shortcode [rencontre_libre] or php
 `&lt;?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?&gt;`
 
-* You need to add the WP connection link :
-You can add this in the header to have the WP and the Facebook connections links :
+You need to add the WP connection link. You can add this in the header to have the WP and the Facebook connections links :
 `&lt;?php Rencontre::f_loginFB(); 
 	wp_loginout(home_url()); if (!is_user_logged_in()) { ?&gt;
 		&lt;a href="wp-login.php?action=register"&gt;&lt;?php _e('Register'); ?&gt;&lt;/a&gt;
