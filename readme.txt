@@ -45,7 +45,7 @@ available languages : FR, US, ES (thanks to Sanjay Gandhi).
 
 Method 1 : In your theme :
 
-In the page used for the dating part, add the content :
+In your theme folder, in the page used for the dating part (index.php if you want to use the home page), add the content :
 `&lt;?php if(is_user_logged_in()) {
 $renc=new RencontreWidget; $renc->widget(0,0);} ?&gt;`
 
@@ -59,6 +59,7 @@ Method 2 : With a Widget :
 For visitors not connected, you can view thumbnails and small profile of the last registered members using the shortcode [rencontre_libre] or php
 `&lt;?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?&gt;`
 
+* You need to add the WP connection link :
 You can add this in the header to have the WP and the Facebook connections links :
 `&lt;?php Rencontre::f_loginFB(); 
 	wp_loginout(home_url()); if (!is_user_logged_in()) { ?&gt;
