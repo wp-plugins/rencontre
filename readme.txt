@@ -65,6 +65,10 @@ You need to add the WP connection link. You can add this in the header to have t
 		&lt;a href="wp-login.php?action=register"&gt;&lt;?php _e('Register'); ?&gt;&lt;/a&gt;
 &lt;?php } ?&gt;`
 
+When ready, go to admin panel and set all parameters of the plugin and don't forget to save.
+
+More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
+
 == Frequently Asked Questions ==
 
 = Useful plugins to work with Rencontre ? =
@@ -72,6 +76,10 @@ You need to add the WP connection link. You can add this in the header to have t
 * WP Better Emails : Adds a customizable good looking HTML template to all WP default plain/text emails ;
 * GeoIP Detect : Add IP country flag in Rencontre members admin tab - Facilitates the detection of fake profile.
 
+= Conditions to appear in un-logged homepage =
+* Wait few days (parameter in admin) ;
+* Have a photo on my profile ;
+* Have an attention-catcher and an ad with more than 30 characters.
 
 More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
 
