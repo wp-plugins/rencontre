@@ -131,5 +131,9 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix bug if no WPLANG in wp-config.php.
 * Add my homepage setup in admin.
 
+01/09/2014 : Update 7
+
+* Fix default CSS.
+
 = 1.0 =
 09/06/2014 - First stable version.
