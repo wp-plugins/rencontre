@@ -3,7 +3,8 @@
 .clear {clear:both;}
 .calign {text-align:center;}
 .br {height:10px;}
-.rencBox {position:relative;}
+.rel {position:relative;}
+.rencBox {position:relative;-moz-box-sizing:content-box;}
 .rencBox a {text-decoration:none;}
 .rencBox h3 {clear:none;margin:0 0 5px 0;}
 .rencBox ul iframe {position:absolute; width:150px;top:-2px;left:20px;max-height:22px!important;}
@@ -22,7 +23,7 @@
 .miniPortrait div {float:left; margin-right:0px;width: 65px; font-size:0.9em;color:#dd6e28;overflow:hidden;max-height:64px;line-height:1.1em;}
 .miniPortrait div h3 {font-size:1em;color:#1c0000;margin:0 0 5px 0;max-height:28px; overflow:hidden;clear:none;}
 .miniPortrait div span {color:#000;}
-.miniPortrait p {clear:both; font-size:0.75em; color:#000; margin-top:65px; height:2.5em; overflow:hidden; width:102px;}
+.miniPortrait p {clear:both; font-size:0.75em; color:#000; margin-top:65px; height:2.7em; line-height:1.3em;overflow:hidden; width:102px;}
 .rencInline,.rencOutline, .rencInline2,.rencOutline2 {position:absolute;color:green;font-size:10px;text-align:right;font-weight:bold;}
 .rencInline,.rencOutline {top:94px;right:3px;}
 .rencInline2,.rencOutline2 {top:40px;right:8px;}
@@ -34,8 +35,9 @@
 .petiteBox {width:33%;}
 .grandeBox {width:66%;}
 /*.miniBox {width:24%;height:110px;}*/
-.miniBox {width:135px;height:100px;margin-right:5px;}
-.maxiBox{width:40%;min-height:100px; padding:5px;}
+.miniBox {width:135px;height:100px;margin-right:5px;-moz-box-sizing:content-box;}
+.maxiBox{width:480px;min-height:100px; padding:5px;}
+
 .portraitPhoto {float:left; text-align:center;padding-bottom:10px;min-height:300px;}
 #portraitGrande {max-width:99%;max-height:250px;margin-bottom:5px; border-radius:4px;}
 .portraitMini { border-radius:3px;}
