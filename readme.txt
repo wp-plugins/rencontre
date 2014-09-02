@@ -85,10 +85,12 @@ The default style file is located in `rencontre/css/rencontre.css`.
 You simply need to copy lines to be modified in the css file of your theme. And you can as well add other lines.
 To overwrite default css file, add `#widgRenc` (and space) at the beginning of every new line.
 Example :
-` in rencontre.css :
+`in rencontre.css :
 .rencTab {background-color:#e8e5ce;}
- in your css file :
- #widgRenc .rencTab {background-color:#aaa; padding:1px;}`
+in your css file :
+#widgRenc .rencTab {background-color:#aaa; padding:1px;}`
+
+More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
 
 == Screenshots ==
 
