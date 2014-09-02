@@ -71,8 +71,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 == Frequently Asked Questions ==
 
-= Useful plugins to work with Rencontre ? =
-
+= Useful plugins to work with Rencontre =
 * WP Better Emails : Adds a customizable good looking HTML template to all WP default plain/text emails ;
 * GeoIP Detect : Add IP country flag in Rencontre members admin tab - Facilitates the detection of fake profile.
 
@@ -81,7 +80,15 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Have a photo on my profile ;
 * Have an attention-catcher and an ad with more than 30 characters.
 
-More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
+= How to personalize style =
+Default style file is located in `rencontre/css/rencontre.css`.
+You simply need to copy lines to be modified in the css file of your theme. And you can as well add other lines
+To overwrite default css file, add `#widgRenc` (and space) at the beginning of every new lines
+Example :
+` in rencontre.css :
+.rencTab {background-color:#e8e5ce;}
+ in your css file :
+ #widgRenc .rencTab {background-color:#aaa; padding:1px;}`
 
 == Screenshots ==
 
