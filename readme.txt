@@ -81,9 +81,9 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Have an attention-catcher and an ad with more than 30 characters.
 
 = How to personalize style =
-Default style file is located in `rencontre/css/rencontre.css`.
-You simply need to copy lines to be modified in the css file of your theme. And you can as well add other lines
-To overwrite default css file, add `#widgRenc` (and space) at the beginning of every new lines
+The default style file is located in `rencontre/css/rencontre.css`.
+You simply need to copy lines to be modified in the css file of your theme. And you can as well add other lines.
+To overwrite default css file, add `#widgRenc` (and space) at the beginning of every new line.
 Example :
 ` in rencontre.css :
 .rencTab {background-color:#e8e5ce;}
