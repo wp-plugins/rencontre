@@ -4,7 +4,7 @@
 .calign {text-align:center;}
 .br {height:10px;}
 .rel {position:relative;}
-.rencBox {position:relative;-moz-box-sizing:content-box;}
+.rencBox {position:relative;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}
 .rencBox a {text-decoration:none;}
 .rencBox h3 {clear:none;margin:0 0 5px 0;}
 .rencBox ul iframe {position:absolute; width:150px;top:-2px;left:20px;max-height:22px!important;}
@@ -35,7 +35,7 @@
 .petiteBox {width:33%;}
 .grandeBox {width:66%;}
 /*.miniBox {width:24%;height:110px;}*/
-.miniBox {width:135px;height:100px;margin-right:5px;-moz-box-sizing:content-box;}
+.miniBox {width:135px;height:100px;margin-right:5px;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}
 .maxiBox{width:480px;min-height:100px; padding:5px;}
 
 .portraitPhoto {float:left; text-align:center;padding-bottom:10px;min-height:300px;}
