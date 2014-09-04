@@ -210,7 +210,7 @@ function f_cron_liste($d2)
 	$u2 = file_get_contents($d2);
 	$cm = 0; // compteur de mail
 	// 1. listing des USERS en attente
-	if ($dh = opendir(dirname(__FILE__).'/cron_liste/'))
+	if ($dh = @opendir(dirname(__FILE__).'/cron_liste/'))
 		{
 		$bn = get_bloginfo('name');
 		$lis = '(';
