@@ -65,7 +65,8 @@ You need to add the WP connection link. You can add this in the header to have t
 		&lt;a href="wp-login.php?action=register"&gt;&lt;?php _e('Register'); ?&gt;&lt;/a&gt;
 &lt;?php } ?&gt;`
 
-When ready, go to admin panel and set all parameters of the plugin and don't forget to save.
+When ready, go to admin panel and load the countries, load the profiles, set all parameters of the plugin and don't forget to save.
+
 
 More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
 
@@ -143,6 +144,11 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 01/09/2014 : Update 7
 
 * Fix default CSS.
+
+04/09/2014 : Update 8
+
+* auto close chat if inactif.
+* Fix warning php opendir.
 
 = 1.0 =
 09/06/2014 - First stable version.
