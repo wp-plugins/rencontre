@@ -4,7 +4,7 @@ Plugin Name: Rencontre
 Author: Jacques Malgrange
 Plugin URI: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
 Description: A free powerful and exhaustive dating plugin with private messaging, webcam chat, search by profile and automatic sending of email. No third party.
-Version: 1.1
+Version: 1.2
 Author URI: http://www.boiteasite.fr
 */
 
@@ -13,13 +13,24 @@ Author URI: http://www.boiteasite.fr
 // **********************************************************************************
 register_activation_hook ( __FILE__, 'creation_table');
 require('inc/rencontre_filter.php' );
+		// **** PATCH V1.2 : langue pour les pays *****************************************
+			add_action('admin_notices','patch12');
+			function patch12()
+				{
+				global $wpdb;
+				$n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_liste");
+				if(!$n) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez re-installer les pays','rencontre').'</p></div>';
+				$n = $wpdb->get_var("SELECT id FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='pays' ");
+				if($n) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez d&eacute;sactiver puis r&eacute;activer le plugin','rencontre').'</p></div>';
+				}
+		// ************************************************************************************
 function creation_table()
 	{
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' ); // pour utiliser dbDelta()
 	global $wpdb;
 	//
-	if (!empty($wpdb->charset)) $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
-	if (!empty($wpdb->collate)) $charset_collate .= " COLLATE $wpdb->collate";
+	if(!empty($wpdb->charset)) $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+	if(!empty($wpdb->collate)) $charset_collate .= " COLLATE $wpdb->collate";
 	$nom = $wpdb->prefix . 'rencontre_profil';
 	if($wpdb->get_var("SHOW TABLES LIKE '$db_table_name'")!=$nom)
 		{
@@ -79,11 +90,23 @@ function creation_table()
 			`id` smallint unsigned NOT NULL auto_increment,
 			`c_liste_categ` varchar(50) NOT NULL,
 			`c_liste_valeur` varchar(50) NOT NULL,
-			`i_liste_lien` smallint unsigned NOT NULL,
+			`c_liste_iso` varchar(2) NOT NULL,
+			`c_liste_lang` varchar(2) NOT NULL,
 			PRIMARY KEY (`id`)
 			) $charset_collate;";
 		dbDelta($sql);
 		}
+		// **** PATCH V1.2 : langue pour les pays *****************************************
+			$sql = $wpdb->get_var('SELECT c_liste_categ FROM '.$wpdb->prefix.'rencontre_liste WHERE c_liste_categ="Pays"');
+			if($sql) // update
+				{
+				$wpdb->query("TRUNCATE TABLE ".$wpdb->prefix."rencontre_liste");
+				$sql1 = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix.'rencontre_liste');
+				$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_liste DROP COLUMN i_liste_lien ");
+				$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_liste ADD `c_liste_iso` varchar(2) NOT NULL");
+				$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_liste ADD `c_liste_lang` varchar(2) NOT NULL");
+				}
+		// ************************************************************************************
 	$nom = $wpdb->prefix . 'rencontre_msg';
 	if($wpdb->get_var("SHOW TABLES LIKE '$db_table_name'")!=$nom)
 		{
@@ -126,7 +149,7 @@ class Rencontre
 	private $class_name = 'rencontre';
 	private $width      = '100%';
 	private $height     = '200px';
-	private $version = '1.1';
+	private $version = '1.2';
 	function __construct()
 		{
 		$this->get_options();
@@ -150,9 +173,10 @@ class Rencontre
 		{
 		add_menu_page('Rencontre', 'Rencontre', 'manage_options', basename(__FILE__), array(&$this, 'menu_general'), 'div'); // ajoute un menu Rencontre (et son premier sous-menu)
 		add_submenu_page('rencontre.php', __('Rencontre - G&eacute;n&eacute;ral','rencontre'), __('G&eacute;n&eacute;ral','rencontre'), 'manage_options', 'rencontre.php', array(&$this, 'menu_general') ); // repete le premier sous-menu (pour changer le nom)
-		add_submenu_page('rencontre.php', __('Rencontre - Profil','rencontre'), __('Profil','rencontre'), 'manage_options', 'profil', array(&$this, 'menu_profil') );
 		add_submenu_page('rencontre.php', __('Rencontre - Membres','rencontre'), __('Membres','rencontre'), 'manage_options', 'membres', array(&$this, 'menu_membres') );
 		add_submenu_page('rencontre.php', __('Rencontre - Prison','rencontre'), __('Prison','rencontre'), 'manage_options', 'prison', array(&$this, 'menu_prison') );
+		add_submenu_page('rencontre.php', __('Rencontre - Profil','rencontre'), __('Profil','rencontre'), 'manage_options', 'profil', array(&$this, 'menu_profil') );
+		add_submenu_page('rencontre.php', __('Rencontre - Pays','rencontre'), __('Pays','rencontre'), 'manage_options', 'pays', array(&$this, 'menu_pays') );
 		}
 	//
 	function update_rencontre_options($f)
@@ -161,7 +185,7 @@ class Rencontre
 		if ($f['facebook']) $options['facebook'] = stripslashes($f['facebook']);
 		if ($f['fblog']) $options['fblog'] = $f['fblog'];
 		if ($f['home']) $options['home'] = $f['home']; else $options['home'] = "";
-		if ($f['limit']) $options['limit'] = $f['limit'];
+		if ($f['limit']) $options['limit'] = $f['limit']; else $options['limit'] = 20;
 		if ($f['jlibre']) $options['jlibre'] = $f['jlibre']; else $options['jlibre'] = 0;
 		if ($f['prison']) $options['prison'] = $f['prison'];
 		if ($f['tchat']) $options['tchat'] = 1; else $options['tchat'] = 0;
@@ -187,7 +211,7 @@ class Rencontre
 		?>
 		<div class='wrap'>
 			<div class='icon32' id='icon-options-general'><br/></div>
-			<h2><?php _e('Rencontre','rencontre');?>&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
+			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
 			<h2><?php _e('G&eacute;n&eacute;ral', 'rencontre'); ?></h2>
 			<form method="post" name="rencontre_options" action="admin.php?page=rencontre.php">
 				<table class="form-table">
@@ -201,7 +225,7 @@ class Rencontre
 					</tr>
 					
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Page ou est install&eacute; le plugin', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Page o&ugrave; est install&eacute; le plugin', 'rencontre'); ?></label></th>
 						<td>
 							<select name="home">
 								<option value="" <?php echo ($options['home']?'':'selected'); ?>>Index</option>
@@ -301,13 +325,309 @@ class Rencontre
 		</div>
 		<?php
 		}
+	function menu_membres()
+		{
+		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre-adm.js'));
+		wp_enqueue_style( 'rencontre', plugins_url('rencontre/css/rencontre-adm.css'));
+		require(dirname (__FILE__) . '/lang/rencontre-js-admin-lang.php');
+		wp_localize_script('rencontre', 'rencobjet', $lang);
+		$options = get_option('rencontre_options');
+		$upl = wp_upload_dir();
+		$langue = ((WPLANG)?WPLANG:get_locale());
+		global $wpdb;
+		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' ");
+		$drap = ''; $drapNom ='';
+		foreach($q as $r)
+			{
+			$drap[$r->c_liste_iso] = $r->c_liste_valeur;
+			$drapNom[$r->c_liste_iso] = $wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_iso='".$r->c_liste_iso."' and c_liste_lang='".substr($langue,0,2)."' ");
+			}
+		?>
+		<div class='wrap'>
+			<div class='icon32' id='icon-options-general'><br/></div>
+			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
+			<h2><?php _e('Membres', 'rencontre'); ?></h2>
+			<?php 
+			$nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users");
+			$np = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=P.user_id AND R.i_photo>0 AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30");
+			echo "<p style='color:#D54E21;'>".__('Nombre de membres inscrits','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$nm."</span></p>";
+			echo "<p style='color:#D54E21;'>".__('Nombre de membres avec profil et photo','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$np."</span></p>";
+			//get_option('admin_email'); // mail admin (options general)
+			if (!$_GET["id"]) {
+			if ($_POST["a1"] && $_POST["a2"]) 
+				{
+				f_userSupp($_POST["a1"],$_POST["a2"],1);
+				if ($options['mailsupp'])
+					{
+					$q = $wpdb->get_var("SELECT user_email FROM ".$wpdb->prefix."users WHERE ID='".$_POST["a1"]."'");
+					$objet  = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES).' - '.__('Suppression du compte','rencontre');
+					$message  = __('Votre compte a &eacute;t&eacute; supprim&eacute;','rencontre');
+					@wp_mail($q, $objet, $message);
+					}
+				}
+			$tri="";
+				if (isset($_GET['tri']))
+					{
+					if ($_GET['tri']=='id') $tri='ORDER BY R.user_id ASC';
+					else if ($_GET['tri']=='Rid') $tri='ORDER BY R.user_id DESC';
+					else if ($_GET['tri']=='pseudo') $tri='ORDER BY U.user_login ASC';
+					else if ($_GET['tri']=='Rpseudo') $tri='ORDER BY U.user_login DESC';
+					else if ($_GET['tri']=='age') $tri='ORDER BY R.d_naissance DESC';
+					else if ($_GET['tri']=='Rage') $tri='ORDER BY R.d_naissance ASC';
+					else if ($_GET['tri']=='pays') $tri='ORDER BY R.c_pays ASC';
+					else if ($_GET['tri']=='Rpays') $tri='ORDER BY R.c_pays DESC';
+					else if ($_GET['tri']=='modif') $tri='ORDER BY P.d_modif ASC';
+					else if ($_GET['tri']=='Rmodif') $tri='ORDER BY P.d_modif DESC';
+					else if ($_GET['tri']=='ip') $tri='ORDER BY R.c_ip ASC';
+					else if ($_GET['tri']=='Rip') $tri='ORDER BY R.c_ip DESC';
+					else if ($_GET['tri']=='signal') $tri='ORDER BY length(P.t_signal) DESC';
+					}
+				else $tri='ORDER BY P.d_modif DESC';
+				$pagenum = isset($_GET['pagenum'])?absint($_GET['pagenum']):1;
+				$limit = 100;
+				$q = $wpdb->get_results("SELECT U.ID, U.user_login, R.c_ip, R.c_pays, R.c_region, R.c_ville, R.d_naissance, R.i_taille, R.i_poids, R.i_sex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, P.d_modif, P.t_titre, P.t_annonce
+					FROM ".$wpdb->prefix . "users U, ".$wpdb->prefix . "rencontre_users R, ".$wpdb->prefix . "rencontre_users_profil P 
+					WHERE R.user_id=P.user_id and R.user_id=U.ID ".$tri." 
+					LIMIT ".(($pagenum-1)*$limit).",".$limit);
+				$total = $wpdb->get_var("SELECT COUNT(user_id) FROM ".$wpdb->prefix . "rencontre_users");
+				$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>'&laquo;','next_text'=>'&raquo;','total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
+				if ($page_links) echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">'.$page_links.'</div></div>';
+			?>
+			<form name='listUser' method='post' action=''><input type='hidden' name='a1' value='' /><input type='hidden' name='a2' value='' />
+			<table class="membre">
+				<tr>
+					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='id') echo 'R'; ?>id" title="<?php _e('Trier','rencontre'); ?>">ID</a></td>
+					<td><?php _e('Photo','rencontre');?></td>
+					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='pseudo') echo 'R'; ?>pseudo" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Pseudo','rencontre');?></a></td>
+					<td><?php _e('Sex','rencontre');?></td>
+					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='age') echo 'R'; ?>age" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Age','rencontre');?><a></td>
+					<td><?php _e('Taille','rencontre');?></td>
+					<td><?php _e('Poids','rencontre');?></td>
+					<td><?php _e('Recherche','rencontre');?></td>
+					<td><?php _e('Accroche','rencontre');?></td>
+					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='pays') echo 'R'; ?>pays" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Pays','rencontre');?></a></td>
+					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='modif') echo 'R'; ?>modif" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Annonce (modif)','rencontre');?></a></td>
+					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Adresse IP','rencontre');?></a></td>
+					<td><a href="admin.php?page=membres&tri=signal" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Signalement','rencontre');?></a></td>
+					<td><?php _e('Supp','rencontre');?></td>
+				</tr>
+			<?php
+			$data = wp_parse_args($data, $defaut);
+			$categ="";
+			foreach($q as $s)
+				{
+				$q = $wpdb->get_var("SELECT t_signal FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$s->ID."'"); $signal=json_decode($q,true);
+				echo '<tr>';
+				echo '<td><a href="admin.php?page=membres&id='.$s->ID.'" title="'.__('Voir','rencontre').'">'.$s->ID.'</a></td>';
+				echo '<td><a href="admin.php?page=membres&id='.$s->ID.'" title="'.__('Voir','rencontre').'"><img class="tete" src="'.($s->i_photo!=0?get_bloginfo('url').'/wp-content/uploads/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10).'-mini.jpg" alt="" /></a></td>':plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" /></td>');
+				echo '<td>'.$s->user_login.'</td>';
+				echo '<td>'.(($s->i_sex==0)?__('Homme','rencontre').'</td>':__('Femme','rencontre').'</td>');
+				echo '<td>'.$this->f_age($s->d_naissance).'</td>';
+				echo '<td>'.$s->i_taille.' cm</td>';
+				echo '<td>'.$s->i_poids.' kg</td>';
+				if ($s->i_zrelation==0) echo '<td>'.__('Relation s&eacute;rieuse','rencontre'); elseif ($s->i_zrelation==1) echo '<td>'.__('Relation libre','rencontre'); elseif ($s->i_zrelation==2) echo '<td>'.__('Amiti&eacute;','rencontre');
+				else echo '<td>'.$s->i_zrelation;
+				echo '<br />'.$s->i_zage_min.' '. __('&agrave;','rencontre').' '.$s->i_zage_max.'</td>';
+				echo '<td>'.$s->t_titre.'</td>';
+				if(isset($drapNom[$s->c_pays]) && $s->c_pays!="") echo '<td><img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$drap[$s->c_pays].'" alt="'.$drapNom[$s->c_pays].'" title="'.$drapNom[$s->c_pays].'" />';
+				else echo '<td>'.$s->c_pays;
+				echo '<br />'.$s->c_region.'<br />'.$s->c_ville.'</td>';
+				echo '<td>'.$s->d_modif.'</td>';
+				if (function_exists('geoip_detect_get_info_from_ip')) // PLUGIN GEOIP-DETECT
+					{
+					$geoip = geoip_detect_get_info_from_ip($s->c_ip);
+					$ipays = $drap[$geoip->country_code];
+					}
+				else $ipays=null;
+				echo '<td>'.$s->c_ip.(($ipays)?'<br/><img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$ipays.'" alt="'.$geoip->country_name.'" title="'.$geoip->country_name.'" />':'').'</td>';
+				echo '<td>'.((count($signal))?count($signal):'').'</td>';
+				echo '<td><a href="javascript:void(0)" class="rencSupp" onClick="f_fin('.$s->ID.',\''.$s->user_login.'\')" title="'.__('Supprimer','rencontre').'"></a></td>';
+				echo '</tr>';
+				}
+			?>
+			</table>
+			</form>
+			<?php } 
+			else {
+			$id = $_GET["id"];
+			$q = $wpdb->get_results("SELECT P.id, P.c_categ, P.c_label, P.t_valeur, P.i_type FROM ".$wpdb->prefix."rencontre_profil P WHERE P.c_lang='".substr(WPLANG,0,2)."' ORDER BY P.c_categ");
+			$in = '';
+			foreach ($q as $r)
+				{
+				$in[$r->id][0] = $r->i_type;
+				$in[$r->id][1] = $r->c_categ;
+				$in[$r->id][2] = $r->c_label;
+				$in[$r->id][3] = $r->t_valeur;
+				$c++;
+				}
+			if (!($_SESSION['a1']==$_POST["a1"] && $_SESSION['a2']==$_POST["a2"]))
+				{
+				if ($_POST["a1"]=="suppImg") RencontreWidget::suppImg($_POST["a2"],$id,$upl);
+				if ($_POST["a1"]=="plusImg") RencontreWidget::plusImg($_POST["a2"],$id,$upl);
+				}
+			if ($_POST["a1"]=="sauvProfil") RencontreWidget::sauvProfil($in,$id); 
+			$_SESSION['a1'] = $_POST["a1"]; $_SESSION['a2'] = $_POST["a2"];
+			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_ville, R.i_photo, P.t_titre, P.t_annonce, P.t_profil FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$id." and R.user_id=P.user_id and R.user_id=U.ID");
+			echo $before_widget ."\n"; ?>
+			<h3><?php _e('Modifier un profil','rencontre');?></h3>
+			<div class="bouton"><a href="javascript:void(0)" onclick="javascript:history.back();"><?php _e('Page pr&eacute;c&eacute;dente','rencontre');?></a></div>
+			<div class="bouton"><a href="<?php echo admin_url(); ?>admin.php?page=membres"><?php _e('Retour Membres','rencontre');?></a></div>
+			<div class="rencPortrait">
+				<form name='portraitChange' method='post' enctype="multipart/form-data" action=''>
+					<input type='hidden' name='a1' value='' /><input type='hidden' name='a2' value='' /><input type='hidden' name='page' value='' />
+					<div id="portraitSauv"><span onClick="f_sauv_profil(<?php echo $mid; ?>)"><?php _e('Sauvegarde du profil','rencontre');?></span></div>
+					<div class="petiteBox portraitPhoto left">
+						<div class="rencBox">
+							<div id="changePhoto"></div>
+							<img id="portraitGrande" src="<?php if(($s->i_photo)!=0) echo $upl['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10).'-grande.jpg?r='.rand(); else echo plugins_url('rencontre/images').'/no-photo600.jpg'; ?>" width=250 height=250 alt="" />
+							<div>
+							<?php for ($v=0;$v<4;++$v)
+								{
+								if ($s->i_photo>=$id*10+$v)
+									{
+									echo '<a href="javascript:void(0)" onClick="f_supp_photo('.($id*10+$v).')"><img onMouseOver="f_vignette_change('.($id*10+$v).')" class="portraitMini" src="'.$upl['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10+$v).'-mini.jpg?r='.rand().'" alt="'.__('Cliquer pour supprimer','rencontre').'" title="'.__('Cliquer pour supprimer','rencontre').'" /></a>'."\n";
+									echo '<img style="display:none;" src="'.$upl['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10+$v).'-grande.jpg?r='.rand().'" />'."\n";
+									}
+								else { ?><a href="javascript:void(0)" onClick="f_plus_photo(<?php echo $s->i_photo; ?>)"><img class="portraitMini" src="<?php echo plugins_url('rencontre/images/no-photo60.jpg'); ?>" alt="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" title="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" /></a>
+								<?php } } ?>
+							</div>
+						</div>
+					</div>
+					<div class="grandeBox right">
+						<div class="rencBox">
+							<?php
+							if($s->c_pays!="") echo '<img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$drap[$s->c_pays].'" alt="'.$drapNom[$s->c_pays].'" title="'.$drapNom[$s->c_pays].'" />'; ?>
+
+							<div class="grid_10">
+								<h3><?php echo $s->display_name; ?></h3>
+								<div class="ville"><?php echo $s->c_ville; ?></div>
+								<label><?php _e('Mon accroche','rencontre');?></label><br />
+								<input type="text" name="titre" value="<?php echo $s->t_titre; ?>" /><br /><br />
+								<label><?php _e('Mon annonce','rencontre');?></label><br />
+								<textarea name="annonce" rows="10" style="width:95%;"><?php echo $s->t_annonce; ?></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="pleineBox portraitProfil clear">
+						<div class="rencBox">
+							<div class="br"></div>
+						<?php
+						$profil = json_decode($s->t_profil,true);
+						$out = '';
+						if ($profil) foreach ($profil as $r)
+							{
+							$out[$r['i']] = $r['v'];
+							}
+						$out1="";$out2=""; $c=0; $d="";
+						foreach ($in as $r=>$r1)
+							{
+							if ($d!=$r1[1]) // nouvel onglet
+								{
+								if ($d!="") $out2.='</table>'."\n";
+								$out1.='<span class="portraitOnglet" id="portraitOnglet'.$c.'" '.(($c==0)?'style="background-color:#e5d4ac;" ':'').' onclick="javascript:f_onglet('.$c.');">'.$r1[1].'</span>'."\n";
+								$out2.='<table '.(($c==0)?'style="display:table;" ':'').'id="portraitTable'.$c.'" border="0">'."\n";
+								++$c;
+								}
+							switch ($r1[0])
+								{
+								case 1: $out2.='<tr><td>'.$r1[2].'</td><td><input type="text" name="text'.$r.'" value="'.$out[$r].'" /></td></tr>'."\n"; break;
+								case 2: $out2.='<tr><td>'.$r1[2].'</td><td><textarea name="area'.$r.'" rows="4" cols="50">'.$out[$r].'</textarea></td></tr>'."\n"; break;
+								case 3: $out2.='<tr><td>'.$r1[2].'</td><td><select name="select'.$r.'"><option value="0">&nbsp;</option>'; $list = json_decode($r1[3]); $c1=0;
+									foreach ($list as $r2) { $out2.='<option value="'.($c1+1).'"'.(($c1===$out[$r])?' selected':'').'>'.$r2.'</option>'; ++$c1;}$out2.='</select></td></tr>'."\n"; break;
+								case 4: $out2.='<tr><td>'.$r1[2].'</td><td>'; $list = json_decode($r1[3]); $c1=0; if ($out[$r]) $c3=" ".implode(" ",$out[$r])." "; else $c3="";
+									foreach ($list as $r2) { $out2.=$r2.' : <input type="checkbox" name="check'.$r.'[]" value="'.$c1.'" '.((strstr($c3, " ".$c1." ")!=false)?'checked':'').' />'; ++$c1;}$out2.='</td></tr>'."\n"; break;
+								}
+							$d=$r1[1];
+							}
+						$out2.='</table>'."\n";
+						echo $out1.$out2;
+						?>
+						
+							<em id="infoChange"><?php if ($_POST["a1"]=="sauvProfil") _e('Effectu&eacute;e','rencontre'); ?>&nbsp;</em>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			<?php } ?>
+		</div>
+		<?php
+		if ($page_links) echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">'.$page_links.'</div></div>';
+		}
+	//
+	function menu_prison()
+		{
+		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre-adm.js'));
+		wp_enqueue_style( 'rencontre', plugins_url('rencontre/css/rencontre-adm.css'));
+		require(dirname (__FILE__) . '/lang/rencontre-js-admin-lang.php');
+		wp_localize_script('rencontre', 'rencobjet', $lang);
+		$options = get_option('rencontre_options');
+		$upl = wp_upload_dir(); 
+		global $wpdb;
+		?>
+		<div class='wrap'>
+			<div class='icon32' id='icon-options-general'><br/></div>
+			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
+			<h2><?php _e('Prison', 'rencontre'); ?></h2>
+			<?php 
+			if ($_POST["a1"]) 
+				{
+				f_userPrison($_POST["a1"]);
+				}
+			$tri="";
+				if (isset($_GET['tri']))
+					{
+					if ($_GET['tri']=='date') $tri='ORDER BY Q.d_prison ASC';
+					else if ($_GET['tri']=='Rdate') $tri='ORDER BY Q.d_prison DESC';
+					else if ($_GET['tri']=='mail') $tri='ORDER BY Q.c_mail ASC';
+					else if ($_GET['tri']=='Rmail') $tri='ORDER BY Q.c_mail DESC';
+					else if ($_GET['tri']=='ip') $tri='ORDER BY Q.c_ip ASC';
+					else if ($_GET['tri']=='Rip') $tri='ORDER BY R.d_naissance DESC';
+					}
+				$pagenum = isset($_GET['pagenum'])?absint($_GET['pagenum']):1;
+				$limit = 100;
+				$q = $wpdb->get_results("SELECT Q.id, Q.d_prison, Q.c_mail, Q.c_ip FROM ".$wpdb->prefix."rencontre_prison Q ".$tri." LIMIT ".(($pagenum-1)*$limit).",".$limit);
+				$total = $wpdb->get_var("SELECT COUNT(id) FROM ".$wpdb->prefix . "rencontre_prison");
+				$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>'&laquo;','next_text'=>'&raquo;','total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
+				if ($page_links) echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">'.$page_links.'</div></div>';
+			?>
+			<form name='listPrison' method='post' action=''><input type='hidden' name='a1' value='' />
+			<table class="prison">
+				<tr>
+					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='date') echo 'R'; ?>date" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Date','rencontre');?></a></td>
+					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='mail') echo 'R'; ?>mail" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Adresse mail','rencontre');?></a></td>
+					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Adresse IP','rencontre');?><a></td>
+					<td><?php _e('Fin','rencontre');?></td>
+				</tr>
+			<?php
+			$data = wp_parse_args($data, $defaut);
+			$categ="";
+			foreach($q as $s)
+				{
+				echo '<tr>';
+				echo '<td>'.$s->d_prison.'</td>';
+				echo '<td>'.$s->c_mail.'</td>';
+				echo '<td>'.$s->c_ip.'</td>';
+				echo '<td><a href="javascript:void(0)" class="rencSupp" onClick="f_liberte('.$s->id.')" title="'.__('Lib&eacute;rer','rencontre').'"></a></td>';
+				echo '</tr>';
+				}
+			?>
+			</table>
+			</form>
+		</div>
+		<?php
+		}
 	//
 	function menu_profil()
 		{
 		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre-adm.js'));
 		wp_enqueue_style( 'rencontre', plugins_url('rencontre/css/rencontre-adm.css'));
+		require(dirname (__FILE__) . '/lang/rencontre-js-admin-lang.php');
+		wp_localize_script('rencontre', 'rencobjet', $lang);
 		global $wpdb;
 		$loc = substr(get_locale(),0,2); $loc2 = $loc."&";
+		$q2 = $wpdb->get_var("SELECT c_lang FROM ".$wpdb->prefix."rencontre_profil WHERE c_lang='".$loc."' ");
+		if(!$q2) {$loc = "en"; $loc2 = "en&";}
 		if (!($_SESSION['a2']==$_POST["a2"] && $_SESSION['a4']==$_POST["a4"]) || $_POST["a6"]!='')
 			{
 			if ($_POST["a1"]=="supp") profil_supp($_POST["a2"],$_POST["a3"],$_POST["a4"]);
@@ -329,7 +649,7 @@ class Rencontre
 				<input type='hidden' name='a4' value='' /><input type='hidden' name='a5' value='' /><input type='hidden' name='a6' value='' />
 			</form>
 			<div class='icon32' id='icon-options-general'><br/></div>
-			<h2><?php _e('Rencontre','rencontre');?>&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
+			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
 			<h2><?php _e('Profil', 'rencontre'); ?></h2>
 			<?php $n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_profil");
 			if($n==0)
@@ -365,10 +685,18 @@ class Rencontre
 				}
 			?></h3>
 			<ul>
-				<li><label><?php _e('Ajouter une langue (2 lettres minuscules conformes au code du pays)', 'rencontre'); ?>&nbsp;</label>&nbsp;<input type="text" name="langplus" maxlength="2" size="2" />
-				<a href='javascript:void(0)' class='button-primary' onClick='f_langplus();'><?php _e('Ajouter une langue', 'rencontre'); ?></a></li>
-				<li><label><?php _e('Supprimer une langue et tout le contenu associ&eacute;', 'rencontre'); ?>&nbsp;</label>&nbsp;<select id="langsupp"><?php echo $ls; ?></select>
-				<a href='javascript:void(0)' class='button-primary' onClick='f_langsupp();'><?php _e('Supprimer une langue', 'rencontre'); ?></a></li>
+				<li>
+					<label><?php _e('Ajouter une langue (2 lettres minuscules conformes au code du pays)', 'rencontre'); ?>&nbsp;</label>&nbsp;
+					<input type="text" name="langplus" maxlength="2" size="2" />
+					<a href='javascript:void(0)' class='button-primary' onClick='f_langplus();'><?php _e('Ajouter une langue', 'rencontre'); ?></a>
+				</li>
+				<li>
+					<label><?php _e('Supprimer une langue et tout le contenu associ&eacute;', 'rencontre'); ?>&nbsp;</label>&nbsp;
+					<select id="langsupp">
+						<?php echo $ls; ?>
+					</select>
+					<a href='javascript:void(0)' class='button-primary' onClick='f_langsupp();'><?php _e('Supprimer une langue', 'rencontre'); ?></a>
+				</li>
 			</ul>
 			<br />
 			<div id="edit_profil"></div>
@@ -481,296 +809,115 @@ class Rencontre
 		<?php
 		}
 	//
-	function menu_membres()
+	function menu_pays()
 		{
 		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre-adm.js'));
 		wp_enqueue_style( 'rencontre', plugins_url('rencontre/css/rencontre-adm.css'));
-		require(dirname (__FILE__) . '/lang/rencontre-js-lang.php');
+		require(dirname (__FILE__) . '/lang/rencontre-js-admin-lang.php');
 		wp_localize_script('rencontre', 'rencobjet', $lang);
-		$options = get_option('rencontre_options');
-		$upl = wp_upload_dir(); 
 		global $wpdb;
+		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' ");
+		$drap = ''; $drapNom ='';
+		foreach($q as $r)
+			{
+			$drap[$r->c_liste_iso] = $r->c_liste_valeur;
+			$drapNom[$r->c_liste_iso] = $wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_iso='".$r->c_liste_iso."' and c_liste_lang='".substr($langue,0,2)."' ");
+			}
+		$loc = substr(get_locale(),0,2); $loc2 = $loc."&";
+		$q2 = $wpdb->get_var("SELECT c_liste_lang FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_lang='".$loc."' ");
+		if(!$q2) {$loc = "en"; $loc2 = "en&";}
+		if (!($_SESSION['a2']==$_POST["a2"] && $_SESSION['a4']==$_POST["a4"]) || $_POST["a6"]!='')
+			{
+			if ($_POST["a1"]=="supp") liste_supp($_POST["a2"],$_POST["a3"],$_POST["a4"]);
+			else if ($_POST["a1"]=="edit") liste_edit($_POST["a2"],$_POST["a3"],$_POST["a4"],$_POST["a5"],$_POST["a6"]);
+			else if ($_POST["a1"]=="plus") liste_plus($_POST["a2"],$_POST["a3"],$_POST["a4"],$_POST["a5"],$_POST["a6"]);
+			else if ($_POST["a1"]=="langplus") liste_langplus($loc,$_POST["a4"]);
+			else if ($_POST["a1"]=="langsupp") liste_langsupp($_POST["a4"]);
+			else if ($_POST["a1"]=="pays") liste_defaut();
+			}
+		$_SESSION['a2'] = $_POST["a2"]; $_SESSION['a4'] = $_POST["a4"];
+		$q2 = $wpdb->get_results("SELECT c_liste_lang FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_lang!='".$loc."' and c_liste_lang!='' GROUP BY c_liste_lang ");
+		if($q2!=null) foreach($q2 as $r2) { $loc2 .= $r2->c_liste_lang."&"; }
 		?>
 		<div class='wrap'>
-			<div class='icon32' id='icon-options-general'><br/></div>
-			<h2><?php _e('Rencontre','rencontre');?>&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
-			<h2><?php _e('Membres', 'rencontre'); ?></h2>
-			<?php 
-			$nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users");
-			$np = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=P.user_id AND R.i_photo>0 AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30");
-			echo "<p style='color:#D54E21;'>".__('Nombre de membres inscrits','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$nm."</span></p>";
-			echo "<p style='color:#D54E21;'>".__('Nombre de membres avec profil et photo','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$np."</span></p>";
-			//get_option('admin_email'); // mail admin (options general)
-			if (!$_GET["id"]) {
-			if ($_POST["a1"] && $_POST["a2"]) 
-				{
-				f_userSupp($_POST["a1"],$_POST["a2"],1);
-				if ($options['mailsupp'])
-					{
-					$q = $wpdb->get_var("SELECT user_email FROM ".$wpdb->prefix."users WHERE ID='".$_POST["a1"]."'");
-					$objet  = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES).' - '.__('Suppression du compte','rencontre');
-					$message  = __('Votre compte a &eacute;t&eacute; supprim&eacute;','rencontre');
-					@wp_mail($q, $objet, $message);
-					}
-				}
-			$tri="";
-				if (isset($_GET['tri']))
-					{
-					if ($_GET['tri']=='id') $tri='ORDER BY R.user_id ASC';
-					else if ($_GET['tri']=='Rid') $tri='ORDER BY R.user_id DESC';
-					else if ($_GET['tri']=='pseudo') $tri='ORDER BY U.user_login ASC';
-					else if ($_GET['tri']=='Rpseudo') $tri='ORDER BY U.user_login DESC';
-					else if ($_GET['tri']=='age') $tri='ORDER BY R.d_naissance DESC';
-					else if ($_GET['tri']=='Rage') $tri='ORDER BY R.d_naissance ASC';
-					else if ($_GET['tri']=='pays') $tri='ORDER BY R.c_pays ASC';
-					else if ($_GET['tri']=='Rpays') $tri='ORDER BY R.c_pays DESC';
-					else if ($_GET['tri']=='modif') $tri='ORDER BY P.d_modif ASC';
-					else if ($_GET['tri']=='Rmodif') $tri='ORDER BY P.d_modif DESC';
-					else if ($_GET['tri']=='ip') $tri='ORDER BY R.c_ip ASC';
-					else if ($_GET['tri']=='Rip') $tri='ORDER BY R.c_ip DESC';
-					else if ($_GET['tri']=='signal') $tri='ORDER BY length(P.t_signal) DESC';
-					}
-				else $tri='ORDER BY P.d_modif DESC';
-				$pagenum = isset($_GET['pagenum'])?absint($_GET['pagenum']):1;
-				$limit = 100;
-				$q = $wpdb->get_results("SELECT U.ID, U.user_login, R.c_ip, R.c_pays, R.c_region, R.c_ville, R.d_naissance, R.i_taille, R.i_poids, R.i_sex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, P.d_modif, P.t_titre, P.t_annonce
-					FROM ".$wpdb->prefix . "users U, ".$wpdb->prefix . "rencontre_users R, ".$wpdb->prefix . "rencontre_users_profil P 
-					WHERE R.user_id=P.user_id and R.user_id=U.ID ".$tri." 
-					LIMIT ".(($pagenum-1)*$limit).",".$limit);
-				$total = $wpdb->get_var("SELECT COUNT(user_id) FROM ".$wpdb->prefix . "rencontre_users");
-				$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>'&laquo;','next_text'=>'&raquo;','total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
-				if ($page_links) echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">'.$page_links.'</div></div>';
-			?>
-			<form name='listUser' method='post' action=''><input type='hidden' name='a1' value='' /><input type='hidden' name='a2' value='' />
-			<table class="membre">
-				<tr>
-					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='id') echo 'R'; ?>id" title="<?php _e('Trier','rencontre'); ?>">ID</a></td>
-					<td><?php _e('Photo','rencontre');?></td>
-					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='pseudo') echo 'R'; ?>pseudo" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Pseudo','rencontre');?></a></td>
-					<td><?php _e('Sex','rencontre');?></td>
-					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='age') echo 'R'; ?>age" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Age','rencontre');?><a></td>
-					<td><?php _e('Taille','rencontre');?></td>
-					<td><?php _e('Poids','rencontre');?></td>
-					<td><?php _e('Recherche','rencontre');?></td>
-					<td><?php _e('Accroche','rencontre');?></td>
-					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='pays') echo 'R'; ?>pays" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Pays','rencontre');?></a></td>
-					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='modif') echo 'R'; ?>modif" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Annonce (modif)','rencontre');?></a></td>
-					<td><a href="admin.php?page=membres&tri=<?php if ($_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Adresse IP','rencontre');?></a></td>
-					<td><a href="admin.php?page=membres&tri=signal" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Signalement','rencontre');?></a></td>
-					<td><?php _e('Supp','rencontre');?></td>
-				</tr>
-			<?php
-			$data = wp_parse_args($data, $defaut);
-			$categ="";
-			foreach($q as $s)
-				{
-				$q = $wpdb->get_var("SELECT t_signal FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$s->ID."'"); $signal=json_decode($q,true);
-				echo '<tr>';
-				echo '<td><a href="admin.php?page=membres&id='.$s->ID.'" title="'.__('Voir','rencontre').'">'.$s->ID.'</a></td>';
-				echo '<td><a href="admin.php?page=membres&id='.$s->ID.'" title="'.__('Voir','rencontre').'"><img class="tete" src="'.($s->i_photo!=0?get_bloginfo('url').'/wp-content/uploads/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10).'-mini.jpg" alt="" /></a></td>':plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" /></td>');
-				echo '<td>'.$s->user_login.'</td>';
-				echo '<td>'.(($s->i_sex==0)?__('Homme','rencontre').'</td>':__('Femme','rencontre').'</td>');
-				echo '<td>'.$this->f_age($s->d_naissance).'</td>';
-				echo '<td>'.$s->i_taille.' cm</td>';
-				echo '<td>'.$s->i_poids.' kg</td>';
-				if ($s->i_zrelation==0) echo '<td>'.__('Relation s&eacute;rieuse','rencontre'); elseif ($s->i_zrelation==1) echo '<td>'.__('Relation libre','rencontre'); elseif ($s->i_zrelation==2) echo '<td>'.__('Amiti&eacute;','rencontre');
-				else echo '<td>'.$s->i_zrelation;
-				echo '<br />'.$s->i_zage_min.' '. __('&agrave;','rencontre').' '.$s->i_zage_max.'</td>';
-				echo '<td>'.$s->t_titre.'</td>';
-				$pays = strtr(utf8_decode($s->c_pays), 'ÁÀÂÄÃÅÇÉÈÊËÍÏÎÌÑÓÒÔÖÕÚÙÛÜÝ', 'AAAAAACEEEEEIIIINOOOOOUUUUY');
-				$pays = strtr($pays, 'áàâäãåçéèêëíìîïñóòôöõúùûüýÿ ', 'aaaaaaceeeeiiiinooooouuuuyy_');
-				$pays = str_replace("'", "", $pays);
-				$cpays = str_replace("'", "&#39;", $s->c_pays);
-				if($s->c_pays!="") echo '<td><img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$pays.'.png" alt="'.$cpays.'" title="'.$cpays.'" />';
-				else echo '<td>'.$s->c_pays;
-				echo '<br />'.$s->c_region.'<br />'.$s->c_ville.'</td>';
-				echo '<td>'.$s->d_modif.'</td>';
-				if (function_exists('geoip_detect_get_info_from_ip')) // PLUGIN GEOIP-DETECT
-					{
-					$cod = array("AD","AE","AF","AL","AM","AO","AR","AT","AU","AZ","BA","BB","BD","BE","BF","BG","BH","BI","BJ","BN","BO","BR","BS","BT","BW","BY","BZ","CA","CD","CF","CG","CH","CI","CL","CM","CN","CO","CR","CU","CV","CY","CZ","DE","DJ","DK","DM","DO","DZ","EC","EE","EG","ER","ES","ET","FI","FJ","FM","FR","GA","GB","GD","GE","GH","GM","GN","GQ","GR","GT","GW","GY","HN","HR","HT","HU","ID","IE","IL","IN","IQ","IR","IS","IT","JM","JO","JP","KE","KG","KH","KI","KM","KP","KR","KW","KZ","LA","LB","LC","LI","LK","LR","LS","LT","LU","LV","LY","MA","MC","MD","ME","MG","MH","MK","ML","MM","MN","MR","MT","MU","MV","MW","MX","MY","MZ","NA","NE","NG","NI","NL","NO","NP","NR","NZ","OM","PA","PE","PG","PH","PK","PL","PT","PW","PY","QA","RO","RS","RU","RW","SA","SB","SC","SD","SE","SG","SI","SK","SL","SM","SN","SO","SR","ST","SV","SY","SZ","TD","TG","TH","TJ","TL","TM","TN","TO","TR","TT","TV","TZ","UA","UG","US","UY","UZ","VC","VE","VN","VU","WS","YE","ZA","ZM","ZW");
-					$pay = array("Andorre","Emirats_arabes_unis","Afghanistan","Albanie","Armenie","Angola","Argentine","Autriche","Australie","Azerbaidjan","Bosnie-Herzegovine","Barbade","Bangladesh","Belgique","Burkina_Faso","Bulgarie","Bahrein","Burundi","Benin","Brunei","Bolivie","Bresil","Bahamas","Bhoutan","Botswana","Bielorussie","Belize","Canada","Republique_democratique_du_Congo","Republique_centrafricaine","Republique_du_Congo","Suisse","Cote_dIvoire","Chili","Cameroun","Chine","Colombie","Costa_Rica","Cuba","Cap-Vert","Chypre","Republique_tcheque","Allemagne","Djibouti","Danemark","Dominique","Republique_dominicaine","Algerie","Equateur","Estonie","Egypte","Erythree","Espagne","Ethiopie","Finlande","Fidji","Micronesie","France","Gabon","Royaume-Uni","Grenade","Georgie","Ghana","Gambie","Guinee","Guinee_equatoriale","Grece","Guatemala","Guinee-Bissau","Guyana","Honduras","Croatie","Haiti","Hongrie","Indonesie","Irlande","Israel","Inde","Irak","Iran","Islande","Italie","Jamaique","Jordanie","Japon","Kenya","Kirghizistan","Cambodge","Kiribati","Comores","Coree_du_Nord","Coree_du_Sud","Koweit","Kazakhstan","Laos","Liban","Sainte-Lucie","Liechtenstein","Sri_Lanka","Liberia","Lesotho","Lituanie","Luxembourg","Lettonie","Libye","Maroc","Monaco","Moldavie","Montenegro","Madagascar","Iles_Marshall","Macedoine","Mali","Myanmar","Mongolie","Mauritanie","Malte","Maurice","Maldives","Malawi","Mexique","Malaisie","Mozambique","Namibie","Niger","Nigeria","Nicaragua","Pays-Bas","Norvege","Nepal","Nauru","Nouvelle-Zelande","Oman","Panama","Perou","Papouasie-Nouvelle-Guinee","Philippines","Pakistan","Pologne","Portugal","Palaos","Paraguay","Qatar","Roumanie","Serbie","Russie","Rwanda","Arabie_saoudite","Iles_Salomon","Seychelles","Soudan","Suede","Singapour","Slovenie","Slovaquie","Sierra_Leone","Saint-Marin","Senegal","Somalie","Suriname","Sao_Tome-et-Principe","Salvador","Syrie","Swaziland","Tchad","Togo","Thailande","Tadjikistan","Timor_oriental","Turkmenistan","Tunisie","Tonga","Turquie","Trinite-et-Tobago","Tuvalu","Tanzanie","Ukraine","Ouganda","Etats-Unis","Uruguay","Ouzbekistan","Saint-Vincent_et_les_Grenadines","Venezuela","Viet_Nam","Vanuatu","Samoa","Yemen","Afrique_du_Sud","Zambie","Zimbabwe");
-					$geoip = geoip_detect_get_info_from_ip($s->c_ip);
-					$ipays = str_replace($cod,$pay,$geoip->country_code);
-					}
-				else $ipays=null;
-				echo '<td>'.$s->c_ip.(($ipays)?'<br/><img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$ipays.'.png" alt="'.$geoip->country_name.'" title="'.$geoip->country_name.'" />':'').'</td>';
-				echo '<td>'.((count($signal))?count($signal):'').'</td>';
-				echo '<td><a href="javascript:void(0)" class="rencSupp" onClick="f_fin('.$s->ID.',\''.$s->user_login.'\')" title="'.__('Supprimer','rencontre').'"></a></td>';
-				echo '</tr>';
-				}
-			?>
-			</table>
+			<form name='menu_liste' method='post' action=''>
+				<input type='hidden' name='a1' value='' /><input type='hidden' name='a2' value='' /><input type='hidden' name='a3' value='' />
+				<input type='hidden' name='a4' value='' /><input type='hidden' name='a5' value='' /><input type='hidden' name='a6' value='' />
 			</form>
-			<?php } 
-			else {
-			$id = $_GET["id"];
-			$q = $wpdb->get_results("SELECT P.id, P.c_categ, P.c_label, P.t_valeur, P.i_type FROM ".$wpdb->prefix."rencontre_profil P WHERE P.c_lang='".substr(WPLANG,0,2)."' ORDER BY P.c_categ");
-			$in = '';
-			foreach ($q as $r)
+			<div class='icon32' id='icon-options-general'><br/></div>
+			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
+			<h2><?php _e('Pays et R&eacute;gions', 'rencontre'); ?></h2>
+			<?php $n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_liste");
+			if($n==0)
 				{
-				$in[$r->id][0] = $r->i_type;
-				$in[$r->id][1] = $r->c_categ;
-				$in[$r->id][2] = $r->c_label;
-				$in[$r->id][3] = $r->t_valeur;
-				$c++;
-				}
-			if (!($_SESSION['a1']==$_POST["a1"] && $_SESSION['a2']==$_POST["a2"]))
-				{
-				if ($_POST["a1"]=="suppImg") RencontreWidget::suppImg($_POST["a2"],$id,$upl);
-				if ($_POST["a1"]=="plusImg") RencontreWidget::plusImg($_POST["a2"],$id,$upl);
-				}
-			if ($_POST["a1"]=="sauvProfil") RencontreWidget::sauvProfil($in,$id); 
-			$_SESSION['a1'] = $_POST["a1"]; $_SESSION['a2'] = $_POST["a2"];
-			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_ville, R.i_photo, P.t_titre, P.t_annonce, P.t_profil FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$id." and R.user_id=P.user_id and R.user_id=U.ID");
-			echo $before_widget ."\n"; ?>
-			<h3><?php _e('Modifier un profil','rencontre');?></h3>
-			<div class="bouton"><a href="javascript:void(0)" onclick="javascript:history.back();"><?php _e('Page pr&eacute;c&eacute;dente','rencontre');?></a></div>
-			<div class="bouton"><a href="<?php echo admin_url(); ?>admin.php?page=membres"><?php _e('Retour Membres','rencontre');?></a></div>
-			<div class="rencPortrait">
-				<form name='portraitChange' method='post' enctype="multipart/form-data" action=''>
-					<input type='hidden' name='a1' value='' /><input type='hidden' name='a2' value='' /><input type='hidden' name='page' value='' />
-					<div id="portraitSauv"><span onClick="f_sauv_profil(<?php echo $mid; ?>)"><?php _e('Sauvegarde du profil','rencontre');?></span></div>
-					<div class="petiteBox portraitPhoto left">
-						<div class="rencBox">
-							<div id="changePhoto"></div>
-							<img id="portraitGrande" src="<?php if(($s->i_photo)!=0) echo $upl['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10).'-grande.jpg?r='.rand(); else echo plugins_url('rencontre/images').'/no-photo600.jpg'; ?>" width=250 height=250 alt="" />
-							<div>
-							<?php for ($v=0;$v<4;++$v)
-								{
-								if ($s->i_photo>=$id*10+$v)
-									{
-									echo '<a href="javascript:void(0)" onClick="f_supp_photo('.($id*10+$v).')"><img onMouseOver="f_vignette_change('.($id*10+$v).')" class="portraitMini" src="'.$upl['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10+$v).'-mini.jpg?r='.rand().'" alt="'.__('Cliquer pour supprimer','rencontre').'" title="'.__('Cliquer pour supprimer','rencontre').'" /></a>'."\n";
-									echo '<img style="display:none;" src="'.$upl['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10+$v).'-grande.jpg?r='.rand().'" />'."\n";
-									}
-								else { ?><a href="javascript:void(0)" onClick="f_plus_photo(<?php echo $s->i_photo; ?>)"><img class="portraitMini" src="<?php echo plugins_url('rencontre/images/no-photo60.jpg'); ?>" alt="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" title="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" /></a>
-								<?php } } ?>
-							</div>
-						</div>
-					</div>
-					<div class="grandeBox right">
-						<div class="rencBox">
-							<?php $pays = strtr(utf8_decode($s->c_pays), 'ÁÀÂÄÃÅÇÉÈÊËÍÏÎÌÑÓÒÔÖÕÚÙÛÜÝ', 'AAAAAACEEEEEIIIINOOOOOUUUUY');
-							$pays = strtr($pays, 'áàâäãåçéèêëíìîïñóòôöõúùûüýÿ ', 'aaaaaaceeeeiiiinooooouuuuyy_');
-							$pays = str_replace("'", "", $pays);
-							$cpays = str_replace("'", "&#39;", $s->c_pays);
-							if($s->c_pays!="") echo '<img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$pays.'.png" alt="'.$cpays.'" title="'.$cpays.'" />'; ?>
-
-							<div class="grid_10">
-								<h3><?php echo $s->display_name; ?></h3>
-								<div class="ville"><?php echo $s->c_ville; ?></div>
-								<label><?php _e('Mon accroche','rencontre');?></label><br />
-								<input type="text" name="titre" value="<?php echo $s->t_titre; ?>" /><br /><br />
-								<label><?php _e('Mon annonce','rencontre');?></label><br />
-								<textarea name="annonce" rows="10" style="width:95%;"><?php echo $s->t_annonce; ?></textarea>
-							</div>
-						</div>
-					</div>
-					<div class="pleineBox portraitProfil clear">
-						<div class="rencBox">
-							<div class="br"></div>
-						<?php
-						$profil = json_decode($s->t_profil,true);
-						$out = '';
-						if ($profil) foreach ($profil as $r)
-							{
-							$out[$r['i']] = $r['v'];
-							}
-						$out1="";$out2=""; $c=0; $d="";
-						foreach ($in as $r=>$r1)
-							{
-							if ($d!=$r1[1]) // nouvel onglet
-								{
-								if ($d!="") $out2.='</table>'."\n";
-								$out1.='<span class="portraitOnglet" id="portraitOnglet'.$c.'" '.(($c==0)?'style="background-color:#e5d4ac;" ':'').' onclick="javascript:f_onglet('.$c.');">'.$r1[1].'</span>'."\n";
-								$out2.='<table '.(($c==0)?'style="display:table;" ':'').'id="portraitTable'.$c.'" border="0">'."\n";
-								++$c;
-								}
-							switch ($r1[0])
-								{
-								case 1: $out2.='<tr><td>'.$r1[2].'</td><td><input type="text" name="text'.$r.'" value="'.$out[$r].'" /></td></tr>'."\n"; break;
-								case 2: $out2.='<tr><td>'.$r1[2].'</td><td><textarea name="area'.$r.'" rows="4" cols="50">'.$out[$r].'</textarea></td></tr>'."\n"; break;
-								case 3: $out2.='<tr><td>'.$r1[2].'</td><td><select name="select'.$r.'"><option value="0">&nbsp;</option>'; $list = json_decode($r1[3]); $c1=0;
-									foreach ($list as $r2) { $out2.='<option value="'.($c1+1).'"'.(($c1===$out[$r])?' selected':'').'>'.$r2.'</option>'; ++$c1;}$out2.='</select></td></tr>'."\n"; break;
-								case 4: $out2.='<tr><td>'.$r1[2].'</td><td>'; $list = json_decode($r1[3]); $c1=0; if ($out[$r]) $c3=" ".implode(" ",$out[$r])." "; else $c3="";
-									foreach ($list as $r2) { $out2.=$r2.' : <input type="checkbox" name="check'.$r.'[]" value="'.$c1.'" '.((strstr($c3, " ".$c1." ")!=false)?'checked':'').' />'; ++$c1;}$out2.='</td></tr>'."\n"; break;
-								}
-							$d=$r1[1];
-							}
-						$out2.='</table>'."\n";
-						echo $out1.$out2;
-						?>
-						
-							<em id="infoChange"><?php if ($_POST["a1"]=="sauvProfil") _e('Effectu&eacute;e','rencontre'); ?>&nbsp;</em>
-						</div>
-					</div>
-				</form>
-			</div>
+				echo "<p>".__('La table des pays est vide. Vous pouvez charger les pays et r&eacute;gions par d&eacute;faut si vous le souhaitez.', 'rencontre')."</p>";
+				echo "<a href='javascript:void(0)' class='button-primary' onClick='document.forms[\"menu_liste\"].elements[\"a1\"].value=\"pays\";document.forms[\"menu_liste\"].elements[\"a2\"].value=\"pays\";document.forms[\"menu_liste\"].submit();'>". __('Charger pays', 'rencontre')."</a>";
+				} ?>
 			
-			<?php } ?>
-		</div>
-		<?php
-		if ($page_links) echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">'.$page_links.'</div></div>';
-		}
-	//
-	function menu_prison()
-		{
-		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre-adm.js'));
-		wp_enqueue_style( 'rencontre', plugins_url('rencontre/css/rencontre-adm.css'));
-		require(dirname (__FILE__) . '/lang/rencontre-js-lang.php');
-		wp_localize_script('rencontre', 'rencobjet', $lang);
-		$options = get_option('rencontre_options');
-		$upl = wp_upload_dir(); 
-		global $wpdb;
-		?>
-		<div class='wrap'>
-			<div class='icon32' id='icon-options-general'><br/></div>
-			<h2><?php _e('Rencontre','rencontre');?>&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
-			<h2><?php _e('Prison', 'rencontre'); ?></h2>
-			<?php 
-			if ($_POST["a1"]) 
+			<p><?php _e('Vous pouvez cr&eacute;er, renommer et supprimer les pays et r&eacute;gions.', 'rencontre'); ?></p>
+			<h3><?php _e('Langue de r&eacute;f&eacute;rence', 'rencontre'); echo ' : <span style="color:#700;">'.$loc.'</span> --- ' . __('Autres', 'rencontre').'&nbsp;:&nbsp;';
+			$ls = '';
+			foreach($q2 as $r2)
 				{
-				f_userPrison($_POST["a1"]);
-				}
-			$tri="";
-				if (isset($_GET['tri']))
+				if($r2->c_liste_lang!=$loc)
 					{
-					if ($_GET['tri']=='date') $tri='ORDER BY Q.d_prison ASC';
-					else if ($_GET['tri']=='Rdate') $tri='ORDER BY Q.d_prison DESC';
-					else if ($_GET['tri']=='mail') $tri='ORDER BY Q.c_mail ASC';
-					else if ($_GET['tri']=='Rmail') $tri='ORDER BY Q.c_mail DESC';
-					else if ($_GET['tri']=='ip') $tri='ORDER BY Q.c_ip ASC';
-					else if ($_GET['tri']=='Rip') $tri='ORDER BY R.d_naissance DESC';
+					$ls .= '<option value="'.$r2->c_liste_lang.'">'.$r2->c_liste_lang.'</option>';
+					echo '<span style="color:#700;">' . $r2->c_liste_lang . '</span>&nbsp;-&nbsp;';
 					}
-				$pagenum = isset($_GET['pagenum'])?absint($_GET['pagenum']):1;
-				$limit = 100;
-				$q = $wpdb->get_results("SELECT Q.id, Q.d_prison, Q.c_mail, Q.c_ip FROM ".$wpdb->prefix."rencontre_prison Q ".$tri." LIMIT ".(($pagenum-1)*$limit).",".$limit);
-				$total = $wpdb->get_var("SELECT COUNT(id) FROM ".$wpdb->prefix . "rencontre_prison");
-				$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>'&laquo;','next_text'=>'&raquo;','total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
-				if ($page_links) echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">'.$page_links.'</div></div>';
-			?>
-			<form name='listPrison' method='post' action=''><input type='hidden' name='a1' value='' />
-			<table class="prison">
-				<tr>
-					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='date') echo 'R'; ?>date" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Date','rencontre');?></a></td>
-					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='mail') echo 'R'; ?>mail" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Adresse mail','rencontre');?></a></td>
-					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Adresse IP','rencontre');?><a></td>
-					<td><?php _e('Fin','rencontre');?></td>
-				</tr>
+				}
+			?></h3>
+			<ul>
+				<li>
+					<label><?php _e('Ajouter une langue (2 lettres minuscules conformes au code du pays)', 'rencontre'); ?>&nbsp;</label>&nbsp;
+					<input type="text" name="langplus" maxlength="2" size="2" />
+					<a href='javascript:void(0)' class='button-primary' onClick='f_liste_langplus();'><?php _e('Ajouter une langue', 'rencontre'); ?></a>
+				</li>
+				<li>
+					<label><?php _e('Supprimer une langue et tout le contenu associ&eacute;', 'rencontre'); ?>&nbsp;</label>&nbsp;
+					<select id="langsupp">
+						<?php echo $ls; ?>
+					</select>
+					<a href='javascript:void(0)' class='button-primary' onClick='f_liste_langsupp();'><?php _e('Supprimer une langue', 'rencontre'); ?></a>
+				</li>
+			</ul>
+			<br />
+			<div id="edit_liste"></div>
+			<div style='margin:8px 12px 12px;'>
+				<a href='javascript:void(0)' class='rencPlus' onClick='f_liste_plus(0,"p","","<?php echo $loc2; ?>");' title='Ajouter un pays'></a>
+				<span style='font-style:italic;'><?php _e('Ajouter un pays','rencontre');?></span>
+			</div>
 			<?php
-			$data = wp_parse_args($data, $defaut);
-			$categ="";
-			foreach($q as $s)
+			$q = $wpdb->get_results("SELECT c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' GROUP BY c_liste_iso"); // liste des codes ISO
+			foreach($q as $r)
 				{
-				echo '<tr>';
-				echo '<td>'.$s->d_prison.'</td>';
-				echo '<td>'.$s->c_mail.'</td>';
-				echo '<td>'.$s->c_ip.'</td>';
-				echo '<td><a href="javascript:void(0)" class="rencSupp" onClick="f_liberte('.$s->id.')" title="'.__('Lib&eacute;rer','rencontre').'"></a></td>';
-				echo '</tr>';
+				$q1 = $wpdb->get_results("SELECT c_liste_categ, c_liste_valeur, c_liste_lang FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_iso='".$r->c_liste_iso."' and c_liste_categ='p' ORDER BY c_liste_lang");
+				$out = ''; $out1 = '';
+				$a4 = $r->c_lang . '=' . $r->c_label . '&';
+				foreach($q1 as $r1)
+					{
+					if($r1->c_liste_lang==$loc) $out1 = $r1->c_liste_valeur;
+					else $out .= '<span style="margin:0 0 0 37px;color:#777;">'.$r1->c_liste_lang.' : '.$r1->c_liste_valeur. '</span><br />';
+					$a4 .= $r1->c_liste_lang . '=' . $r1->c_liste_valeur . '&';
+					}
+				echo '<div class="rencLabel">';
+				echo '<a href="javascript:void(0)" class="rencEdit" onClick="f_liste_edit(\''.$r->c_liste_iso.'\',\'p\',\''.urlencode($a4).'\');" title="'.__('Modifier le nom ou le type','rencontre').'"></a>';
+				echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_liste_supp(\''.$r->c_liste_iso.'\',\'p\',0);" title="'.__('Supprimer','rencontre').'"></a>';
+				echo $out1.'&nbsp;('.$r->c_liste_iso.')<br />';
+				if(isset($drap[$r->c_liste_iso])) echo '<img style="position:absolute;width:30px;height:20px;" src="'.plugins_url('rencontre/images/drapeaux/').$drap[$r->c_liste_iso].'" />';
+				echo $out . '</div><div style="height:5px;"></div>';
+				echo '<div class="rencValeur">';
+				echo '<a href="javascript:void(0)" class="rencPlus" onClick="f_liste_plus(\''.$r->c_liste_iso.'\',\'r\',\'\',\''.$loc2.'\');" title="'.__('Ajouter une valeur','rencontre').'"></a>';
+				echo '<span class="rencType">'.__('R&eacute;gions','rencontre').'</span>';
+				$q2 = $wpdb->get_results("SELECT id, c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_iso='".$r->c_liste_iso."' and c_liste_categ='r' ");
+				foreach($q2 as $r2)
+					{
+					echo '<br /><a href="javascript:void(0)" class="rencEdit" onClick="f_liste_edit('.$r2->id.',\'r\',\''.$r2->c_liste_valeur.'\');" title="'.__('Modifier','rencontre').'"></a>';
+					echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_liste_supp('.$r2->id.',\'r\',0);" title="'.__('Supprimer','rencontre').'"></a>';
+					echo '<span style="margin:0 0 0 5px;color:#777;">'.$r2->c_liste_valeur. '</span>' . "\r\n";
+					}
+				echo '</div><br style="clear:left;"/>'."\r\n";
 				}
 			?>
-			</table>
-			</form>
 		</div>
 		<?php
 		}
@@ -839,8 +986,17 @@ class Rencontre
 		//	$out .= '<script type="text/javascript" src="'.plugins_url('rencontre/js/rencontre-libre.js').'"></script>'."\r\n"; // Zoom automatique sur chaque personne
 			$out .= '<div id="widgRenc">'."\r\n";
 			$upl = wp_upload_dir(); 
+			if (!is_dir($upl['basedir'].'/portrait/')) mkdir($upl['basedir'].'/portrait/');
 			if (!is_dir($upl['basedir'].'/portrait/libre/')) mkdir($upl['basedir'].'/portrait/libre/');
 			global $wpdb;
+			$langue = ((WPLANG)?WPLANG:get_locale());
+			$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' ");
+			$drap=''; $drapNom='';
+			foreach($q as $r)
+				{
+				$drap[$r->c_liste_iso] = $r->c_liste_valeur;
+				$drapNom[$r->c_liste_iso] = $wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_iso='".$r->c_liste_iso."' and c_liste_lang='".substr($langue,0,2)."' ");
+				}
 			$q = $wpdb->get_results("SELECT U.ID, U.display_name, U.user_registered, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre, P.t_annonce
 				FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P 
 				WHERE R.i_photo!=0 and R.user_id=P.user_id and R.user_id=U.ID and TO_DAYS(NOW())-TO_DAYS(U.user_registered)>=".$options['jlibre']." and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30
@@ -879,7 +1035,8 @@ class Rencontre
 				$pays = strtr($pays, 'áàâäãåçéèêëíìîïñóòôöõúùûüýÿ ', 'aaaaaaceeeeiiiinooooouuuuyy_');
 				$pays = str_replace("'", "", $pays);
 				$cpays = str_replace("'", "&#39;", $r->c_pays);
-				if ($r->c_pays!="") $out.='<img class="flag" style="position:absolute;bottom:5px;right:5px;" src="'.plugins_url('rencontre/images/drapeaux/').$pays.'.png" alt="'.$cpays.'" title="'.$cpays.'" />';
+			//	if ($r->c_pays!="") $out.='<img class="flag" style="position:absolute;bottom:5px;right:5px;" src="'.plugins_url('rencontre/images/drapeaux/').$pays.'.png" alt="'.$cpays.'" title="'.$cpays.'" />';
+				if($r->c_pays!="") $out.='<img class="flag" style="position:absolute;bottom:5px;right:5px;" src="'.plugins_url('rencontre/images/drapeaux/').$drap[$r->c_pays].'" alt="'.$drapNom[$r->c_pays].'" title="'.$drapNom[$r->c_pays].'" />';
 				$out.='</div><div class="clear"></div></div>'."\r\n";
 				++$c;
 				}

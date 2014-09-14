@@ -21,10 +21,13 @@ add_action('wp_ajax_iniPass', 'f_iniPass'); // premiere connexion - changement m
 add_action('wp_ajax_testPass', 'f_testPass'); // changement du mot de passe
 add_action('wp_ajax_fbok', 'f_fbok'); add_action('wp_ajax_nopriv_fbok', 'f_fbok'); // connexion via FB
 add_action('wp_ajax_miniPortrait2', 'f_miniPortrait2'); function f_miniPortrait2() {RencontreWidget::f_miniPortrait2($_POST['id']);}
+add_action('wp_ajax_iso', 'f_iso'); // Test si le code ISO est libre (Partie ADMIN)
+add_action('wp_ajax_drap', 'f_drap'); // SELECT avec la liste des fichiers drapeaux (Partie ADMIN)
 // CRON
 add_action('plugins_loaded', 'f_cron');
 function f_cron()
 	{
+	add_filter('wp_mail_content_type','set_html_content_type');
 	$d = dirname(__FILE__).'/rencontre_cron.txt';
 	$d1 = dirname(__FILE__).'/rencontre_cronOn.txt';
 	$d2 = dirname(__FILE__).'/rencontre_cronListe.txt'; if (!file_exists($d2)) {$t=@fopen($d2,'w'); @fwrite($t,'0'); @fclose($t);}
@@ -46,7 +49,10 @@ function f_cron()
 		f_cron_liste($d2); // MSG ACTION
 		}
 	// else f_cron_on(); // mode force
+	remove_filter('wp_mail_content_type','set_html_content_type');
 	}
+//
+function set_html_content_type(){ return 'text/html'; }
 //
 function f_cron_on()
 	{
@@ -172,6 +178,7 @@ function f_cron_on()
 			if ($n) $s .= "<br />".__('Vous avez','rencontre')."&nbsp;".$n.(($n>1)?__('messages','rencontre'):__('message','rencontre'))."&nbsp;".__('dans votre boite de r&eacute;ception.','rencontre');
 			$s .= "<br />".__("N'h&eacute;sitez pas &agrave; nous faire part de vos remarques.",'rencontre')."<br /><br />".__('Cordialement,','rencontre')."<br />".$bn."</div>";
 			$s1 .= $s;
+			if(!has_filter('wp_mail')) $s = '<html><head></head><body>' . $s . '</body></html>';
 			@wp_mail($r->user_email, $bn, $s);
 			++$cm;
 			if (file_exists(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt')) @unlink(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt');
@@ -185,6 +192,7 @@ function f_cron_on()
 			{
 			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>".__('Bonjour','rencontre')." ".$r->user_login.","."\r\n";
 			if ($options['textanniv'] && strlen($options['textanniv'])>10) $s .= "<br />".nl2br(stripslashes($options['textanniv']))."\r\n";
+			if(!has_filter('wp_mail')) $s = '<html><head></head><body>' . $s . '</body></html>';
 			@wp_mail($r->user_email, $bn, $s);
 			++$cm;
 			$s1 .= $s;
@@ -268,6 +276,7 @@ function f_cron_liste($d2)
 			$s .= "<br /><br />".__('Cordialement,','rencontre')."<br />".$bn."</div>";
 			if($b)
 				{
+				if(!has_filter('wp_mail')) $s = '<html><head></head><body>' . $s . '</body></html>';
 				@wp_mail($r->user_email, $bn." - ".__('Un membre vous contacte','rencontre'), $s);
 				++$cm;
 				}
@@ -287,7 +296,12 @@ function f_cron_liste($d2)
 //
 function f_admin_menu ($wp_admin_bar)
 	{
-	$args = array('id'=>'rencontre','title'=>'Rencontre Membres','href'=>admin_url('admin.php?page=membres'),'meta'=>array('class'=>'rencontre','title'=>'Rencontre Membres'));
+	$args = array(
+		'id'=>'rencontre',
+		'title'=>'<img src="../wp-content/plugins/rencontre/images/rencontre.png" />',
+		'href'=>admin_url('admin.php?page=membres'),
+		'meta'=>array('class'=>'rencontre',
+		'title'=>'Rencontre'));
 	$wp_admin_bar->add_node($args);
 	}
 //
@@ -319,10 +333,10 @@ function prevent_admin_access()
 function f_admin_bar($content) { return (current_user_can("administrator")) ? $content : false; }
 function f_regionBDD()
 	{ 
-	echo '<option value="">- Indiff&eacute;rent -</option>';
+	echo '<option value="">- '.__('Indiff&eacute;rent','rencontre').' -</option>';
 	global $wpdb; 
-	$pays = strip_tags($_POST['pays']);
-	$q = $wpdb->get_results("SELECT id, c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE i_liste_lien=".$pays." and c_liste_categ='region'");
+	$iso = strip_tags($_POST['pays']);
+	$q = $wpdb->get_results("SELECT id, c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_iso='".$iso."' and c_liste_categ='r' ");
 	foreach($q as $r) { echo '<option value="'.$r->id.'">'.$r->c_liste_valeur.'</option>'; }
 	}
 //
@@ -389,13 +403,41 @@ function f_fbok() // connexion via Facebook
 			$pw = wp_generate_password($length=5, $include_standard_special_chars=false);
 			$user_id = wp_create_user($u,$pw,$m['email']);
 			}
-		$user = get_userdatabylogin($u);
+	//	$user = get_userdatabylogin($u); // This pluggable function has been deprecated.
+		$user = get_user_by('login',$u);
 		wp_set_current_user($user->ID, $u);
 		wp_set_auth_cookie($user->ID);
 		do_action('wp_login', $u); // connexion
 		}
 	}
 //
+function f_iso()
+	{
+	if ($_POST && isset($_POST['iso']))
+		{
+		global $wpdb;
+		$q = $wpdb->get_var("SELECT id FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_iso='".$_POST['iso']."' and c_liste_categ='p' ");
+		if(!$q) echo true;
+		else echo false;
+		}
+	}
+//
+function f_drap()
+	{
+	if ($_POST && isset($_POST['action']) && $_POST['action']=='drap')
+		{
+		if ($dh=opendir(dirname(__FILE__).'/../images/drapeaux/'))
+			{
+			$tab='';
+			while (($file = readdir($dh))!==false) { if ($file!='.' && $file!='..') $tab[]=$file; }
+			closedir($dh);
+			sort($tab);
+			foreach($tab as $r) { echo "<option value='".$r."'>".$r."</option>"; }
+			}
+		}
+	}
+//
+
 if (!function_exists('wp_new_user_notification'))
 	{
 	function wp_new_user_notification($user_id, $plaintext_pass = '')

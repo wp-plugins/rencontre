@@ -1,5 +1,7 @@
 <?php
-//
+// *****************************************
+// **** ONGLET PROFIL
+// *****************************************
 function profil_supp($a2,$a3,$a4)
 	{
 	// a2 : ID - a3 : colonne - a4 :
@@ -165,6 +167,7 @@ function profil_langplus($loc,$a4)
 	if (!$q)
 		{
 		$q = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."rencontre_profil WHERE c_lang='".$loc."' ORDER BY id");
+		if(!$q) $q = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."rencontre_profil WHERE c_lang='en' ORDER BY id");
 		foreach($q as $r)
 			{
 			if($r->t_valeur=='') $wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_profil (id,c_categ,c_label,t_valeur,i_type,i_poids,c_lang) VALUES('".$r->id."','?','?','','".$r->i_type."','".$r->i_poids."','".$a4."')");
@@ -202,8 +205,20 @@ function liste_defaut()
 	if(!is_admin()) die;
 	$f = file_get_contents(plugin_dir_path( __FILE__ ).'rencontre_liste_defaut.txt');
 	global $wpdb;
-	$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_profil AUTO_INCREMENT = 1");
-	$wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_liste (c_liste_categ, c_liste_valeur, i_liste_lien) VALUES ".$f);
+	$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_liste AUTO_INCREMENT = 1");
+	$wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_liste (c_liste_categ, c_liste_valeur, c_liste_iso, c_liste_lang) VALUES ".$f);
+		// **** PATCH V1.2 : langue pour les pays *****************************************
+			$q = $wpdb->get_results("SELECT user_id, c_pays FROM ".$wpdb->prefix."rencontre_users");
+			foreach($q as $r)
+				{
+				if(strlen($r->c_pays)>2)
+					{
+					$iso = $wpdb->get_var("SELECT c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_valeur='".$r->c_pays."' ");
+					if($iso) $wpdb->update($wpdb->prefix.'rencontre_users', array('c_pays'=>$iso), array('user_id'=>$r->user_id));
+					else $wpdb->update($wpdb->prefix.'rencontre_users', array('c_pays'=>'CI'), array('user_id'=>$r->user_id)); // et pourquoi pas !
+					}
+				}
+		// ************************************************************************************
 	}
 //
 function synchronise()
@@ -268,6 +283,84 @@ function synchronise()
 		}
 	}
 //
+// *****************************************
+// **** ONGLET REGION
+// *****************************************
+function liste_edit($a2,$a3,$a4,$a5,$a6)
+	{
+	// a2 : iso/id - a3 : colonne - a4 : valeur colonne - a5 : position (select ou check) - a6 : type
+	if(!is_admin()) die;
+	global $wpdb;
+	if ($a3=="p")
+		{
+		$a4 = urldecode($a4); // stripslashes() a ajouter : fr=Un pays où j\'aimerais vivre&en=A country where I want to live&
+		$b4 = explode('&',substr($a4, 0, -1));
+		foreach($b4 as $b)
+			{
+			$t=explode('=',$b);
+			if ($t) $wpdb->update($wpdb->prefix.'rencontre_liste', array('c_liste_valeur'=>ucwords(stripslashes($t[1]))), array('c_liste_iso'=>$a2, 'c_liste_lang'=>$t[0]));
+			}
+		}
+	else if ($a3=="r") $wpdb->update($wpdb->prefix.'rencontre_liste', array('c_liste_valeur'=>ucwords(stripslashes($a4))), array('id'=>$a2));
+	}
+//
+function liste_supp($a2,$a3,$a4)
+	{
+	// a2 : ID - a3 : colonne - a4 :
+	if(!is_admin()) die;
+	global $wpdb;
+	if ($a3=="p") $wpdb->query("DELETE FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_iso='".$a2."' ");
+	else if ($a3=="r") $wpdb->query("DELETE FROM ".$wpdb->prefix."rencontre_liste WHERE id='".$a2."' and c_liste_categ='r' ");
+	}
+//
+function liste_plus($a2,$a3,$a4,$a5,$a6)
+	{
+	// a5 : langues separees par &
+	if(!is_admin()) die;
+	global $wpdb;
+	if ($a3=="p" && strlen($a5)==2)
+		{
+		$a4 = urldecode($a4); // stripslashes() a ajouter : fr=Un pays où j\'aimerais vivre&en=A country where I want to live&
+		$b4 = explode('&',substr($a4, 0, -1));
+		foreach($b4 as $b)
+			{
+			$t=explode('=',$b);
+			if ($t) $wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_liste (c_liste_categ,c_liste_valeur,c_liste_iso,c_liste_lang) VALUES('p','".ucwords($t[1])."','".$a5."','".$t[0]."')");
+			}
+		$wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_liste (c_liste_categ,c_liste_valeur,c_liste_iso,c_liste_lang) VALUES('d','".$a6."','".$a5."','')");
+		}
+	else if ($a3=="r") $wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_liste (c_liste_categ,c_liste_valeur,c_liste_iso,c_liste_lang) VALUES('r','".ucwords(urldecode($a4))."','".$a2."','')");
+	}
+//
+function liste_langplus($loc,$a4)
+	{
+	// a4 : langue
+	if(!is_admin()) die;
+	global $wpdb;
+	$q = $wpdb->get_var("SELECT c_liste_lang FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_lang='".$a4."' ");
+	if (!$q)
+		{
+		$q = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".$loc."' ORDER BY id");
+		if(!$q) $q = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='en' ORDER BY id");
+		foreach($q as $r)
+			{
+			$wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_liste (c_liste_categ,c_liste_valeur,c_liste_iso,c_liste_lang) VALUES('p','?','".$r->c_liste_iso."','".$a4."')");
+			}
+		}
+	}
+//
+function liste_langsupp($a4)
+	{
+	// a4 : langue
+	if(!is_admin()) die;
+	global $wpdb;
+	$wpdb->query("DELETE FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_lang='".$a4."'");
+	}
+//
+// *****************************************
+// **** AUTRES
+// *****************************************
+
 function f_userSupp($f,$a,$b)
 	{
 	$r = 'wp-content/uploads/portrait/'.floor($f/1000);

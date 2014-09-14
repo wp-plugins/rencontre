@@ -3,8 +3,8 @@ Contributors: jacques malgrange
 Donate link: http://www.boiteasite.fr/
 Tags: date, dating, meet, love, chat, webcam, rencontres
 Requires at least: 3.0.1
-Tested up to: 3.7
-Stable tag: 1.1
+Tested up to: 4.0
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,50 +103,48 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 == Changelog ==
 
+= 1.2 =
+14/09/2014 :
+* Multilingual Countries with Admin panel to add or change countries and regions
+* Fix HTML format in e-mail
+* Fix some bugs
+* Add some translations in Admin part
+
 = 1.1 =
 19/06/2014 :
-
 * Email sending : optimization and improvement.
 * Emails translation.
 * Fixed some bug...
 
 22/06/2014 : Update 1
-
 * Fix Facebook connect bug.
 
 24/07/2014 : Update 2
-
 * Add Spanish language (thanks to Sanjay Gandhi).
 * Fixed some bug...
 
 31/07/2014 : Update 3
-
 * Memory of the search.
 * Update installation page in readme file.
 
 11/08/2014 : Update 4
-
 * Limit number of result in search.
 
 16/08/2014 : Update 5
-
 * Fix Deletion of the Admin account by cron schedule.
 * Add CSS clear in fiche libre.
 * Input default CSS file in fiche libre.
 
 23/08/2014 : Update 6
-
 * Remove auto-zoom in fiche libre (unconnected).
 * Fix CSS in fiche libre.
 * Fix bug if no WPLANG in wp-config.php.
 * Add my homepage setup in admin.
 
 01/09/2014 : Update 7
-
 * Fix default CSS.
 
 04/09/2014 : Update 8
-
 * auto close chat if inactif.
 * Fix warning php opendir.
 
