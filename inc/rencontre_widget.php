@@ -69,6 +69,7 @@ class RencontreWidget extends WP_widget
 								echo $fb;
 								} ?>
 								
+							</span>
 						</ul>
 					</div>
 				</form>
