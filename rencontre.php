@@ -11,7 +11,7 @@ Author URI: http://www.boiteasite.fr
 // **********************************************************************************
 // INSTALLATION DU PLUGIN - Creation des tables en BDD
 // **********************************************************************************
-register_activation_hook ( __FILE__, 'creation_table');
+register_activation_hook ( __FILE__, 'rencontre_creation_table');
 require('inc/rencontre_filter.php' );
 		// **** PATCH V1.2 : langue pour les pays *****************************************
 			add_action('admin_notices','patch12');
@@ -24,7 +24,7 @@ require('inc/rencontre_filter.php' );
 				if($n) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez d&eacute;sactiver puis r&eacute;activer le plugin','rencontre').'</p></div>';
 				}
 		// ************************************************************************************
-function creation_table()
+function rencontre_creation_table()
 	{
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' ); // pour utiliser dbDelta()
 	global $wpdb;
@@ -154,8 +154,8 @@ class Rencontre
 		{
 		$this->get_options();
 		load_plugin_textdomain('rencontre', false, dirname(plugin_basename( __FILE__ )).'/lang/'); // language
-		add_action('admin_menu', array(&$this, 'admin_menu_link')); // Menu admin
-		add_action('widgets_init', array(&$this, 'widget')); // WIDGET
+		add_action('admin_menu', array($this, 'admin_menu_link')); // Menu admin
+		add_action('widgets_init', array($this, 'rencwidget')); // WIDGET
 		add_action('admin_print_scripts', array($this, 'adminCSS')); // CSS pour le bouton du menu
 		}
 	//
@@ -922,10 +922,11 @@ class Rencontre
 		<?php
 		}
 	//
-	function widget()
+	function rencwidget()
 		{
 		global $current_user;
-		if (array_shift($current_user->roles)=="subscriber" && !$_POST['nouveau']) $_SESSION['rencontre']='nouveau';
+		$rol = $current_user->roles;
+		if (array_shift($rol)=="subscriber" && !$_POST['nouveau']) $_SESSION['rencontre']='nouveau';
 		else if (!$_SESSION['rencontre'] || !$_POST['page']) $_SESSION['rencontre']='mini,accueil,menu';
 		else if (!$_POST['page']) $_SESSION['rencontre']='mini,accueil,menu';
 		else if ($_POST['page']=='portrait') $_SESSION['rencontre']='portrait,menu';
