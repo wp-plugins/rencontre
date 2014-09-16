@@ -18,11 +18,17 @@ require('inc/rencontre_filter.php' );
 			function patch12()
 				{
 				global $wpdb;
-				$n = $wpdb->get_var("SELECT id FROM ".$wpdb->prefix."rencontre_liste");
-				$m = $wpdb->get_var("SELECT user_id FROM ".$wpdb->prefix."rencontre_users");
-				if(!$n && $m) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez re-installer les pays','rencontre').'</p></div>';
-				$n = $wpdb->get_var("SELECT id FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='pays' ");
-				if($n) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez d&eacute;sactiver puis r&eacute;activer le plugin','rencontre').'</p></div>';
+				$n = $wpdb->get_var("SELECT id FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' ");
+				if(!$n) // pas de pays ou table vide
+					{
+					$m = $wpdb->get_var("SELECT id FROM ".$wpdb->prefix."rencontre_liste");
+					if(!$m) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez re-installer les pays','rencontre').'</p></div>';
+					else
+						{
+						$o = $wpdb->get_var("SELECT user_id FROM ".$wpdb->prefix."rencontre_users");
+						if($o) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez d&eacute;sactiver puis r&eacute;activer le plugin','rencontre').'</p></div>';
+						}
+					}
 				}
 		// ************************************************************************************
 function rencontre_creation_table()
