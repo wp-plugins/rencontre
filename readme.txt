@@ -111,6 +111,10 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix some bugs
 * Add some translations in Admin part
 
+16/09/2014 : Update 1
+
+* Fix conflict with Yop-Poll.
+
 = 1.1 =
 19/06/2014 :
 

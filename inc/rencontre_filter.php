@@ -298,7 +298,7 @@ function f_admin_menu ($wp_admin_bar)
 	{
 	$args = array(
 		'id'=>'rencontre',
-		'title'=>'<img src="../wp-content/plugins/rencontre/images/rencontre.png" />',
+		'title'=>'<img src="'.plugins_url('rencontre/images/rencontre.png').'" />',
 		'href'=>admin_url('admin.php?page=membres'),
 		'meta'=>array('class'=>'rencontre',
 		'title'=>'Rencontre'));
