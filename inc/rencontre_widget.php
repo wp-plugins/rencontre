@@ -620,9 +620,21 @@ class RencontreWidget extends WP_widget
 		// 6. Partie recherche rapide
 		if (strstr($_SESSION['rencontre'],'cherche'))
 			{
+			$pagine = (isset($_POST['pagine'])?$_POST['pagine']:0);
+			$suiv = 1;
 			?> 
 			
 			<div class="grandeBox left">
+			<form name='rencPagine' method='post' action=''>
+				<input type='hidden' name='page' value='cherche' />
+				<input type='hidden' name='pays' value='<?php echo $_POST['pays']; ?>' />
+				<input type='hidden' name='region' value='<?php echo $_POST['region']; ?>' />
+				<input type='hidden' name='sex' value='<?php echo $_POST['sex']; ?>' />
+				<input type='hidden' name='ageMin' value='<?php echo $_POST['ageMin']; ?>' />
+				<input type='hidden' name='ageMax' value='<?php echo $_POST['ageMax']; ?>' />
+				<input type='hidden' name='id' value='<?php echo $_POST['id']; ?>' />
+				<input type='hidden' name='pagine' value='<?php echo $pagine; ?>' />
+			</form>
 			<?php global $wpdb;
 			if ($_POST['sex']!=NULL)
 				{
@@ -635,56 +647,144 @@ class RencontreWidget extends WP_widget
 				$s.=" and R.d_naissance<'".$zmin."'";
 				$s.=" and R.d_naissance>'".$zmax."'";
 				$s.=" and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30".(($options['onlyphoto'])?" and R.i_photo>0":"");
-				$s.=" ORDER BY R.user_id DESC LIMIT ".$limit;
+				$s.=" ORDER BY R.user_id DESC LIMIT ".($pagine*$limit).", ".($limit+1); // LIMIT indice du premier, nombre de resultat
 				$q = $wpdb->get_results($s);
+				if($wpdb->num_rows<=$limit) $suiv=0;
+				else array_pop($q); // supp le dernier ($limit+1) qui sert a savoir si page suivante
 				}
 			else if ($_POST['id']=='sourireOut')
 				{
 				echo '<h3 style="text-align:center;">'.__('J\'ai souri &agrave;','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
-				$q = ''; $c = 0;
-				if ($action['sourireOut']) {krsort($action['sourireOut']); foreach ($action['sourireOut'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
+				$q = ''; $c = 0; $n = 0; $suiv = 0;
+				if ($action['sourireOut'])
+					{
+					krsort($action['sourireOut']);
+					foreach ($action['sourireOut'] as $r)
+						{
+						++$n;
+						if($c<=$limit)
+							{
+							$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+							if($q[$c] && $n>$pagine*$limit)
+								{
+								if($c<$limit) $q[$c]->date=$r['d'];
+								else {$suiv=1;array_pop($q);}
+								++$c;
+								}
+							}
+						}
+					}
 				}
 			else if ($_POST['id']=='sourireIn')
 				{
 				echo '<h3 style="text-align:center;">'.__('J\'ai re&ccedil;u un sourire de','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
-				$q = ''; $c = 0;
-				if ($action['sourireIn']) {krsort($action['sourireIn']); foreach ($action['sourireIn'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
+				$q = ''; $c = 0; $n = 0; $suiv = 0;
+				if ($action['sourireIn'])
+					{
+					krsort($action['sourireIn']);
+					foreach ($action['sourireIn'] as $r)
+						{
+						++$n;
+						if($c<=$limit)
+							{
+							$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+							if($q[$c] && $n>$pagine*$limit)
+								{
+								if($c<$limit) $q[$c]->date=$r['d'];
+								else {$suiv=1;array_pop($q);}
+								++$c;
+								}
+							}
+						}
+					}
 				}
 			else if ($_POST['id']=='contactOut')
 				{
 				echo '<h3 style="text-align:center;">'.__('J\'ai demand&eacute; un contact &agrave;','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
-				$q = ''; $c = 0;
-				if ($action['contactOut']) {krsort($action['contactOut']); foreach ($action['contactOut'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
+				$q = ''; $c = 0; $n = 0; $suiv = 0;
+				if ($action['contactOut'])
+					{
+					krsort($action['contactOut']);
+					foreach ($action['contactOut'] as $r)
+						{
+						$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+						if($q[$c] && $n>$pagine*$limit)
+							{
+							if($c<$limit) $q[$c]->date=$r['d'];
+							else {$suiv=1;array_pop($q);}
+							++$c;
+							}
+						}
+					}
 				}
 			else if ($_POST['id']=='contactIn')
 				{
 				echo '<h3 style="text-align:center;">'.__('J\'ai eu une demande de contact de','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
-				$q = '';$c = 0;
-				if ($action['contactIn']) {krsort($action['contactIn']); foreach ($action['contactIn'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
+				$q = '';$c = 0; $n = 0; $suiv = 0;
+				if ($action['contactIn'])
+					{
+					krsort($action['contactIn']);
+					foreach ($action['contactIn'] as $r)
+						{
+						$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+						if($q[$c] && $n>$pagine*$limit)
+							{
+							if($c<$limit) $q[$c]->date=$r['d'];
+							else {$suiv=1;array_pop($q);}
+							++$c;
+							}
+						}
+					}
 				}
 			else if ($_POST['id']=='visite')
 				{
 				echo '<h3 style="text-align:center;">'.__('J\'ai &eacute;t&eacute; regard&eacute; par','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
-				$q = ''; $c = 0;
-				if ($action['visite']) {krsort($action['visite']); foreach ($action['visite'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
+				$q = ''; $c = 0; $n = 0; $suiv = 0;
+				if ($action['visite'])
+					{
+					krsort($action['visite']);
+					foreach ($action['visite'] as $r)
+						{
+						$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+						if($q[$c] && $n>$pagine*$limit)
+							{
+							if($c<$limit) $q[$c]->date=$r['d'];
+							else {$suiv=1;array_pop($q);}
+							++$c;
+							}
+						}
+					}
 				}
 			else if ($_POST['id']=='bloque')
 				{
 				echo '<h3 style="text-align:center;">'.__('J\'ai bloqu&eacute;','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
-				$q = ''; $c = 0;
-				if ($action['bloque']) {krsort($action['bloque']); foreach ($action['bloque'] as $r) { $q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id"); if($q[$c]) {$q[$c]->date=$r['d']; ++$c; }}}
+				$q = ''; $c = 0; $n = 0; $suiv = 0;
+				if ($action['bloque'])
+					{
+					krsort($action['bloque']);
+					foreach ($action['bloque'] as $r)
+						{
+						$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+						if($q[$c] && $n>$pagine*$limit)
+							{
+							if($c<$limit) $q[$c]->date=$r['d'];
+							else {$suiv=1;array_pop($q);}
+							++$c;
+							}
+						}
+					}
 				}
 			if($q) foreach($q as $r)
 				{
@@ -711,7 +811,20 @@ class RencontreWidget extends WP_widget
 					</div><!-- .grandeBox .right -->
 					<div class="clear"></div>
 				</div>
-				<?php } ?>
+				<?php }
+				if($pagine||$suiv)
+					{
+					echo '<div class="rencPagine">';
+					if(($pagine+0)>0) echo "<a href=\"javascript:void(0)\" onClick=\"document.forms['rencPagine'].elements['pagine'].value=parseInt(document.forms['rencPagine'].elements['pagine'].value)-1;document.forms['rencPagine'].submit();\">".__('Page pr&eacute;c&eacute;dente','rencontre')."</a>";
+					for($v=max(0, $pagine-4); $v<$pagine; ++$v)
+						{
+						echo "<a href=\"javascript:void(0)\" onClick=\"document.forms['rencPagine'].elements['pagine'].value='".$v."';document.forms['rencPagine'].submit();\">".$v."</a>";
+						}
+					echo "<span>".$pagine."</span>";
+					if($suiv) echo "<a href=\"javascript:void(0)\" onClick=\"document.forms['rencPagine'].elements['pagine'].value=parseInt(document.forms['rencPagine'].elements['pagine'].value)+1;document.forms['rencPagine'].submit();\">".__('Page suivante','rencontre')."</a>";
+					echo '</div>';
+					}
+				?>
 			</div>
 		<?php }
 		//
@@ -919,8 +1032,8 @@ class RencontreWidget extends WP_widget
 			$sx = imagesx($imc);
 			$sy = imagesy($imc);
 			$Text=site_url();
-			putenv('GDFONTPATH=' . dirname(__FILE__));
-			$Font="arial.ttf";
+			if(current_user_can("administrator")) $Font="../wp-content/plugins/rencontre/inc/arial.ttf";
+			else $Font="wp-content/plugins/rencontre/inc/arial.ttf";
 			$FontColor = ImageColorAllocate ($imc,255,255,255);
 			$FontShadow = ImageColorAllocate ($imc,0,0,0);
 			$Rotation = 30;
@@ -951,9 +1064,10 @@ class RencontreWidget extends WP_widget
 	//
 	static function f_pays($f=1)
 		{
+		$langue = ((WPLANG)?WPLANG:get_locale());
 		echo '<option value="">- '.__('Indiff&eacute;rent','rencontre').' -</option>';
 		global $wpdb;
-		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p'");
+		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".substr($langue,0,2)."' ");
 		foreach($q as $r)
 			{
 			echo '<option value="'.$r->c_liste_iso.'"'.(($r->c_liste_valeur=="France" && $f==1)?' selected':'').(($r->c_liste_valeur==$f)?' selected':'').'>'.$r->c_liste_valeur.'</option>';
@@ -1262,9 +1376,32 @@ class RencontreWidget extends WP_widget
 	static function f_trouver()
 		{
 		// Resultat de la recherche plus
+		global $wpdb;
 		$options = get_option('rencontre_options');
 		$limit = $options['limit'];
-		global $wpdb;
+		$pagine = (isset($_POST['pagine'])?$_POST['pagine']:0);
+		$suiv = 1;
+		?> 
+		
+		<form name='rencPagine' method='post' action=''>
+			<input type='hidden' name='page' value='liste' />
+			<input type='hidden' name='pays' value='<?php echo $_POST['pays']; ?>' />
+			<input type='hidden' name='region' value='<?php echo $_POST['region']; ?>' />
+			<input type='hidden' name='ville' value='<?php echo $_POST['ville']; ?>' />
+			<input type='hidden' name='pseudo' value='<?php echo $_POST['pseudo']; ?>' />
+			<input type='hidden' name='zsex' value='<?php echo $_POST['zsex']; ?>' />
+			<input type='hidden' name='ageMin' value='<?php echo $_POST['ageMin']; ?>' />
+			<input type='hidden' name='ageMax' value='<?php echo $_POST['ageMax']; ?>' />
+			<input type='hidden' name='tailleMin' value='<?php echo $_POST['tailleMin']; ?>' />
+			<input type='hidden' name='tailleMax' value='<?php echo $_POST['tailleMax']; ?>' />
+			<input type='hidden' name='poidsMin' value='<?php echo $_POST['poidsMin']; ?>' />
+			<input type='hidden' name='poidsMax' value='<?php echo $_POST['poidsMax']; ?>' />
+			<input type='hidden' name='mot' value='<?php echo $_POST['mot']; ?>' />
+			<input type='hidden' name='photo' value='<?php echo $_POST['photo']; ?>' />
+			<input type='hidden' name='id' value='<?php echo $_POST['id']; ?>' />
+			<input type='hidden' name='pagine' value='<?php echo $pagine; ?>' />
+		</form>
+		<?php
 		if ($_POST['pseudo']) $s="SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."users U WHERE U.user_login LIKE '%".strip_tags($_POST['pseudo'])."%' and R.i_sex=".strip_tags($_POST['zsex'])." and U.ID=R.user_id and P.user_id=R.user_id";
 		else
 			{
@@ -1281,8 +1418,10 @@ class RencontreWidget extends WP_widget
 			if ($_POST['mot']) $s.=" and (P.t_annonce LIKE '%".$_POST['mot']."%' or P.t_titre LIKE '%".strip_tags($_POST['mot'])."%')";
 			if ($_POST['photo']=="0") $s.=" and R.i_photo>0";
 			}
-		$s.=" ORDER BY R.user_id DESC LIMIT ".$limit;
+		$s.=" ORDER BY R.user_id DESC LIMIT ".($pagine*$limit).", ".($limit+1); // LIMIT indice du premier, nombre de resultat
 		$q = $wpdb->get_results($s);
+		if($wpdb->num_rows<=$limit) $suiv=0;
+		else array_pop($q); // supp le dernier ($limit+1) qui sert a savoir si page suivante
 		foreach($q as $r)
 			{ ?>
 			<div class="rencBox">
@@ -1304,6 +1443,19 @@ class RencontreWidget extends WP_widget
 				<div class="clear"></div>
 			</div>
 		<?php }
+		if($pagine||$suiv)
+			{
+			echo '<div class="rencPagine">';
+			if(($pagine+0)>0) echo "<a href=\"javascript:void(0)\" onClick=\"document.forms['rencPagine'].elements['pagine'].value=parseInt(document.forms['rencPagine'].elements['pagine'].value)-1;document.forms['rencPagine'].submit();\">".__('Page pr&eacute;c&eacute;dente','rencontre')."</a>";
+			for($v=max(0, $pagine-4); $v<$pagine; ++$v)
+				{
+				echo "<a href=\"javascript:void(0)\" onClick=\"document.forms['rencPagine'].elements['pagine'].value='".$v."';document.forms['rencPagine'].submit();\">".$v."</a>";
+				}
+			echo "<span>".$pagine."</span>";
+			if($suiv) echo "<a href=\"javascript:void(0)\" onClick=\"document.forms['rencPagine'].elements['pagine'].value=parseInt(document.forms['rencPagine'].elements['pagine'].value)+1;document.forms['rencPagine'].submit();\">".__('Page suivante','rencontre')."</a>";
+			echo '</div>';
+			}
+
 		}
 	//
 	static function f_nouveauMembre($f)

@@ -75,6 +75,10 @@
 .rencNouveau table option, .rencCompte table option {font-size:90%;}
 .rencBox .rencLiOff { font-style:italic; color:#aaa;pointer-events:none; border-color:#aaa;}
 .rencDate {float:left; margin-left:8px;width:100%; font-weight:700; font-size:80%; color:#777;}
+.rencPagine{margin:5px auto; text-align:center;}
+.rencPagine a, .rencPagine span {color:#000; font-weight:400; padding:0 10px; text-align:center;text-decoration:none;}
+.rencPagine span {color:#777; font-size:110%;}
+.rencPagine a:hover {color:#444;}
 #rencMsg {line-height:1.4em;}
 #rencMsg table tr:hover {background-color:#fcfcfa;}
 #rencMsg table td, #rencMsg table th {padding:5px 0 5px 10px;}
