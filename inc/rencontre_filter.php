@@ -27,7 +27,6 @@ add_action('wp_ajax_drap', 'f_drap'); // SELECT avec la liste des fichiers drape
 add_action('plugins_loaded', 'f_cron');
 function f_cron()
 	{
-	add_filter('wp_mail_content_type','set_html_content_type');
 	$d = dirname(__FILE__).'/rencontre_cron.txt';
 	$d1 = dirname(__FILE__).'/rencontre_cronOn.txt';
 	$d2 = dirname(__FILE__).'/rencontre_cronListe.txt'; if (!file_exists($d2)) {$t=@fopen($d2,'w'); @fwrite($t,'0'); @fclose($t);}
@@ -49,7 +48,6 @@ function f_cron()
 		f_cron_liste($d2); // MSG ACTION
 		}
 	// else f_cron_on(); // mode force
-	remove_filter('wp_mail_content_type','set_html_content_type');
 	}
 //
 function set_html_content_type(){ return 'text/html'; }
@@ -178,8 +176,14 @@ function f_cron_on()
 			if ($n) $s .= "<br />".__('Vous avez','rencontre')."&nbsp;".$n.(($n>1)?__('messages','rencontre'):__('message','rencontre'))."&nbsp;".__('dans votre boite de r&eacute;ception.','rencontre');
 			$s .= "<br />".__("N'h&eacute;sitez pas &agrave; nous faire part de vos remarques.",'rencontre')."<br /><br />".__('Cordialement,','rencontre')."<br />".$bn."</div>";
 			$s1 .= $s;
-			if(!has_filter('wp_mail')) $s = '<html><head></head><body>' . $s . '</body></html>';
-			@wp_mail($r->user_email, $bn, $s);
+			$he = '';
+			if(!has_filter('wp_mail') && !has_filter('wp_mail_content_type'))
+				{
+				$he[] = 'From: '.$bn.' <'.get_option('admin_email').'>';
+				$he[] = 'Content-type: text/html';
+				$s = '<html><head></head><body>' . $s . '</body></html>';
+				}
+			@wp_mail($r->user_email, $bn, $s, $he);
 			++$cm;
 			if (file_exists(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt')) @unlink(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt');
 			}
@@ -192,8 +196,14 @@ function f_cron_on()
 			{
 			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>".__('Bonjour','rencontre')." ".$r->user_login.","."\r\n";
 			if ($options['textanniv'] && strlen($options['textanniv'])>10) $s .= "<br />".nl2br(stripslashes($options['textanniv']))."\r\n";
-			if(!has_filter('wp_mail')) $s = '<html><head></head><body>' . $s . '</body></html>';
-			@wp_mail($r->user_email, $bn, $s);
+			$he = '';
+			if(!has_filter('wp_mail') && !has_filter('wp_mail_content_type'))
+				{
+				$he[] = 'From: '.$bn.' <'.get_option('admin_email').'>';
+				$he[] = 'Content-type: text/html';
+				$s = '<html><head></head><body>' . $s . '</body></html>';
+				}
+			@wp_mail($r->user_email, $bn, $s, $he);
 			++$cm;
 			$s1 .= $s;
 			}
@@ -276,8 +286,14 @@ function f_cron_liste($d2)
 			$s .= "<br /><br />".__('Cordialement,','rencontre')."<br />".$bn."</div>";
 			if($b)
 				{
-				if(!has_filter('wp_mail')) $s = '<html><head></head><body>' . $s . '</body></html>';
-				@wp_mail($r->user_email, $bn." - ".__('Un membre vous contacte','rencontre'), $s);
+				$he = '';
+				if(!has_filter('wp_mail') && !has_filter('wp_mail_content_type'))
+					{
+					$he[] = 'From: '.$bn.' <'.get_option('admin_email').'>';
+					$he[] = 'Content-type: text/html';
+					$s = '<html><head></head><body>' . $s . '</body></html>';
+					}
+				@wp_mail($r->user_email, $bn." - ".__('Un membre vous contacte','rencontre'), $s, $he);
 				++$cm;
 				}
 			$d = filemtime(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt');
