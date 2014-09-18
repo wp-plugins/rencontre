@@ -31,7 +31,7 @@ This WordPress plugin allows you to create a real dating website with Wordpress.
 * Easy administration with filtering members ;
 * Standalone, not depend on other services ;
 
-available languages : FR, US, ES (thanks to Sanjay Gandhi).
+available languages : FR, US, ES (thanks to Sanjay Gandhi), DA (thanks to C-FR.net).
 
 == Installation ==
 
@@ -106,14 +106,21 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 = 1.2 =
 14/09/2014 :
 
-* Multilingual Countries with Admin panel to add or change countries and regions
-* Fix HTML format in e-mail
-* Fix some bugs
-* Add some translations in Admin part
+* Multilingual Countries with Admin panel to add or change countries and regions.
+* Fix HTML format in e-mail.
+* Fix some bugs.
+* Add some translations in Admin part.
 
 16/09/2014 : Update 1
 
 * Fix conflict with Yop-Poll.
+
+18/09/2014 : Update 2
+
+* Add Danish language (thanks to C-FR.net).
+* Add pagination in search result.
+* Fix bug in country select (sort in all languages).
+* Fix incompatibility with some servers for the small copyright on members photos.
 
 = 1.1 =
 19/06/2014 :

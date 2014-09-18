@@ -44,7 +44,7 @@ function f_edit(a2,a3,a4,a5){
 }
 function f_supp(a2,a3,a4){
 	if (confirm(rencobjet.confirmer)){
-		document.forms["menu_profil"].elements["a1"].value=rencobjet.supp;
+		document.forms["menu_profil"].elements["a1"].value="supp";
 		document.forms["menu_profil"].elements["a2"].value=a2;
 		document.forms["menu_profil"].elements["a3"].value=a3;
 		document.forms["menu_profil"].elements["a4"].value=a4;
