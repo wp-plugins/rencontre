@@ -124,7 +124,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 21/09/2014 : Update 3
 
-* Fix the country selected in 'my account'.
+* Fix the country selected in -my account-.
 
 = 1.1 =
 19/06/2014 :
