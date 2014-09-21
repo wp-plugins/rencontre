@@ -122,6 +122,10 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix bug in country select (sort in all languages).
 * Fix incompatibility with some servers for the small copyright on members photos.
 
+21/09/2014 : Update 3
+
+* Fix the country selected in 'my account'.
+
 = 1.1 =
 19/06/2014 :
 
