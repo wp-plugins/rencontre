@@ -18,7 +18,7 @@ class RencontreWidget extends WP_widget
 		if(current_user_can("administrator")) return;
 		wp_enqueue_style('rencontre', plugins_url('rencontre/css/rencontre.css'));
 		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre.js?r='.rand()));
-		$this->op = get_option('rencontre_options');
+	//	$this->op = get_option('rencontre_options');
 		$options = get_option('rencontre_options');
 		$limit = $options['limit'];
 		global $user_ID; global $current_user; global $wpdb;
@@ -163,7 +163,7 @@ class RencontreWidget extends WP_widget
 								</td>
 								<td>
 									<select name="pays" size=6 onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect1');">
-										<?php RencontreWidget::f_pays(); ?>
+										<?php RencontreWidget::f_pays($options['pays']); ?>
 										
 									</select>
 								</td>
@@ -190,7 +190,7 @@ class RencontreWidget extends WP_widget
 								<td></td>
 								<td>
 									<select id="regionSelect1" size=6 name="region">
-										<?php RencontreWidget::f_regionBDD(); ?>
+										<?php RencontreWidget::f_regionBDD(1,$options['pays']); ?>
 										
 									</select>
 								</td>
@@ -312,7 +312,7 @@ class RencontreWidget extends WP_widget
 								if (strstr($_SESSION['rencontre'],'sourire')) {RencontreWidget::f_sourire(strip_tags($_POST["id"]),$mid);}
 								else if (strstr($_SESSION['rencontre'],'signale')) {RencontreWidget::f_signal(strip_tags($_POST["id"]),$mid);}
 								else if (strstr($_SESSION['rencontre'],'demcont')) {RencontreWidget::f_demcont(strip_tags($_POST["id"]),$mid);}
-								else if ($_POST["sujet"]!="" && $_POST["sujet"]!=$_SESSION["sujet"]) {echo "Message envoy&eacute; "; $_SESSION["sujet"]=$_POST["sujet"]; RencontreWidget::f_envoiMsg($alias);}
+								else if ($_POST["sujet"]!="" && $_POST["sujet"]!=$_SESSION["sujet"]) {echo __('Message envoy&eacute;','rencontre')."&nbsp"; $_SESSION["sujet"]=$_POST["sujet"]; RencontreWidget::f_envoiMsg($alias);}
 								?>
 							</em>
 						</div>
@@ -528,13 +528,13 @@ class RencontreWidget extends WP_widget
 						</div>
 						<div class="rencItem"><?php _e('Pays','rencontre');?>&nbsp;:
 							<select name="pays" onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect1');">
-								<?php RencontreWidget::f_pays(); ?>
+								<?php RencontreWidget::f_pays($options['pays']); ?>
 								
 							</select>
 						</div>
 						<div class="rencItem"><?php _e('R&eacute;gion','rencontre');?>&nbsp;:
 							<select id="regionSelect1" name="region">
-								<?php RencontreWidget::f_regionBDD(); ?>
+								<?php RencontreWidget::f_regionBDD(1,$options['pays']); ?>
 								
 							</select>
 						</div>
@@ -646,7 +646,7 @@ class RencontreWidget extends WP_widget
 				$zmax=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d"), date("Y")-$_POST['ageMax']));
 				$s.=" and R.d_naissance<'".$zmin."'";
 				$s.=" and R.d_naissance>'".$zmax."'";
-				$s.=" and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30".(($options['onlyphoto'])?" and R.i_photo>0":"");
+				if($options['onlyphoto']) $s.=" and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30 and R.i_photo>0";
 				$s.=" ORDER BY R.user_id DESC LIMIT ".($pagine*$limit).", ".($limit+1); // LIMIT indice du premier, nombre de resultat
 				$q = $wpdb->get_results($s);
 				if($wpdb->num_rows<=$limit) $suiv=0;
@@ -1034,18 +1034,18 @@ class RencontreWidget extends WP_widget
 			$Text=site_url();
 			if(current_user_can("administrator")) $Font="../wp-content/plugins/rencontre/inc/arial.ttf";
 			else $Font="wp-content/plugins/rencontre/inc/arial.ttf";
-			$FontColor = ImageColorAllocate ($imc,255,255,255);
-			$FontShadow = ImageColorAllocate ($imc,0,0,0);
+			$FontColor = imagecolorallocate($imc,255,255,255);
+			$FontShadow = imagecolorallocate($imc,0,0,0);
 			$Rotation = 30;
 			/* Make a copy image */
-			$OriginalImage = ImageCreateTrueColor($sx,$sy);
-			ImageCopy ($OriginalImage,$imc,0,0,0,0,$sx,$sy);
+			$OriginalImage = imagecreatetruecolor($sx,$sy);
+			imagecopy($OriginalImage,$imc,0,0,0,0,$sx,$sy);
 			/* Iterate to get the size up */
 			$FontSize=1;
 			do
 				{
 				$FontSize *= 1.1;
-				$Box = @ImageTTFBBox($FontSize,0,$Font,$Text);
+				$Box = @imagettfbbox($FontSize,0,$Font,$Text);
 				$TextWidth = abs($Box[4] - $Box[0]);
 				$TextHeight = abs($Box[5] - $Box[1]);
 				}
@@ -1054,23 +1054,24 @@ class RencontreWidget extends WP_widget
 			$x = $sx/2 - cos(deg2rad($Rotation))*$TextWidth/2;
 			$y = $sy/2 + sin(deg2rad($Rotation))*$TextWidth/2 + cos(deg2rad($Rotation))*$TextHeight/2;
 			/* Make shadow text first followed by solid text */
-			ImageTTFText ($imc,$FontSize,$Rotation,$x+4,$y+4,$FontShadow,$Font,$Text);
-			ImageTTFText ($imc,$FontSize,$Rotation,$x,$y,$FontColor,$Font,$Text);
+			imagettftext($imc,$FontSize,$Rotation,$x+4,$y+4,$FontShadow,$Font,$Text);
+			imagettftext($imc,$FontSize,$Rotation,$x,$y,$FontColor,$Font,$Text);
 			/* merge original image into version with text to show image through text */
-			ImageCopyMerge ($imc,$OriginalImage,0,0,0,0,$sx,$sy,85);
+			imagecopymerge($imc,$OriginalImage,0,0,0,0,$sx,$sy,85);
 			}
 		return $imc;
 		}
 	//
-	static function f_pays($f=1)
+	static function f_pays($f='FR')
 		{
+		$options = get_option('rencontre_options');
 		$langue = ((WPLANG)?WPLANG:get_locale());
 		echo '<option value="">- '.__('Indiff&eacute;rent','rencontre').' -</option>';
 		global $wpdb;
 		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".substr($langue,0,2)."' ");
 		foreach($q as $r)
 			{
-			echo '<option value="'.$r->c_liste_iso.'"'.(($r->c_liste_valeur=="France" && $f==1)?' selected':'').(($r->c_liste_iso==$f)?' selected':'').'>'.$r->c_liste_valeur.'</option>';
+			echo '<option value="'.$r->c_liste_iso.'"'.(($r->c_liste_iso==$f)?' selected':'').'>'.$r->c_liste_valeur.'</option>';
 			}
 		}
 	//
@@ -1261,6 +1262,7 @@ class RencontreWidget extends WP_widget
 	static function f_cherchePlus($f)
 		{
 		// formulaire de la recherche plus
+		$options = get_option('rencontre_options');
 		global $wpdb;
 		$sex = $wpdb->get_var("SELECT i_zsex FROM ".$wpdb->prefix."rencontre_users WHERE user_id='".$f."'");
 		if (!strstr($_SESSION['rencontre'],'liste')) // nouvelle recherche
@@ -1328,7 +1330,7 @@ class RencontreWidget extends WP_widget
 							<tr>
 								<td><?php _e('Pays','rencontre');?>&nbsp;:</td>
 								<td><select name="pays" onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect2');">
-									<?php RencontreWidget::f_pays(1); ?>
+									<?php RencontreWidget::f_pays($options['pays']); ?>
 									
 									</select>
 								</td>
@@ -1336,7 +1338,7 @@ class RencontreWidget extends WP_widget
 							<tr>
 								<td><?php _e('R&eacute;gion','rencontre');?>&nbsp;:</td>
 								<td><select id="regionSelect2" name="region">
-									<?php RencontreWidget::f_regionBDD(1); ?>
+									<?php RencontreWidget::f_regionBDD(1,$options['pays']); ?>
 									
 									</select>
 								</td>
@@ -1518,6 +1520,7 @@ class RencontreWidget extends WP_widget
 	static function f_compte($mid)
 		{
 		// Fenetre de modification du compte
+		$options = get_option('rencontre_options');
 		global $wpdb;
 		$q = $wpdb->get_row("SELECT U.user_email, R.c_pays, R.c_region, R.c_ville, R.i_sex, R.d_naissance, R.i_taille, R.i_poids, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation FROM ".$wpdb->prefix . "users U, ".$wpdb->prefix . "rencontre_users R WHERE U.ID=".$mid." and U.ID=R.user_id");
 		list($Y, $m, $j) = explode('-', $q->d_naissance);
