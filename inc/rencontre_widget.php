@@ -18,7 +18,6 @@ class RencontreWidget extends WP_widget
 		if(current_user_can("administrator")) return;
 		wp_enqueue_style('rencontre', plugins_url('rencontre/css/rencontre.css'));
 		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre.js?r='.rand()));
-	//	$this->op = get_option('rencontre_options');
 		$options = get_option('rencontre_options');
 		$limit = $options['limit'];
 		global $user_ID; global $current_user; global $wpdb;
