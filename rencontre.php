@@ -170,7 +170,7 @@ class Rencontre
 		{
 		if (!$options = get_option('rencontre_options'))
 			{
-			$options = array('facebook'=>'','fblog'=>'','home'=>'','limit'=>20,'tchat'=>0,'hcron'=>4,'mailmois'=>0,'textmail'=>'','mailanniv'=>0,'textanniv'=>'','qmail'=>25,'npa'=>12,'jlibre'=>3,'anniv'=>1,'ligne'=>1,'mailsupp'=>1,'onlyphoto'=>1,'imcopyright'=>1);
+			$options = array('facebook'=>'','fblog'=>'','home'=>'','pays'=>'','limit'=>20,'tchat'=>0,'hcron'=>4,'mailmois'=>0,'textmail'=>'','mailanniv'=>0,'textanniv'=>'','qmail'=>25,'npa'=>12,'jlibre'=>3,'anniv'=>1,'ligne'=>1,'mailsupp'=>1,'onlyphoto'=>1,'imcopyright'=>1);
 			update_option('rencontre_options', $options);
 			}
 		$this->options = get_option('rencontre_options'); 
@@ -192,6 +192,7 @@ class Rencontre
 		if ($f['facebook']) $options['facebook'] = stripslashes($f['facebook']);
 		if ($f['fblog']) $options['fblog'] = $f['fblog'];
 		if ($f['home']) $options['home'] = $f['home']; else $options['home'] = "";
+		if ($f['pays']) $options['pays'] = $f['pays']; else $options['pays'] = "";
 		if ($f['limit']) $options['limit'] = $f['limit']; else $options['limit'] = 20;
 		if ($f['jlibre']) $options['jlibre'] = $f['jlibre']; else $options['jlibre'] = 0;
 		if ($f['prison']) $options['prison'] = $f['prison'];
@@ -240,6 +241,15 @@ class Rencontre
 								foreach($pages as $page) { $tmp .= '<option value="'.get_page_link($page->ID).'" '.($options['home']==get_page_link($page->ID)?'selected':'').'>'.$page->post_title.'</option>'; }
 								echo $tmp; ?>
 
+							</select>
+						</td>
+					</tr>
+					
+					<tr valign="top">
+						<th scope="row"><label><?php _e('Pays s&eacute;l&eacute;ctionn&eacute; par d&eacute;faut', 'rencontre'); ?></label></th>
+						<td>
+							<select name="pays">
+							<?php RencontreWidget::f_pays($options['pays']); ?>
 							</select>
 						</td>
 					</tr>
@@ -934,8 +944,7 @@ class Rencontre
 		global $current_user;
 		$rol = $current_user->roles;
 		if (array_shift($rol)=="subscriber" && !$_POST['nouveau']) $_SESSION['rencontre']='nouveau';
-		else if (!$_SESSION['rencontre'] || !$_POST['page']) $_SESSION['rencontre']='mini,accueil,menu';
-		else if (!$_POST['page']) $_SESSION['rencontre']='mini,accueil,menu';
+		else if (!$_SESSION['rencontre'] || !isset($_POST['page']) || !$_POST['page']) $_SESSION['rencontre']='mini,accueil,menu';
 		else if ($_POST['page']=='portrait') $_SESSION['rencontre']='portrait,menu';
 		else if ($_POST['page']=='sourire') $_SESSION['rencontre']='portrait,menu,sourire';
 		else if ($_POST['page']=='demcont') $_SESSION['rencontre']='portrait,menu,demcont';
@@ -961,7 +970,7 @@ class Rencontre
 				}
 			}
 		require(dirname (__FILE__) . '/inc/rencontre_widget.php');
-		if ($_POST['nouveau'] && $_POST['pass1']) RencontreWidget::f_changePass($current_user->ID); 
+		if (isset($_POST['nouveau']) && $_POST['nouveau'] && isset($_POST['pass1']) && $_POST['pass1']) RencontreWidget::f_changePass($current_user->ID); 
 		if (is_user_logged_in()) register_widget("RencontreWidget"); // class
 		}
 	//
@@ -1005,7 +1014,7 @@ class Rencontre
 				$drap[$r->c_liste_iso] = $r->c_liste_valeur;
 				$drapNom[$r->c_liste_iso] = $wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_iso='".$r->c_liste_iso."' and c_liste_lang='".substr($langue,0,2)."' ");
 				}
-			$q = $wpdb->get_results("SELECT U.ID, U.display_name, U.user_registered, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre, P.t_annonce
+			$q = $wpdb->get_results("SELECT U.ID, U.display_name, U.user_registered, R.i_sex, R.i_zsex, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre, P.t_annonce
 				FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P 
 				WHERE R.i_photo!=0 and R.user_id=P.user_id and R.user_id=U.ID and TO_DAYS(NOW())-TO_DAYS(U.user_registered)>=".$options['jlibre']." and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30
 				ORDER BY U.user_registered DESC
@@ -1024,7 +1033,11 @@ class Rencontre
 				$b = str_replace(array($m[0]), array(''), $b);
 				$b = str_replace(', ', ',', $b); $b = str_replace(',', ', ', $b);
 				$b = strtr($b, "0123456789#(){[]}", ".................");
-				$out.='<div class="rencBox" style="float:left;width:31.32%;padding:1px;margin:0.5%;max-height:109px;overflow:hidden;">';
+				$genre='girl';
+				if($r->i_sex==0 && $r->i_zsex==1) $genre='men';
+				else if($r->i_sex==1 && $r->i_zsex==1) $genre='gaygirl';
+				else if($r->i_sex==0 && $r->i_zsex==0) $genre='gaymen';
+				$out.='<div class="rencBox '.$genre.'" style="float:left;width:31.32%;padding:1px;margin:0.5%;max-height:109px;overflow:hidden;">';
 				$out.='<div class="miniPortrait miniBox"><a href="wp-login.php?action=register">';
 				if ($r->i_photo!=0)
 					{

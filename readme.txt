@@ -126,6 +126,14 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 * Fix the country selected in -my account-.
 
+26/09/2014 : Update 4
+
+* Change quick search result when option Members without photo less visible disabled.
+* Add option in Admin to set default country.
+* Add class CSS "girl, men, gaygirl, gaymen" in unconnected overview list.
+* Fix error in small copyright function (again).
+* Fix Deletion of the Admin account (again).
+
 = 1.1 =
 19/06/2014 :
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rencontre\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-18 09:20+0100\n"
-"PO-Revision-Date: 2014-09-18 09:21+0100\n"
+"POT-Creation-Date: 2014-09-25 10:00+0100\n"
+"PO-Revision-Date: 2014-09-25 10:00+0100\n"
 "Last-Translator: jacques Malgrange <contacter@boiteasite.fr>\n"
 "Language-Team: boiteasite.fr\n"
 "Language: \n"
@@ -68,8 +68,8 @@ msgstr "Rencontre - Profile"
 
 #: ../rencontre.php:185
 #: ../rencontre.php:660
-#: ../inc/rencontre_widget.php:723
-#: ../inc/rencontre_widget.php:1323
+#: ../inc/rencontre_widget.php:809
+#: ../inc/rencontre_widget.php:1440
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:153
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:318
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:709
@@ -84,7 +84,7 @@ msgstr "Rencontre - Countries"
 #: ../rencontre.php:186
 #: ../rencontre.php:415
 #: ../inc/rencontre_widget.php:529
-#: ../inc/rencontre_widget.php:1237
+#: ../inc/rencontre_widget.php:1329
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:541
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:528
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1211
@@ -221,7 +221,7 @@ msgid "hors p&eacute;riode de maintenance"
 msgstr "except during maintenance"
 
 #: ../rencontre.php:329
-#: ../inc/rencontre_widget.php:1536
+#: ../inc/rencontre_widget.php:1666
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:283
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1510
 #: ../lang/rencontre-js-admin-lang.php:4
@@ -239,8 +239,8 @@ msgid "Nombre de membres avec profil et photo"
 msgstr "Number of members with profile and photo"
 
 #: ../rencontre.php:370
-#: ../rencontre.php:958
-#: ../inc/rencontre_widget.php:1541
+#: ../rencontre.php:957
+#: ../inc/rencontre_widget.php:1671
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:496
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:788
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1515
@@ -248,7 +248,7 @@ msgid "Suppression du compte"
 msgstr "Account deletion"
 
 #: ../rencontre.php:371
-#: ../rencontre.php:959
+#: ../rencontre.php:958
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:497
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:789
 msgid "Votre compte a &eacute;t&eacute; supprim&eacute;"
@@ -283,7 +283,7 @@ msgid "Photo"
 msgstr "Photo"
 
 #: ../rencontre.php:408
-#: ../inc/rencontre_widget.php:1269
+#: ../inc/rencontre_widget.php:1361
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:534
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1243
 msgid "Pseudo"
@@ -297,7 +297,7 @@ msgstr "Sex"
 #: ../rencontre.php:410
 #: ../inc/rencontre_widget.php:497
 #: ../inc/rencontre_widget.php:515
-#: ../inc/rencontre_widget.php:1185
+#: ../inc/rencontre_widget.php:1277
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:536
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:496
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:514
@@ -306,14 +306,14 @@ msgid "Age"
 msgstr "Age"
 
 #: ../rencontre.php:411
-#: ../inc/rencontre_widget.php:1202
+#: ../inc/rencontre_widget.php:1294
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:537
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1176
 msgid "Taille"
 msgstr "Size"
 
 #: ../rencontre.php:412
-#: ../inc/rencontre_widget.php:1219
+#: ../inc/rencontre_widget.php:1311
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:538
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1193
 msgid "Poids"
@@ -321,7 +321,7 @@ msgstr "Weight"
 
 #: ../rencontre.php:413
 #: ../inc/rencontre_widget.php:58
-#: ../inc/rencontre_widget.php:1179
+#: ../inc/rencontre_widget.php:1271
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:539
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:50
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1153
@@ -365,8 +365,8 @@ msgstr "See"
 #: ../rencontre.php:431
 #: ../inc/rencontre_widget.php:143
 #: ../inc/rencontre_widget.php:207
-#: ../inc/rencontre_widget.php:1434
-#: ../inc/rencontre_widget.php:1508
+#: ../inc/rencontre_widget.php:1564
+#: ../inc/rencontre_widget.php:1638
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:557
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:134
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:198
@@ -378,8 +378,8 @@ msgstr "Man"
 #: ../rencontre.php:431
 #: ../inc/rencontre_widget.php:144
 #: ../inc/rencontre_widget.php:208
-#: ../inc/rencontre_widget.php:1435
-#: ../inc/rencontre_widget.php:1509
+#: ../inc/rencontre_widget.php:1565
+#: ../inc/rencontre_widget.php:1639
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:557
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:135
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:199
@@ -392,9 +392,9 @@ msgstr "Woman"
 #: ../inc/rencontre_widget.php:223
 #: ../inc/rencontre_widget.php:290
 #: ../inc/rencontre_widget.php:500
-#: ../inc/rencontre_widget.php:716
-#: ../inc/rencontre_widget.php:1318
-#: ../inc/rencontre_widget.php:1530
+#: ../inc/rencontre_widget.php:802
+#: ../inc/rencontre_widget.php:1435
+#: ../inc/rencontre_widget.php:1660
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:561
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:214
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:284
@@ -409,9 +409,9 @@ msgstr "Serious relationship"
 #: ../inc/rencontre_widget.php:224
 #: ../inc/rencontre_widget.php:290
 #: ../inc/rencontre_widget.php:500
-#: ../inc/rencontre_widget.php:716
-#: ../inc/rencontre_widget.php:1318
-#: ../inc/rencontre_widget.php:1531
+#: ../inc/rencontre_widget.php:802
+#: ../inc/rencontre_widget.php:1435
+#: ../inc/rencontre_widget.php:1661
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:561
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:215
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:284
@@ -426,9 +426,9 @@ msgstr "Open relationship"
 #: ../inc/rencontre_widget.php:225
 #: ../inc/rencontre_widget.php:290
 #: ../inc/rencontre_widget.php:500
-#: ../inc/rencontre_widget.php:716
-#: ../inc/rencontre_widget.php:1318
-#: ../inc/rencontre_widget.php:1532
+#: ../inc/rencontre_widget.php:802
+#: ../inc/rencontre_widget.php:1435
+#: ../inc/rencontre_widget.php:1662
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:561
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:216
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:284
@@ -441,9 +441,9 @@ msgstr "Friendship"
 
 #: ../rencontre.php:437
 #: ../inc/rencontre_widget.php:521
-#: ../inc/rencontre_widget.php:1192
-#: ../inc/rencontre_widget.php:1209
-#: ../inc/rencontre_widget.php:1227
+#: ../inc/rencontre_widget.php:1284
+#: ../inc/rencontre_widget.php:1301
+#: ../inc/rencontre_widget.php:1319
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:563
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:520
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1166
@@ -472,7 +472,8 @@ msgid "Modifier un profil"
 msgstr "Change My Profile"
 
 #: ../rencontre.php:480
-#: ../inc/rencontre_widget.php:731
+#: ../inc/rencontre_widget.php:818
+#: ../inc/rencontre_widget.php:1449
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:612
 msgid "Page pr&eacute;c&eacute;dente"
 msgstr "previous page"
@@ -525,9 +526,9 @@ msgid "Effectu&eacute;e"
 msgstr "Done"
 
 #: ../rencontre.php:604
-#: ../inc/rencontre_widget.php:1087
-#: ../inc/rencontre_widget.php:1106
-#: ../inc/rencontre_widget.php:1133
+#: ../inc/rencontre_widget.php:1179
+#: ../inc/rencontre_widget.php:1198
+#: ../inc/rencontre_widget.php:1225
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:739
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1061
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1080
@@ -708,7 +709,7 @@ msgstr "Add a country"
 msgid "R&eacute;gions"
 msgstr "Regions"
 
-#: ../rencontre.php:1038
+#: ../rencontre.php:1037
 #: ../inc/rencontre_widget.php:213
 #: ../inc/rencontre_widget.php:217
 #: ../inc/rencontre_widget.php:283
@@ -717,15 +718,15 @@ msgstr "Regions"
 #: ../inc/rencontre_widget.php:517
 #: ../inc/rencontre_widget.php:523
 #: ../inc/rencontre_widget.php:525
-#: ../inc/rencontre_widget.php:715
-#: ../inc/rencontre_widget.php:1020
-#: ../inc/rencontre_widget.php:1050
-#: ../inc/rencontre_widget.php:1188
-#: ../inc/rencontre_widget.php:1194
-#: ../inc/rencontre_widget.php:1196
-#: ../inc/rencontre_widget.php:1317
-#: ../inc/rencontre_widget.php:1514
-#: ../inc/rencontre_widget.php:1518
+#: ../inc/rencontre_widget.php:801
+#: ../inc/rencontre_widget.php:1112
+#: ../inc/rencontre_widget.php:1142
+#: ../inc/rencontre_widget.php:1280
+#: ../inc/rencontre_widget.php:1286
+#: ../inc/rencontre_widget.php:1288
+#: ../inc/rencontre_widget.php:1434
+#: ../inc/rencontre_widget.php:1644
+#: ../inc/rencontre_widget.php:1648
 #: ../rab/boiteasite-kom/rencontre/rencontre.php:859
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:204
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:208
@@ -753,9 +754,9 @@ msgstr " years"
 msgid "A MODIFIER"
 msgstr "TO CHANGE"
 
-#: ../inc/rencontre_filter.php:136
-#: ../inc/rencontre_filter.php:193
-#: ../inc/rencontre_filter.php:255
+#: ../inc/rencontre_filter.php:134
+#: ../inc/rencontre_filter.php:197
+#: ../inc/rencontre_filter.php:265
 #: ../inc/rencontre_widget.php:76
 #: ../inc/rencontre_widget.php:98
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:130
@@ -766,137 +767,137 @@ msgstr "TO CHANGE"
 msgid "Bonjour"
 msgstr "Hello"
 
-#: ../inc/rencontre_filter.php:138
+#: ../inc/rencontre_filter.php:136
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:132
 msgid "Votre profil a &eacute;t&eacute; visit&eacute;"
 msgstr "Your profile has been visited"
 
-#: ../inc/rencontre_filter.php:138
+#: ../inc/rencontre_filter.php:136
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:132
 msgid "fois"
 msgstr "time"
 
-#: ../inc/rencontre_filter.php:141
+#: ../inc/rencontre_filter.php:139
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:135
 msgid "Vous avez re&ccedil;u un sourire de"
 msgstr "You have received a smile from "
 
-#: ../inc/rencontre_filter.php:160
-#: ../inc/rencontre_filter.php:259
+#: ../inc/rencontre_filter.php:158
+#: ../inc/rencontre_filter.php:269
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:154
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:251
 msgid "Vous avez re&ccedil;u une demande de contact de"
 msgstr "You have received a request for contact from"
 
-#: ../inc/rencontre_filter.php:178
-#: ../inc/rencontre_filter.php:274
-#: ../inc/rencontre_widget.php:1086
+#: ../inc/rencontre_filter.php:176
+#: ../inc/rencontre_filter.php:284
+#: ../inc/rencontre_widget.php:1178
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:172
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:266
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1060
 msgid "Vous avez"
 msgstr "You have"
 
-#: ../inc/rencontre_filter.php:178
-#: ../inc/rencontre_filter.php:274
+#: ../inc/rencontre_filter.php:176
+#: ../inc/rencontre_filter.php:284
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:172
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:266
 msgid "messages"
 msgstr " messages"
 
-#: ../inc/rencontre_filter.php:178
-#: ../inc/rencontre_filter.php:274
-#: ../inc/rencontre_widget.php:1086
+#: ../inc/rencontre_filter.php:176
+#: ../inc/rencontre_filter.php:284
+#: ../inc/rencontre_widget.php:1178
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:172
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:266
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1060
 msgid "message"
 msgstr "message"
 
-#: ../inc/rencontre_filter.php:178
-#: ../inc/rencontre_filter.php:274
+#: ../inc/rencontre_filter.php:176
+#: ../inc/rencontre_filter.php:284
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:172
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:266
 msgid "dans votre boite de r&eacute;ception."
 msgstr "in your inbox."
 
-#: ../inc/rencontre_filter.php:179
+#: ../inc/rencontre_filter.php:177
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:173
 msgid "N'h&eacute;sitez pas &agrave; nous faire part de vos remarques."
 msgstr "Do not hesitate to send us your comments."
 
-#: ../inc/rencontre_filter.php:179
-#: ../inc/rencontre_filter.php:276
+#: ../inc/rencontre_filter.php:177
+#: ../inc/rencontre_filter.php:286
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:173
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:268
 msgid "Cordialement,"
 msgstr "Regards,"
 
-#: ../inc/rencontre_filter.php:280
+#: ../inc/rencontre_filter.php:296
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:271
 msgid "Un membre vous contacte"
 msgstr "A member contact you"
 
-#: ../inc/rencontre_filter.php:336
-#: ../inc/rencontre_widget.php:976
-#: ../inc/rencontre_widget.php:989
+#: ../inc/rencontre_filter.php:352
+#: ../inc/rencontre_widget.php:1068
+#: ../inc/rencontre_widget.php:1081
 msgid "Indiff&eacute;rent"
 msgstr " Immaterial"
 
-#: ../inc/rencontre_filter.php:373
+#: ../inc/rencontre_filter.php:389
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:359
 msgid "Une personne a demand&eacute; un nouveau mot de passe pour ce compte."
 msgstr "Someone requested a new password for this account."
 
-#: ../inc/rencontre_filter.php:375
+#: ../inc/rencontre_filter.php:391
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:361
 #, php-format
 msgid "Login : %s"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:376
+#: ../inc/rencontre_filter.php:392
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:362
 msgid "Le mot de passe a &eacute;t&eacute; chang&eacute;. Vous pouvez maintenant vous connecter et le changer &agrave; nouveau depuis votre interface si vous le souhaitez."
 msgstr "The password has been changed. You can now log in and change it again from your interface if you want."
 
-#: ../inc/rencontre_filter.php:377
+#: ../inc/rencontre_filter.php:393
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:363
 msgid "Nouveau mot de passe : "
 msgstr "New password : "
 
-#: ../inc/rencontre_filter.php:447
+#: ../inc/rencontre_filter.php:463
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:405
 #, php-format
 msgid "New user registration on your site %s:"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:448
-#: ../inc/rencontre_filter.php:452
+#: ../inc/rencontre_filter.php:464
+#: ../inc/rencontre_filter.php:468
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:406
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:410
 #, php-format
 msgid "Username: %s"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:449
+#: ../inc/rencontre_filter.php:465
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:407
 #, php-format
 msgid "E-mail: %s"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:450
+#: ../inc/rencontre_filter.php:466
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:408
 #, php-format
 msgid "[%s] New User Registration"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:453
+#: ../inc/rencontre_filter.php:469
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:411
 #, php-format
 msgid "Password: %s"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:454
+#: ../inc/rencontre_filter.php:470
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:412
 #, php-format
 msgid "[%s] Your username and password"
@@ -932,7 +933,7 @@ msgid "Messagerie"
 msgstr "Messaging"
 
 #: ../inc/rencontre_widget.php:59
-#: ../inc/rencontre_widget.php:1423
+#: ../inc/rencontre_widget.php:1553
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:51
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1397
 msgid "Mon compte"
@@ -999,59 +1000,59 @@ msgid "Le changement du mot de passe est obligatoire pour cette premi&egrave;re 
 msgstr "Changing the password is required for this first connection"
 
 #: ../inc/rencontre_widget.php:135
-#: ../inc/rencontre_widget.php:1428
+#: ../inc/rencontre_widget.php:1558
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:126
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1402
 msgid "Je suis"
 msgstr "I am"
 
 #: ../inc/rencontre_widget.php:136
-#: ../inc/rencontre_widget.php:1429
+#: ../inc/rencontre_widget.php:1559
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:127
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1403
 msgid "N&eacute; le"
 msgstr "Born"
 
 #: ../inc/rencontre_widget.php:137
-#: ../inc/rencontre_widget.php:1472
+#: ../inc/rencontre_widget.php:1602
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:128
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1446
 msgid "Ma ville"
 msgstr "My city"
 
 #: ../inc/rencontre_widget.php:138
-#: ../inc/rencontre_widget.php:1454
+#: ../inc/rencontre_widget.php:1584
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:129
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1428
 msgid "Mon pays"
 msgstr "My country"
 
 #: ../inc/rencontre_widget.php:172
-#: ../inc/rencontre_widget.php:1484
+#: ../inc/rencontre_widget.php:1614
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:163
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1458
 msgid "Ma taille"
 msgstr "My size"
 
 #: ../inc/rencontre_widget.php:173
-#: ../inc/rencontre_widget.php:1485
+#: ../inc/rencontre_widget.php:1615
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:164
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1459
 msgid "Mon poids"
 msgstr "My weight"
 
 #: ../inc/rencontre_widget.php:175
-#: ../inc/rencontre_widget.php:1455
+#: ../inc/rencontre_widget.php:1585
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:166
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1429
 msgid "Ma r&eacute;gion"
 msgstr "My region"
 
 #: ../inc/rencontre_widget.php:180
-#: ../inc/rencontre_widget.php:1205
-#: ../inc/rencontre_widget.php:1211
-#: ../inc/rencontre_widget.php:1213
-#: ../inc/rencontre_widget.php:1490
+#: ../inc/rencontre_widget.php:1297
+#: ../inc/rencontre_widget.php:1303
+#: ../inc/rencontre_widget.php:1305
+#: ../inc/rencontre_widget.php:1620
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:171
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1179
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1185
@@ -1061,11 +1062,11 @@ msgid "cm"
 msgstr "cm"
 
 #: ../inc/rencontre_widget.php:186
-#: ../inc/rencontre_widget.php:1222
-#: ../inc/rencontre_widget.php:1223
-#: ../inc/rencontre_widget.php:1229
-#: ../inc/rencontre_widget.php:1231
-#: ../inc/rencontre_widget.php:1496
+#: ../inc/rencontre_widget.php:1314
+#: ../inc/rencontre_widget.php:1315
+#: ../inc/rencontre_widget.php:1321
+#: ../inc/rencontre_widget.php:1323
+#: ../inc/rencontre_widget.php:1626
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:177
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1196
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1197
@@ -1077,9 +1078,9 @@ msgstr "kg"
 
 #: ../inc/rencontre_widget.php:199
 #: ../inc/rencontre_widget.php:288
-#: ../inc/rencontre_widget.php:714
-#: ../inc/rencontre_widget.php:1316
-#: ../inc/rencontre_widget.php:1502
+#: ../inc/rencontre_widget.php:800
+#: ../inc/rencontre_widget.php:1433
+#: ../inc/rencontre_widget.php:1632
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:190
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:282
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:700
@@ -1089,35 +1090,35 @@ msgid "Je cherche"
 msgstr "I'm looking for"
 
 #: ../inc/rencontre_widget.php:200
-#: ../inc/rencontre_widget.php:1503
+#: ../inc/rencontre_widget.php:1633
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:191
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1477
 msgid "Age min/max"
 msgstr "Age min/max"
 
 #: ../inc/rencontre_widget.php:201
-#: ../inc/rencontre_widget.php:1524
+#: ../inc/rencontre_widget.php:1654
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:192
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1498
 msgid "Pour"
 msgstr "For"
 
 #: ../inc/rencontre_widget.php:229
-#: ../inc/rencontre_widget.php:786
+#: ../inc/rencontre_widget.php:878
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:220
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:765
 msgid "Envoi"
 msgstr "Send"
 
 #: ../inc/rencontre_widget.php:278
-#: ../inc/rencontre_widget.php:1011
+#: ../inc/rencontre_widget.php:1103
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:272
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:982
 msgid "en ligne"
 msgstr "online"
 
 #: ../inc/rencontre_widget.php:278
-#: ../inc/rencontre_widget.php:1011
+#: ../inc/rencontre_widget.php:1103
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:272
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:982
 msgid "hors-ligne"
@@ -1130,8 +1131,8 @@ msgstr "(blocked)"
 
 #: ../inc/rencontre_widget.php:288
 #: ../inc/rencontre_widget.php:500
-#: ../inc/rencontre_widget.php:714
-#: ../inc/rencontre_widget.php:1316
+#: ../inc/rencontre_widget.php:800
+#: ../inc/rencontre_widget.php:1433
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:282
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:499
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:700
@@ -1141,8 +1142,8 @@ msgstr "a woman"
 
 #: ../inc/rencontre_widget.php:288
 #: ../inc/rencontre_widget.php:500
-#: ../inc/rencontre_widget.php:714
-#: ../inc/rencontre_widget.php:1316
+#: ../inc/rencontre_widget.php:800
+#: ../inc/rencontre_widget.php:1433
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:282
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:499
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:700
@@ -1151,8 +1152,8 @@ msgid "un homme"
 msgstr "a man"
 
 #: ../inc/rencontre_widget.php:289
-#: ../inc/rencontre_widget.php:715
-#: ../inc/rencontre_widget.php:1317
+#: ../inc/rencontre_widget.php:801
+#: ../inc/rencontre_widget.php:1434
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:283
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:701
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1290
@@ -1160,8 +1161,8 @@ msgid "entre"
 msgstr "between"
 
 #: ../inc/rencontre_widget.php:289
-#: ../inc/rencontre_widget.php:715
-#: ../inc/rencontre_widget.php:1317
+#: ../inc/rencontre_widget.php:801
+#: ../inc/rencontre_widget.php:1434
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:283
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:701
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1290
@@ -1170,8 +1171,8 @@ msgstr "and"
 
 #: ../inc/rencontre_widget.php:290
 #: ../inc/rencontre_widget.php:500
-#: ../inc/rencontre_widget.php:716
-#: ../inc/rencontre_widget.php:1318
+#: ../inc/rencontre_widget.php:802
+#: ../inc/rencontre_widget.php:1435
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:284
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:499
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:702
@@ -1181,9 +1182,9 @@ msgstr "for"
 
 #: ../inc/rencontre_widget.php:297
 #: ../inc/rencontre_widget.php:300
-#: ../inc/rencontre_widget.php:720
-#: ../inc/rencontre_widget.php:722
-#: ../inc/rencontre_widget.php:1321
+#: ../inc/rencontre_widget.php:806
+#: ../inc/rencontre_widget.php:808
+#: ../inc/rencontre_widget.php:1438
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:291
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:294
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:706
@@ -1194,9 +1195,9 @@ msgstr "Send a mail"
 
 #: ../inc/rencontre_widget.php:298
 #: ../inc/rencontre_widget.php:300
-#: ../inc/rencontre_widget.php:721
-#: ../inc/rencontre_widget.php:722
-#: ../inc/rencontre_widget.php:1322
+#: ../inc/rencontre_widget.php:807
+#: ../inc/rencontre_widget.php:808
+#: ../inc/rencontre_widget.php:1439
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:292
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:294
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:707
@@ -1244,13 +1245,17 @@ msgstr "Report"
 msgid "Vous &ecirc;tes bloqu&eacute; !"
 msgstr "You are blocked !"
 
+#: ../inc/rencontre_widget.php:315
+msgid "Message envoy&eacute;"
+msgstr "Message sent"
+
 #: ../inc/rencontre_widget.php:489
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:484
 msgid "Mot de passe chang&eacute; !"
 msgstr "Password changed !"
 
 #: ../inc/rencontre_widget.php:498
-#: ../inc/rencontre_widget.php:1253
+#: ../inc/rencontre_widget.php:1345
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:497
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1227
 msgid "Ville"
@@ -1297,9 +1302,9 @@ msgid "Recherche rapide"
 msgstr "Quick Search"
 
 #: ../inc/rencontre_widget.php:515
-#: ../inc/rencontre_widget.php:1186
-#: ../inc/rencontre_widget.php:1203
-#: ../inc/rencontre_widget.php:1220
+#: ../inc/rencontre_widget.php:1278
+#: ../inc/rencontre_widget.php:1295
+#: ../inc/rencontre_widget.php:1312
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:514
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1160
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1177
@@ -1308,7 +1313,7 @@ msgid "de"
 msgstr "from"
 
 #: ../inc/rencontre_widget.php:535
-#: ../inc/rencontre_widget.php:1245
+#: ../inc/rencontre_widget.php:1337
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:534
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1219
 #: ../lang/rencontre-js-admin-lang.php:13
@@ -1316,7 +1321,7 @@ msgid "R&eacute;gion"
 msgstr "Region"
 
 #: ../inc/rencontre_widget.php:541
-#: ../inc/rencontre_widget.php:1274
+#: ../inc/rencontre_widget.php:1366
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:540
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1248
 msgid "Cherche"
@@ -1342,200 +1347,201 @@ msgstr "New entrants"
 msgid "J'ai souri &agrave;"
 msgstr "I smiled at"
 
-#: ../inc/rencontre_widget.php:665
+#: ../inc/rencontre_widget.php:682
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:651
 msgid "J'ai re&ccedil;u un sourire de"
 msgstr "I got a smile from"
 
-#: ../inc/rencontre_widget.php:673
+#: ../inc/rencontre_widget.php:707
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:659
 msgid "J'ai demand&eacute; un contact &agrave;"
 msgstr "I asked a contact"
 
-#: ../inc/rencontre_widget.php:681
+#: ../inc/rencontre_widget.php:728
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:667
 msgid "J'ai eu une demande de contact de"
 msgstr "I had a contact request from"
 
-#: ../inc/rencontre_widget.php:689
+#: ../inc/rencontre_widget.php:749
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:675
 msgid "J'ai &eacute;t&eacute; regard&eacute; par"
 msgstr "I was watched by"
 
-#: ../inc/rencontre_widget.php:697
+#: ../inc/rencontre_widget.php:770
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:683
 msgid "J'ai bloqu&eacute;"
 msgstr "I locked"
 
-#: ../inc/rencontre_widget.php:708
+#: ../inc/rencontre_widget.php:794
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:694
 msgid "Le"
 msgstr "The"
 
-#: ../inc/rencontre_widget.php:734
+#: ../inc/rencontre_widget.php:824
+#: ../inc/rencontre_widget.php:1455
 msgid "Page suivante"
 msgstr "Next Page"
 
-#: ../inc/rencontre_widget.php:778
+#: ../inc/rencontre_widget.php:870
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:757
 msgid "Envoyer un message &agrave;"
 msgstr "Send a message to"
 
-#: ../inc/rencontre_widget.php:784
-#: ../inc/rencontre_widget.php:1087
-#: ../inc/rencontre_widget.php:1106
+#: ../inc/rencontre_widget.php:876
+#: ../inc/rencontre_widget.php:1179
+#: ../inc/rencontre_widget.php:1198
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:763
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1061
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1080
 msgid "Sujet"
 msgstr "Subject"
 
-#: ../inc/rencontre_widget.php:785
-#: ../inc/rencontre_widget.php:1130
+#: ../inc/rencontre_widget.php:877
+#: ../inc/rencontre_widget.php:1222
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:764
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1104
 msgid "Message"
 msgstr "Message"
 
-#: ../inc/rencontre_widget.php:809
+#: ../inc/rencontre_widget.php:901
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:788
 msgid "Votre profil est vide. Vous &ecirc;tes invisible des autres membres. Pour b&eacute;n&eacute;ficier des avantages du site, merci de modifier votre profil."
 msgstr "Your profile is empty. You are invisible to other members. To take advantage of the site, thank you edit your profile."
 
-#: ../inc/rencontre_widget.php:810
+#: ../inc/rencontre_widget.php:902
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:789
 msgid "Fermer"
 msgstr "Close"
 
-#: ../inc/rencontre_widget.php:1085
-#: ../inc/rencontre_widget.php:1105
-#: ../inc/rencontre_widget.php:1129
+#: ../inc/rencontre_widget.php:1177
+#: ../inc/rencontre_widget.php:1197
+#: ../inc/rencontre_widget.php:1221
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1059
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1079
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1103
 msgid "Boite de r&eacute;ception"
 msgstr "Inbox"
 
-#: ../inc/rencontre_widget.php:1085
-#: ../inc/rencontre_widget.php:1105
-#: ../inc/rencontre_widget.php:1129
+#: ../inc/rencontre_widget.php:1177
+#: ../inc/rencontre_widget.php:1197
+#: ../inc/rencontre_widget.php:1221
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1059
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1079
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1103
 msgid "Messages envoy&eacute;s"
 msgstr "Messages sent"
 
-#: ../inc/rencontre_widget.php:1086
+#: ../inc/rencontre_widget.php:1178
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1060
 msgid "non lu"
 msgstr "unread"
 
-#: ../inc/rencontre_widget.php:1087
+#: ../inc/rencontre_widget.php:1179
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1061
 msgid "Emetteur"
 msgstr "Sender"
 
-#: ../inc/rencontre_widget.php:1106
+#: ../inc/rencontre_widget.php:1198
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1080
 msgid "Destinataire"
 msgstr "Receiver"
 
-#: ../inc/rencontre_widget.php:1132
+#: ../inc/rencontre_widget.php:1224
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1106
 msgid "De"
 msgstr "From"
 
-#: ../inc/rencontre_widget.php:1135
+#: ../inc/rencontre_widget.php:1227
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1109
 msgid "A"
 msgstr "to"
 
-#: ../inc/rencontre_widget.php:1139
+#: ../inc/rencontre_widget.php:1231
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1113
 msgid "R&eacute;pondre"
 msgstr "Answer"
 
-#: ../inc/rencontre_widget.php:1257
+#: ../inc/rencontre_widget.php:1349
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1231
 msgid "Uniquement avec photo"
 msgstr "Only with picture"
 
-#: ../inc/rencontre_widget.php:1261
+#: ../inc/rencontre_widget.php:1353
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1235
 msgid "Affinit&eacute; avec mon profil"
 msgstr "Affinity with my profile"
 
-#: ../inc/rencontre_widget.php:1265
+#: ../inc/rencontre_widget.php:1357
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1239
 msgid "Mot dans l'annonce"
 msgstr "Word in the ad"
 
-#: ../inc/rencontre_widget.php:1396
+#: ../inc/rencontre_widget.php:1526
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1370
 msgid "Changement du mot de passe"
 msgstr "Change password"
 
-#: ../inc/rencontre_widget.php:1401
+#: ../inc/rencontre_widget.php:1531
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1375
 msgid "Ancien"
 msgstr "Former"
 
-#: ../inc/rencontre_widget.php:1402
+#: ../inc/rencontre_widget.php:1532
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1376
 msgid "Nouveau"
 msgstr "New"
 
-#: ../inc/rencontre_widget.php:1403
+#: ../inc/rencontre_widget.php:1533
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1377
 msgid "Retaper le nouveau"
 msgstr "Retype the new"
 
-#: ../inc/rencontre_widget.php:1417
+#: ../inc/rencontre_widget.php:1547
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1391
 msgid "Change"
 msgstr "Change"
 
-#: ../inc/rencontre_widget.php:1545
+#: ../inc/rencontre_widget.php:1675
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1519
 msgid "Cette action provoquera la suppression compl&egrave;te de votre compte et de tout ce qui vous concerne de notre serveur. Nous ne conservons aucun historique des comptes supprim&eacute;s."
 msgstr "This action will result in the complete deletion of your account and everything about you from our server. We do not keep historical accounts."
 
-#: ../inc/rencontre_widget.php:1548
+#: ../inc/rencontre_widget.php:1678
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1522
 msgid "Attention, cette action est irr&eacute;versible !"
 msgstr "Please note that this action is irreversible !"
 
-#: ../inc/rencontre_widget.php:1549
+#: ../inc/rencontre_widget.php:1679
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1523
 msgid "Supprimer le compte"
 msgstr "Delete Account"
 
-#: ../inc/rencontre_widget.php:1562
+#: ../inc/rencontre_widget.php:1692
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1536
 msgid "sourire d&eacute;j&agrave; envoy&eacute;"
 msgstr "smile already sent"
 
-#: ../inc/rencontre_widget.php:1575
+#: ../inc/rencontre_widget.php:1705
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1549
 msgid "sourire envoy&eacute;"
 msgstr "smile sent"
 
-#: ../inc/rencontre_widget.php:1594
+#: ../inc/rencontre_widget.php:1724
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1568
 msgid "contact d&eacute;j&agrave; demand&eacute;"
 msgstr "Contact already requested"
 
-#: ../inc/rencontre_widget.php:1610
+#: ../inc/rencontre_widget.php:1740
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1584
 msgid "demande de contact envoy&eacute;e"
 msgstr "contact request sent"
 
-#: ../inc/rencontre_widget.php:1621
+#: ../inc/rencontre_widget.php:1751
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1595
 msgid "Signalement d&eacute;j&agrave; &eacute;ffectu&eacute;"
 msgstr "Reporting already done"
 
-#: ../inc/rencontre_widget.php:1626
+#: ../inc/rencontre_widget.php:1756
 #: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1600
 msgid "Merci pour votre signalement"
 msgstr "Thank you for your report"

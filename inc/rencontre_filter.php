@@ -61,24 +61,28 @@ function f_cron_on()
         $wpdb->query("DELETE FROM ".$wpdb->prefix."options WHERE option_name like '\_transient\_namespace\_%' OR option_name like '\_transient\_timeout\_namespace\_%' ");
 	// 2. Supprime le cache portraits page d'accueil. Remise a jour a la premiere visite (fiches libre)
 	if (file_exists(plugin_dir_path( __FILE__ ).'../cache/cache_portraits_accueil.html')) @unlink(plugin_dir_path( __FILE__ ).'../cache/cache_portraits_accueil.html');
-	// 3. Supprime les lignes inutiles dans USERMETA
+	// 3. Suppression des utilisateur sans compte rencontre
 	$d = date("Y-m-d H:i:s", mktime(0,0,0,date("m"),date("d"),date("Y"))-100000); // ~30 heures
-	$q = $wpdb->get_results("SELECT user_id FROM ".$wpdb->prefix."usermeta GROUP BY user_id");
-	if ($q) foreach($q as $r)
-		{
-		$s = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE ID='".$r->user_id."' and user_registered<'".$d."' ");
-		$t = $wpdb->get_var("SELECT meta_value FROM ".$wpdb->prefix."usermeta WHERE user_id='".$r->user_id."' and meta_key='wp_capabilities' ");
-		if ($s && strpos($t,'admin')===false && strpos($t,'editor')===false && strpos($t,'author')===false && strpos($t,'contributor')===false) $wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$r->user_id));
-		}
-	// 4. Suppression des utilisateur sans compte rencontre
-	//$d = date("Y-m-d H:i:s", mktime(0,0,0,date("m"),date("d"),date("Y"))-100000); // ~30 heures
 	$q = $wpdb->get_results("SELECT U.ID FROM ".$wpdb->prefix."users U LEFT OUTER JOIN ".$wpdb->prefix."rencontre_users R ON U.ID=R.user_id WHERE R.user_id IS NULL");
 	if ($q) foreach($q as $r)
 		{
-		$s = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE ID='".$r->ID."' and user_registered<'".$d."' ");
+		$s = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE ID='".$r->ID."' ");
 		$t = $wpdb->get_var("SELECT meta_value FROM ".$wpdb->prefix."usermeta WHERE user_id='".$r->ID."' and meta_key='wp_user_level' ");
-		if ($s && (!$t || ($t+0)<1)) $wpdb->delete($wpdb->prefix.'users', array('ID'=>$r->ID));
+		if ($s && $t!==false && intval($t)<1)
+			{
+			$wpdb->delete($wpdb->prefix.'users', array('ID'=>$r->ID));
+			$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$r->ID));
+			}
 		}
+	// 4. Supprime les lignes inutiles dans USERMETA
+	//$d = date("Y-m-d H:i:s", mktime(0,0,0,date("m"),date("d"),date("Y"))-100000); // ~30 heures
+//	$q = $wpdb->get_results("SELECT user_id FROM ".$wpdb->prefix."usermeta GROUP BY user_id");
+//	if ($q) foreach($q as $r)
+//		{
+//		$s = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE ID='".$r->user_id."' and user_registered<'".$d."' ");
+//		$t = $wpdb->get_var("SELECT meta_value FROM ".$wpdb->prefix."usermeta WHERE user_id='".$r->user_id."' and meta_key='wp_capabilities' ");
+//		if ($s && strpos($t,'admin')===false && strpos($t,'editor')===false && strpos($t,'author')===false && strpos($t,'contributor')===false) $wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$r->user_id));
+//		}
 	// 5. Suppression fichiers anciens dans UPLOADS/SESSION/ et UPLOADS/TCHAT/
 	if (!is_dir($upl['basedir'].'/session/')) mkdir($upl['basedir'].'/session/');
 	else
