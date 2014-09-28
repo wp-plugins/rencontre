@@ -67,23 +67,13 @@ function f_cron_on()
 	if ($q) foreach($q as $r)
 		{
 		$s = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE ID='".$r->ID."' and user_registered<'".$d."' ");
-		$t = $wpdb->get_var("SELECT meta_value FROM ".$wpdb->prefix."usermeta WHERE user_id='".$r->ID."' and meta_key='wp_user_level' ");
-		if ($s && $t!==false && intval($t)<1)
+		if($s && !user_can($s,'edit_posts'))
 			{
 			$wpdb->delete($wpdb->prefix.'users', array('ID'=>$r->ID));
 			$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$r->ID));
 			}
 		}
-	// 4. Supprime les lignes inutiles dans USERMETA
-	//$d = date("Y-m-d H:i:s", mktime(0,0,0,date("m"),date("d"),date("Y"))-100000); // ~30 heures
-//	$q = $wpdb->get_results("SELECT user_id FROM ".$wpdb->prefix."usermeta GROUP BY user_id");
-//	if ($q) foreach($q as $r)
-//		{
-//		$s = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE ID='".$r->user_id."' and user_registered<'".$d."' ");
-//		$t = $wpdb->get_var("SELECT meta_value FROM ".$wpdb->prefix."usermeta WHERE user_id='".$r->user_id."' and meta_key='wp_capabilities' ");
-//		if ($s && strpos($t,'admin')===false && strpos($t,'editor')===false && strpos($t,'author')===false && strpos($t,'contributor')===false) $wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$r->user_id));
-//		}
-	// 5. Suppression fichiers anciens dans UPLOADS/SESSION/ et UPLOADS/TCHAT/
+	// 4. Suppression fichiers anciens dans UPLOADS/SESSION/ et UPLOADS/TCHAT/
 	if (!is_dir($upl['basedir'].'/session/')) mkdir($upl['basedir'].'/session/');
 	else
 		{
@@ -106,7 +96,7 @@ function f_cron_on()
 			if ($tab!='') foreach ($tab as $r){if (filemtime($r)<time()-86400) unlink($r);}
 			}
 		}
-	// 6. Suppression fichiers anciens dans UPLOADS/PORTRAIT/LIBRE/ : > 3 jours
+	// 5. Suppression fichiers anciens dans UPLOADS/PORTRAIT/LIBRE/ : > 3 jours
 	if (!is_dir($upl['basedir'].'/portrait/libre/')) @mkdir($upl['basedir'].'/portrait/libre/');
 	else
 		{
@@ -118,10 +108,10 @@ function f_cron_on()
 			if ($tab!='') foreach ($tab as $r){if (filemtime($r)<time()-288000) unlink($r);} // 80 heures
 			}
 		}
-	// 7. Sortie de prison
+	// 6. Sortie de prison
 	$free=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d")-$options['prison'], date("Y")));
 	$wpdb->query("DELETE FROM ".$wpdb->prefix."rencontre_prison WHERE d_prison<'".$free."' ");
-	// 8 Mail mensuel vers les membres
+	// 7 Mail mensuel vers les membres
 	$cm = 0; // compteur de mail
 	if ($options['mailmois'])
 		{
@@ -192,7 +182,7 @@ function f_cron_on()
 			if (file_exists(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt')) @unlink(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt');
 			}
 		}
-	// 9. anniversaire du jour
+	// 8. anniversaire du jour
 	if ($options['mailanniv'])
 		{
 		$q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, R.user_id FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R WHERE d_naissance LIKE '%".date('m-d')."' AND U.ID=R.user_id LIMIT 5 ");
@@ -212,7 +202,7 @@ function f_cron_on()
 			$s1 .= $s;
 			}
 		}
-	// 10. Efface une fois par semaine les statistiques du nombre de mail par heure
+	// 9. Efface une fois par semaine les statistiques du nombre de mail par heure
 	if (date("N")=="1")  // le lundi
 		{
 		$t=@fopen(dirname(__FILE__).'/rencontre_cronListe.txt','w'); @fwrite($t,'0'); @fclose($t);
