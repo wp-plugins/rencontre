@@ -91,6 +91,14 @@ Example :
 in your css file :
 #widgRenc .rencTab {background-color:#aaa; padding:1px;}`
 
+= How to show only the girls in un-logged homepage =
+There are four categories differentiated by a different class CSS : girl, men, gaygirl and gaymen.
+To see only the heterosexual girls, add in the CSS file of your theme
+`#widgRenc .rencBox.men,
+#widgRenc .rencBox.gaygirl,
+#widgRenc .rencBox.gaymen{display:none;}`
+
+
 More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
 
 == Screenshots ==
@@ -111,9 +119,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix some bugs.
 * Add some translations in Admin part.
 
-16/09/2014 : Update 1
-
-* Fix conflict with Yop-Poll.
+16/09/2014 : Update 1 : Fix conflict with Yop-Poll.
 
 18/09/2014 : Update 2
 
@@ -122,9 +128,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix bug in country select (sort in all languages).
 * Fix incompatibility with some servers for the small copyright on members photos.
 
-21/09/2014 : Update 3
-
-* Fix the country selected in -my account-.
+21/09/2014 : Update 3 : Fix the country selected in -my account-.
 
 26/09/2014 : Update 4
 
@@ -134,6 +138,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix error in small copyright function (again).
 * Fix Deletion of the Admin account (again).
 
+28/09/2014 : Update 5 : Fix some bugs
+
 = 1.1 =
 19/06/2014 :
 
@@ -141,9 +147,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Emails translation.
 * Fixed some bug...
 
-22/06/2014 : Update 1
-
-* Fix Facebook connect bug.
+22/06/2014 : Update 1 : Fix Facebook connect bug.
 
 24/07/2014 : Update 2
 
@@ -155,9 +159,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Memory of the search.
 * Update installation page in readme file.
 
-11/08/2014 : Update 4
-
-* Limit number of result in search.
+11/08/2014 : Update 4 : Limit number of result in search.
 
 16/08/2014 : Update 5
 
@@ -172,9 +174,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix bug if no WPLANG in wp-config.php.
 * Add my homepage setup in admin.
 
-01/09/2014 : Update 7
-
-* Fix default CSS.
+01/09/2014 : Update 7 : Fix default CSS.
 
 04/09/2014 : Update 8
 
