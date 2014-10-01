@@ -1,0 +1,4 @@
+# WORDPRESS Plugin Rencontre
+# blocage du fichier error_log provoque par rencontre_tchat.php
+php_flag log_errors Off
+# WORDPRESS Plugin Rencontre
