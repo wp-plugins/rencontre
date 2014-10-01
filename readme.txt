@@ -138,7 +138,9 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix error in small copyright function (again).
 * Fix Deletion of the Admin account (again).
 
-28/09/2014 : Update 5 : Fix some bugs
+28/09/2014 : Update 5 : Fix some bugs.
+
+01/10/2014 : Update 6 : Add link to user profile in message tab.
 
 = 1.1 =
 19/06/2014 :

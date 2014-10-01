@@ -2,7 +2,6 @@
 //
 class RencontreWidget extends WP_widget
 	{
-	//var $drap; var $drapNom;
  	function __construct()
 		{
 		parent::__construct(
@@ -14,31 +13,35 @@ class RencontreWidget extends WP_widget
 	//
 	function widget($arguments, $data) // Partie Site
 		{
-		$langue = ((WPLANG)?WPLANG:get_locale());
 		if(current_user_can("administrator")) return;
 		wp_enqueue_style('rencontre', plugins_url('rencontre/css/rencontre.css'));
 		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre.js?r='.rand()));
-		$options = get_option('rencontre_options');
-		$limit = $options['limit'];
 		global $user_ID; global $current_user; global $wpdb;
-		global $drap; global $drapNom;
+		global $drap; global $drapNom; global $rencOpt; global $rencDiv;
 		get_currentuserinfo();
 		$mid=$current_user->ID; // Mon id
-		$upl = wp_upload_dir();
-		$r = $upl['basedir'].'/portrait';if(!is_dir($r)) mkdir($r);
+		$r = $rencDiv['basedir'].'/portrait';if(!is_dir($r)) mkdir($r);
 		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' ");
+		$q1 = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."' ");
 		$drap=''; $drapNom='';
 		foreach($q as $r)
 			{
 			$drap[$r->c_liste_iso] = $r->c_liste_valeur;
-			$drapNom[$r->c_liste_iso] = $wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_iso='".$r->c_liste_iso."' and c_liste_lang='".substr($langue,0,2)."' ");
+			foreach($q1 as $r1)
+				{
+				if($r->c_liste_iso==$r1->c_liste_iso)
+					{
+					$drapNom[$r->c_liste_iso] = $r1->c_liste_valeur;
+					break;
+					}
+				}
 			}
-		if ($_POST['nouveau']==$mid) RencontreWidget::f_nouveauMembre($mid); 
+		if (isset($_POST['nouveau']) && $_POST['nouveau']==$mid) RencontreWidget::f_nouveauMembre($mid); 
 		// *****************************************************************************************************************
 		// 0. Partie menu
 		$alias = $wpdb->get_var("SELECT user_login FROM ".$wpdb->prefix."users WHERE ID='".$mid."'");
 		require(dirname (__FILE__) . '/../lang/rencontre-js-lang.php');
-		$lang += array('mid'=>$current_user->ID,'ajaxchat'=>plugins_url('rencontre/inc/rencontre_tchat.php'),'wpajax'=>admin_url('admin-ajax.php'),'tchaton'=>$options['tchat']);
+		$lang += array('mid'=>$current_user->ID,'ajaxchat'=>plugins_url('rencontre/inc/rencontre_tchat.php'),'wpajax'=>admin_url('admin-ajax.php'),'tchaton'=>$rencOpt['tchat']);
 		wp_localize_script('rencontre', 'rencobjet', $lang);
 		$fantome = $wpdb->get_var("SELECT user_id FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."' and CHAR_LENGTH(t_titre)>4 and CHAR_LENGTH(t_annonce)>30 ");
 		?>
@@ -50,16 +53,16 @@ class RencontreWidget extends WP_widget
 					<input type='hidden' name='page' value='' /><input type='hidden' name='id' value='' />
 					<div class="rencBox">
 						<ul>
-							<a href="<?php echo $options['home']; ?>"><li><?php _e('Ma page d\'accueil','rencontre');?></li></a>
-							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='portrait';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Ma fiche','rencontre');?></li></a>
-							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='change';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li <?php if(!$fantome) echo 'class="boutonred"'; ?>><?php _e('Modifier mon profil','rencontre');?></li></a>
-							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='msg';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Messagerie','rencontre'); echo RencontreWidget::f_count_inbox($alias); ?></li></a>
-							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='trouve';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Recherche','rencontre');?></li></a>
-							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='compte';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Mon compte','rencontre');?></li></a>
+							<a href="<?php echo $rencOpt['home']; ?>"><li <?php echo (strstr($_SESSION['rencontre'],'mini')?'class="current"':''); ?>><?php _e('Ma page d\'accueil','rencontre');?></li></a>
+							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='portrait';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li <?php if (strstr($_SESSION['rencontre'],'portrait') && $_POST["id"]==$mid) echo 'class="current"'; ?>><?php _e('Ma fiche','rencontre');?></li></a>
+							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='change';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li <?php if (strstr($_SESSION['rencontre'],'change')) echo 'class="current"'; else if(!$fantome) echo 'class="boutonred"'; ?>><?php _e('Modifier mon profil','rencontre');?></li></a>
+							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='msg';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li <?php echo (strstr($_SESSION['rencontre'],'msg')?'class="current"':''); echo (strstr($_SESSION['rencontre'],'ecrire')?'class="current"':'');?>><?php _e('Messagerie','rencontre'); echo RencontreWidget::f_count_inbox($alias); ?></li></a>
+							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='trouve';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li <?php echo (strstr($_SESSION['rencontre'],'trouve')?'class="current"':''); echo (strstr($_SESSION['rencontre'],'cherche')?'class="current"':''); ?>><?php _e('Recherche','rencontre');?></li></a>
+							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='compte';document.forms['rencMenu'].elements['id'].value='<?php echo $mid; ?>';document.forms['rencMenu'].submit();"><li <?php echo (strstr($_SESSION['rencontre'],'compte')?'class="current"':''); ?>><?php _e('Mon compte','rencontre');?></li></a>
 							<span style="position:relative;">
-							<?php if($options['facebook'])
+							<?php if($rencOpt['facebook'])
 								{
-								$fb = $options['facebook'];
+								$fb = $rencOpt['facebook'];
 								if (get_locale()!="fr_FR")
 									{
 									if (strpos($fb,'locale=')===false) $fb = str_replace('.php?','.php?locale=en_US&',$fb);
@@ -162,7 +165,7 @@ class RencontreWidget extends WP_widget
 								</td>
 								<td>
 									<select name="pays" size=6 onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect1');">
-										<?php RencontreWidget::f_pays($options['pays']); ?>
+										<?php RencontreWidget::f_pays($rencOpt['pays']); ?>
 										
 									</select>
 								</td>
@@ -189,7 +192,7 @@ class RencontreWidget extends WP_widget
 								<td></td>
 								<td>
 									<select id="regionSelect1" size=6 name="region">
-										<?php RencontreWidget::f_regionBDD(1,$options['pays']); ?>
+										<?php RencontreWidget::f_regionBDD(1,$rencOpt['pays']); ?>
 										
 									</select>
 								</td>
@@ -241,6 +244,7 @@ class RencontreWidget extends WP_widget
 			{
 			$id =strip_tags($_POST["id"]);
 			$l = RencontreWidget::f_enLigne($id); // true : en ligne - false : hors ligne
+			$bl = false;
 			if (strstr($_SESSION['rencontre'],'bloque')) RencontreWidget::f_bloque($id,$mid);
 			if ($mid!=$id)
 				{
@@ -250,19 +254,20 @@ class RencontreWidget extends WP_widget
 			global $wpdb;
 			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_region, R.c_ville, R.d_naissance, R.i_taille, R.i_poids, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, P.t_titre, P.t_annonce, P.t_profil, P.t_action FROM ".$wpdb->prefix . "users U, ".$wpdb->prefix . "rencontre_users R, ".$wpdb->prefix . "rencontre_users_profil P WHERE R.user_id=".$id." and R.user_id=P.user_id and R.user_id=U.ID");
 			$bl1= RencontreWidget::f_etat_bloque1($id,$mid,$s->t_action); // je suis bloque ?
-			echo $before_widget ."\n"; ?>
+			?>
+			
 			<div class="rencPortrait">
 				<div class="petiteBox left">
 					<div class="rencBox calign">
-						<img id="portraitGrande" src="<?php if(($s->i_photo)!=0) echo $upl['baseurl'].'/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10).'-grande'; else echo plugins_url('rencontre/images').'/no-photo600'; ?>.jpg" alt="" />
+						<img id="portraitGrande" src="<?php if(($s->i_photo)!=0) echo $rencDiv['baseurl'].'/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10).'-grande'; else echo plugins_url('rencontre/images').'/no-photo600'; ?>.jpg" alt="" />
 						<div>
 						<?php for ($v=0;$v<4;++$v)
 							{
 							if ($s->i_photo>=($s->ID)*10+$v)
 								{
-								echo '<a class="zoombox zgallery1" href="'.$upl['baseurl'].'/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10+$v).'.jpg"><img onMouseOver="f_vignette('.(($s->ID)*10+$v).')" class="portraitMini" src="'.$upl['baseurl'].'/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10+$v).'-mini.jpg?r='.rand().'" alt="" /></a>'."\n";
-								echo '<img style="display:none;" src="'.$upl['baseurl'].'/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10+$v).'-grande.jpg?r='.rand().'" />';
-								echo '<img style="display:none;" src="'.$upl['baseurl'].'/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10+$v).'.jpg?r='.rand().'" />'."\n";
+								echo '<a class="zoombox zgallery1" href="'.$rencDiv['baseurl'].'/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10+$v).'.jpg"><img onMouseOver="f_vignette('.(($s->ID)*10+$v).')" class="portraitMini" src="'.$rencDiv['baseurl'].'/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10+$v).'-mini.jpg?r='.rand().'" alt="" /></a>'."\n";
+								echo '<img style="display:none;" src="'.$rencDiv['baseurl'].'/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10+$v).'-grande.jpg?r='.rand().'" />';
+								echo '<img style="display:none;" src="'.$rencDiv['baseurl'].'/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10+$v).'.jpg?r='.rand().'" />'."\n";
 								}
 							else { ?><img class="portraitMini" src="<?php echo plugins_url('rencontre/images/no-photo60.jpg'); ?>" alt="" />
 							<?php echo "\n"; } } ?>
@@ -297,14 +302,14 @@ class RencontreWidget extends WP_widget
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Lui sourire','rencontre');?></li></a>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='demcont';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Demander un contact','rencontre');?></li></a>
 							<?php } else echo '<li class="rencLiOff">'.__('Envoyer un mail','rencontre').'</li><li class="rencLiOff">'.__('Lui sourire','rencontre').'</li><li class="rencLiOff">'.__('Demander un contact','rencontre').'</li>'; ?>
-							<?php if ($l && !$bl1 && $options['tchat']==1) echo '<a href="javascript:void(0)" onClick="f_tchat('.$mid.','.$id.',\''.plugins_url('rencontre/inc/rencontre_tchat.php').'\',1)"><li>'.__('Tchater','rencontre').'</li></a>';
-							else if ($options['tchat']==1) echo '<li class="rencLiOff">'.__('Tchater','rencontre').'</li>'; ?>
+							<?php if ($l && !$bl1 && $rencOpt['tchat']==1) echo '<a href="javascript:void(0)" onClick="f_tchat('.$mid.','.$id.',\''.plugins_url('rencontre/inc/rencontre_tchat.php').'\',1)"><li>'.__('Tchater','rencontre').'</li></a>';
+							else if ($rencOpt['tchat']==1) echo '<li class="rencLiOff">'.__('Tchater','rencontre').'</li>'; ?>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='bloque';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php echo (!$bl)?__('Bloquer','rencontre'):__('D&eacute;bloquer','rencontre'); ?></li></a>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='signale';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();" title="<?php _e('Signaler un faux profil ou un contenu inadapt&eacute;','rencontre'); ?>"><li><?php _e('Signaler','rencontre'); ?></li></a>
 							<?php if ($bl1) echo '<span style="position:absolute;left:80px;top:12px;font-size:120%;color:red;">'.__('Vous &ecirc;tes bloqu&eacute; !','rencontre').'</span>'; ?>
 						</ul>
 					</div>
-					<?php if (strstr($_SESSION['rencontre'],'sourire') || strstr($_SESSION['rencontre'],'signale') || strstr($_SESSION['rencontre'],'demcont') || $_POST["sujet"]) { ?><div id="infoChange">
+					<?php if (strstr($_SESSION['rencontre'],'sourire') || strstr($_SESSION['rencontre'],'signale') || strstr($_SESSION['rencontre'],'demcont') || (isset($_POST["sujet"]) && $_POST["sujet"])) { ?><div id="infoChange">
 						<div class="rencBox">
 							<em>
 								<?php
@@ -323,9 +328,10 @@ class RencontreWidget extends WP_widget
 						<div class="br"></div>
 					<?php
 					$profil = json_decode($s->t_profil,true);
+					$out = '';
 					if ($profil) foreach($profil as $h)
 						{
-						$q = $wpdb->get_row("SELECT c_categ, c_label, t_valeur, i_type FROM ".$wpdb->prefix."rencontre_profil WHERE id=".$h['i']." AND i_poids<5 AND c_lang='".substr($langue,0,2)."'");
+						$q = $wpdb->get_row("SELECT c_categ, c_label, t_valeur, i_type FROM ".$wpdb->prefix."rencontre_profil WHERE id=".$h['i']." AND i_poids<5 AND c_lang='".substr($rencDiv['lang'],0,2)."'");
 						if ($q)
 							{
 							if ($q->i_type<3) $out[$q->c_categ][$q->c_label] = $h['v'];
@@ -372,7 +378,7 @@ class RencontreWidget extends WP_widget
 			{
 			global $wpdb;
 			// recuperation de la table profil : $in[]
-			$q = $wpdb->get_results("SELECT P.id, P.c_categ, P.c_label, P.t_valeur, P.i_type FROM ".$wpdb->prefix."rencontre_profil P WHERE P.c_lang='".substr($langue,0,2)."' AND P.i_poids<5 ORDER BY P.c_categ");
+			$q = $wpdb->get_results("SELECT P.id, P.c_categ, P.c_label, P.t_valeur, P.i_type FROM ".$wpdb->prefix."rencontre_profil P WHERE P.c_lang='".substr($rencDiv['lang'],0,2)."' AND P.i_poids<5 ORDER BY P.c_categ");
 			$in = '';
 			foreach ($q as $r)
 				{
@@ -380,17 +386,21 @@ class RencontreWidget extends WP_widget
 				$in[$r->id][1] = $r->c_categ;
 				$in[$r->id][2] = $r->c_label;
 				$in[$r->id][3] = $r->t_valeur;
-				$c++;
 				}
-			if (!($_SESSION['a1']==$_POST["a1"] && $_SESSION['a2']==$_POST["a2"]))
+			if (isset($_POST["a1"]) && !($_SESSION['a1']==$_POST["a1"] && $_SESSION['a2']==$_POST["a2"]))
 				{
-				if ($_POST["a1"]=="suppImg") RencontreWidget::suppImg(strip_tags($_POST["a2"]),$mid,$upl);
-				if ($_POST["a1"]=="plusImg") RencontreWidget::plusImg(strip_tags($_POST["a2"]),$mid,$upl);
+				if ($_POST["a1"]=="suppImg") RencontreWidget::suppImg(strip_tags($_POST["a2"]),$mid);
+				if ($_POST["a1"]=="plusImg") RencontreWidget::plusImg(strip_tags($_POST["a2"]),$mid);
 				}
-			if ($_POST["a1"]=="sauvProfil") RencontreWidget::sauvProfil($in,$mid); 
-			$_SESSION['a1'] = $_POST["a1"]; $_SESSION['a2'] = $_POST["a2"];
+			if (isset($_POST["a1"]))
+				{
+				if ($_POST["a1"]=="sauvProfil") RencontreWidget::sauvProfil($in,$mid); 
+				$_SESSION['a1'] = $_POST["a1"];
+				$_SESSION['a2'] = $_POST["a2"];
+				}
 			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_ville, R.i_photo, P.t_titre, P.t_annonce, P.t_profil FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$mid." and R.user_id=P.user_id and R.user_id=U.ID ");
-			echo $before_widget ."\n"; ?>
+			?>
+			
 			<h3><?php _e('Modifier mon profil','rencontre');?></h3>
 			<div class="rencPortrait">
 				<form name='portraitChange' method='post' enctype="multipart/form-data" action=''>
@@ -398,14 +408,14 @@ class RencontreWidget extends WP_widget
 					<div class="petiteBox portraitPhoto left">
 						<div class="rencBox">
 							<div id="changePhoto"></div>
-							<img id="portraitGrande" src="<?php if(($s->i_photo)!=0) echo $upl['baseurl'].'/portrait/'.floor($mid/1000).'/'.($mid*10).'-grande.jpg?r='.rand(); else echo plugins_url('rencontre/images').'/no-photo600.jpg'; ?>" alt="" />
+							<img id="portraitGrande" src="<?php if(($s->i_photo)!=0) echo $rencDiv['baseurl'].'/portrait/'.floor($mid/1000).'/'.($mid*10).'-grande.jpg?r='.rand(); else echo plugins_url('rencontre/images').'/no-photo600.jpg'; ?>" alt="" />
 							<div>
 							<?php for ($v=0;$v<4;++$v)
 								{
 								if ($s->i_photo>=$mid*10+$v)
 									{
-									echo '<a href="javascript:void(0)" onClick="f_supp_photo('.($mid*10+$v).')"><img onMouseOver="f_vignette_change('.($mid*10+$v).')" class="portraitMini" src="'.$upl['baseurl'].'/portrait/'.floor($mid/1000).'/'.($mid*10+$v).'-mini.jpg?r='.rand().'" alt="'.__('Cliquer pour supprimer','rencontre').'" title="'.__('Cliquer pour supprimer','rencontre').'" /></a>'."\n";
-									echo '<img style="display:none;" src="'.$upl['baseurl'].'/portrait/'.floor($mid/1000).'/'.($mid*10+$v).'-grande.jpg?r='.rand().'" />'."\n";
+									echo '<a href="javascript:void(0)" onClick="f_supp_photo('.($mid*10+$v).')"><img onMouseOver="f_vignette_change('.($mid*10+$v).')" class="portraitMini" src="'.$rencDiv['baseurl'].'/portrait/'.floor($mid/1000).'/'.($mid*10+$v).'-mini.jpg?r='.rand().'" alt="'.__('Cliquer pour supprimer','rencontre').'" title="'.__('Cliquer pour supprimer','rencontre').'" /></a>'."\n";
+									echo '<img style="display:none;" src="'.$rencDiv['baseurl'].'/portrait/'.floor($mid/1000).'/'.($mid*10+$v).'-grande.jpg?r='.rand().'" />'."\n";
 									}
 								else { ?><a href="javascript:void(0)" onClick="f_plus_photo(<?php echo $s->i_photo; ?>)"><img class="portraitMini" src="<?php echo plugins_url('rencontre/images/no-photo60.jpg'); ?>" alt="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" title="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" /></a>
 								<?php } } ?>
@@ -451,11 +461,11 @@ class RencontreWidget extends WP_widget
 									}
 								switch ($r1[0])
 									{
-									case 1: $out2.='<tr><td>'.$r1[2].'</td><td><input type="text" name="text'.$r.'" value="'.$out[$r].'" /></td></tr>'."\n"; break;
-									case 2: $out2.='<tr><td>'.$r1[2].'</td><td><textarea name="area'.$r.'" rows="4" cols="50">'.$out[$r].'</textarea></td></tr>'."\n"; break;
+									case 1: $out2.='<tr><td>'.$r1[2].'</td><td><input type="text" name="text'.$r.'" value="'.(isset($out[$r])?$out[$r]:'').'" /></td></tr>'."\n"; break;
+									case 2: $out2.='<tr><td>'.$r1[2].'</td><td><textarea name="area'.$r.'" rows="4" cols="50">'.(isset($out[$r])?$out[$r]:'').'</textarea></td></tr>'."\n"; break;
 									case 3: $out2.='<tr><td>'.$r1[2].'</td><td><select name="select'.$r.'"><option value="0">&nbsp;</option>'; $list = json_decode($r1[3]); $c1=0;
-										foreach ($list as $r2) { $out2.='<option value="'.($c1+1).'"'.(($c1===$out[$r])?' selected':'').'>'.$r2.'</option>'; ++$c1;}$out2.='</select></td></tr>'."\n"; break;
-									case 4: $out2.='<tr><td>'.$r1[2].'</td><td>'; $list = json_decode($r1[3]); $c1=0; if ($out[$r]) $c3=" ".implode(" ",$out[$r])." "; else $c3="";
+										foreach ($list as $r2) { $out2.='<option value="'.($c1+1).'"'.((isset($out[$r]) && $c1===$out[$r])?' selected':'').'>'.$r2.'</option>'; ++$c1;}$out2.='</select></td></tr>'."\n"; break;
+									case 4: $out2.='<tr><td>'.$r1[2].'</td><td>'; $list = json_decode($r1[3]); $c1=0; if (isset($out[$r])) $c3=" ".implode(" ",$out[$r])." "; else $c3="";
 										foreach ($list as $r2) { $out2.=$r2.' : <input type="checkbox" name="check'.$r.'[]" value="'.$c1.'" '.((strstr($c3, " ".$c1." ")!=false)?'checked':'').' />'; ++$c1;}$out2.='</td></tr>'."\n"; break;
 									}
 								$d=$r1[1];
@@ -478,6 +488,9 @@ class RencontreWidget extends WP_widget
 			global $wpdb;
 			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_ville, R.d_naissance, R.i_zsex, i_zage_min, i_zage_max, R.i_zrelation, R.i_photo, P.t_action FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$mid." and R.user_id=P.user_id and R.user_id=U.ID");
 			$action = json_decode($s->t_action,true);
+			$action['sourireIn']=(isset($action['sourireIn'])?$action['sourireIn']:null);
+			$action['visite']=(isset($action['visite'])?$action['visite']:null);
+			$action['contactIn']=(isset($action['contactIn'])?$action['contactIn']:null);
 			$zsex=$s->i_zsex; // pour mini-portrait
 			$zmin=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d"), date("Y")-$s->i_zage_min));
 			$zmax=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d"), date("Y")-$s->i_zage_max));
@@ -489,7 +502,7 @@ class RencontreWidget extends WP_widget
 				</div><?php } ?>
 				
 				<div class="rencBox">
-					<?php if($s->i_photo!=0) echo '<img src="'.$upl['baseurl'].'/portrait/'.floor(($mid)/1000).'/'.($mid*10).'-mini.jpg" class="maPhoto" alt="'.$s->display_name.'"/>';
+					<?php if($s->i_photo!=0) echo '<img src="'.$rencDiv['baseurl'].'/portrait/'.floor(($mid)/1000).'/'.($mid*10).'-mini.jpg" class="maPhoto" alt="'.$s->display_name.'"/>';
 					else echo '<img class="maPhoto" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" />';
 					echo ($current_user->user_login);
 					if($s->c_pays!="") echo '<img class="monFlag" src="'.plugins_url('rencontre/images/drapeaux/').$drap[$s->c_pays].'" alt="'.$drapNom[$s->c_pays].'" title="'.$drapNom[$s->c_pays].'" />'; ?>
@@ -527,13 +540,13 @@ class RencontreWidget extends WP_widget
 						</div>
 						<div class="rencItem"><?php _e('Pays','rencontre');?>&nbsp;:
 							<select name="pays" onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect1');">
-								<?php RencontreWidget::f_pays($options['pays']); ?>
+								<?php RencontreWidget::f_pays($rencOpt['pays']); ?>
 								
 							</select>
 						</div>
 						<div class="rencItem"><?php _e('R&eacute;gion','rencontre');?>&nbsp;:
 							<select id="regionSelect1" name="region">
-								<?php RencontreWidget::f_regionBDD(1,$options['pays']); ?>
+								<?php RencontreWidget::f_regionBDD(1,$rencOpt['pays']); ?>
 								
 							</select>
 						</div>
@@ -558,7 +571,7 @@ class RencontreWidget extends WP_widget
 			?>
 			
 			<div class="grandeBox left">
-			<?php $q = $wpdb->get_results("SELECT DISTINCT(R.user_id) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=P.user_id AND R.i_sex=".$zsex." AND R.d_naissance>'".$zmax."' AND R.d_naissance<'".$zmin."'".(($options['onlyphoto'])?" AND R.i_photo>0 ":" ")."AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30 ORDER BY RAND() LIMIT 8"); ?>
+			<?php $q = $wpdb->get_results("SELECT DISTINCT(R.user_id) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=P.user_id AND R.i_sex=".$zsex." AND R.d_naissance>'".$zmax."' AND R.d_naissance<'".$zmin."'".(($rencOpt['onlyphoto'])?" AND R.i_photo>0 ":" ")."AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30 ORDER BY RAND() LIMIT 8"); ?>
 			
 				<div class="rencBox">
 					<h3><?php _e('Portraits s&eacute;l&eacute;ctionn&eacute;s','rencontre');?></h3>
@@ -570,7 +583,7 @@ class RencontreWidget extends WP_widget
 							
 					<div class="clear"></div>
 				</div><!-- .rencBox -->
-			<?php if ($options['anniv']==1)
+			<?php if ($rencOpt['anniv']==1)
 				{
 				$q = $wpdb->get_results("SELECT user_id FROM ".$wpdb->prefix."rencontre_users WHERE d_naissance LIKE '%".date('m-d')."' AND i_sex=".$zsex." AND d_naissance>'".$zmax."' AND d_naissance<'".$zmin."' LIMIT 4"); ?>
 			
@@ -585,9 +598,9 @@ class RencontreWidget extends WP_widget
 					<div class="clear"></div>
 				</div><!-- .rencBox -->
 			<?php } ?>
-			<?php if ($options['ligne']==1)
+			<?php if ($rencOpt['ligne']==1)
 				{
-				$tab=''; $d=$upl['basedir'].'/session/';
+				$tab=''; $d=$rencDiv['basedir'].'/session/';
 				if ($dh=opendir($d)){while (($file = readdir($dh))!==false) { if ($file!='.' && $file!='..' && (filemtime($d.$file)>time()-180)) $tab.="'".basename($file, ".txt")."',"; }closedir($dh);}
 				$q = $wpdb->get_results("SELECT user_id FROM ".$wpdb->prefix."rencontre_users WHERE user_id IN (".substr($tab,0,-1).") AND i_sex=".$zsex." LIMIT 16"); // AND d_naissance>'".$zmax."' AND d_naissance<'".$zmin."' ?>
 				<div class="rencBox">
@@ -601,7 +614,7 @@ class RencontreWidget extends WP_widget
 					<div class="clear"></div>
 				</div><!-- .rencBox -->
 			<?php } ?>
-			<?php $q = $wpdb->get_results("SELECT DISTINCT(R.user_id) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=U.ID AND R.user_id=P.user_id AND R.i_sex=".$zsex.(($options['onlyphoto'])?" AND R.i_photo>0 ":" ")."AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30 ORDER BY U.ID DESC LIMIT 12"); ?>
+			<?php $q = $wpdb->get_results("SELECT DISTINCT(R.user_id) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=U.ID AND R.user_id=P.user_id AND R.i_sex=".$zsex.(($rencOpt['onlyphoto'])?" AND R.i_photo>0 ":" ")."AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30 ORDER BY U.ID DESC LIMIT 12"); ?>
 			
 				<div class="rencBox">
 					<h3><?php _e('Nouveaux inscrits','rencontre');?></h3>
@@ -626,18 +639,18 @@ class RencontreWidget extends WP_widget
 			<div class="grandeBox left">
 			<form name='rencPagine' method='post' action=''>
 				<input type='hidden' name='page' value='cherche' />
-				<input type='hidden' name='pays' value='<?php echo $_POST['pays']; ?>' />
-				<input type='hidden' name='region' value='<?php echo $_POST['region']; ?>' />
-				<input type='hidden' name='sex' value='<?php echo $_POST['sex']; ?>' />
-				<input type='hidden' name='ageMin' value='<?php echo $_POST['ageMin']; ?>' />
-				<input type='hidden' name='ageMax' value='<?php echo $_POST['ageMax']; ?>' />
-				<input type='hidden' name='id' value='<?php echo $_POST['id']; ?>' />
+				<input type='hidden' name='pays' value='<?php echo (isset($_POST['pays'])?$_POST['pays']:''); ?>' />
+				<input type='hidden' name='region' value='<?php echo (isset($_POST['region'])?$_POST['region']:''); ?>' />
+				<input type='hidden' name='sex' value='<?php echo (isset($_POST['sex'])?$_POST['sex']:''); ?>' />
+				<input type='hidden' name='ageMin' value='<?php echo (isset($_POST['ageMin'])?$_POST['ageMin']:''); ?>' />
+				<input type='hidden' name='ageMax' value='<?php echo (isset($_POST['ageMax'])?$_POST['ageMax']:''); ?>' />
+				<input type='hidden' name='id' value='<?php echo (isset($_POST['id'])?$_POST['id']:''); ?>' />
 				<input type='hidden' name='pagine' value='<?php echo $pagine; ?>' />
 			</form>
 			<?php global $wpdb;
-			if ($_POST['sex']!=NULL)
+			if (isset($_POST['sex']) && $_POST['sex']!='')
 				{
-				$s="SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R WHERE P.user_id=R.user_id";
+				$s="SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce , P.t_action FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R WHERE P.user_id=R.user_id";
 				if ($_POST['region']) $s.=" and R.c_region LIKE '".addslashes($wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE id='".strip_tags($_POST['region'])."'"))."'";
 				if ($_POST['pays']) $s.=" and R.c_pays='".$_POST['pays']."'";
 				$s.=" and R.i_sex='".strip_tags($_POST['sex'])."'";
@@ -645,33 +658,35 @@ class RencontreWidget extends WP_widget
 				$zmax=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d"), date("Y")-$_POST['ageMax']));
 				$s.=" and R.d_naissance<'".$zmin."'";
 				$s.=" and R.d_naissance>'".$zmax."'";
-				if($options['onlyphoto']) $s.=" and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30 and R.i_photo>0";
-				$s.=" ORDER BY R.user_id DESC LIMIT ".($pagine*$limit).", ".($limit+1); // LIMIT indice du premier, nombre de resultat
+				if($rencOpt['onlyphoto']) $s.=" and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30 and R.i_photo>0";
+				$s.=" ORDER BY R.user_id DESC LIMIT ".($pagine*$rencOpt['limit']).", ".($rencOpt['limit']+1); // LIMIT indice du premier, nombre de resultat
 				$q = $wpdb->get_results($s);
-				if($wpdb->num_rows<=$limit) $suiv=0;
-				else array_pop($q); // supp le dernier ($limit+1) qui sert a savoir si page suivante
+				if($wpdb->num_rows<=$rencOpt['limit']) $suiv=0;
+				else array_pop($q); // supp le dernier ($rencOpt['limit']+1) qui sert a savoir si page suivante
 				}
 			else if ($_POST['id']=='sourireOut')
 				{
 				echo '<h3 style="text-align:center;">'.__('J\'ai souri &agrave;','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
+				$action['sourireOut']=(isset($action['sourireOut'])?$action['sourireOut']:null);
 				$q = ''; $c = 0; $n = 0; $suiv = 0;
 				if ($action['sourireOut'])
 					{
 					krsort($action['sourireOut']);
 					foreach ($action['sourireOut'] as $r)
 						{
-						++$n;
-						if($c<=$limit)
+						if($c<=$rencOpt['limit'])
 							{
 							$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
-							if($q[$c] && $n>$pagine*$limit)
+							if($q[$c]) ++$n;
+							if($q[$c] && $n>$pagine*$rencOpt['limit'])
 								{
-								if($c<$limit) $q[$c]->date=$r['d'];
+								if($c<$rencOpt['limit']) $q[$c]->date=$r['d'];
 								else {$suiv=1;array_pop($q);}
 								++$c;
 								}
+							else unset($q[$c]);
 							}
 						}
 					}
@@ -681,22 +696,24 @@ class RencontreWidget extends WP_widget
 				echo '<h3 style="text-align:center;">'.__('J\'ai re&ccedil;u un sourire de','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
+				$action['sourireIn']=(isset($action['sourireIn'])?$action['sourireIn']:null);
 				$q = ''; $c = 0; $n = 0; $suiv = 0;
 				if ($action['sourireIn'])
 					{
 					krsort($action['sourireIn']);
 					foreach ($action['sourireIn'] as $r)
 						{
-						++$n;
-						if($c<=$limit)
+						if($c<=$rencOpt['limit'])
 							{
 							$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
-							if($q[$c] && $n>$pagine*$limit)
+							if($q[$c]) ++$n;
+							if($q[$c] && $n>$pagine*$rencOpt['limit'])
 								{
-								if($c<$limit) $q[$c]->date=$r['d'];
+								if($c<$rencOpt['limit']) $q[$c]->date=$r['d'];
 								else {$suiv=1;array_pop($q);}
 								++$c;
 								}
+							else unset($q[$c]);
 							}
 						}
 					}
@@ -706,18 +723,24 @@ class RencontreWidget extends WP_widget
 				echo '<h3 style="text-align:center;">'.__('J\'ai demand&eacute; un contact &agrave;','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
+				$action['contactOut']=(isset($action['contactOut'])?$action['contactOut']:null);
 				$q = ''; $c = 0; $n = 0; $suiv = 0;
 				if ($action['contactOut'])
 					{
 					krsort($action['contactOut']);
 					foreach ($action['contactOut'] as $r)
 						{
-						$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
-						if($q[$c] && $n>$pagine*$limit)
+						if($c<=$rencOpt['limit'])
 							{
-							if($c<$limit) $q[$c]->date=$r['d'];
-							else {$suiv=1;array_pop($q);}
-							++$c;
+							$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+							if($q[$c]) ++$n;
+							if($q[$c] && $n>$pagine*$rencOpt['limit'])
+								{
+								if($c<$rencOpt['limit']) $q[$c]->date=$r['d'];
+								else {$suiv=1;array_pop($q);}
+								++$c;
+								}
+							else unset($q[$c]);
 							}
 						}
 					}
@@ -727,18 +750,24 @@ class RencontreWidget extends WP_widget
 				echo '<h3 style="text-align:center;">'.__('J\'ai eu une demande de contact de','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
+				$action['contactIn']=(isset($action['contactIn'])?$action['contactIn']:null);
 				$q = '';$c = 0; $n = 0; $suiv = 0;
 				if ($action['contactIn'])
 					{
 					krsort($action['contactIn']);
 					foreach ($action['contactIn'] as $r)
 						{
-						$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
-						if($q[$c] && $n>$pagine*$limit)
+						if($c<=$rencOpt['limit'])
 							{
-							if($c<$limit) $q[$c]->date=$r['d'];
-							else {$suiv=1;array_pop($q);}
-							++$c;
+							$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+							if($q[$c]) ++$n;
+							if($q[$c] && $n>$pagine*$rencOpt['limit'])
+								{
+								if($c<$rencOpt['limit']) $q[$c]->date=$r['d'];
+								else {$suiv=1;array_pop($q);}
+								++$c;
+								}
+							else unset($q[$c]);
 							}
 						}
 					}
@@ -748,18 +777,24 @@ class RencontreWidget extends WP_widget
 				echo '<h3 style="text-align:center;">'.__('J\'ai &eacute;t&eacute; regard&eacute; par','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
+				$action['visite']=(isset($action['visite'])?$action['visite']:null);
 				$q = ''; $c = 0; $n = 0; $suiv = 0;
 				if ($action['visite'])
 					{
 					krsort($action['visite']);
 					foreach ($action['visite'] as $r)
 						{
-						$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
-						if($q[$c] && $n>$pagine*$limit)
+						if($c<=$rencOpt['limit'])
 							{
-							if($c<$limit) $q[$c]->date=$r['d'];
-							else {$suiv=1;array_pop($q);}
-							++$c;
+							$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+							if($q[$c]) ++$n;
+							if($q[$c] && $n>$pagine*$rencOpt['limit'])
+								{
+								if($c<$rencOpt['limit']) $q[$c]->date=$r['d'];
+								else {$suiv=1;array_pop($q);}
+								++$c;
+								}
+							else unset($q[$c]);
 							}
 						}
 					}
@@ -769,18 +804,24 @@ class RencontreWidget extends WP_widget
 				echo '<h3 style="text-align:center;">'.__('J\'ai bloqu&eacute;','rencontre').'&nbsp;...</h3>';
 				$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 				$action= json_decode($q,true);
+				$action['bloque']=(isset($action['bloque'])?$action['bloque']:null);
 				$q = ''; $c = 0; $n = 0; $suiv = 0;
 				if ($action['bloque'])
 					{
 					krsort($action['bloque']);
 					foreach ($action['bloque'] as $r)
 						{
-						$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
-						if($q[$c] && $n>$pagine*$limit)
+						if($c<=$rencOpt['limit'])
 							{
-							if($c<$limit) $q[$c]->date=$r['d'];
-							else {$suiv=1;array_pop($q);}
-							++$c;
+							$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+							if($q[$c]) ++$n;
+							if($q[$c] && $n>$pagine*$rencOpt['limit'])
+								{
+								if($c<$rencOpt['limit']) $q[$c]->date=$r['d'];
+								else {$suiv=1;array_pop($q);}
+								++$c;
+								}
+							else unset($q[$c]);
 							}
 						}
 					}
@@ -790,7 +831,7 @@ class RencontreWidget extends WP_widget
 				$bl1=RencontreWidget::f_etat_bloque1($r->user_id,$mid,$r->t_action); // je suis bloque ?
 				?>
 				<div class="rencBox">
-				<?php if ($r->date) echo '<div class="rencDate">'.__('Le','rencontre').'&nbsp;'.substr($r->date,8,2).'.'.substr($r->date,5,2).'.'.substr($r->date,0,4).'</div>'; ?>
+				<?php if (isset($r->date)) echo '<div class="rencDate">'.__('Le','rencontre').'&nbsp;'.substr($r->date,8,2).'.'.substr($r->date,5,2).'.'.substr($r->date,0,4).'</div>'; ?>
 					<?php RencontreWidget::f_miniPortrait($r->user_id); ?>
 					<div class="maxiBox right rel">
 							<?php echo stripslashes($r->t_annonce); ?>
@@ -866,12 +907,18 @@ class RencontreWidget extends WP_widget
 			
 			<div class="grandeBox left">
 				<div class="rencBox">
-					<h3><?php _e('Envoyer un message &agrave;','rencontre'); echo '&nbsp;'.$q->user_login; ?></h3>
+					<h3><?php _e('Envoyer un message &agrave;','rencontre'); ?>
+						<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='portrait';document.forms['rencMenu'].elements['id'].value='<?php echo $_POST["id"]; ?>';document.forms['rencMenu'].submit();">
+						<?php echo '&nbsp;'.$q->user_login; ?>
+						</a>
+					</h3>
 					<div id="rencMsg">
 					<form name="formEcrire" method='post' action=''>
 					<input type='hidden' name='page' value='' /><input type='hidden' name='id' value='' /><input type='hidden' name='msg' value='' />
-					<?php if($q->i_photo!=0) echo '<img class="tete" src="'.$upl['baseurl'].'/portrait/'.floor(($q->i_photo)/10000).'/'.(floor(($q->i_photo)/10)*10).'-mini.jpg" alt="" />';
-					else echo '<img class="tete" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" />'; ?>
+						<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='portrait';document.forms['rencMenu'].elements['id'].value='<?php echo $_POST["id"]; ?>';document.forms['rencMenu'].submit();">
+						<?php if($q->i_photo!=0) echo '<img class="tete" src="'.$rencDiv['baseurl'].'/portrait/'.floor(($q->i_photo)/10000).'/'.(floor(($q->i_photo)/10)*10).'-mini.jpg" alt="" />';
+						else echo '<img class="tete" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" />'; ?>
+						</a>
 						<label><?php _e('Sujet','rencontre');?>&nbsp;:</label><input name="sujet" type="text" /><br />
 						<label><?php _e('Message','rencontre');?>&nbsp;:</label><textarea name="contenu" rows="8"></textarea><br />
 						<div class="button"><a href="javascript:void(0)" onClick="document.forms['formEcrire'].elements['page'].value='portrait';document.forms['formEcrire'].elements['id'].value='<?php echo $_POST["id"]; ?>'<?php if($_POST["msg"]) echo ';document.forms[\'formEcrire\'].elements[\'msg\'].value=\''.strip_tags($_POST["msg"]).'\''; ?>;document.forms['formEcrire'].submit();"><?php _e('Envoi','rencontre');?></a></div>
@@ -904,7 +951,7 @@ class RencontreWidget extends WP_widget
 			
 			<div style="clear:both;">&nbsp;</div>
 		</div><!-- #widgRenc -->
-		<?php echo $after_widget;
+		<?php
 		}
 	//
 	function update($content_new, $content_old)
@@ -925,10 +972,11 @@ class RencontreWidget extends WP_widget
 		<?php
 		}
 	//
-	static function suppImg($im,$mid,$upl)
+	static function suppImg($im,$mid)
 		{
 		// entree : nom de la photo (id * 10 + 1 ou 2 ou 3...)
-		$r = $upl['basedir'].'/portrait/'.floor($im/10000).'/';
+		global $rencDiv;
+		$r = $rencDiv['basedir'].'/portrait/'.floor($im/10000).'/';
 		if (file_exists($r.$im.'.jpg')) unlink($r.$im.'.jpg');
 		if (file_exists($r.$im.'-mini.jpg')) unlink($r.$im.'-mini.jpg');
 		if (file_exists($r.$im.'-grande.jpg')) unlink($r.$im.'-grande.jpg');
@@ -948,17 +996,18 @@ class RencontreWidget extends WP_widget
 			}
 		}
 	//
-	static function plusImg($nim,$mid,$upl)
+	static function plusImg($nim,$mid)
 		{
 		// entree : $s->i_photo (id * 10 + nombre de photo)
+		global $rencDiv;
 		if ($nim==0) $p=$mid*10; // premiere photo
 		else $p=$nim+1;
-		$r = $upl['basedir'].'/tmp/';
+		$r = $rencDiv['basedir'].'/tmp/';
 		if(!is_dir($r)) mkdir($r);
 		$cible = $r . basename($_FILES['plusPhoto']['tmp_name']);
 		if (move_uploaded_file($_FILES['plusPhoto']['tmp_name'], $cible)) 
 			{
-			RencontreWidget::f_photo($p,$cible,$upl);
+			RencontreWidget::f_photo($p,$cible);
 			global $wpdb;
 			$wpdb->update($wpdb->prefix.'rencontre_users', array('i_photo'=>$p), array('user_id'=>$mid));
 			if (file_exists($cible)) unlink($cible);
@@ -971,17 +1020,14 @@ class RencontreWidget extends WP_widget
 		// entree : Sauvegarde du profil
 		// sortie bdd : [{"i":10,"v":"Sur une ile deserte avec mon amoureux."},{"i":35,"v":0},{"i":53,"v":[0,4,6]}]
 		$u = "";
-		if($in)
+		if($in) foreach ($in as $r=>$r1) 
 			{
-			foreach ($in as $r=>$r1) 
+			switch ($r1[0])
 				{
-				switch ($r1[0])
-					{
-					case 1: if ($_POST['text'.$r]!="") $u.='{"i":'.$r.',"v":"'.str_replace('"','',strip_tags(stripslashes($_POST['text'.$r]))).'"},'; break;
-					case 2: if ($_POST['area'.$r]!="") $u.='{"i":'.$r.',"v":"'.str_replace('"','',strip_tags(stripslashes($_POST['area'.$r]))).'"},'; break;
-					case 3: if ($_POST['select'.$r]>0) $u.='{"i":'.$r.',"v":'.(strip_tags($_POST['select'.$r]-1)).'},'; break;
-					case 4: if (!empty($_POST['check'.$r])) {$u.='{"i":'.$r.',"v":['; foreach ($_POST['check'.$r] as $r2) { $u.=$r2.',';} $u=substr($u, 0, -1).']},';} break;
-					}
+				case 1: if ($_POST['text'.$r]!="") $u.='{"i":'.$r.',"v":"'.str_replace('"','',strip_tags(stripslashes($_POST['text'.$r]))).'"},'; break;
+				case 2: if ($_POST['area'.$r]!="") $u.='{"i":'.$r.',"v":"'.str_replace('"','',strip_tags(stripslashes($_POST['area'.$r]))).'"},'; break;
+				case 3: if ($_POST['select'.$r]>0) $u.='{"i":'.$r.',"v":'.(strip_tags($_POST['select'.$r]-1)).'},'; break;
+				case 4: if (!empty($_POST['check'.$r])) {$u.='{"i":'.$r.',"v":['; foreach ($_POST['check'.$r] as $r2) { $u.=$r2.',';} $u=substr($u, 0, -1).']},';} break;
 				}
 			}
 		global $wpdb;
@@ -989,11 +1035,11 @@ class RencontreWidget extends WP_widget
 		$_post=null;
 		}
 	//
-	static function f_photo($im,$rim,$upl)
+	static function f_photo($im,$rim)
 		{
 		// im : user_id *10 + numero de photo a partir de 0
-		$options = get_option('rencontre_options');
-		$r = $upl['basedir'].'/portrait/'.floor($im/10000);
+		global $rencOpt; global $rencDiv;
+		$r = $rencDiv['basedir'].'/portrait/'.floor($im/10000);
 		if(!is_dir($r)) mkdir($r);
 		$sim = getimagesize($rim);
 		$wim=$sim[0]; $him=$sim[1];
@@ -1016,10 +1062,10 @@ class RencontreWidget extends WP_widget
 			imagecopyresampled ($out3, $in, 0, 0, $wimi, $himi, 250, 250, $carre, $carre); 
 			imagecopyresampled ($out4, $in, 0, 0, $wi4, $hi4, 141, 108, $wf4, $hf4);
 			// imagecopyresampled(sortie, entree, position sur sortie X, Y, position entree X, Y, larg haut sur sortie, larg haut sur entree)
-			imagejpeg(RencontreWidget::f_imcopyright($out1,$options['imcopyright']), $r."/".$im.".jpg", 75);
-			imagejpeg(RencontreWidget::f_imcopyright($out2,$options['imcopyright']), $r."/".$im."-mini.jpg", 75);
-			imagejpeg(RencontreWidget::f_imcopyright($out3,$options['imcopyright']), $r."/".$im."-grande.jpg", 75);
-			imagejpeg(RencontreWidget::f_imcopyright($out4,$options['imcopyright']), $r."/".$im."-libre.jpg", 75);
+			imagejpeg(RencontreWidget::f_imcopyright($out1,$rencOpt['imcopyright']), $r."/".$im.".jpg", 75);
+			imagejpeg(RencontreWidget::f_imcopyright($out2,$rencOpt['imcopyright']), $r."/".$im."-mini.jpg", 75);
+			imagejpeg(RencontreWidget::f_imcopyright($out3,$rencOpt['imcopyright']), $r."/".$im."-grande.jpg", 75);
+			imagejpeg(RencontreWidget::f_imcopyright($out4,$rencOpt['imcopyright']), $r."/".$im."-libre.jpg", 75);
 			imagedestroy($in); imagedestroy($out1); imagedestroy($out2); imagedestroy($out3); imagedestroy($out4);
 			}
 		}
@@ -1063,11 +1109,9 @@ class RencontreWidget extends WP_widget
 	//
 	static function f_pays($f='FR')
 		{
-		$options = get_option('rencontre_options');
-		$langue = ((WPLANG)?WPLANG:get_locale());
 		echo '<option value="">- '.__('Indiff&eacute;rent','rencontre').' -</option>';
-		global $wpdb;
-		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".substr($langue,0,2)."' ");
+		global $wpdb; global $rencDiv;
+		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."' ");
 		foreach($q as $r)
 			{
 			echo '<option value="'.$r->c_liste_iso.'"'.(($r->c_liste_iso==$f)?' selected':'').'>'.$r->c_liste_valeur.'</option>';
@@ -1094,8 +1138,7 @@ class RencontreWidget extends WP_widget
 		{
 		// entree : id
 		// sortie : code HTML avec le mini portrait
-		$upl = wp_upload_dir(); 
-		global $wpdb; global $drap; global $drapNom;
+		global $wpdb; global $drap; global $drapNom; global $rencDiv;
 		$s = $wpdb->get_row("SELECT U.display_name, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$f." and R.user_id=P.user_id and R.user_id=U.ID");
 		?>
 		
@@ -1103,7 +1146,7 @@ class RencontreWidget extends WP_widget
 					<?php echo (RencontreWidget::f_enLigne($f))?'<span class="rencInline">'.__('en ligne','rencontre').'</span>':'<span class="rencOutline">'.__('hors-ligne','rencontre').'</span>'; ?>
 					
 					<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='portrait';document.forms['rencMenu'].elements['id'].value='<?php echo $f; ?>';document.forms['rencMenu'].submit();">
-					<?php if ($s->i_photo!=0) echo '<img class="tete" src="'.$upl['baseurl'].'/portrait/'.floor(($f)/1000).'/'.($f*10).'-mini.jpg" alt="'.$s->display_name.'" />';
+					<?php if ($s->i_photo!=0) echo '<img class="tete" src="'.$rencDiv['baseurl'].'/portrait/'.floor(($f)/1000).'/'.($f*10).'-mini.jpg" alt="'.$s->display_name.'" />';
 					else echo '<img class="tete" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" />'; ?>
 					
 					</a>
@@ -1125,16 +1168,14 @@ class RencontreWidget extends WP_widget
 		// miniPortrait2 : pour la fenetre du TCHAT
 		// entree : id
 		// sortie : code HTML avec le mini portrait
-		$upl = wp_upload_dir();
-		$langue = ((WPLANG)?WPLANG:get_locale());
-		global $wpdb;
+		global $wpdb; global $rencDiv;
 		$s = $wpdb->get_row("SELECT U.display_name, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$f." and R.user_id=P.user_id and R.user_id=U.ID");
 		$drap1 = $wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' and c_liste_iso='".$s->c_pays."' ");
-		$drapNom1 = $wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_iso='".$s->c_pays."' and c_liste_lang='".substr($langue,0,2)."' ");
+		$drapNom1 = $wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_iso='".$s->c_pays."' and c_liste_lang='".substr($rencDiv['lang'],0,2)."' ");
 		?>
 		
 				<div class="miniPortrait miniBox">
-					<?php if ($s->i_photo!=0) echo '<img class="tete" src="'.$upl['baseurl'].'/portrait/'.floor(($f)/1000).'/'.($f*10).'-mini.jpg" alt="'.$s->display_name.'" />';
+					<?php if ($s->i_photo!=0) echo '<img class="tete" src="'.$rencDiv['baseurl'].'/portrait/'.floor(($f)/1000).'/'.($f*10).'-mini.jpg" alt="'.$s->display_name.'" />';
 					else echo '<img class="tete" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" />'; ?>
 					
 					<div>
@@ -1152,8 +1193,8 @@ class RencontreWidget extends WP_widget
 	//
 	static function f_enLigne($f)
 		{
-		$upl = wp_upload_dir(); 
-		if (is_file($upl['basedir'].'/session/'.$f.'.txt') && time()-filemtime($upl['basedir'].'/session/'.$f.'.txt')<180) return true;
+		global $rencDiv;
+		if (is_file($rencDiv['basedir'].'/session/'.$f.'.txt') && time()-filemtime($rencDiv['basedir'].'/session/'.$f.'.txt')<180) return true;
 		else return false;
 		}
 	//
@@ -1173,8 +1214,14 @@ class RencontreWidget extends WP_widget
 		$q = $wpdb->get_results("SELECT M.id, M.subject, M.content, M.sender, M.date, M.read FROM ".$wpdb->prefix."rencontre_msg M WHERE M.recipient='".$f."' and M.deleted!=1 ORDER BY M.date DESC");
 		$n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_msg M WHERE M.recipient='".$f."' and M.read=0 and M.deleted=0");
 		?>
-			
-			<h3><?php _e('Boite de r&eacute;ception','rencontre');?>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onClick="f_boite_envoi('<? echo $f; ?>','<?php echo admin_url('admin-ajax.php'); ?>');"><?php _e('Messages envoy&eacute;s','rencontre');?></a></h3>
+			<div class="rencMenu boto10">
+				<ul>
+					<li class="current"><?php _e('Boite de r&eacute;ception','rencontre');?></li>
+					<a href="javascript:void(0)" onClick="f_boite_envoi('<? echo $f; ?>','<?php echo admin_url('admin-ajax.php'); ?>');">
+						<li><?php _e('Messages envoy&eacute;s','rencontre');?></li>
+					</a>
+				</ul>
+			</div>
 			<h4><?php _e('Vous avez','rencontre'); echo '&nbsp;'.count($q).'&nbsp;'; _e('message','rencontre'); echo ((count($q)>1)?'s':'').' ('.$n.'&nbsp;'.__('non lu','rencontre');?>)</h4>
 			<table><tr><th></th><th style="width:20%;"><?php _e('Emetteur','rencontre');?></th><th style="width:50%;"><?php _e('Sujet','rencontre');?></th><th style="width:25%;"><?php _e('Date','rencontre');?></th><th></th></tr>
 			<?php foreach ($q as $r)
@@ -1193,8 +1240,14 @@ class RencontreWidget extends WP_widget
 		global $wpdb;
 		$q = $wpdb->get_results("SELECT M.id, M.subject, M.content, M.recipient, M.date, M.read, M.deleted FROM ".$wpdb->prefix."rencontre_msg M WHERE M.sender='".$f."' and M.deleted!=2 ORDER BY M.date DESC");
 		 ?>
-
-			<h3><a href="javascript:void(0)" onClick="f_boite_reception('<? echo $f; ?>','<?php echo admin_url('admin-ajax.php'); ?>');"><?php _e('Boite de r&eacute;ception','rencontre');?></a>&nbsp;&nbsp;&nbsp;<?php _e('Messages envoy&eacute;s','rencontre');?></h3>
+			<div class="rencMenu boto10">
+				<ul>
+					<a href="javascript:void(0)" onClick="f_boite_reception('<? echo $f; ?>','<?php echo admin_url('admin-ajax.php'); ?>');">
+						<li><?php _e('Boite de r&eacute;ception','rencontre');?></li>
+					</a>
+					<li class="current"><?php _e('Messages envoy&eacute;s','rencontre');?></li>
+				</ul>
+			</div>
 			<table><tr><th></th><th style="width:20%;"><?php _e('Destinataire','rencontre');?></th><th style="width:50%;"><?php _e('Sujet','rencontre');?></th><th style="width:25%;"><?php _e('Date','rencontre');?></th><th></th></tr>
 			<?php foreach ($q as $r)
 				{
@@ -1209,19 +1262,35 @@ class RencontreWidget extends WP_widget
 	static function f_voirMsg($f,$a) // retour AJAX
 		{
 		// entree : $f = id message - $a = alias
-		global $wpdb;
-		$upl = wp_upload_dir(); 
+		global $wpdb; global $rencDiv;
 		$q = $wpdb->get_row("SELECT M.subject, M.content, M.sender, M.recipient, M.date, M.read FROM ".$wpdb->prefix."rencontre_msg M WHERE M.id='".$f."' ");
 		if ($q)
 			{
 			$id = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE user_login='".$q->sender."'");
 			$p = $wpdb->get_var("SELECT i_photo FROM ".$wpdb->prefix."rencontre_users WHERE user_id='".$id."'");
-			if($p!=0) echo '<img class="tete" src="'.$upl['baseurl'].'/portrait/'.floor(($p)/10000).'/'.(floor(($p)/10)*10).'-mini.jpg" alt="" />';
-			else echo '<img class="tete" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$q->sender.'" title="'.$q->sender.'" />'; ?>
-			<h3><a href="javascript:void(0)" onClick="f_boite_reception('<? echo $a; ?>','<?php echo admin_url('admin-ajax.php'); ?>');"><?php _e('Boite de r&eacute;ception','rencontre');?></a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" onClick="f_boite_envoi('<? echo $a; ?>','<?php echo admin_url('admin-ajax.php'); ?>');"><?php _e('Messages envoy&eacute;s','rencontre');?></a></h3>
+			echo '<a href="javascript:void(0)" onClick="document.forms[\'rencMenu\'].elements[\'page\'].value=\'portrait\';document.forms[\'rencMenu\'].elements[\'id\'].value=\''. $id.'\';document.forms[\'rencMenu\'].submit();">';
+			if($p!=0) echo '<img class="tete" src="'.$rencDiv['baseurl'].'/portrait/'.floor(($p)/10000).'/'.(floor(($p)/10)*10).'-mini.jpg" alt="" />';
+			else echo '<img class="tete" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$q->sender.'" title="'.$q->sender.'" />';
+			echo '</a>';?>
+			<div class="rencMenu boto10">
+				<ul>
+					<a href="javascript:void(0)" onClick="f_boite_reception('<? echo $a; ?>','<?php echo admin_url('admin-ajax.php'); ?>');">
+						<li><?php _e('Boite de r&eacute;ception','rencontre');?></li>
+					</a>
+					<a href="javascript:void(0)" onClick="f_boite_envoi('<? echo $a; ?>','<?php echo admin_url('admin-ajax.php'); ?>');">
+						<li><?php _e('Messages envoy&eacute;s','rencontre');?></li>
+					</a>
+				</ul>
+			</div>
 			<h3><?php _e('Message','rencontre');?></h3>
 			<div style="width:87%;">
-				<div class="left"><?php _e('De','rencontre'); echo '&nbsp;:&nbsp;'.$q->sender; ?></div>
+				<div class="left">
+					<?php _e('De','rencontre'); echo '&nbsp;:&nbsp;';
+					echo '<a href="javascript:void(0)" onClick="document.forms[\'rencMenu\'].elements[\'page\'].value=\'portrait\';document.forms[\'rencMenu\'].elements[\'id\'].value=\''. $id.'\';document.forms[\'rencMenu\'].submit();">';
+					echo $q->sender; 
+					echo '</a>'; ?>
+					
+				</div>
 				<div class="right"><?php _e('Date','rencontre'); echo '&nbsp;:&nbsp;'.$q->date; ?></div>
 			</div>
 			<div class="clear"><?php _e('A','rencontre'); echo '&nbsp;:&nbsp;'.$q->recipient; ?></div>
@@ -1261,8 +1330,7 @@ class RencontreWidget extends WP_widget
 	static function f_cherchePlus($f)
 		{
 		// formulaire de la recherche plus
-		$options = get_option('rencontre_options');
-		global $wpdb;
+		global $wpdb; global $rencOpt;
 		$sex = $wpdb->get_var("SELECT i_zsex FROM ".$wpdb->prefix."rencontre_users WHERE user_id='".$f."'");
 		if (!strstr($_SESSION['rencontre'],'liste')) // nouvelle recherche
 			{
@@ -1329,7 +1397,7 @@ class RencontreWidget extends WP_widget
 							<tr>
 								<td><?php _e('Pays','rencontre');?>&nbsp;:</td>
 								<td><select name="pays" onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect2');">
-									<?php RencontreWidget::f_pays($options['pays']); ?>
+									<?php RencontreWidget::f_pays($rencOpt['pays']); ?>
 									
 									</select>
 								</td>
@@ -1337,7 +1405,7 @@ class RencontreWidget extends WP_widget
 							<tr>
 								<td><?php _e('R&eacute;gion','rencontre');?>&nbsp;:</td>
 								<td><select id="regionSelect2" name="region">
-									<?php RencontreWidget::f_regionBDD(1,$options['pays']); ?>
+									<?php RencontreWidget::f_regionBDD(1,$rencOpt['pays']); ?>
 									
 									</select>
 								</td>
@@ -1348,11 +1416,11 @@ class RencontreWidget extends WP_widget
 							</tr>
 							<tr>
 								<td><?php _e('Uniquement avec photo','rencontre');?>&nbsp;</td>
-								<td><input type="checkbox" name="photo" value="0" /></td>
+								<td><input type="checkbox" name="photo" value="1" /></td>
 							</tr>
 							<tr>
 								<td><?php _e('Affinit&eacute; avec mon profil','rencontre');?>&nbsp;</td>
-								<td><input type="checkbox" name="profil" value="0" disabled/></td>
+								<td><input type="checkbox" name="profil" value="1" disabled/></td>
 							</tr>
 							<tr>
 								<td><?php _e('Mot dans l\'annonce','rencontre');?>&nbsp;:</td>
@@ -1377,9 +1445,7 @@ class RencontreWidget extends WP_widget
 	static function f_trouver()
 		{
 		// Resultat de la recherche plus
-		global $wpdb;
-		$options = get_option('rencontre_options');
-		$limit = $options['limit'];
+		global $wpdb; global $rencOpt;
 		$pagine = (isset($_POST['pagine'])?$_POST['pagine']:0);
 		$suiv = 1;
 		?> 
@@ -1417,12 +1483,12 @@ class RencontreWidget extends WP_widget
 			if ($_POST['pays']) $s.=" and R.c_pays='".$_POST['pays']."'";
 			if ($_POST['region']) $s.=" and R.c_region LIKE '".addslashes($wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE id='".$_POST['region']."'"))."'";
 			if ($_POST['mot']) $s.=" and (P.t_annonce LIKE '%".$_POST['mot']."%' or P.t_titre LIKE '%".strip_tags($_POST['mot'])."%')";
-			if ($_POST['photo']=="0") $s.=" and R.i_photo>0";
+			if (isset($_POST['photo'])) $s.=" and R.i_photo>0";
 			}
-		$s.=" ORDER BY R.user_id DESC LIMIT ".($pagine*$limit).", ".($limit+1); // LIMIT indice du premier, nombre de resultat
+		$s.=" ORDER BY R.user_id DESC LIMIT ".($pagine*$rencOpt['limit']).", ".($rencOpt['limit']+1); // LIMIT indice du premier, nombre de resultat
 		$q = $wpdb->get_results($s);
-		if($wpdb->num_rows<=$limit) $suiv=0;
-		else array_pop($q); // supp le dernier ($limit+1) qui sert a savoir si page suivante
+		if($wpdb->num_rows<=$rencOpt['limit']) $suiv=0;
+		else array_pop($q); // supp le dernier ($rencOpt['limit']+1) qui sert a savoir si page suivante
 		foreach($q as $r)
 			{ ?>
 			<div class="rencBox">
@@ -1519,8 +1585,7 @@ class RencontreWidget extends WP_widget
 	static function f_compte($mid)
 		{
 		// Fenetre de modification du compte
-		$options = get_option('rencontre_options');
-		global $wpdb;
+		global $wpdb; global $rencOpt;
 		$q = $wpdb->get_row("SELECT U.user_email, R.c_pays, R.c_region, R.c_ville, R.i_sex, R.d_naissance, R.i_taille, R.i_poids, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation FROM ".$wpdb->prefix . "users U, ".$wpdb->prefix . "rencontre_users R WHERE U.ID=".$mid." and U.ID=R.user_id");
 		list($Y, $m, $j) = explode('-', $q->d_naissance);
 		?>
@@ -1552,7 +1617,7 @@ class RencontreWidget extends WP_widget
 			</table>
 			</form>
 			<div id="rencAlert"></div>
-			<h2><?php _e('Mon compte','rencontre'); ?></h2>
+			<h2><?php _e('Mon compte','rencontre'); ?><span style="font-size:16px;font-weight:400;margin-left:10px;">(<?php echo $q->user_email; ?>)</span></h2>
 			<form name="formNouveau" method='post' action=''>
 			<input type='hidden' name='nouveau' value='' /><input type='hidden' name='a1' value='' />
 			<table>
@@ -1690,6 +1755,7 @@ class RencontreWidget extends WP_widget
 		// 1. mon compte : sourireOut
 		$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 		$action= json_decode($q,true);
+		$action['sourireOut']=(isset($action['sourireOut'])?$action['sourireOut']:null);
 		$c = count($action['sourireOut']);
 		if ($c) { foreach ($action['sourireOut'] as $r) { if ($r['i']==$f) {_e('sourire d&eacute;j&agrave; envoy&eacute;','rencontre'); return; } } } // deja souri
 		$action['sourireOut'][$c]['i'] = ($f+0);
@@ -1699,6 +1765,7 @@ class RencontreWidget extends WP_widget
 		// 2. son compte : sourireIn
 		$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$f."'");
 		$action= json_decode($q,true);
+		$action['sourireIn']=(isset($action['sourireIn'])?$action['sourireIn']:null);
 		$c = count($action['sourireIn']);
 		$action['sourireIn'][$c]['i'] = ($mid+0);
 		$action['sourireIn'][$c]['d'] = date("Y-m-d");
@@ -1722,6 +1789,7 @@ class RencontreWidget extends WP_widget
 		// 1. mon compte : contactOut
 		$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 		$action= json_decode($q,true);
+		$action['contactOut']=(isset($action['contactOut'])?$action['contactOut']:null);
 		$c = count($action['contactOut']);
 		if ($c) { foreach ($action['contactOut'] as $r) { if ($r['i']==$f) {_e('contact d&eacute;j&agrave; demand&eacute;','rencontre'); return; } } } // deja demande
 		$action['contactOut'][$c]['i'] = ($f+0);
@@ -1731,6 +1799,7 @@ class RencontreWidget extends WP_widget
 		// 2. son compte : contactIn
 		$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$f."'");
 		$action= json_decode($q,true);
+		$action['contactIn']=(isset($action['contactIn'])?$action['contactIn']:null);
 		$c = count($action['contactIn']);
 		$action['contactIn'][$c]['i'] = ($mid+0);
 		$action['contactIn'][$c]['d'] = date("Y-m-d");
@@ -1764,6 +1833,7 @@ class RencontreWidget extends WP_widget
 		global $wpdb;
 		$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 		$action= json_decode($q,true);
+		$action['bloque']=(isset($action['bloque'])?$action['bloque']:null);
 		$c = count($action['bloque']); $c1=0;
 		if ($c) {foreach ($action['bloque'] as $r)
 			{
@@ -1790,6 +1860,7 @@ class RencontreWidget extends WP_widget
 		global $wpdb;
 		$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
 		$action= json_decode($q,true);
+		$action['bloque']=(isset($action['bloque'])?$action['bloque']:null);
 		$c = count($action['bloque']); if ($c) {foreach ($action['bloque'] as $r){if ($r['i']==$f) return true; }} // est bloque
 		else return false;
 		}
@@ -1803,6 +1874,7 @@ class RencontreWidget extends WP_widget
 			$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$f."'");
 			$action= json_decode($q,true);
 			}
+		$action['bloque']=(isset($action['bloque'])?$action['bloque']:null);
 		$c = count($action['bloque']); if ($c) {foreach ($action['bloque'] as $r){if ($r['i']==$mid) return true; }} // est bloque
 		else return false;
 		}
@@ -1813,6 +1885,7 @@ class RencontreWidget extends WP_widget
 		global $wpdb;
 		$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$f."'");
 		$action= json_decode($q,true);
+		$action['visite']=(isset($action['visite'])?$action['visite']:null);
 		$c = count($action['visite']);
 		if ($c>60) RencontreWidget::f_menage_action($f,$action);
 		if ($c) {foreach ($action['visite'] as $r) { if ($r['i']==$mid) return; }}
@@ -1826,7 +1899,7 @@ class RencontreWidget extends WP_widget
 	static function f_menage_action($f,$action)
 		{
 		// fait le menage dans le json action - limite a 50 elements par item
-		$a = array("sourireIn","sourireOut","contactIn","contactOut","demcont","visite","bloque");
+		$a = array("sourireIn","sourireOut","contactIn","contactOut","visite","bloque");
 		for ($v=0; $v<count($a); ++$v)
 			{
 			$c = count($action[$a[$v]]);
@@ -1836,6 +1909,7 @@ class RencontreWidget extends WP_widget
 				unset($action[$a[$v]][$w]['d']);
 				}
 			if($action[$a[$v]]) $action[$a[$v]]=array_filter($action[$a[$v]]);
+			if($action[$a[$v]]) $action[$a[$v]]=array_splice($action[$a[$v]],0); // remise en ordre avec de nouvelles clefs
 			}
 		$out = json_encode($action);
 		global $wpdb;
