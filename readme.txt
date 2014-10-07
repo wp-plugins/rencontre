@@ -142,6 +142,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 01/10/2014 : Update 6 : Add link to user profile in message tab.
 
+07/10/2014 : Update 7 : Fix bug in search result.
+
 = 1.1 =
 19/06/2014 :
 
