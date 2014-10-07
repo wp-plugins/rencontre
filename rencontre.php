@@ -351,20 +351,12 @@ class Rencontre
 		require(dirname (__FILE__) . '/lang/rencontre-js-admin-lang.php');
 		wp_localize_script('rencontre', 'rencobjet', $lang);
 		global $wpdb; global $rencOpt; global $rencDiv;
-		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' ");
-		$q1 = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."' ");
+		$q = $wpdb->get_results("SELECT c_liste_categ, c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' or (c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."') ");
 		$drap=''; $drapNom='';
 		foreach($q as $r)
 			{
-			$drap[$r->c_liste_iso] = $r->c_liste_valeur;
-			foreach($q1 as $r1)
-				{
-				if($r->c_liste_iso==$r1->c_liste_iso)
-					{
-					$drapNom[$r->c_liste_iso] = $r1->c_liste_valeur;
-					break;
-					}
-				}
+			if($r->c_liste_categ=='d') $drap[$r->c_liste_iso] = $r->c_liste_valeur;
+			else if($r->c_liste_categ=='p')$drapNom[$r->c_liste_iso] = $r->c_liste_valeur;
 			}
 		?>
 		<div class='wrap'>
@@ -847,20 +839,12 @@ class Rencontre
 		require(dirname (__FILE__) . '/lang/rencontre-js-admin-lang.php');
 		wp_localize_script('rencontre', 'rencobjet', $lang);
 		global $wpdb; global $rencDiv;
-		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' ");
-		$q1 = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."' ");
+		$q = $wpdb->get_results("SELECT c_liste_categ, c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' or (c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."') ");
 		$drap=''; $drapNom='';
 		foreach($q as $r)
 			{
-			$drap[$r->c_liste_iso] = $r->c_liste_valeur;
-			foreach($q1 as $r1)
-				{
-				if($r->c_liste_iso==$r1->c_liste_iso)
-					{
-					$drapNom[$r->c_liste_iso] = $r1->c_liste_valeur;
-					break;
-					}
-				}
+			if($r->c_liste_categ=='d') $drap[$r->c_liste_iso] = $r->c_liste_valeur;
+			else if($r->c_liste_categ=='p')$drapNom[$r->c_liste_iso] = $r->c_liste_valeur;
 			}
 		$loc = substr(get_locale(),0,2); $loc2 = $loc."&";
 		$q2 = $wpdb->get_var("SELECT c_liste_lang FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_lang='".$loc."' ");
@@ -1032,20 +1016,12 @@ class Rencontre
 			global $wpdb; global $rencOpt; global $rencDiv;
 			if (!is_dir($rencDiv['basedir'].'/portrait/')) mkdir($rencDiv['basedir'].'/portrait/');
 			if (!is_dir($rencDiv['basedir'].'/portrait/libre/')) mkdir($rencDiv['basedir'].'/portrait/libre/');
-			$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' ");
-			$q1 = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."' ");
+			$q = $wpdb->get_results("SELECT c_liste_categ, c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' or (c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."') ");
 			$drap=''; $drapNom='';
 			foreach($q as $r)
 				{
-				$drap[$r->c_liste_iso] = $r->c_liste_valeur;
-				foreach($q1 as $r1)
-					{
-					if($r->c_liste_iso==$r1->c_liste_iso)
-						{
-						$drapNom[$r->c_liste_iso] = $r1->c_liste_valeur;
-						break;
-						}
-					}
+				if($r->c_liste_categ=='d') $drap[$r->c_liste_iso] = $r->c_liste_valeur;
+				else if($r->c_liste_categ=='p')$drapNom[$r->c_liste_iso] = $r->c_liste_valeur;
 				}
 			$q = $wpdb->get_results("SELECT U.ID, U.display_name, U.user_registered, R.i_sex, R.i_zsex, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre, P.t_annonce
 				FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P 
