@@ -21,20 +21,12 @@ class RencontreWidget extends WP_widget
 		get_currentuserinfo();
 		$mid=$current_user->ID; // Mon id
 		$r = $rencDiv['basedir'].'/portrait';if(!is_dir($r)) mkdir($r);
-		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' ");
-		$q1 = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."' ");
+		$q = $wpdb->get_results("SELECT c_liste_categ, c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' or (c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."') ");
 		$drap=''; $drapNom='';
 		foreach($q as $r)
 			{
-			$drap[$r->c_liste_iso] = $r->c_liste_valeur;
-			foreach($q1 as $r1)
-				{
-				if($r->c_liste_iso==$r1->c_liste_iso)
-					{
-					$drapNom[$r->c_liste_iso] = $r1->c_liste_valeur;
-					break;
-					}
-				}
+			if($r->c_liste_categ=='d') $drap[$r->c_liste_iso] = $r->c_liste_valeur;
+			else if($r->c_liste_categ=='p')$drapNom[$r->c_liste_iso] = $r->c_liste_valeur;
 			}
 		if (isset($_POST['nouveau']) && $_POST['nouveau']==$mid) RencontreWidget::f_nouveauMembre($mid); 
 		// *****************************************************************************************************************
@@ -1452,20 +1444,20 @@ class RencontreWidget extends WP_widget
 		
 		<form name='rencPagine' method='post' action=''>
 			<input type='hidden' name='page' value='liste' />
-			<input type='hidden' name='pays' value='<?php echo $_POST['pays']; ?>' />
-			<input type='hidden' name='region' value='<?php echo $_POST['region']; ?>' />
-			<input type='hidden' name='ville' value='<?php echo $_POST['ville']; ?>' />
-			<input type='hidden' name='pseudo' value='<?php echo $_POST['pseudo']; ?>' />
-			<input type='hidden' name='zsex' value='<?php echo $_POST['zsex']; ?>' />
-			<input type='hidden' name='ageMin' value='<?php echo $_POST['ageMin']; ?>' />
-			<input type='hidden' name='ageMax' value='<?php echo $_POST['ageMax']; ?>' />
-			<input type='hidden' name='tailleMin' value='<?php echo $_POST['tailleMin']; ?>' />
-			<input type='hidden' name='tailleMax' value='<?php echo $_POST['tailleMax']; ?>' />
-			<input type='hidden' name='poidsMin' value='<?php echo $_POST['poidsMin']; ?>' />
-			<input type='hidden' name='poidsMax' value='<?php echo $_POST['poidsMax']; ?>' />
-			<input type='hidden' name='mot' value='<?php echo $_POST['mot']; ?>' />
-			<input type='hidden' name='photo' value='<?php echo $_POST['photo']; ?>' />
-			<input type='hidden' name='id' value='<?php echo $_POST['id']; ?>' />
+			<input type='hidden' name='pays' value='<?php echo (isset($_POST['pays'])?$_POST['pays']:''); ?>' />
+			<input type='hidden' name='region' value='<?php echo (isset($_POST['region'])?$_POST['region']:''); ?>' />
+			<input type='hidden' name='ville' value='<?php echo (isset($_POST['ville'])?$_POST['ville']:''); ?>' />
+			<input type='hidden' name='pseudo' value='<?php echo (isset($_POST['pseudo'])?$_POST['pseudo']:''); ?>' />
+			<input type='hidden' name='zsex' value='<?php echo (isset($_POST['zsex'])?$_POST['zsex']:''); ?>' />
+			<input type='hidden' name='ageMin' value='<?php echo (isset($_POST['ageMin'])?$_POST['ageMin']:''); ?>' />
+			<input type='hidden' name='ageMax' value='<?php echo (isset($_POST['ageMax'])?$_POST['ageMax']:''); ?>' />
+			<input type='hidden' name='tailleMin' value='<?php echo (isset($_POST['tailleMin'])?$_POST['tailleMin']:''); ?>' />
+			<input type='hidden' name='tailleMax' value='<?php echo (isset($_POST['tailleMax'])?$_POST['tailleMax']:''); ?>' />
+			<input type='hidden' name='poidsMin' value='<?php echo (isset($_POST['poidsMin'])?$_POST['poidsMin']:''); ?>' />
+			<input type='hidden' name='poidsMax' value='<?php echo (isset($_POST['poidsMax'])?$_POST['poidsMax']:''); ?>' />
+			<input type='hidden' name='mot' value='<?php echo (isset($_POST['mot'])?$_POST['mot']:''); ?>' />
+			<input type='hidden' name='photo' value='<?php echo (isset($_POST['photo'])?$_POST['photo']:''); ?>' />
+			<input type='hidden' name='id' value='<?php echo (isset($_POST['id'])?$_POST['id']:''); ?>' />
 			<input type='hidden' name='pagine' value='<?php echo $pagine; ?>' />
 		</form>
 		<?php
@@ -1483,7 +1475,7 @@ class RencontreWidget extends WP_widget
 			if ($_POST['pays']) $s.=" and R.c_pays='".$_POST['pays']."'";
 			if ($_POST['region']) $s.=" and R.c_region LIKE '".addslashes($wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE id='".$_POST['region']."'"))."'";
 			if ($_POST['mot']) $s.=" and (P.t_annonce LIKE '%".$_POST['mot']."%' or P.t_titre LIKE '%".strip_tags($_POST['mot'])."%')";
-			if (isset($_POST['photo'])) $s.=" and R.i_photo>0";
+			if (isset($_POST['photo']) && $_POST['photo']=='1') $s.=" and R.i_photo>0";
 			}
 		$s.=" ORDER BY R.user_id DESC LIMIT ".($pagine*$rencOpt['limit']).", ".($rencOpt['limit']+1); // LIMIT indice du premier, nombre de resultat
 		$q = $wpdb->get_results($s);
