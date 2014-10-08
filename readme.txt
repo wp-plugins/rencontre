@@ -103,7 +103,7 @@ Add little flags in the header of your theme. On click, you create cookie with t
 ~~~~
 &lt;div id="lang"&gt;
 	&lt;a href="" title="Français" onClick="javascript:document.cookie='lang=fr_FR'"&gt;
-		&lt;img src="&lt;?php echo plugins_url('rencontre/images/drapeaux/France.png'); ?&gt;" alt="Français" /&gt;
+		&lt;img src="&lt;?php echo plugins_url('rencontre/images/drapeaux/France.png'); ?&gt;" alt="Fran&ccedil;ais" /&gt;
 	&lt;/a&gt;
 	&lt;a href="" title="English" onClick="javascript:document.cookie='lang=en_US'"&gt;
 		&lt;img src="&lt;?php echo plugins_url('rencontre/images/drapeaux/Royaume-Uni.png'); ?&gt;" alt="English" /&gt;
