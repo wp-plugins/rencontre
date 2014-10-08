@@ -159,7 +159,7 @@ class Rencontre
 	function __construct()
 		{
 		// Variables globale Rencontre
-		global $rencOpt; global $rencDiv;
+		global $rencOpt; global $rencDiv; global $wpdb;
 		$upl = wp_upload_dir();
 		$rencOpt = get_option('rencontre_options');
 		$rencDiv['basedir'] = $upl['basedir'];
@@ -167,7 +167,9 @@ class Rencontre
 		$rencDiv['blogname'] = get_option('blogname');
 		$rencDiv['admin_email'] = get_option('admin_email');
 		$rencDiv['siteurl'] = get_option('siteurl');
-		$rencDiv['lang'] = ((WPLANG)?WPLANG:get_locale());
+		$rencDiv['lang'] = ((defined('WPLANG')&&WPLANG)?WPLANG:get_locale());
+		$q = $wpdb->get_var("SELECT id FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_lang='".substr($rencDiv['lang'],0,2)."' ");
+		if(!$q) $rencDiv['lang'] = "en_US";
 		if (!$rencOpt)
 			{
 			$rencOpt = array('facebook'=>'','fblog'=>'','home'=>'','pays'=>'','limit'=>20,'tchat'=>0,'hcron'=>3,'mailmois'=>0,'textmail'=>'','mailanniv'=>0,'textanniv'=>'','qmail'=>25,'npa'=>12,'jlibre'=>3,'prison'=>30,'anniv'=>1,'ligne'=>1,'mailsupp'=>1,'onlyphoto'=>1,'imcopyright'=>1);
