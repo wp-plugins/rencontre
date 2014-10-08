@@ -98,6 +98,16 @@ To see only the heterosexual girls, add in the CSS file of your theme
 #widgRenc .rencBox.gaygirl,
 #widgRenc .rencBox.gaymen{display:none;}`
 
+= How to set the plugin multilingual =
+Add little flags in the header of your theme. On click, you create cookie with the right language. Then, the site changes language (back and front office) :
+`<div id="lang">
+	<a href="" title="Français" onClick="javascript:document.cookie='lang=fr_FR'">
+		<img src="<?php echo plugins_url('rencontre/images/drapeaux/France.png'); ?>" alt="Français" />
+	</a>
+	<a href="" title="English" onClick="javascript:document.cookie='lang=en_US'">
+		<img src="<?php echo plugins_url('rencontre/images/drapeaux/Royaume-Uni.png'); ?>" alt="English" />
+	</a>
+</div>`
 
 More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
 
@@ -143,6 +153,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 01/10/2014 : Update 6 : Add link to user profile in message tab.
 
 07/10/2014 : Update 7 : Fix bug in search result.
+
+08/10/2014 : Update 8 : Add multilingual hook.
 
 = 1.1 =
 19/06/2014 :
