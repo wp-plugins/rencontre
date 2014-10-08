@@ -100,14 +100,14 @@ To see only the heterosexual girls, add in the CSS file of your theme
 
 = How to set the plugin multilingual =
 Add little flags in the header of your theme. On click, you create cookie with the right language. Then, the site changes language (back and front office) :
-`<div id="lang">
-	<a href="" title="Français" onClick="javascript:document.cookie='lang=fr_FR'">
-		<img src="<?php echo plugins_url('rencontre/images/drapeaux/France.png'); ?>" alt="Français" />
-	</a>
-	<a href="" title="English" onClick="javascript:document.cookie='lang=en_US'">
-		<img src="<?php echo plugins_url('rencontre/images/drapeaux/Royaume-Uni.png'); ?>" alt="English" />
-	</a>
-</div>`
+`&lt;div id="lang">
+	&lt;a href="" title="Français" onClick="javascript:document.cookie='lang=fr_FR'">
+		&lt;img src="&lt;?php echo plugins_url('rencontre/images/drapeaux/France.png'); ?>" alt="Français" />
+	&lt;/a>
+	&lt;a href="" title="English" onClick="javascript:document.cookie='lang=en_US'">
+		&lt;img src="&lt;?php echo plugins_url('rencontre/images/drapeaux/Royaume-Uni.png'); ?>" alt="English" />
+	&lt;/a>
+&lt;/div>`
 
 More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
 
