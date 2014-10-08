@@ -58,6 +58,7 @@ if ($_POST && isset($_POST['tchat']))
 	// **************************
 	else if ($tc=='tchatOk') // accepte le tchat - mon ID dans txt du demandeur
 		{
+		$t=fopen('../../../uploads/session/'.$fm.'.txt', 'w'); fclose($t);
 		$t=fopen($d.$to.'.txt', 'wb'); fwrite($t,'['.$fm.']-',15); fclose($t);
 		clearstatcache();
 		}
