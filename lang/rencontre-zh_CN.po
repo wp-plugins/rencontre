@@ -1,0 +1,1747 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rencontre\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-15 09:57+0100\n"
+"PO-Revision-Date: 2014-10-15 11:18+0100\n"
+"Last-Translator: jacques Malgrange <contacter@boiteasite.fr>\n"
+"Language-Team: boiteasite.fr\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;_e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Generator: Poedit 1.6.9\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../rencontre.php:25
+msgid "Vous devez re-installer les pays"
+msgstr "您需要重新安装所有的国家"
+
+#: ../rencontre.php:29
+msgid "Vous devez d&eacute;sactiver puis r&eacute;activer le plugin"
+msgstr "您必须暂停再重新启动插件"
+
+#: ../rencontre.php:187
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:152
+msgid "Rencontre - G&eacute;n&eacute;ral"
+msgstr "约会 - 配置"
+
+#: ../rencontre.php:187
+#: ../rencontre.php:231
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:152
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:190
+msgid "G&eacute;n&eacute;ral"
+msgstr "配置"
+
+#: ../rencontre.php:188
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:154
+msgid "Rencontre - Membres"
+msgstr "约会 - 会员"
+
+#: ../rencontre.php:188
+#: ../rencontre.php:402
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:154
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:482
+msgid "Membres"
+msgstr "会员"
+
+#: ../rencontre.php:189
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:155
+msgid "Rencontre - Prison"
+msgstr "约会 - 黑名单"
+
+#: ../rencontre.php:189
+#: ../rencontre.php:633
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:155
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:713
+msgid "Prison"
+msgstr "黑名单"
+
+#: ../rencontre.php:190
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:153
+msgid "Rencontre - Profil"
+msgstr "约会 - 信息"
+
+#: ../rencontre.php:190
+#: ../rencontre.php:718
+#: ../inc/rencontre_widget.php:847
+#: ../inc/rencontre_widget.php:1521
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:153
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:318
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:709
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1296
+msgid "Profil"
+msgstr "信息"
+
+#: ../rencontre.php:191
+msgid "Rencontre - Pays"
+msgstr "约会 - 国家"
+
+#: ../rencontre.php:191
+#: ../rencontre.php:461
+#: ../inc/rencontre_widget.php:539
+#: ../inc/rencontre_widget.php:1412
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:541
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:528
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1211
+#: ../lang/rencontre-js-admin-lang.php:12
+msgid "Pays"
+msgstr "国家"
+
+#: ../rencontre.php:235
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:194
+msgid "Framework pour le bouton J'aime de Facebook"
+msgstr "使用FACEBOOK里我爱的按钮"
+
+#: ../rencontre.php:239
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:198
+msgid "AppID pour connexion par Facebook (vide si pas install&eacute;)"
+msgstr "使用FACEBOOK里的AppID信息(如果没有可以留空)"
+
+#: ../rencontre.php:244
+msgid "Page o&ugrave; est install&eacute; le plugin"
+msgstr "安装插件的网页"
+
+#: ../rencontre.php:256
+msgid "Pays s&eacute;l&eacute;ctionn&eacute; par d&eacute;faut"
+msgstr "默认的国家"
+
+#: ../rencontre.php:265
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:202
+msgid "Nombre de portrait en page d'accueil non connect&eacute;"
+msgstr "没登陆时首页显示的会员"
+
+#: ../rencontre.php:269
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:206
+msgid "Nombre de jours d'attente avant pr&eacute;sence en page d'accueil"
+msgstr "会员在首页显示需要等待的天数"
+
+#: ../rencontre.php:273
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:210
+msgid "Dur&eacute;e de la prison en jour (compte supprim&eacute;)"
+msgstr "在黑名单的天数 (删除的会员)"
+
+#: ../rencontre.php:277
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:214
+msgid "Nombre max de r&eacute;sultats par recherche"
+msgstr "每个搜寻可以的最多结果"
+
+#: ../rencontre.php:281
+#: ../inc/rencontre_widget.php:589
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:218
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:578
+msgid "Anniversaires du jour"
+msgstr "今天庆祝生日的会员"
+
+#: ../rencontre.php:285
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:222
+msgid "Profils actuellement en ligne"
+msgstr "目前在线的会员"
+
+#: ../rencontre.php:289
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:226
+msgid "Activer le chat"
+msgstr "开启聊天系统"
+
+#: ../rencontre.php:293
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:230
+msgid "Afficher un copyright discret sur les photos"
+msgstr "在会员的图片上显示版权"
+
+#: ../rencontre.php:297
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:234
+msgid "Membres sans photo moins visibles"
+msgstr "不显示没照片的会员"
+
+#: ../rencontre.php:301
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:238
+msgid "Envoyer un mail &agrave; l'utilisateur dont le compte est supprim&eacute;"
+msgstr "给被删除的会员发电子邮件"
+
+#: ../rencontre.php:305
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:242
+msgid "Envoi automatique d'un mail mensuel de synth&egrave;se aux membres (r&eacute;parti sur le mois)"
+msgstr "给会员发每月的电子邮件 (每月的平均数)"
+
+#: ../rencontre.php:310
+#: ../rencontre.php:340
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:247
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:277
+msgid "Maximum cette semaine"
+msgstr "这周的最大数据"
+
+#: ../rencontre.php:310
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:247
+msgid "mail/j"
+msgstr "电子邮件/天"
+
+#: ../rencontre.php:310
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:247
+msgid "envoy&eacute;s lors de la maintenance"
+msgstr "维修时发的电子邮件"
+
+#: ../rencontre.php:315
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:252
+msgid "Heure des t&acirc;ches de maintenance (heures creuses)"
+msgstr "维修时间段 (最繁忙时段除外)"
+
+#: ../rencontre.php:318
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:255
+msgid "heures"
+msgstr "点钟"
+
+#: ../rencontre.php:323
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:260
+msgid "Texte d'introduction pour le mail mensuel (Apr&egrave;s bonjour login - Avant les sourires et demandes de contact)"
+msgstr "给会员发每月的电子邮件里的开场白 (紧接在您好后面)"
+
+#: ../rencontre.php:327
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:264
+msgid "Envoi automatique d'un mail de bon anniversaire aux membres"
+msgstr "给会员发祝贺生日的电子邮件"
+
+#: ../rencontre.php:331
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:268
+msgid "Texte complet pour le mail de bon anniversaire (Apr&egrave;s bonjour login)"
+msgstr "给会员发祝贺生日的电子邮件内容 (紧接在您好后面)"
+
+#: ../rencontre.php:335
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:272
+msgid "Nombre max de mail envoy&eacute;s par heure"
+msgstr "给会员发电子邮件每小时的最高数量"
+
+#: ../rencontre.php:340
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:277
+msgid "mail/h"
+msgstr "电子邮件/小时"
+
+#: ../rencontre.php:340
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:277
+msgid "hors p&eacute;riode de maintenance"
+msgstr "维修时间段除外"
+
+#: ../rencontre.php:346
+#: ../inc/rencontre_widget.php:1747
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:283
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1510
+#: ../lang/rencontre-js-admin-lang.php:4
+msgid "Sauvegarde"
+msgstr "保存"
+
+#: ../rencontre.php:350
+msgid "Export des membres en CSV"
+msgstr "在CSV导出成员"
+
+#: ../rencontre.php:352
+msgid "Exporter en CSV"
+msgstr "导出为CSV"
+
+#: ../rencontre.php:355
+msgid "R&eacute;cup&eacute;rer les photos en FTP dans wp-content/uploads/tmp/"
+msgstr "取回照片通过FTP在 wp-content/uploads/tmp/"
+
+#: ../rencontre.php:358
+msgid "Import des membres en CSV"
+msgstr "在CSV导入成员"
+
+#: ../rencontre.php:359
+msgid "D&eacute;poser les photos des membres en FTP dans wp-content/uploads/tmp/photo_import/ avant de commencer (accessible RW - pas de sous-dossier)."
+msgstr "把会员照片中的 wp-content/uploads/tmp/photo_import/ 通过FTP开始之前（可刻录- 帕斯 - 德 - 苏-档案）"
+
+#: ../rencontre.php:360
+msgid "Pour conna&icirc;tre le format &agrave; respecter, faire un export et s'inspirer du fichier (la premi&egrave;re ligne avec le titre des colonnes n'est pas trait&eacute;e)."
+msgstr "做一个出口，看它得到正确的格式（与各列的标题的第一行不治疗）。"
+
+#: ../rencontre.php:361
+msgid "En cas d'interruption durant l'import des photos, recommencer la proc&eacute;dure. Les doublons sont supprim&eacute;s."
+msgstr "如果照片的导入过程中中断，重新开始的过程。杜布隆被杀害。"
+
+#: ../rencontre.php:364
+msgid "Fichier CSV"
+msgstr "CSV文件"
+
+#: ../rencontre.php:370
+msgid "Importer en CSV"
+msgstr "在导入CSV"
+
+#: ../rencontre.php:371
+msgid "Fichier charg&eacute;"
+msgstr "文件加载"
+
+#: ../rencontre.php:372
+msgid "Erreur !"
+msgstr "错误！"
+
+#: ../rencontre.php:373
+msgid "Import donn&eacute;es termin&eacute;"
+msgstr "导入数据完成"
+
+#: ../rencontre.php:374
+msgid "Import Photos"
+msgstr "照片导入"
+
+#: ../rencontre.php:376
+msgid "Import termin&eacute;"
+msgstr "导入完成"
+
+#: ../rencontre.php:406
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:486
+msgid "Nombre de membres inscrits"
+msgstr "注册会员数"
+
+#: ../rencontre.php:407
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:487
+msgid "Nombre de membres avec profil et photo"
+msgstr "有照片个人介绍的注册会员数"
+
+#: ../rencontre.php:416
+#: ../rencontre.php:1020
+#: ../inc/rencontre_widget.php:1752
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:496
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:788
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1515
+msgid "Suppression du compte"
+msgstr "删除帐户"
+
+#: ../rencontre.php:417
+#: ../rencontre.php:1021
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:497
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:789
+msgid "Votre compte a &eacute;t&eacute; supprim&eacute;"
+msgstr "您帐户被删除"
+
+#: ../rencontre.php:452
+#: ../rencontre.php:454
+#: ../rencontre.php:456
+#: ../rencontre.php:461
+#: ../rencontre.php:462
+#: ../rencontre.php:463
+#: ../rencontre.php:464
+#: ../rencontre.php:659
+#: ../rencontre.php:660
+#: ../rencontre.php:661
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:532
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:534
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:536
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:541
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:542
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:543
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:544
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:739
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:740
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:741
+msgid "Trier"
+msgstr "重新排列"
+
+#: ../rencontre.php:453
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:533
+msgid "Photo"
+msgstr "照片"
+
+#: ../rencontre.php:454
+#: ../inc/rencontre_widget.php:1444
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:534
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1243
+msgid "Pseudo"
+msgstr "昵称"
+
+#: ../rencontre.php:455
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:535
+msgid "Sex"
+msgstr "性别"
+
+#: ../rencontre.php:456
+#: ../inc/rencontre_widget.php:507
+#: ../inc/rencontre_widget.php:525
+#: ../inc/rencontre_widget.php:1360
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:536
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:496
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:514
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1159
+msgid "Age"
+msgstr "年龄"
+
+#: ../rencontre.php:457
+#: ../inc/rencontre_widget.php:1377
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:537
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1176
+msgid "Taille"
+msgstr "身高"
+
+#: ../rencontre.php:458
+#: ../inc/rencontre_widget.php:1394
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:538
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1193
+msgid "Poids"
+msgstr "体重"
+
+#: ../rencontre.php:459
+#: ../inc/rencontre_widget.php:52
+#: ../inc/rencontre_widget.php:1354
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:539
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:50
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1153
+msgid "Recherche"
+msgstr "搜寻"
+
+#: ../rencontre.php:460
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:540
+msgid "Accroche"
+msgstr "我的内心独白"
+
+#: ../rencontre.php:462
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:542
+msgid "Annonce (modif)"
+msgstr "我的个性展示 (更改)"
+
+#: ../rencontre.php:463
+#: ../rencontre.php:661
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:543
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:741
+msgid "Adresse IP"
+msgstr "IP 地址"
+
+#: ../rencontre.php:464
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:544
+msgid "Signalement"
+msgstr "检举"
+
+#: ../rencontre.php:465
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:545
+msgid "Supp"
+msgstr "删除"
+
+#: ../rencontre.php:473
+#: ../rencontre.php:474
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:554
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:555
+msgid "Voir"
+msgstr "观察"
+
+#: ../rencontre.php:476
+#: ../inc/rencontre_widget.php:137
+#: ../inc/rencontre_widget.php:201
+#: ../inc/rencontre_widget.php:1645
+#: ../inc/rencontre_widget.php:1719
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:557
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:134
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:198
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1408
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1482
+msgid "Homme"
+msgstr "先生"
+
+#: ../rencontre.php:476
+#: ../inc/rencontre_widget.php:138
+#: ../inc/rencontre_widget.php:202
+#: ../inc/rencontre_widget.php:1646
+#: ../inc/rencontre_widget.php:1720
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:557
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:135
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:199
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1409
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1483
+msgid "Femme"
+msgstr "女士"
+
+#: ../rencontre.php:480
+#: ../inc/rencontre_widget.php:217
+#: ../inc/rencontre_widget.php:286
+#: ../inc/rencontre_widget.php:510
+#: ../inc/rencontre_widget.php:840
+#: ../inc/rencontre_widget.php:1516
+#: ../inc/rencontre_widget.php:1741
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:561
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:214
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:284
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:499
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:702
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1291
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1504
+msgid "Relation s&eacute;rieuse"
+msgstr "婚姻"
+
+#: ../rencontre.php:480
+#: ../inc/rencontre_widget.php:218
+#: ../inc/rencontre_widget.php:286
+#: ../inc/rencontre_widget.php:510
+#: ../inc/rencontre_widget.php:840
+#: ../inc/rencontre_widget.php:1516
+#: ../inc/rencontre_widget.php:1742
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:561
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:215
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:284
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:499
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:702
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1291
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1505
+msgid "Relation libre"
+msgstr "一夜情"
+
+#: ../rencontre.php:480
+#: ../inc/rencontre_widget.php:219
+#: ../inc/rencontre_widget.php:286
+#: ../inc/rencontre_widget.php:510
+#: ../inc/rencontre_widget.php:840
+#: ../inc/rencontre_widget.php:1516
+#: ../inc/rencontre_widget.php:1743
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:561
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:216
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:284
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:499
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:702
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1291
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1506
+msgid "Amiti&eacute;"
+msgstr "交友"
+
+#: ../rencontre.php:482
+#: ../inc/rencontre_widget.php:531
+#: ../inc/rencontre_widget.php:1367
+#: ../inc/rencontre_widget.php:1384
+#: ../inc/rencontre_widget.php:1402
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:563
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:520
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1166
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1183
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1201
+msgid "&agrave;"
+msgstr "至"
+
+#: ../rencontre.php:496
+#: ../rencontre.php:807
+#: ../rencontre.php:836
+#: ../rencontre.php:860
+#: ../rencontre.php:972
+#: ../rencontre.php:983
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:399
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:428
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:452
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:583
+#: ../lang/rencontre-js-admin-lang.php:7
+msgid "Supprimer"
+msgstr "删除"
+
+#: ../rencontre.php:535
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:611
+msgid "Modifier un profil"
+msgstr "更新个人资料"
+
+#: ../rencontre.php:536
+#: ../inc/rencontre_widget.php:856
+#: ../inc/rencontre_widget.php:1530
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:612
+msgid "Page pr&eacute;c&eacute;dente"
+msgstr "前一页"
+
+#: ../rencontre.php:537
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:613
+msgid "Retour Membres"
+msgstr "回到会员名单"
+
+#: ../rencontre.php:541
+#: ../inc/rencontre_widget.php:437
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:617
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:428
+msgid "Sauvegarde du profil"
+msgstr "保存个人资料"
+
+#: ../rencontre.php:551
+#: ../inc/rencontre_widget.php:413
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:627
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:402
+msgid "Cliquer pour supprimer"
+msgstr "删除"
+
+#: ../rencontre.php:554
+#: ../inc/rencontre_widget.php:416
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:630
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:405
+msgid "Cliquer pour ajouter une photo"
+msgstr "添加个人头像"
+
+#: ../rencontre.php:557
+#: ../inc/rencontre_widget.php:420
+msgid "Supprimer toutes les photos"
+msgstr "删除所有照片"
+
+#: ../rencontre.php:568
+#: ../inc/rencontre_widget.php:430
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:646
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:421
+msgid "Mon accroche"
+msgstr "我的内心独白"
+
+#: ../rencontre.php:570
+#: ../inc/rencontre_widget.php:432
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:648
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:423
+msgid "Mon annonce"
+msgstr "我的个性展示"
+
+#: ../rencontre.php:611
+#: ../inc/rencontre_widget.php:476
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:688
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:464
+msgid "Effectu&eacute;e"
+msgstr "执行完毕"
+
+#: ../rencontre.php:659
+#: ../inc/rencontre_widget.php:1240
+#: ../inc/rencontre_widget.php:1265
+#: ../inc/rencontre_widget.php:1308
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:739
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1061
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1080
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1107
+msgid "Date"
+msgstr "日期"
+
+#: ../rencontre.php:660
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:740
+msgid "Adresse mail"
+msgstr "电子邮件地址"
+
+#: ../rencontre.php:662
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:742
+msgid "Fin"
+msgstr "结束"
+
+#: ../rencontre.php:672
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:753
+msgid "Lib&eacute;rer"
+msgstr "放弃"
+
+#: ../rencontre.php:722
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:322
+msgid "Il ne semble pas y avoir de profil. Vous pouvez charger les profils par d&eacute;faut si vous le souhaitez."
+msgstr "没有找到您的最新个人资料, 可以显示您的默认资料"
+
+#: ../rencontre.php:723
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:323
+msgid "Charger profils"
+msgstr "更新资料"
+
+#: ../rencontre.php:728
+#: ../rencontre.php:922
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:328
+msgid "La table des pays est vide. Vous pouvez charger les pays et r&eacute;gions par d&eacute;faut si vous le souhaitez."
+msgstr "在数据库里没找到世界国家资料, 您可以注入默认世界国家和省市资料"
+
+#: ../rencontre.php:729
+#: ../rencontre.php:923
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:329
+msgid "Charger pays"
+msgstr "更新世界国家"
+
+#: ../rencontre.php:733
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:333
+msgid "Mettre &agrave; jour le profil des membres"
+msgstr "更新会员个人资料"
+
+#: ../rencontre.php:734
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:334
+msgid "Vous avez fait des modifications. Pensez &agrave; mettre &agrave; jour lorsque vous aurez termin&eacute;."
+msgstr "您更改过您的个人资料, 请不要忘记保存"
+
+#: ../rencontre.php:737
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:337
+msgid "Vous pouvez cr&eacute;er, renommer et supprimer les diff&eacute;rents items du profil."
+msgstr "您可以创建更改和删除所有档案里的资料"
+
+#: ../rencontre.php:739
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:339
+msgid "Attention, ce n'est pas sans cons&eacute;quences. Les changements seront appliqu&eacute;s sur les profils des membres ce qui peut choquer. Prudence !"
+msgstr "请小心, 所有的更改将更新用户资料.是否继续?"
+
+#: ../rencontre.php:741
+#: ../rencontre.php:927
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:341
+msgid "Langue de r&eacute;f&eacute;rence"
+msgstr "主要默认使用语言"
+
+#: ../rencontre.php:741
+#: ../rencontre.php:927
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:341
+msgid "Autres"
+msgstr "其它的"
+
+#: ../rencontre.php:754
+#: ../rencontre.php:940
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:353
+msgid "Ajouter une langue (2 lettres minuscules conformes au code du pays)"
+msgstr "添加语言 (世界国家编号的头两个小写字母, 比如法语fr, 英语en, 中文cn)"
+
+#: ../rencontre.php:756
+#: ../rencontre.php:942
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:354
+msgid "Ajouter une langue"
+msgstr "添加语言"
+
+#: ../rencontre.php:759
+#: ../rencontre.php:945
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:355
+msgid "Supprimer une langue et tout le contenu associ&eacute;"
+msgstr "删除语言和跟语言相关的信息"
+
+#: ../rencontre.php:763
+#: ../rencontre.php:949
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:356
+msgid "Supprimer une langue"
+msgstr "删除一个语言"
+
+#: ../rencontre.php:770
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:362
+msgid "Ajouter une cat&eacute;gorie"
+msgstr "添加一个分类"
+
+#: ../rencontre.php:790
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:382
+msgid "Modifier le nom"
+msgstr "更改名字"
+
+#: ../rencontre.php:791
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:383
+msgid "Supprimer toute la cat&eacute;gorie"
+msgstr "删除分类"
+
+#: ../rencontre.php:795
+#: ../rencontre.php:796
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:387
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:388
+msgid "Ajouter une valeur &agrave; cette cat&eacute;gorie"
+msgstr "添加分类中的一个信息"
+
+#: ../rencontre.php:806
+#: ../rencontre.php:971
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:398
+msgid "Modifier le nom ou le type"
+msgstr "更改名字或种类"
+
+#: ../rencontre.php:814
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:406
+msgid "Une ligne de texte (TEXT)"
+msgstr "一行字(文字)"
+
+#: ../rencontre.php:817
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:409
+msgid "Grande zone de texte (TEXTAREA)"
+msgstr "大文字空白(文字大空格)"
+
+#: ../rencontre.php:821
+#: ../rencontre.php:845
+#: ../rencontre.php:977
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:413
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:437
+msgid "Ajouter une valeur"
+msgstr "减价一个信息"
+
+#: ../rencontre.php:822
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:414
+msgid "Liste &agrave; choix unique (SELECT)"
+msgstr "单项选自的清单"
+
+#: ../rencontre.php:835
+#: ../rencontre.php:859
+#: ../rencontre.php:982
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:427
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:451
+msgid "Modifier"
+msgstr "更改"
+
+#: ../rencontre.php:846
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:438
+msgid "Liste &agrave; choix multiples (CHECKBOX)"
+msgstr "多项选自的清单"
+
+#: ../rencontre.php:918
+msgid "Pays et R&eacute;gions"
+msgstr "国家和省份"
+
+#: ../rencontre.php:926
+msgid "Vous pouvez cr&eacute;er, renommer et supprimer les pays et r&eacute;gions."
+msgstr "您可以创建更改和删除所有国家省份档案里的资料"
+
+#: ../rencontre.php:956
+msgid "Ajouter un pays"
+msgstr "创建新的国家"
+
+#: ../rencontre.php:978
+msgid "R&eacute;gions"
+msgstr "省份"
+
+#: ../rencontre.php:1104
+#: ../inc/rencontre_widget.php:207
+#: ../inc/rencontre_widget.php:211
+#: ../inc/rencontre_widget.php:279
+#: ../inc/rencontre_widget.php:285
+#: ../inc/rencontre_widget.php:507
+#: ../inc/rencontre_widget.php:527
+#: ../inc/rencontre_widget.php:533
+#: ../inc/rencontre_widget.php:535
+#: ../inc/rencontre_widget.php:839
+#: ../inc/rencontre_widget.php:1169
+#: ../inc/rencontre_widget.php:1197
+#: ../inc/rencontre_widget.php:1363
+#: ../inc/rencontre_widget.php:1369
+#: ../inc/rencontre_widget.php:1371
+#: ../inc/rencontre_widget.php:1515
+#: ../inc/rencontre_widget.php:1725
+#: ../inc/rencontre_widget.php:1729
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:859
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:204
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:208
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:277
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:283
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:496
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:516
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:522
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:524
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:701
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:991
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1021
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1162
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1168
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1170
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1290
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1488
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1492
+msgid "ans"
+msgstr "岁"
+
+#: ../inc/base.php:280
+#: ../inc/base.php:329
+#: ../inc/base.php:332
+msgid "A MODIFIER"
+msgstr "更改"
+
+#: ../inc/rencontre_filter.php:137
+#: ../inc/rencontre_filter.php:231
+#: ../inc/rencontre_filter.php:299
+#: ../inc/rencontre_widget.php:70
+#: ../inc/rencontre_widget.php:92
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:130
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:186
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:247
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:67
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:89
+msgid "Bonjour"
+msgstr "您好"
+
+#: ../inc/rencontre_filter.php:139
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:132
+msgid "Votre profil a &eacute;t&eacute; visit&eacute;"
+msgstr "有会员阅读过您的个人资料"
+
+#: ../inc/rencontre_filter.php:139
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:132
+msgid "fois"
+msgstr "次"
+
+#: ../inc/rencontre_filter.php:142
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:135
+msgid "Vous avez re&ccedil;u un sourire de"
+msgstr "您收到其他会员打的招呼"
+
+#: ../inc/rencontre_filter.php:161
+#: ../inc/rencontre_filter.php:303
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:154
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:251
+msgid "Vous avez re&ccedil;u une demande de contact de"
+msgstr "您收到的关注"
+
+#: ../inc/rencontre_filter.php:179
+#: ../inc/rencontre_filter.php:318
+#: ../inc/rencontre_widget.php:1239
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:172
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:266
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1060
+msgid "Vous avez"
+msgstr "您收到"
+
+#: ../inc/rencontre_filter.php:179
+#: ../inc/rencontre_filter.php:318
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:172
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:266
+msgid "messages"
+msgstr "个短信"
+
+#: ../inc/rencontre_filter.php:179
+#: ../inc/rencontre_filter.php:318
+#: ../inc/rencontre_widget.php:1239
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:172
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:266
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1060
+msgid "message"
+msgstr "短信"
+
+#: ../inc/rencontre_filter.php:179
+#: ../inc/rencontre_filter.php:318
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:172
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:266
+msgid "dans votre boite de r&eacute;ception."
+msgstr "在您的收信箱里"
+
+#: ../inc/rencontre_filter.php:180
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:173
+msgid "N'h&eacute;sitez pas &agrave; nous faire part de vos remarques."
+msgstr "欢迎给我们提意见"
+
+#: ../inc/rencontre_filter.php:180
+#: ../inc/rencontre_filter.php:320
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:173
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:268
+msgid "Cordialement,"
+msgstr "敬礼!"
+
+#: ../inc/rencontre_filter.php:330
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:271
+msgid "Un membre vous contacte"
+msgstr "有一位会员关注了您"
+
+#: ../inc/rencontre_filter.php:387
+#: ../inc/rencontre_widget.php:1126
+#: ../inc/rencontre_widget.php:1139
+msgid "Indiff&eacute;rent"
+msgstr "其他"
+
+#: ../inc/rencontre_filter.php:424
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:359
+msgid "Une personne a demand&eacute; un nouveau mot de passe pour ce compte."
+msgstr "收到这个帐户更新密码的要求"
+
+#: ../inc/rencontre_filter.php:426
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:361
+#, php-format
+msgid "Login : %s"
+msgstr "用户名 : %s"
+
+#: ../inc/rencontre_filter.php:427
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:362
+msgid "Le mot de passe a &eacute;t&eacute; chang&eacute;. Vous pouvez maintenant vous connecter et le changer &agrave; nouveau depuis votre interface si vous le souhaitez."
+msgstr "您的密码成功更新, 您现在可以用您新的密码登陆.在会员区还可以再次更新您的密码"
+
+#: ../inc/rencontre_filter.php:428
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:363
+msgid "Nouveau mot de passe : "
+msgstr "新密码 : "
+
+#: ../inc/rencontre_filter.php:498
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:405
+#, php-format
+msgid "New user registration on your site %s:"
+msgstr "新的注册用户是 %s:"
+
+#: ../inc/rencontre_filter.php:499
+#: ../inc/rencontre_filter.php:503
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:406
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:410
+#, php-format
+msgid "Username: %s"
+msgstr "用户名: %s"
+
+#: ../inc/rencontre_filter.php:500
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:407
+#, php-format
+msgid "E-mail: %s"
+msgstr "电子邮件: %s"
+
+#: ../inc/rencontre_filter.php:501
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:408
+#, php-format
+msgid "[%s] New User Registration"
+msgstr "[%s] 新用户注册"
+
+#: ../inc/rencontre_filter.php:504
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:411
+#, php-format
+msgid "Password: %s"
+msgstr "密码: %s"
+
+#: ../inc/rencontre_filter.php:505
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_filter.php:412
+#, php-format
+msgid "[%s] Your username and password"
+msgstr "[%s] 您的用户名和密码"
+
+#: ../inc/rencontre_widget.php:10
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:11
+msgid "Widget pour integrer le site de rencontre"
+msgstr "可以在您网站上调用的Rencontre小工具"
+
+#: ../inc/rencontre_widget.php:48
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:46
+msgid "Ma page d'accueil"
+msgstr "主页"
+
+#: ../inc/rencontre_widget.php:49
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:47
+msgid "Ma fiche"
+msgstr "我的个人档案"
+
+#: ../inc/rencontre_widget.php:50
+#: ../inc/rencontre_widget.php:400
+#: ../inc/rencontre_widget.php:511
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:48
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:389
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:500
+msgid "Modifier mon profil"
+msgstr "更新我的个人资料"
+
+#: ../inc/rencontre_widget.php:51
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:49
+msgid "Messagerie"
+msgstr "站内短信"
+
+#: ../inc/rencontre_widget.php:53
+#: ../inc/rencontre_widget.php:1634
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:51
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1397
+msgid "Mon compte"
+msgstr "我的个人户头"
+
+#: ../inc/rencontre_widget.php:83
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:80
+msgid "Votre adresse mail est actuellement en quarantaine. D&eacute;sol&eacute;"
+msgstr "不好意思,您的电子邮件目前还没有激活"
+
+#: ../inc/rencontre_widget.php:92
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:89
+msgid "bienvenue sur le site"
+msgstr "欢迎您访问"
+
+#: ../inc/rencontre_widget.php:94
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:91
+msgid "Vous pourrez acc&eacute;der &agrave; l'ensemble des possibilit&eacute;s offertes par le site dans quelques minutes."
+msgstr "您很快可以享受我们为您提供的所有优质一流服务."
+
+#: ../inc/rencontre_widget.php:95
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:92
+msgid "Avant cela, vous devez fournir quelques &eacute;l&eacute;ments demand&eacute;s ci-dessous."
+msgstr "请提供以下的必要信息."
+
+#: ../inc/rencontre_widget.php:98
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:95
+msgid "Nous tenons &agrave; vous pr&eacute;ciser que nous n'utilisons pas vos donn&eacute;es personnelles en dehors de ce site."
+msgstr "我们向您保证您所有个人信息的隐私和安全保密,"
+
+#: ../inc/rencontre_widget.php:99
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:96
+msgid "La suppression de votre compte, de votre part ou de la notre, entraine l'effacement de l'ensemble des donn&eacute;es vous concernants."
+msgstr "如果您以后决定自己删除户头的话,您的所有个人信息将不被保存,"
+
+#: ../inc/rencontre_widget.php:100
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:97
+msgid "Ceci est &eacute;galement valable pour les mails que vous avez envoy&eacute;s aux autres membres ainsi que ceux qu'ils vous ont envoy&eacute;s."
+msgstr "包括您跟其他会员交换的短消息."
+
+#: ../inc/rencontre_widget.php:103
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:100
+msgid "Nous vous souhaitons de belles rencontres fructueuses."
+msgstr "祝福您能在这里找到自己的另一半!"
+
+#: ../inc/rencontre_widget.php:108
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:105
+msgid "Changer de pseudo (apr&egrave;s, ce ne sera plus possible)"
+msgstr "更改您的呢称 (之后将不能再更改)"
+
+#: ../inc/rencontre_widget.php:112
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:109
+msgid "Nouveau mot de passe (minimum 6)"
+msgstr "填写新密码 (至少6个字母)"
+
+#: ../inc/rencontre_widget.php:113
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:110
+msgid "Nouveau mot de passe (confirmation)"
+msgstr "确认新密码"
+
+#: ../inc/rencontre_widget.php:125
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:122
+msgid "Le changement du mot de passe est obligatoire pour cette premi&egrave;re connexion"
+msgstr "您必须更新密码, 更新后请用您的新密码重新登陆会员区."
+
+#: ../inc/rencontre_widget.php:129
+#: ../inc/rencontre_widget.php:1639
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:126
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1402
+msgid "Je suis"
+msgstr "我是"
+
+#: ../inc/rencontre_widget.php:130
+#: ../inc/rencontre_widget.php:1640
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:127
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1403
+msgid "N&eacute; le"
+msgstr "生日"
+
+#: ../inc/rencontre_widget.php:131
+#: ../inc/rencontre_widget.php:1683
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:128
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1446
+msgid "Ma ville"
+msgstr "现在所在城市"
+
+#: ../inc/rencontre_widget.php:132
+#: ../inc/rencontre_widget.php:1665
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:129
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1428
+msgid "Mon pays"
+msgstr "现在所在国家"
+
+#: ../inc/rencontre_widget.php:166
+#: ../inc/rencontre_widget.php:1695
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:163
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1458
+msgid "Ma taille"
+msgstr "身高"
+
+#: ../inc/rencontre_widget.php:167
+#: ../inc/rencontre_widget.php:1696
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:164
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1459
+msgid "Mon poids"
+msgstr "体重"
+
+#: ../inc/rencontre_widget.php:169
+#: ../inc/rencontre_widget.php:1666
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:166
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1429
+msgid "Ma r&eacute;gion"
+msgstr "现在所在省份"
+
+#: ../inc/rencontre_widget.php:174
+#: ../inc/rencontre_widget.php:1380
+#: ../inc/rencontre_widget.php:1386
+#: ../inc/rencontre_widget.php:1388
+#: ../inc/rencontre_widget.php:1701
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:171
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1179
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1185
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1187
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1464
+msgid "cm"
+msgstr "厘米"
+
+#: ../inc/rencontre_widget.php:180
+#: ../inc/rencontre_widget.php:1397
+#: ../inc/rencontre_widget.php:1398
+#: ../inc/rencontre_widget.php:1404
+#: ../inc/rencontre_widget.php:1406
+#: ../inc/rencontre_widget.php:1707
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:177
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1196
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1197
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1203
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1205
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1470
+msgid "kg"
+msgstr "公斤"
+
+#: ../inc/rencontre_widget.php:193
+#: ../inc/rencontre_widget.php:284
+#: ../inc/rencontre_widget.php:838
+#: ../inc/rencontre_widget.php:1514
+#: ../inc/rencontre_widget.php:1713
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:190
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:282
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:700
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1289
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1476
+msgid "Je cherche"
+msgstr "我找寻的是"
+
+#: ../inc/rencontre_widget.php:194
+#: ../inc/rencontre_widget.php:1714
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:191
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1477
+msgid "Age min/max"
+msgstr "年纪 (最年青到最年迈)"
+
+#: ../inc/rencontre_widget.php:195
+#: ../inc/rencontre_widget.php:1735
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:192
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1498
+msgid "Pour"
+msgstr "目的"
+
+#: ../inc/rencontre_widget.php:223
+#: ../inc/rencontre_widget.php:922
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:220
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:765
+msgid "Envoi"
+msgstr "保存"
+
+#: ../inc/rencontre_widget.php:274
+#: ../inc/rencontre_widget.php:1160
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:272
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:982
+msgid "en ligne"
+msgstr "在线"
+
+#: ../inc/rencontre_widget.php:274
+#: ../inc/rencontre_widget.php:1160
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:272
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:982
+msgid "hors-ligne"
+msgstr "不在线"
+
+#: ../inc/rencontre_widget.php:277
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:275
+msgid "(bloqu&eacute;)"
+msgstr "(黑名单)"
+
+#: ../inc/rencontre_widget.php:284
+#: ../inc/rencontre_widget.php:510
+#: ../inc/rencontre_widget.php:838
+#: ../inc/rencontre_widget.php:1514
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:282
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:499
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:700
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1289
+msgid "une femme"
+msgstr "一位女性"
+
+#: ../inc/rencontre_widget.php:284
+#: ../inc/rencontre_widget.php:510
+#: ../inc/rencontre_widget.php:838
+#: ../inc/rencontre_widget.php:1514
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:282
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:499
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:700
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1289
+msgid "un homme"
+msgstr "一位男性"
+
+#: ../inc/rencontre_widget.php:285
+#: ../inc/rencontre_widget.php:839
+#: ../inc/rencontre_widget.php:1515
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:283
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:701
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1290
+msgid "entre"
+msgstr "年纪在"
+
+#: ../inc/rencontre_widget.php:285
+#: ../inc/rencontre_widget.php:839
+#: ../inc/rencontre_widget.php:1515
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:283
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:701
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1290
+msgid "et"
+msgstr "和"
+
+#: ../inc/rencontre_widget.php:286
+#: ../inc/rencontre_widget.php:510
+#: ../inc/rencontre_widget.php:840
+#: ../inc/rencontre_widget.php:1516
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:284
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:499
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:702
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1291
+msgid "pour"
+msgstr "为"
+
+#: ../inc/rencontre_widget.php:293
+#: ../inc/rencontre_widget.php:296
+#: ../inc/rencontre_widget.php:844
+#: ../inc/rencontre_widget.php:846
+#: ../inc/rencontre_widget.php:1519
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:291
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:294
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:706
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:708
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1294
+msgid "Envoyer un mail"
+msgstr "发送电子邮件"
+
+#: ../inc/rencontre_widget.php:294
+#: ../inc/rencontre_widget.php:296
+#: ../inc/rencontre_widget.php:845
+#: ../inc/rencontre_widget.php:846
+#: ../inc/rencontre_widget.php:1520
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:292
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:294
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:707
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:708
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1295
+msgid "Lui sourire"
+msgstr "打招呼"
+
+#: ../inc/rencontre_widget.php:295
+#: ../inc/rencontre_widget.php:296
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:293
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:294
+msgid "Demander un contact"
+msgstr "加为好友"
+
+#: ../inc/rencontre_widget.php:297
+#: ../inc/rencontre_widget.php:298
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:295
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:296
+msgid "Tchater"
+msgstr "聊天"
+
+#: ../inc/rencontre_widget.php:299
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:297
+msgid "Bloquer"
+msgstr "加入黑名单"
+
+#: ../inc/rencontre_widget.php:299
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:297
+msgid "D&eacute;bloquer"
+msgstr "注销黑名单"
+
+#: ../inc/rencontre_widget.php:300
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:298
+msgid "Signaler un faux profil ou un contenu inadapt&eacute;"
+msgstr "汇报管理员有不佳内容"
+
+#: ../inc/rencontre_widget.php:300
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:298
+msgid "Signaler"
+msgstr "汇报管理员"
+
+#: ../inc/rencontre_widget.php:301
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:299
+msgid "Vous &ecirc;tes bloqu&eacute; !"
+msgstr "您被列如黑名单"
+
+#: ../inc/rencontre_widget.php:311
+msgid "Message envoy&eacute;"
+msgstr "信息已发送"
+
+#: ../inc/rencontre_widget.php:419
+msgid "Cliquer la vignette"
+msgstr "点击图片"
+
+#: ../inc/rencontre_widget.php:499
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:484
+msgid "Mot de passe chang&eacute; !"
+msgstr "密码更改成功"
+
+#: ../inc/rencontre_widget.php:508
+#: ../inc/rencontre_widget.php:1428
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:497
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1227
+msgid "Ville"
+msgstr "城市"
+
+#: ../inc/rencontre_widget.php:510
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:499
+msgid "Je recherche"
+msgstr "我找寻的是"
+
+#: ../inc/rencontre_widget.php:512
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:501
+msgid "Sourire"
+msgstr "收到的招呼"
+
+#: ../inc/rencontre_widget.php:513
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:502
+msgid "Regard"
+msgstr "看过我信息的会员"
+
+#: ../inc/rencontre_widget.php:514
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:503
+msgid "Demandes de contact"
+msgstr "加好友的请求"
+
+#: ../inc/rencontre_widget.php:517
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:506
+msgid "A qui j'ai souri ?"
+msgstr "我跟哪些会员打过招呼?"
+
+#: ../inc/rencontre_widget.php:518
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:507
+msgid "A qui j'ai demand&eacute; un contact ?"
+msgstr "我跟哪些会员加为好友?"
+
+#: ../inc/rencontre_widget.php:519
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:508
+msgid "Qui j'ai bloqu&eacute; ?"
+msgstr "我跟哪些会员加入黑名单?"
+
+#: ../inc/rencontre_widget.php:522
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:511
+msgid "Recherche rapide"
+msgstr "搜索"
+
+#: ../inc/rencontre_widget.php:525
+#: ../inc/rencontre_widget.php:1361
+#: ../inc/rencontre_widget.php:1378
+#: ../inc/rencontre_widget.php:1395
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:514
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1160
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1177
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1194
+msgid "de"
+msgstr "从"
+
+#: ../inc/rencontre_widget.php:545
+#: ../inc/rencontre_widget.php:1420
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:534
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1219
+#: ../lang/rencontre-js-admin-lang.php:13
+msgid "R&eacute;gion"
+msgstr "地区"
+
+#: ../inc/rencontre_widget.php:551
+#: ../inc/rencontre_widget.php:1449
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:540
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1248
+msgid "Cherche"
+msgstr "搜索"
+
+#: ../inc/rencontre_widget.php:575
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:564
+msgid "Portraits s&eacute;l&eacute;ctionn&eacute;s"
+msgstr "您可能感兴趣的人"
+
+#: ../inc/rencontre_widget.php:605
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:594
+msgid "Actuellement en ligne"
+msgstr "在线会员"
+
+#: ../inc/rencontre_widget.php:618
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:607
+msgid "Nouveaux inscrits"
+msgstr "新会员"
+
+#: ../inc/rencontre_widget.php:667
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:643
+msgid "J'ai souri &agrave;"
+msgstr "我加为好友的是"
+
+#: ../inc/rencontre_widget.php:694
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:651
+msgid "J'ai re&ccedil;u un sourire de"
+msgstr "把我加为好友的会员如下"
+
+#: ../inc/rencontre_widget.php:721
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:659
+msgid "J'ai demand&eacute; un contact &agrave;"
+msgstr "我加为好友的会员是"
+
+#: ../inc/rencontre_widget.php:748
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:667
+msgid "J'ai eu une demande de contact de"
+msgstr "把我加为好友的会员是"
+
+#: ../inc/rencontre_widget.php:775
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:675
+msgid "J'ai &eacute;t&eacute; regard&eacute; par"
+msgstr "阅览过我个人资料的会员是"
+
+#: ../inc/rencontre_widget.php:802
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:683
+msgid "J'ai bloqu&eacute;"
+msgstr "被我加入了黑名单的是"
+
+#: ../inc/rencontre_widget.php:832
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:694
+msgid "Le"
+msgstr "这个"
+
+#: ../inc/rencontre_widget.php:862
+#: ../inc/rencontre_widget.php:1536
+msgid "Page suivante"
+msgstr "下一页"
+
+#: ../inc/rencontre_widget.php:908
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:757
+msgid "Envoyer un message &agrave;"
+msgstr "给会员发信息"
+
+#: ../inc/rencontre_widget.php:920
+#: ../inc/rencontre_widget.php:1240
+#: ../inc/rencontre_widget.php:1265
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:763
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1061
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1080
+msgid "Sujet"
+msgstr "主题"
+
+#: ../inc/rencontre_widget.php:921
+#: ../inc/rencontre_widget.php:1299
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:764
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1104
+msgid "Message"
+msgstr "短信"
+
+#: ../inc/rencontre_widget.php:945
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:788
+msgid "Votre profil est vide. Vous &ecirc;tes invisible des autres membres. Pour b&eacute;n&eacute;ficier des avantages du site, merci de modifier votre profil."
+msgstr "您的个人信息目前不完全,其他会员还不能看到您, 请填写您的详细资料."
+
+#: ../inc/rencontre_widget.php:946
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:789
+msgid "Fermer"
+msgstr "关闭"
+
+#: ../inc/rencontre_widget.php:1233
+#: ../inc/rencontre_widget.php:1260
+#: ../inc/rencontre_widget.php:1292
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1059
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1079
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1103
+msgid "Boite de r&eacute;ception"
+msgstr "收件箱"
+
+#: ../inc/rencontre_widget.php:1235
+#: ../inc/rencontre_widget.php:1262
+#: ../inc/rencontre_widget.php:1295
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1059
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1079
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1103
+msgid "Messages envoy&eacute;s"
+msgstr "已发出邮件"
+
+#: ../inc/rencontre_widget.php:1239
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1060
+msgid "non lu"
+msgstr "未读邮件"
+
+#: ../inc/rencontre_widget.php:1240
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1061
+msgid "Emetteur"
+msgstr "发件者"
+
+#: ../inc/rencontre_widget.php:1265
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1080
+msgid "Destinataire"
+msgstr "收件者"
+
+#: ../inc/rencontre_widget.php:1302
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1106
+msgid "De"
+msgstr "从"
+
+#: ../inc/rencontre_widget.php:1310
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1109
+msgid "A"
+msgstr "到"
+
+#: ../inc/rencontre_widget.php:1314
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1113
+msgid "R&eacute;pondre"
+msgstr "回复"
+
+#: ../inc/rencontre_widget.php:1432
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1231
+msgid "Uniquement avec photo"
+msgstr "仅有照片的会员"
+
+#: ../inc/rencontre_widget.php:1436
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1235
+msgid "Affinit&eacute; avec mon profil"
+msgstr "跟我有缘分的"
+
+#: ../inc/rencontre_widget.php:1440
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1239
+msgid "Mot dans l'annonce"
+msgstr "个性展示里的关键词"
+
+#: ../inc/rencontre_widget.php:1607
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1370
+msgid "Changement du mot de passe"
+msgstr "密码更改"
+
+#: ../inc/rencontre_widget.php:1612
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1375
+msgid "Ancien"
+msgstr "旧密码"
+
+#: ../inc/rencontre_widget.php:1613
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1376
+msgid "Nouveau"
+msgstr "新密码"
+
+#: ../inc/rencontre_widget.php:1614
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1377
+msgid "Retaper le nouveau"
+msgstr "确认密码"
+
+#: ../inc/rencontre_widget.php:1628
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1391
+msgid "Change"
+msgstr "更改"
+
+#: ../inc/rencontre_widget.php:1756
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1519
+msgid "Cette action provoquera la suppression compl&egrave;te de votre compte et de tout ce qui vous concerne de notre serveur. Nous ne conservons aucun historique des comptes supprim&eacute;s."
+msgstr "您的户头将被删除, 您的档案不能再恢复, "
+
+#: ../inc/rencontre_widget.php:1759
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1522
+msgid "Attention, cette action est irr&eacute;versible !"
+msgstr "请好好考虑 !"
+
+#: ../inc/rencontre_widget.php:1760
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1523
+msgid "Supprimer le compte"
+msgstr "户头删除"
+
+#: ../inc/rencontre_widget.php:1774
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1536
+msgid "sourire d&eacute;j&agrave; envoy&eacute;"
+msgstr "已经发出的加为好友请求"
+
+#: ../inc/rencontre_widget.php:1788
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1549
+msgid "sourire envoy&eacute;"
+msgstr "加为好友请求成功发出"
+
+#: ../inc/rencontre_widget.php:1808
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1568
+msgid "contact d&eacute;j&agrave; demand&eacute;"
+msgstr "已经打过的招呼"
+
+#: ../inc/rencontre_widget.php:1825
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1584
+msgid "demande de contact envoy&eacute;e"
+msgstr "打招呼成功发出"
+
+#: ../inc/rencontre_widget.php:1836
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1595
+msgid "Signalement d&eacute;j&agrave; &eacute;ffectu&eacute;"
+msgstr "已经汇报过管理员"
+
+#: ../inc/rencontre_widget.php:1841
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:1600
+msgid "Merci pour votre signalement"
+msgstr "谢谢您的汇报"
+
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:189
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:317
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:481
+#: ../rab/boiteasite-kom/rencontre/rencontre.php:712
+#: ../rab/boiteasite-kom/rencontre/inc/rencontre_widget.php:10
+msgid "Rencontre"
+msgstr "约会"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:3
+#: ../lang/rencontre-js-lang.php:3
+#: ../lang/rencontre-js-admin-lang.php:18
+msgid "Supprimer cette photo"
+msgstr "删除照片"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:4
+#: ../lang/rencontre-js-lang.php:4
+#: ../lang/rencontre-js-admin-lang.php:17
+msgid "Supprimer la photo"
+msgstr "删除照片"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:5
+#: ../lang/rencontre-js-lang.php:5
+#: ../lang/rencontre-js-admin-lang.php:16
+msgid "Ajouter la photo "
+msgstr "添加照片"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:6
+#: ../lang/rencontre-js-lang.php:6
+msgid "champs incomplets ou erreur"
+msgstr "信息填写有误"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:7
+#: ../lang/rencontre-js-lang.php:7
+msgid "Pseudo non disponible"
+msgstr "呢称已经被其他会员注册"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:8
+#: ../lang/rencontre-js-lang.php:8
+msgid "Confirmer la suppression du compte ?"
+msgstr "确认删除户头 ?"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:9
+#: ../lang/rencontre-js-lang.php:9
+msgid "Les nouveaux mots de passes sont diff&eacute;rents"
+msgstr "新密码跟旧密码不符"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:10
+#: ../lang/rencontre-js-lang.php:10
+msgid "Le mot de passe original est faux"
+msgstr "旧密码不正确"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:11
+#: ../lang/rencontre-js-lang.php:11
+msgid "Ecrire et appuyer <Enter>"
+msgstr "填写并按 <Enter>键"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:12
+#: ../lang/rencontre-js-lang.php:12
+msgid "Demande de Tchat envoy&eacute;e. Attendre..."
+msgstr "聊天请求已经发出. 请稍等 ..."
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:13
+#: ../lang/rencontre-js-lang.php:14
+msgid "Vous avez une demande de Tchat"
+msgstr "您收到一个聊天请求"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:14
+#: ../lang/rencontre-js-lang.php:15
+msgid "Ignorer"
+msgstr "放弃"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:15
+#: ../lang/rencontre-js-lang.php:16
+msgid "Accepter"
+msgstr "接受"
+
+#: ../rab/boiteasite-kom/rencontre/lang/rencontre-js-lang.php:16
+#: ../lang/rencontre-js-lang.php:17
+msgid "Votre interlocuteur &agrave; ferm&eacute; sa fen&ecirc;tre."
+msgstr "跟您聊天的朋友关闭了聊天"
+
+#: ../lang/rencontre-js-lang.php:13
+msgid "Demande de Tchat accept&eacute;e. Vous pouvez commencer."
+msgstr "聊天请求被接受。你可以开始..."
+
+#: ../lang/rencontre-js-admin-lang.php:3
+msgid "Modifier la valeur"
+msgstr "更改"
+
+#: ../lang/rencontre-js-admin-lang.php:5
+msgid "Confirmer"
+msgstr "确认"
+
+#: ../lang/rencontre-js-admin-lang.php:6
+msgid "supp"
+msgstr "删除"
+
+#: ../lang/rencontre-js-admin-lang.php:8
+msgid "Cat&eacute;gorie"
+msgstr "分类"
+
+#: ../lang/rencontre-js-admin-lang.php:9
+msgid "Valeur"
+msgstr "数据"
+
+#: ../lang/rencontre-js-admin-lang.php:10
+msgid "Nouvel item"
+msgstr "新添信息"
+
+#: ../lang/rencontre-js-admin-lang.php:11
+msgid "Ajoute"
+msgstr "添加"
+
+#: ../lang/rencontre-js-admin-lang.php:14
+msgid "Code ISO"
+msgstr " ISO 编码"
+
+#: ../lang/rencontre-js-admin-lang.php:15
+msgid "Fichier image"
+msgstr "图像"
+
+#: ../lang/rencontre-js-admin-lang.php:19
+msgid "Supprimer ce compte ?"
+msgstr "删除户头 ?"
+
+#: ../lang/rencontre-js-admin-lang.php:20
+msgid "Liberer ce mail ?"
+msgstr "发出此邮件 ?"
+
+#~ msgid "99 ans"
+#~ msgstr "99 years"

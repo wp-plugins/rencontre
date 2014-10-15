@@ -1,0 +1,126 @@
+.left {float:left;}
+.right {float:right;}
+.clear {clear:both;}
+.calign {text-align:center;}
+.br {height:10px;}
+.boto10 {margin-bottom:10px;}
+.rel {position:relative;}
+.rencBox {position:relative;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}
+.rencBox a {text-decoration:none;}
+.rencBox h3 {clear:none;margin:0 0 5px 0;}
+.rencBox ul iframe {position:absolute; width:150px;top:-2px;left:20px;max-height:22px!important;}
+.rencBox input[type="checkbox"] {width:14px;vertical-align: middle;}
+.demiBox {width:49%;}
+.pleineBox {width:100%;}
+.petiteBox {width:33%;}
+.grandeBox  {width:66%;}
+.grid_10 {width:81.66666%;}
+
+.rencMiniPortrait {margin:0;position:relative;float:left;}
+.miniPortrait {position:relative;float:left; background-color:#fbf8f3;border:1px solid #f3eddd;margin:2px;padding:3px;border-radius:3px;text-transform:capitalize;}
+.miniPortrait:hover {border-bottom:2px solid #f3eddd;border-top:none;box-shadow:0 1px 0 #555;}
+.miniPortrait img.tete{float:right; width:60px;border-radius:3px;}
+.miniPortrait img.flag{position:absolute;top:70px;left:105px;border:1px solid #555;border-radius:2px;}
+.miniPortrait div {float:left; margin-right:0px;width: 65px; font-size:0.9em;color:#dd6e28;overflow:hidden;max-height:64px;line-height:1.1em;}
+.miniPortrait div h3 {font-size:1em;color:#1c0000;margin:0 0 5px 0;max-height:28px; overflow:hidden;clear:none;}
+.miniPortrait div span {color:#000;}
+.miniPortrait p {clear:both; font-size:0.75em; color:#000; margin-top:65px; height:2.7em; line-height:1.3em;overflow:hidden; width:102px;}
+.rencInline,.rencOutline, .rencInline2,.rencOutline2 {position:absolute;color:green;font-size:10px;text-align:right;font-weight:bold;}
+.rencInline,.rencOutline {top:94px;right:3px;}
+.rencInline2,.rencOutline2 {top:40px;right:8px;}
+.rencOutline, .rencOutline2 {color:#888;font-weight:normal;}
+.rencBox {position:relative;background-color: #fff; border-radius:3px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);font-size:14px;overflow:hidden;padding:5px;margin-bottom:1%;}
+.rencBox a {text-decoration:none;}
+.demiBox {width:46%;}
+.pleineBox {width:100%;}
+.petiteBox {width:33%;}
+.grandeBox {width:66%;}
+/*.miniBox {width:24%;height:110px;}*/
+.miniBox {width:135px;height:100px;margin-right:5px;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}
+.maxiBox{width:480px;min-height:100px; padding:5px;}
+
+.portraitPhoto {float:left; text-align:center;padding-bottom:10px;min-height:300px;}
+#portraitGrande {max-width:99%;max-height:250px;margin-bottom:5px; border-radius:4px;}
+.portraitMini { border-radius:3px;}
+.rencPortrait {min-height:600px;}
+.rencPortrait img.flag{float:right;margin:10px;border:1px solid #555;border-radius:2px;}
+.rencPortrait .titre{margin-bottom:10px;}
+.rencPortrait .ville {color:#dd6e28;margin:-10px 0 5px;}
+.renc1 {color:#dd6e28;margin:5px 0;font-weight:700;}
+.rencPortrait p{clear:both;margin-top:10px;font-size:85%;}
+.rencPortrait ul, .rencMenu ul {list-style:none;margin:0;}
+.rencPortrait ul li, .rencMenu ul li{display:-moz-inline-box;display:inline-block; background-color:#e8e5ce; color:#1c0d02;border:1px solid #555; border-radius:4px;margin:3px; padding:5px;font-size:90%;}
+.rencPortrait ul li.boutonred, .rencMenu ul li.boutonred{background-color:red;}
+.rencTab {background-color:#e8e5ce;}
+.rencMenu {position:relative;margin-top:5px;}
+.rencMenu li.current{color:black;font-weight:bold;background-color:#bfb190;}
+.rencMenu li.current:hover{}
+.rencMenu li span{background-color:#9f5824;color:black;font-weight:bold; border-radius:10px;margin:0 0 0 5px; padding:2px 4px;font-size:90%; }
+.rencPortrait .portraitOnglet {font-size:80%; padding:6px 4px 10px; margin-right:1px;border-radius:4px;border:1px solid #e8e5ce;cursor:pointer;}
+.rencPortrait table {font-size:80%; margin-top:8px;width:100%;display:none;border:1px solid #e8e5ce;}
+.rencPortrait table tr:nth-child(2n+1) {background-color:#e8e5ce;}
+.rencPortrait table tr {width:100%;}
+.rencPortrait table td {padding:2px 0 2px 10px;line-height:2em;}
+.rencPortrait input {width:90%;}
+.rencBox img.maPhoto{float:left;border-radius:3px;margin-right:10px;}
+.rencBox img.monFlag {position:absolute; top:4px;left:88%;border:1px solid #555;border-radius:2px;}
+.rencBox .maVille, .rencBox .monAge {color:#9f5824;margin:2px 0;}
+.rencBox .maRecherche {clear:left;color:#444;font-size:0.75em;}
+.rencBox .button {float:right; display:inline-block; background-color:#e8e5ce;color:#1c0d02;border:1px solid #555; border-radius:4px;margin:5px 3px 2px; padding:5px;font-size:90%;}
+.rencBox .button:hover, .rencPortrait ul li:hover, .rencMenu ul li:hover {background-color:#bfb190;}
+.rencBox .abso135 {position:absolute; bottom:5px;right:5px; }
+.rencBox .abso225 {position:absolute; bottom:0px;left:5px;color:#444;font-size:0.85em;}
+.rencBox input[type="checkbox"] {margin:3px 20px 0 -2px;padding-top:5px;}
+.rencBonjour {position:absolute;top:10px;right:10px;text-align:right;font-size:120%;}
+.rencNouveau, .rencCompte {padding:15px; text-align:justify;}
+.rencNouveau table tr td, .rencCompte table tr td {text-align:center;vertical-align:top; padding:10px 25px 25px;}
+.rencNouveau table tr th, .rencCompte table tr th {text-align:center;border-top:2px solid #e0cdbf;padding-top:10px;}
+.rencNouveau table option, .rencCompte table option {font-size:90%;}
+.rencBox .rencLiOff { font-style:italic; color:#aaa;pointer-events:none; border-color:#aaa;}
+.rencDate {float:left; margin-left:8px;width:100%; font-weight:700; font-size:80%; color:#777;}
+.rencPagine{margin:5px auto; text-align:center;}
+.rencPagine a, .rencPagine span {color:#000; font-weight:400; padding:0 10px; text-align:center;text-decoration:none;}
+.rencPagine span {color:#777; font-size:110%;}
+.rencPagine a:hover {color:#444;}
+.rencInfo {color:#aaa;}
+#rencMsg {line-height:1.4em;}
+#rencMsg table tr:hover {background-color:#fcfcfa;}
+#rencMsg table td, #rencMsg table th {padding:5px 0 5px 10px;}
+#rencMsg table td {cursor:pointer; }
+#rencMsg table th {background-color:#e8e5ce;}
+#rencMsg .tete {position:absolute; top:10px; right:10px; width:60px;border-radius:3px;}
+#rencMsg label {display:block;margin:15px 0 5px 1px;}
+#rencMsg input, #rencMsg textarea{width:80%; overflow: auto;}
+#rencMsg h3 a {color:#999;}
+#rencMsg h3 a:hover {color:#000;}
+#portraitSauv {float:right; margin:20px;}
+#portraitSauv span {margin-right:10px;padding:5px 10px;border-radius:4px;background-color:#e8e5ce;}
+#portraitSauv span:hover {cursor:pointer;background-color:#bfb190;}
+#infoChange, #rencAlert, #rencAlert1 {font-size:110%; color:red; font-weight:bold;}
+#formTrouve table td {padding:5px 20px 5px 10px;}
+#formTrouve table tr:nth-child(2n+1) {background-color:#e8e5ce;}
+#rencFantome{width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,.5);}
+#rencFantome .rencFantome{font-size:120%;text-align:center;line-height:1.6em;width:30%;margin:10% auto;background-color:#fff;padding:3%;opacity:1;filter:alpha(opacity=100);-moz-opacity:1.00;opacity:1.00;z-index:999;}
+#rencFantome .rencFantome span{cursor:pointer;font-weight:700;display:block;text-decoration:underline;margin-top:10px;}
+
+a.rencSupp {display:inline-block; background:transparent url("../images/sprite.png") no-repeat scroll -2px -4px; width:16px; height:16px;margin:0 3px;}
+a.rencPlus {display:inline-block; background:transparent url("../images/sprite.png") no-repeat scroll -2px -108px; width:16px; height:16px;margin:0 3px;}
+
+/* ***** TCHAT ******** */
+#rencTchat {position:fixed; bottom:10px;right:10px;visibility:hidden;z-index:999;width: 300px;border: 1px solid #444;border-radius: 4px 4px 0 0;box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);font-family: Helvetica Neue, Helvetica, Arial, Sans Serif;font-size: 13px;line-height: 17px;color: #111;background: #fff;}
+#rencTchat .top{background:#1e1414;border-radius:3px 3px 0 0;min-height:auto; padding:5px 10px;font-weight:bold;color:#aaa;}
+#rencTchat .top span{float:right;font-weight:bold;cursor:pointer;}
+#rencTchat .top .cam{float:right;width:20px;height:20px;background:transparent url("../images/cam20.png") no-repeat scroll 0 0;cursor:pointer;margin:-2px 7px 0 0;}
+#rencTchat #contenu{background: #efefef;color: #333;height: 280px;overflow-y: auto;padding: 10px 10px 20px;margin: 0;font-weight: normal;}
+#rencTchat .fm, #rencTchat .to, #rencTchat .az{ margin:10px 0;width:65%; font-size: 13px; line-height: 16px;border-radius: 3px;width: 70%;padding: 6px;border-width: 1px;border-style: solid;}
+#rencTchat .to{float:left;background: #DBFCFF;background: -moz-linear-gradient(top,  #DBFCFF 0%, #bdedfc 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#DBFCFF), color-stop(100%,#bdedfc));background: -webkit-linear-gradient(top,  #DBFCFF 0%,#bdedfc 100%);background: -o-linear-gradient(top,  #DBFCFF 0%,#bdedfc 100%);background: -ms-linear-gradient(top,  #DBFCFF 0%,#bdedfc 100%);background: linear-gradient(to bottom,  #DBFCFF 0%,#bdedfc 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#DBFCFF', endColorstr='#bdedfc',GradientType=0 );border-color: #97A1A9;}
+#rencTchat .fm{float:right;background: #feffe8;background: -moz-linear-gradient(top,  #feffe8 0%, #d6dbbf 100%);background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#feffe8), color-stop(100%,#d6dbbf));background: -webkit-linear-gradient(top,  #feffe8 0%,#d6dbbf 100%);background: -o-linear-gradient(top,  #feffe8 0%,#d6dbbf 100%);background: -ms-linear-gradient(top,  #feffe8 0%,#d6dbbf 100%);background: linear-gradient(to bottom,  #feffe8 0%,#d6dbbf 100%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffe8', endColorstr='#d6dbbf',GradientType=0 );border-color: #9B946D;color: #2C2A1F;}
+#rencTchat .az {float:left;width:92%;background:#e8e5ce; border-color:#9f5824; color:#1c0d02;}
+#rencTchat .emot {display:block;width:300px;padding:0 2px; overflow:hidden;color:#bbb;}
+#rencTchat .emot img {cursor:pointer;}
+#rencTchat input {display:block;width:286px;padding:4px; overflow:hidden;color:#bbb;}
+#rencTchat .button {float:right; display:inline-block; background-color:#e8e5ce;color:#1c0d02;border:1px solid #9f5824; border-radius:4px;margin:5px 3px 2px; padding:5px;font-size:90%;}
+#rencTchat .button:hover {background-color:#bfb190;cursor:pointer;}
+#rencCam, #rencCam2{position:fixed; bottom:10px;right:320px;visibility:hidden;z-index:999;width:300px;height:225px;border: 1px solid #444;border-radius: 4px;box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);background-color:#fff;}
+#rencCamObj{z-index:999;background-color:#fff;}
+#rencCamImg{position:absolute;top:0;left:0;z-index:1010;}
