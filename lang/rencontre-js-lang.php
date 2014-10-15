@@ -10,6 +10,7 @@ $lang = array(
 	'pass_init_faux'=>__('Le mot de passe original est faux','rencontre'),
 	'ecrire_appuyer'=>__('Ecrire et appuyer <Enter>','rencontre'),
 	'tchat_attendre'=>__('Demande de Tchat envoy&eacute;e. Attendre...','rencontre'),
+	'tchat_dem_ok'=>__('Demande de Tchat accept&eacute;e. Vous pouvez commencer.','rencontre'),
 	'demande_tchat'=>__('Vous avez une demande de Tchat','rencontre'),
 	'ignorer'=>__('Ignorer','rencontre'),
 	'accepter'=>__('Accepter','rencontre'),

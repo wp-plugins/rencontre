@@ -22,8 +22,13 @@ add_action('wp_ajax_iniPass', 'f_iniPass'); // premiere connexion - changement m
 add_action('wp_ajax_testPass', 'f_testPass'); // changement du mot de passe
 add_action('wp_ajax_fbok', 'f_fbok'); add_action('wp_ajax_nopriv_fbok', 'f_fbok'); // connexion via FB
 add_action('wp_ajax_miniPortrait2', 'f_miniPortrait2'); function f_miniPortrait2() {RencontreWidget::f_miniPortrait2($_POST['id']);}
-add_action('wp_ajax_iso', 'f_iso'); // Test si le code ISO est libre (Partie ADMIN)
-add_action('wp_ajax_drap', 'f_drap'); // SELECT avec la liste des fichiers drapeaux (Partie ADMIN)
+if (is_admin())
+	{
+	add_action('wp_ajax_iso', 'f_iso'); // Test si le code ISO est libre (Partie ADMIN)
+	add_action('wp_ajax_drap', 'f_drap'); // SELECT avec la liste des fichiers drapeaux (Partie ADMIN)
+	add_action('wp_ajax_exportCsv', 'f_exportCsv'); // Export CSV (Partie ADMIN)
+	add_action('wp_ajax_importCsv', 'f_importCsv'); // Import CSV (Partie ADMIN)
+	}
 // CRON
 add_action('plugins_loaded', 'f_cron');
 function f_cron()
@@ -74,7 +79,7 @@ function f_cron_on()
 			$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$r->ID));
 			}
 		}
-	// 4. Suppression fichiers anciens dans UPLOADS/SESSION/ et UPLOADS/TCHAT/
+	// 4. Suppression fichiers anciens dans UPLOADS/SESSION/ et UPLOADS/TCHAT/ et des exports CSV UPLOADS/TMP
 	if (!is_dir($rencDiv['basedir'].'/session/')) mkdir($rencDiv['basedir'].'/session/');
 	else
 		{
@@ -97,6 +102,7 @@ function f_cron_on()
 			if ($tab!='') foreach ($tab as $r){if (filemtime($r)<time()-86400) unlink($r);}
 			}
 		}
+	if (!is_dir($rencDiv['basedir'].'/tmp/')) array_map('unlink', glob($rencDiv['basedir']."/tmp/*rencontre.csv"));
 	// 5. Suppression fichiers anciens dans UPLOADS/PORTRAIT/LIBRE/ : > 3 jours
 	if (!is_dir($rencDiv['basedir'].'/portrait/libre/')) @mkdir($rencDiv['basedir'].'/portrait/libre/');
 	else
@@ -194,12 +200,15 @@ function f_cron_on()
 				$c = count($action[$ac[$v]]);
 				for ($w=0; $w<$c; ++$w)
 					{
-					$q1 = $wpdb->get_var("SELECT user_id FROM ".$wpdb->prefix."rencontre_users WHERE user_id='".$action[$ac[$v]][$w]['i']."' "); // compte suprime ?
-					if(!$q1)
+					if(isset($action[$ac[$v]][$w]['i']))
 						{
-						if(!$x) $x = 1;
-						unset($action[$ac[$v]][$w]['i']); 
-						unset($action[$ac[$v]][$w]['d']);
+						$q1 = $wpdb->get_var("SELECT user_id FROM ".$wpdb->prefix."rencontre_users WHERE user_id='".$action[$ac[$v]][$w]['i']."' "); // compte suprime ?
+						if(!$q1)
+							{
+							if(!$x) $x = 1;
+							unset($action[$ac[$v]][$w]['i']); 
+							unset($action[$ac[$v]][$w]['d']);
+							}
 						}
 					}
 				if($action[$ac[$v]]) $action[$ac[$v]]=array_filter($action[$ac[$v]]);
@@ -497,6 +506,33 @@ if (!function_exists('wp_new_user_notification'))
 		}
 	}
 //
-// Partie ADMIN
+function f_userSupp($f,$a,$b)
+	{
+	$r = 'wp-content/uploads/portrait/'.floor($f/1000);
+	for ($v=0; $v<6; $v++)
+		{
+		if (file_exists($r."/".$f.$v.".jpg")) unlink($r."/".$f.$v.".jpg");
+		if (file_exists($r."/".$f.$v."-mini.jpg")) unlink($r."/".$f.$v."-mini.jpg");
+		if (file_exists($r."/".$f.$v."-grande.jpg")) unlink($r."/".$f.$v."-grande.jpg");
+		if (file_exists($r."/".$f.$v."-libre.jpg")) unlink($r."/".$f.$v."-libre.jpg");
+		}
+	if (!is_admin()) wp_logout();
+	global $wpdb;
+	if ($b) // prison
+		{
+		$q = $wpdb->get_row("SELECT U.user_email, R.c_ip FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R WHERE U.ID=".$f." and U.ID=R.user_id");
+		$wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_prison (d_prison,c_mail,c_ip) VALUES('".date('Y-m-d H:i:s')."','".$q->user_email."','".$q->c_ip."')");
+		}
+	$wpdb->delete($wpdb->prefix.'rencontre_users_profil', array('user_id'=>$f));
+	$wpdb->delete($wpdb->prefix.'rencontre_msg', array('sender'=>$a));
+	$wpdb->delete($wpdb->prefix.'rencontre_msg', array('recipient'=>$a));
+	$wpdb->delete($wpdb->prefix.'rencontre_users', array('user_id'=>$f));
+	$wpdb->delete($wpdb->prefix.'users', array('ID'=>$f));
+	$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$f));
+	if (!is_admin()) { wp_redirect(home_url()); exit; }
+	}
+//
+//
+// Partie ADMIN dans base.php
 //
 ?>

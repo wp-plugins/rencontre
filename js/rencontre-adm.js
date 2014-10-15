@@ -1,7 +1,65 @@
 /*
 * Rencontre
 */
-var b6=0,b0='';
+var b6=0,b0='',csv=0,csv1=0;
+// ****************************************
+// ONGLETS GENERAL
+// ****************************************
+function f_exportCsv(){
+	document.getElementById("waitCsv").style.display="inline";
+	jQuery(document).ready(function(){
+		jQuery.post('admin-ajax.php',{'action':'exportCsv'},function(r){
+			a=document.getElementById("rencCsv");
+			document.getElementById("waitCsv").style.display="none";
+			a.style.display="inline";
+			document.getElementById("photoCsv").style.display="block";
+			a.href='../wp-content/uploads/tmp/'+r.substring(0,r.length-1)+'export_rencontre.csv';
+		});
+	});
+}
+function startUpload(){
+	document.getElementById('loadingCsv').style.display='inline';
+	return true;
+}
+function finUpload(s){
+	var result='';
+	document.getElementById('loadingCsv').style.display='none';
+	if(s==0)document.getElementById('impCsv2').style.display='inline';
+	else{
+		document.getElementById('impCsv1').style.display='inline';
+		f_importCsv(2);
+	}
+	return true;
+}
+function f_importCsv(f){
+	if(f){
+		jQuery(document).ready(function(){
+			document.getElementById('loadingCsv').style.display='inline';
+			jQuery.post('admin-ajax.php',{'action':'importCsv','cas':f},function(r){
+				if(f==2)csv=r.substring(0,r.length-1);
+				document.getElementById('impCsv3').style.display='inline';
+				document.getElementById('impCsv4').style.display='inline';
+				if(r!=0){
+					csv1=parseInt(csv1)+parseInt(r.substring(0,r.length-1));
+					if(f==2)csv1=0;
+					if(csv!='999999')document.getElementById('impCsv5').innerHTML=csv1+' / '+csv;
+					else document.getElementById('impCsv5').innerHTML=csv1;
+					f_importCsv(1);
+				}
+				else f_importCsv(0);
+			});
+		});
+	}
+	else{
+		document.getElementById('loadingCsv').style.display='none';
+		document.getElementById('impCsv4').style.display='none';
+		document.getElementById('impCsv5').innerHTML='';
+		document.getElementById('impCsv6').style.display='inline';
+	}
+}
+
+
+
 // ****************************************
 // ONGLET PROFIL
 // ****************************************
@@ -259,15 +317,18 @@ function f_vignette_change(f){
 	document.getElementById('changePhoto').innerHTML='';
 }
 function f_supp_photo(f){
-	document.getElementById('changePhoto').innerHTML = rencobjet.supp_photo+'<a href="javascript:void(0)" class="rencSupp" onClick="document.forms[\'portraitChange\'].elements[\'a1\'].value=\'suppImg\';document.forms[\'portraitChange\'].elements[\'a2\'].value=\''+f+'\';document.forms[\'portraitChange\'].elements[\'page\'].value=\'change\';document.forms[\'portraitChange\'].submit();" title="'+rencobjet.supp_la_photo+'">';
+	document.getElementById('changePhoto').innerHTML = rencobjet.supp_photo+'<a href="javascript:void(0)" class="rencSupp" onClick="document.forms[\'portraitChange\'].elements[\'a1\'].value=\'suppImg\';document.forms[\'portraitChange\'].elements[\'a2\'].value=\''+f+'\';document.forms[\'portraitChange\'].submit();" title="'+rencobjet.supp_la_photo+'">';
 }
 function f_plus_photo(f){
-	document.getElementById('changePhoto').innerHTML = '<input type="file" name="plusPhoto" size="18"><br />'+rencobjet.ajouter_photo+'<a href="javascript:void(0)" class="rencPlus" onClick="document.forms[\'portraitChange\'].elements[\'a1\'].value=\'plusImg\';document.forms[\'portraitChange\'].elements[\'a2\'].value=\''+f+'\';document.forms[\'portraitChange\'].elements[\'page\'].value=\'change\';document.forms[\'portraitChange\'].submit();" title="'+rencobjet.ajouter_photo+'">';
+	document.getElementById('changePhoto').innerHTML = '<input type="file" name="plusPhoto" size="18"><br />'+rencobjet.ajouter_photo+'<a href="javascript:void(0)" class="rencPlus" onClick="document.forms[\'portraitChange\'].elements[\'a1\'].value=\'plusImg\';document.forms[\'portraitChange\'].elements[\'a2\'].value=\''+f+'\';document.forms[\'portraitChange\'].submit();" title="'+rencobjet.ajouter_photo+'">';
+}
+function f_suppAll_photo(){
+	document.forms['portraitChange'].elements['a1'].value='suppImgAll';
+	document.forms['portraitChange'].submit();
 }
 function f_sauv_profil(f){
 	document.forms['portraitChange'].elements['a1'].value='sauvProfil';
 	document.forms['portraitChange'].elements['a2'].value=f;
-	document.forms['portraitChange'].elements['page'].value='change';
 	document.forms['portraitChange'].submit();
 }
 function f_onglet(f){

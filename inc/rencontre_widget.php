@@ -294,7 +294,7 @@ class RencontreWidget extends WP_widget
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Lui sourire','rencontre');?></li></a>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='demcont';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Demander un contact','rencontre');?></li></a>
 							<?php } else echo '<li class="rencLiOff">'.__('Envoyer un mail','rencontre').'</li><li class="rencLiOff">'.__('Lui sourire','rencontre').'</li><li class="rencLiOff">'.__('Demander un contact','rencontre').'</li>'; ?>
-							<?php if ($l && !$bl1 && $rencOpt['tchat']==1) echo '<a href="javascript:void(0)" onClick="f_tchat('.$mid.','.$id.',\''.plugins_url('rencontre/inc/rencontre_tchat.php').'\',1)"><li>'.__('Tchater','rencontre').'</li></a>';
+							<?php if ($l && !$bl1 && $rencOpt['tchat']==1) echo '<a href="javascript:void(0)" onClick="f_tchat('.$mid.','.$id.',\''.plugins_url('rencontre/inc/rencontre_tchat.php').'\',1,\''.$s->display_name.'\')"><li>'.__('Tchater','rencontre').'</li></a>';
 							else if ($rencOpt['tchat']==1) echo '<li class="rencLiOff">'.__('Tchater','rencontre').'</li>'; ?>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='bloque';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php echo (!$bl)?__('Bloquer','rencontre'):__('D&eacute;bloquer','rencontre'); ?></li></a>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='signale';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();" title="<?php _e('Signaler un faux profil ou un contenu inadapt&eacute;','rencontre'); ?>"><li><?php _e('Signaler','rencontre'); ?></li></a>
@@ -383,12 +383,16 @@ class RencontreWidget extends WP_widget
 				{
 				if ($_POST["a1"]=="suppImg") RencontreWidget::suppImg(strip_tags($_POST["a2"]),$mid);
 				if ($_POST["a1"]=="plusImg") RencontreWidget::plusImg(strip_tags($_POST["a2"]),$mid);
+				if ($_POST["a1"]=="suppImgAll") RencontreWidget::suppImgAll($mid);
 				}
 			if (isset($_POST["a1"]))
 				{
 				if ($_POST["a1"]=="sauvProfil") RencontreWidget::sauvProfil($in,$mid); 
-				$_SESSION['a1'] = $_POST["a1"];
-				$_SESSION['a2'] = $_POST["a2"];
+				if ($_POST["a1"]=="suppImg")
+					{
+					$_SESSION['a1'] = $_POST["a1"];
+					$_SESSION['a2'] = $_POST["a2"];
+					}
 				}
 			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_ville, R.i_photo, P.t_titre, P.t_annonce, P.t_profil FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$mid." and R.user_id=P.user_id and R.user_id=U.ID ");
 			?>
@@ -412,6 +416,8 @@ class RencontreWidget extends WP_widget
 								else { ?><a href="javascript:void(0)" onClick="f_plus_photo(<?php echo $s->i_photo; ?>)"><img class="portraitMini" src="<?php echo plugins_url('rencontre/images/no-photo60.jpg'); ?>" alt="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" title="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" /></a>
 								<?php } } ?>
 							</div>
+							<div class="rencInfo"><?php _e('Cliquer la vignette','rencontre');?></div>
+							<div><a href="javascript:void(0)" onClick="f_suppAll_photo()"><?php _e('Supprimer toutes les photos','rencontre');?></a></div>
 						</div>
 					</div>
 					<div class="grandeBox right">
@@ -553,7 +559,7 @@ class RencontreWidget extends WP_widget
 		if (strstr($_SESSION['rencontre'],'mini'))
 			{
 			global $wpdb;
-			if (!$zsex)
+			if (!isset($zsex))
 				{
 				$q = $wpdb->get_row("SELECT i_zsex, i_zage_min, i_zage_max FROM ".$wpdb->prefix."rencontre_users WHERE user_id='".$mid."'");
 				$zsex=$q->i_zsex;
@@ -1007,6 +1013,22 @@ class RencontreWidget extends WP_widget
 		else echo "rate";
 		}
 	//
+	static function suppImgAll($mid)
+		{
+		// entree : nom de la photo (id * 10 + 1 ou 2 ou 3...)
+		global $rencDiv;
+		$r = $rencDiv['basedir'].'/portrait/'.floor($mid/1000).'/'.$mid;
+		for($v=0;$v<6;++$v)
+			{
+			if (file_exists($r.$v.'.jpg')) unlink($r.$v.'.jpg');
+			if (file_exists($r.$v.'-mini.jpg')) unlink($r.$v.'-mini.jpg');
+			if (file_exists($r.$v.'-grande.jpg')) unlink($r.$v.'-grande.jpg');
+			if (file_exists($r.$v.'-libre.jpg')) unlink($r.$v.'-libre.jpg');
+			}
+		global $wpdb;
+		$wpdb->update($wpdb->prefix.'rencontre_users', array('i_photo'=>0), array('user_id'=>$mid));
+		}
+	//
 	static function sauvProfil($in,$id)
 		{
 		// entree : Sauvegarde du profil
@@ -1164,8 +1186,8 @@ class RencontreWidget extends WP_widget
 		$s = $wpdb->get_row("SELECT U.display_name, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$f." and R.user_id=P.user_id and R.user_id=U.ID");
 		$drap1 = $wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' and c_liste_iso='".$s->c_pays."' ");
 		$drapNom1 = $wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_iso='".$s->c_pays."' and c_liste_lang='".substr($rencDiv['lang'],0,2)."' ");
+		echo substr($s->display_name,0,20)."|"; // pour f_tchat_dem : permet d'afficher le pseudo - memoire JS dans la variable 'ps' - limitation a 20 caracteres
 		?>
-		
 				<div class="miniPortrait miniBox">
 					<?php if ($s->i_photo!=0) echo '<img class="tete" src="'.$rencDiv['baseurl'].'/portrait/'.floor(($f)/1000).'/'.($f*10).'-mini.jpg" alt="'.$s->display_name.'" />';
 					else echo '<img class="tete" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" />'; ?>

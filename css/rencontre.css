@@ -82,6 +82,7 @@
 .rencPagine a, .rencPagine span {color:#000; font-weight:400; padding:0 10px; text-align:center;text-decoration:none;}
 .rencPagine span {color:#777; font-size:110%;}
 .rencPagine a:hover {color:#444;}
+.rencInfo {color:#aaa;}
 #rencMsg {line-height:1.4em;}
 #rencMsg table tr:hover {background-color:#fcfcfa;}
 #rencMsg table td, #rencMsg table th {padding:5px 0 5px 10px;}

@@ -4,7 +4,7 @@ Donate link: http://www.boiteasite.fr/
 Tags: date, dating, meet, love, chat, webcam, rencontres
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,9 +29,10 @@ This WordPress plugin allows you to create a real dating website with Wordpress.
 * Low resource ;
 * Multilingual ;
 * Easy administration with filtering members ;
+* Import/Export members in CSV with photos ;
 * Standalone, not depend on other services ;
 
-available languages : FR, US, ES (thanks to Sanjay Gandhi), DA (thanks to C-FR.net).
+available languages : FR, US, ES (thanks to Sanjay Gandhi), DA (thanks to C-FR.net), CN (thanks to Lucien Huang)
 
 == Installation ==
 
@@ -58,6 +59,9 @@ Method 2 : With a Widget :
 
 For visitors not connected, you can view thumbnails and small profile of the last registered members using the shortcode [rencontre_libre] or php
 `&lt;?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?&gt;`
+
+You can also get the number of members in base with this php and ('girl'), ('men'), ('girlPhoto'), ('menPhoto') or () for all :
+`&lt;?php if(!is_user_logged_in()) echo Rencontre::f_nbMembre('girlPhoto'); ?&gt;`
 
 You need to add the WP connection link. You can add this in the header to have the WP and the Facebook connections links :
 `&lt;?php Rencontre::f_loginFB(); 
@@ -120,6 +124,15 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 5. Private webcam chat.
 
 == Changelog ==
+
+= 1.3 =
+15/10/2014 :
+
+* Import/Export members in CSV with photos.
+* Add Chinese language (thanks to Lucien Huang).
+* Add pseudo in chat.
+* Add code to get number of members in base.
+* Fix some bugs.
 
 = 1.2 =
 14/09/2014 :

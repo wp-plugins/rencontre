@@ -1,5 +1,203 @@
 <?php
 // *****************************************
+// **** ONGLET GENERAL
+// *****************************************
+function f_exportCsv()
+	{
+	// Export CSV de la base des membres
+	if(!is_admin()) die;
+	global $wpdb; global $rencDiv;
+	$q = $wpdb->get_results("SELECT
+			U.ID,
+			U.user_login,
+			U.user_pass,
+			U.user_email,
+			U.user_registered,
+			R.c_ip,
+			R.c_pays,
+			R.c_region,
+			R.c_ville,
+			R.i_sex,
+			R.d_naissance,
+			R.i_taille,
+			R.i_poids,
+			R.i_zsex,
+			R.i_zage_min,
+			R.i_zage_max,
+			R.i_zrelation,
+			R.i_photo,
+			P.t_titre,
+			P.t_annonce
+		FROM 
+			".$wpdb->prefix."users U,
+			".$wpdb->prefix."rencontre_users R,
+			".$wpdb->prefix."rencontre_users_profil P
+		WHERE 
+			U.ID=R.user_id and 
+			R.user_id=P.user_id
+		");
+	$rd = mt_rand();
+	$d = $rencDiv['basedir'].'/tmp/';
+	if (!is_dir($d)) mkdir($d);
+	if (is_dir($d.'photo_export/'))
+		{
+		array_map('unlink', glob($d."photo_export/*.*"));
+		}
+	else mkdir($d.'photo_export/');
+	$t=fopen($d.'index.php', 'w'); fclose($t);
+	$t = fopen($d.$rd.'export_rencontre.csv', 'w');
+	fputcsv($t, array('user_login','user_pass (MD5)','user_email','user_registered (AAAA-MM-DD HH:MM:SS)','c_ip','c_pays (2 letters ISO)','c_region','c_ville','i_sex (girl, men)','d_naissance (AAAA-MM-DD)','i_taille','i_poids','i_zsex (girl, men)','i_zage_min','i_zage_max','i_zrelation (open, friendly, serious)','i_photo','t_titre','t_annonce'));
+	foreach($q as $r)
+		{
+		fputcsv($t, array(
+			"'".$r->user_login."'",
+			"'".$r->user_pass."'",
+			"'".$r->user_email."'",
+			"'".$r->user_registered."'",
+			"'".$r->c_ip."'",
+			"'".$r->c_pays."'",
+			"'".$r->c_region."'",
+			"'".$r->c_ville."'",
+			"'".(($r->i_sex)?'girl':'men')."'",
+			"'".$r->d_naissance."'",
+			"'".$r->i_taille."'",
+			"'".$r->i_poids."'",
+			"'".(($r->i_zsex)?'girl':'men')."'",
+			"'".$r->i_zage_min."'",
+			"'".$r->i_zage_max."'",
+			"'".(($r->i_zrelation)?(($r->i_zrelation==1)?'open':'friendly'):'serious')."'",
+			"'".(($r->i_photo)?(($r->ID)*10).'.jpg':'0')."'",
+			"'".$r->t_titre."'",
+			"'".$r->t_annonce."'"
+			),chr(9));
+		if($r->i_photo) @copy($rencDiv['basedir'].'/portrait/'.floor(($r->ID)/1000).'/'.(($r->ID)*10).'.jpg', $rencDiv['basedir'].'/tmp/photo_export/'.($r->ID*10).'.jpg');
+		}
+	fclose($t);
+	echo $rd;
+	}
+function f_importCsv()
+	{
+	// Import CSV de la base des membres
+		// 0 : login
+		// 1 : pass MD5
+		// 2 : email
+		// 3 : user_registered (AAAA-MM-JJ HH:MM:SS)
+		// 4 : IP
+		// 5 : Pays 2 lettres MAJ
+		// 6 : Region
+		// 7 : Ville
+		// 8 : sex (men / girl)
+		// 9 : date naissance AAAA-MM-JJ
+		// 10 : taille
+		// 11 : poids
+		// 12 : sex recherche (men / girl)
+		// 13 : age min recherche
+		// 14 : age max recherche
+		// 15 : type de relation recherche (open / friendly / serious)
+		// 16 : fichier photo (ou 0)
+		// 17 : titre
+		// 18 : Annonce
+	if(!is_admin()) die;
+	if(isset($_POST['cas']) && $_POST['cas']=='2') // premier passage
+		{
+		global $wpdb; global $rencDiv;
+		$d=$rencDiv['basedir'].'/tmp/import_rencontre.csv';
+		$p=0;
+		if(is_dir($rencDiv['basedir'].'/tmp/photo_import/'))
+			{
+			$p=1;
+			chmod($rencDiv['basedir'].'/tmp/photo_import/',0777);
+			}
+		ini_set('auto_detect_line_endings',TRUE); // cas des Mac
+		$t=fopen($d,'r');
+		$c=0; $c1=0;
+		while(($a=fgetcsv($t,3000,"\t"))!==FALSE)
+			{
+			foreach($a as $k=>$r)
+				{
+				if(substr($r,0,1)=="'") $a[$k]=substr($r,1,-1); // suppression des guillemets
+				}
+			if($c) $q = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE user_login='".$a[0]."' OR user_email='".$a[2]."' ");
+			if($c && !$q && preg_match("/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/",$a[2])) // pas la premiere ligne - pas de doublon
+				{
+				$wpdb->insert($wpdb->prefix.'users',array(
+					'user_login'=>str_replace("'","",$a[0]),
+					'user_pass'=>$a[1],
+					'user_nicename'=>$a[0],
+					'user_email'=>$a[2],
+					'user_registered'=>$a[3],
+					'user_status'=>0,
+					'display_name'=>$a[0]
+					));
+				$id=$wpdb->insert_id;
+				$wpdb->insert($wpdb->prefix.'rencontre_users',array(
+					'user_id'=>$id,
+					'c_ip'=>$a[4],
+					'c_pays'=>$a[5],
+					'c_region'=>$a[6],
+					'c_ville'=>$a[7],
+					'i_sex'=>(($a[8]=='men')?0:1),
+					'd_naissance'=>$a[9],
+					'i_taille'=>(($a[10])?$a[10]:170),
+					'i_poids'=>(($a[11])?$a[11]:65),
+					'i_zsex'=>(($a[12]=='girl')?1:0),
+					'i_zage_min'=>(($a[13])?$a[13]:18),
+					'i_zage_max'=>(($a[14])?$a[14]:99),
+					'i_zrelation'=>(($a[15]=='serious')?0:(($a[15]=='open')?1:2)), // ( serious (0) / open (1) / friendly (2))
+					'i_photo'=>0
+					));
+				$wpdb->insert($wpdb->prefix.'rencontre_users_profil',array(
+					'user_id'=>$id,
+					'd_modif'=>date("Y-m-d H:i:s"),
+					't_titre'=>$a[17],
+					't_annonce'=>$a[18],
+					't_profil'=>'[]'
+					));
+				if($p && strlen($a[16])>3 && file_exists($rencDiv['basedir'].'/tmp/photo_import/'.$a[16]))
+					{
+					$t1=fopen($rencDiv['basedir'].'/tmp/photo_import/'.$id.'.txt', 'w+');
+					fwrite($t1,$a[16],40);
+					fclose($t1);
+					++$c1;
+					}
+				}
+			++$c;
+			}
+		ini_set('auto_detect_line_endings',FALSE); // Mac
+		fclose($t);
+		@unlink(dirname(__FILE__).'/../cache/cache_portraits_accueil.html');
+		echo (($c1)?$c1:999999);
+		}
+	else if(isset($_POST['cas']) && $_POST['cas']=='1')
+		{
+		global $wpdb; global $rencDiv;
+		$p=(is_dir($rencDiv['basedir'].'/tmp/photo_import/')?$rencDiv['basedir'].'/tmp/photo_import/':0);
+		if(!is_dir($rencDiv['basedir'].'/portrait/')) @mkdir($rencDiv['basedir'].'/portrait/');
+		$tab='';
+		if ($p && $dh=opendir($p))
+			{
+			$c=0;
+			while (($file=readdir($dh))!==false)
+				{
+				$ext=explode('.',$file);
+				$ext=$ext[count($ext)-1];
+				if ($ext=='txt' && $file!='.' && $file!='..')
+					{
+					$t=fopen($p.$file, 'r'); $img=fread($t,filesize($p.$file)); fclose($t);
+					RencontreWidget::f_photo(intval(substr($file,0,-4).'0'),$p.$img);
+					$wpdb->update($wpdb->prefix.'rencontre_users', array('i_photo'=>substr($file,0,-4).'0'), array('user_id'=>substr($file,0,-4)));
+					unlink($p.$file);
+					++$c;
+					if($c>24) break;
+					}
+				}
+			closedir($dh);
+			}
+		echo $c;
+		return;
+		}
+	}
+// *****************************************
 // **** ONGLET PROFIL
 // *****************************************
 function profil_supp($a2,$a3,$a4)
@@ -360,33 +558,6 @@ function liste_langsupp($a4)
 // *****************************************
 // **** AUTRES
 // *****************************************
-
-function f_userSupp($f,$a,$b)
-	{
-	$r = 'wp-content/uploads/portrait/'.floor($f/1000);
-	for ($v=0; $v<6; $v++)
-		{
-		if (file_exists($r."/".$f.$v.".jpg")) unlink($r."/".$f.$v.".jpg");
-		if (file_exists($r."/".$f.$v."-mini.jpg")) unlink($r."/".$f.$v."-mini.jpg");
-		if (file_exists($r."/".$f.$v."-grande.jpg")) unlink($r."/".$f.$v."-grande.jpg");
-		if (file_exists($r."/".$f.$v."-libre.jpg")) unlink($r."/".$f.$v."-libre.jpg");
-		}
-	if (!is_admin()) wp_logout();
-	global $wpdb;
-	if ($b) // prison
-		{
-		$q = $wpdb->get_row("SELECT U.user_email, R.c_ip FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R WHERE U.ID=".$f." and U.ID=R.user_id");
-		$wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_prison (d_prison,c_mail,c_ip) VALUES('".date('Y-m-d H:i:s')."','".$q->user_email."','".$q->c_ip."')");
-		}
-	$wpdb->delete($wpdb->prefix.'rencontre_users_profil', array('user_id'=>$f));
-	$wpdb->delete($wpdb->prefix.'rencontre_msg', array('sender'=>$a));
-	$wpdb->delete($wpdb->prefix.'rencontre_msg', array('recipient'=>$a));
-	$wpdb->delete($wpdb->prefix.'rencontre_users', array('user_id'=>$f));
-	$wpdb->delete($wpdb->prefix.'users', array('ID'=>$f));
-	$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$f));
-	if (!is_admin()) { wp_redirect(home_url()); exit; }
-	}
-//
 function f_userPrison($f)
 	{
 	// $f : id table rencontre_prison

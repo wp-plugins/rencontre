@@ -4,7 +4,7 @@ Plugin Name: Rencontre
 Author: Jacques Malgrange
 Plugin URI: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
 Description: A free powerful and exhaustive dating plugin with private messaging, webcam chat, search by profile and automatic sending of email. No third party.
-Version: 1.2
+Version: 1.3
 Author URI: http://www.boiteasite.fr
 */
 
@@ -148,14 +148,14 @@ function rencontre_creation_table()
 // **********************************************************************************
 // CLASSE Rencontre
 // **********************************************************************************
-require(dirname (__FILE__) . '/inc/base.php');
+if(is_admin()) require(dirname (__FILE__) . '/inc/base.php');
 new Rencontre();
 class Rencontre
 	{
 	private $class_name = 'rencontre';
 	private $width      = '100%';
 	private $height     = '200px';
-	private $version = '1.2';
+	private $version = '1.3';
 	function __construct()
 		{
 		// Variables globale Rencontre
@@ -219,8 +219,11 @@ class Rencontre
 	//
 	function menu_general()
 		{
-		if (isset($_POST['facebook']) || isset($_POST['npa'])) { Rencontre::update_rencontre_options($_POST); }
-		global $rencOpt;
+		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre-adm.js'));
+		echo "<script type='text/javascript' src='".plugins_url('rencontre/js/ajaxfileupload.js')."'></script>";
+		if (isset($_POST['facebook']) || isset($_POST['npa'])) Rencontre::update_rencontre_options($_POST);
+		global $rencOpt; global $rencDiv;
+		array_map('unlink', glob($rencDiv['basedir']."/tmp/*rencontre.csv"));
 		?>
 		<div class='wrap'>
 			<div class='icon32' id='icon-options-general'><br/></div>
@@ -343,6 +346,39 @@ class Rencontre
 					<input type="submit" class="button-primary" value="<?php _e('Sauvegarde','rencontre') ?>" />
 				</p>
 			</form>
+			<hr />
+			<h2><?php _e('Export des membres en CSV','rencontre') ?></h2>
+			<div>
+				<a class="button-primary" href="javascript:void(0)" onclick="f_exportCsv();"><?php _e('Exporter en CSV','rencontre');?></a>
+				<img id="waitCsv" src="<?php echo plugins_url('rencontre/images/loading.gif'); ?>" style="margin:0 0 -10px 20px;display:none;" />
+				<a href="" style="display:none;margin:0 10px;" id="rencCsv" type='text/csv' >export_rencontre.csv</a>
+				<div style="display:none;" id="photoCsv"><?php _e('R&eacute;cup&eacute;rer les photos en FTP dans wp-content/uploads/tmp/','rencontre') ?></div>
+			</div>
+			<hr />
+			<?php echo $rencDiv['basedir']; ?>
+			<h2><?php _e('Import des membres en CSV','rencontre') ?></h2>
+			<p><?php _e('D&eacute;poser les photos des membres en FTP dans wp-content/uploads/tmp/photo_import/ avant de commencer (accessible RW - pas de sous-dossier).','rencontre') ?></p>
+			<p><?php _e('Pour conna&icirc;tre le format &agrave; respecter, faire un export et s\'inspirer du fichier (la premi&egrave;re ligne avec le titre des colonnes n\'est pas trait&eacute;e).','rencontre') ?></p>
+			<p><?php _e('En cas d\'interruption durant l\'import des photos, recommencer la proc&eacute;dure. Les doublons sont supprim&eacute;s.','rencontre') ?></p>
+			<form name='rencCsv' action="<?php echo plugins_url('rencontre/inc/upload_csv.php'); ?>" method="post" enctype="multipart/form-data" target="uplFrame" onSubmit="startUpload();">
+				<div>
+					<label><?php _e('Fichier CSV','rencontre') ?> : <label>
+					<input name="fileCsv" type="file" />
+					<img id="loadingCsv" src="<?php echo plugins_url('rencontre/images/loading.gif'); ?>" style="margin:0 0 -10px 20px;display:none;" />
+				</div>
+				<br />
+				<div>
+					<input type="submit" class="button-primary" name="submitCsv" value="<?php _e('Importer en CSV','rencontre');?>" />
+					<span id="impCsv1" style="margin:0 10px;display:none;"><?php _e('Fichier charg&eacute;','rencontre');?></span>
+					<span id="impCsv2" style="margin:0 10px;display:none;"><?php _e('Erreur !','rencontre');?></span>
+					<span id="impCsv3" style="margin:0 10px;display:none;"><?php _e('Import donn&eacute;es termin&eacute;','rencontre');?></span>
+					<span id="impCsv4" style="margin:0 10px;display:none;"><?php _e('Import Photos','rencontre');?> : </span>
+					<span id="impCsv5" style="margin-left:-5px;"></span>
+					<span id="impCsv6" style="margin:0 10px;display:none;"><?php _e('Import termin&eacute;','rencontre');?></span>
+				</div>
+			</form>
+			<iframe id="uplFrame" name="uplFrame" src="#" style="width:0;height:0;border:0px solid #fff;">
+			</iframe>
 		</div>
 		<?php
 		}
@@ -483,12 +519,16 @@ class Rencontre
 					{
 					if ($_POST["a1"]=="suppImg") RencontreWidget::suppImg($_POST["a2"],$id);
 					if ($_POST["a1"]=="plusImg") RencontreWidget::plusImg($_POST["a2"],$id);
+					if ($_POST["a1"]=="suppImgAll") RencontreWidget::suppImgAll($id);
 					}
 				if (isset($_POST["a1"]))
 					{
-					if ($_POST["a1"]=="sauvProfil") RencontreWidget::sauvProfil($in,$id); 
-					$_SESSION['a1'] = $_POST["a1"];
-					$_SESSION['a2'] = $_POST["a2"];
+					if ($_POST["a1"]=="sauvProfil") RencontreWidget::sauvProfil($in,$id);
+					if ($_POST["a1"]=="suppImg")
+						{
+						$_SESSION['a1'] = $_POST["a1"];
+						$_SESSION['a2'] = $_POST["a2"];
+						}
 					}
 				$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_ville, R.i_photo, P.t_titre, P.t_annonce, P.t_profil FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$id." and R.user_id=P.user_id and R.user_id=U.ID");
 				?>
@@ -515,6 +555,7 @@ class Rencontre
 									else { ?><a href="javascript:void(0)" onClick="f_plus_photo(<?php echo $s->i_photo; ?>)"><img class="portraitMini" src="<?php echo plugins_url('rencontre/images/no-photo60.jpg'); ?>" alt="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" title="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" /></a>
 									<?php } } ?>
 								</div>
+								<div class="bouton"><a href="javascript:void(0)" onClick="f_suppAll_photo()"><?php _e('Supprimer toutes les photos','rencontre');?></a></div>
 							</div>
 						</div>
 						<div class="grandeBox right">
@@ -956,7 +997,7 @@ class Rencontre
 			{
 			global $current_user; global $rencOpt; global $rencDiv;
 			$rol = $current_user->roles;
-			if (array_shift($rol)=="subscriber" && !$_POST['nouveau']) $_SESSION['rencontre']='nouveau';
+			if (array_shift($rol)=="subscriber" && (!isset($_POST['nouveau']) || !$_POST['nouveau'])) $_SESSION['rencontre']='nouveau';
 			else if (!isset($_SESSION['rencontre']) || !isset($_POST['page']) || !$_POST['page']) $_SESSION['rencontre']='mini,accueil,menu';
 			else if ($_POST['page']=='portrait') $_SESSION['rencontre']='portrait,menu';
 			else if ($_POST['page']=='sourire') $_SESSION['rencontre']='portrait,menu,sourire';
@@ -1079,6 +1120,17 @@ class Rencontre
 			echo $out;
 			}
 		else include(plugin_dir_path( __FILE__ ).'/cache/cache_portraits_accueil.html');
+		}
+	//
+	static function f_nbMembre($f=0) // Nombre de membres inscrits sur le site
+		{
+		global $wpdb;
+		if($f=='girl') $nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users WHERE i_sex=1");
+		else if($f=='men') $nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users WHERE i_sex=0");
+		else if($f=='girlPhoto') $nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users WHERE i_sex=1 and i_photo!=0");
+		else if($f=='menPhoto') $nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users WHERE i_sex=0 and i_photo!=0");
+		else $nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users");
+		return $nm;
 		}
 	//
 	static function f_loginFB() // connexion via Facebook

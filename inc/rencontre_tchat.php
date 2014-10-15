@@ -49,7 +49,7 @@ if ($_POST && isset($_POST['tchat']))
 		clearstatcache();
 		}
 	// **************************
-	else if ($tc=='tchatFin') // vide les deux txt
+	else if ($tc=='tchatFin' && filesize($d.$fm.'.txt')>0) // vide les deux txt
 		{
 		$t=fopen($d.$to.'.txt', 'w'); fclose($t);
 		$t=fopen($d.$fm.'.txt', 'w'); fclose($t);
