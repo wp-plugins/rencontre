@@ -223,7 +223,8 @@ class Rencontre
 		echo "<script type='text/javascript' src='".plugins_url('rencontre/js/ajaxfileupload.js')."'></script>";
 		if (isset($_POST['facebook']) || isset($_POST['npa'])) Rencontre::update_rencontre_options($_POST);
 		global $rencOpt; global $rencDiv;
-		array_map('unlink', glob($rencDiv['basedir']."/tmp/*rencontre.csv"));
+		$a=glob($rencDiv['basedir']."/tmp/*rencontre.csv");
+		if(is_array($a)) array_map('unlink', $a);
 		?>
 		<div class='wrap'>
 			<div class='icon32' id='icon-options-general'><br/></div>

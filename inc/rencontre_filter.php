@@ -102,7 +102,11 @@ function f_cron_on()
 			if ($tab!='') foreach ($tab as $r){if (filemtime($r)<time()-86400) unlink($r);}
 			}
 		}
-	if (!is_dir($rencDiv['basedir'].'/tmp/')) array_map('unlink', glob($rencDiv['basedir']."/tmp/*rencontre.csv"));
+	if (is_dir($rencDiv['basedir'].'/tmp/'))
+		{
+		$a=glob($rencDiv['basedir']."/tmp/*rencontre.csv");
+		if(is_array($a)) array_map('unlink', $a);
+		}
 	// 5. Suppression fichiers anciens dans UPLOADS/PORTRAIT/LIBRE/ : > 3 jours
 	if (!is_dir($rencDiv['basedir'].'/portrait/libre/')) @mkdir($rencDiv['basedir'].'/portrait/libre/');
 	else
@@ -123,10 +127,10 @@ function f_cron_on()
 	$j = floor((floor(time()/86400)/60 - floor(floor(time()/86400)/60)) * 60 +.00001);
 	$j1 = ($j>29)?$j-30:$j+30;
 	$s1 = "";
-	$max = floor(max(0, $rencOpt['qmail']*.8));
+	$max = floor(max(0, $rencOpt['qmail']*.9)); // 90% du max - heure creuse - 10% restant pour inscription nouveaux membres
 	$q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action 
 		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P 
-		WHERE (SECOND(U.user_registered)='".$j."' OR SECOND(U.user_registered)='".$j1."') AND U.ID=P.user_id ");
+		WHERE (SECOND(U.user_registered)='".$j."' OR SECOND(U.user_registered)='".$j1."') AND U.ID=P.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
 	$ct=0;
 	if ($q) foreach($q as $r)
 		{
@@ -256,9 +260,9 @@ function f_cron_on()
 //
 function f_cron_liste($d2)
 	{
-	// USERS separes en 20 groupes G : (ID + G) / 20 INTEGER
+	// Envoi Mail Horaire en respectant quota
 	global $wpdb; global $rencOpt; global $rencDiv;
-	$max = floor(max(0, $rencOpt['qmail']*.8));
+	$max = floor(max(0, $rencOpt['qmail']*.8)); // 80% du max - 20% restant pour inscription nouveaux membres
 	$u2 = file_get_contents($d2);
 	$cm = 0; // compteur de mail
 	// 1. listing des USERS en attente
