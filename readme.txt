@@ -134,6 +134,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Add code to get number of members in base.
 * Fix some bugs.
 
+20/10/2014 : Update 1 : Countries and profiles in Chinese language (thanks to Lucien Huang).
+
 = 1.2 =
 14/09/2014 :
 
