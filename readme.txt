@@ -136,6 +136,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix some bugs.
 
 20/10/2014 : Update 1 : Countries and profiles in Chinese language (thanks to Lucien Huang).
+
 26/10/2014 : Update 2 : homogeneous distribution between men and women in un-logged homepage.
 
 = 1.2 =
