@@ -104,7 +104,20 @@ function f_cron_on()
 		}
 	if (is_dir($rencDiv['basedir'].'/tmp/'))
 		{
-		$a=glob($rencDiv['basedir']."/tmp/*rencontre.csv");
+		// $a=glob($rencDiv['basedir']."/tmp/*rencontre.csv");  // fonctionne mal
+		// alternative a glob ******
+		$a=array();
+		if ($h=opendir($rencDiv['basedir']."/tmp/"))
+			{
+			while (($file=readdir($h))!==false)
+				{
+				$ext=explode('.',$file);
+				$ext=$ext[count($ext)-1];
+				if ($ext=='csv' && $file!='.' && $file!='..' && strpos($file,"rencontre")!==false) $a[]=$rencDiv['basedir']."/tmp/".$file;
+				}
+			closedir($h);
+			}
+		// ************************
 		if(is_array($a)) array_map('unlink', $a);
 		}
 	// 5. Suppression fichiers anciens dans UPLOADS/PORTRAIT/LIBRE/ : > 3 jours

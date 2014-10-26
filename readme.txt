@@ -59,6 +59,7 @@ Method 2 : With a Widget :
 
 For visitors not connected, you can view thumbnails and small profile of the last registered members using the shortcode [rencontre_libre] or php
 `&lt;?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?&gt;`
+If you write f_ficheLibre(1), there will be as many men as women.
 
 You can also get the number of members in base with this php and ('girl'), ('men'), ('girlPhoto'), ('menPhoto') or () for all :
 `&lt;?php if(!is_user_logged_in()) echo Rencontre::f_nbMembre('girlPhoto'); ?&gt;`
@@ -135,6 +136,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix some bugs.
 
 20/10/2014 : Update 1 : Countries and profiles in Chinese language (thanks to Lucien Huang).
+26/10/2014 : Update 2 : homogeneous distribution between men and women in un-logged homepage.
 
 = 1.2 =
 14/09/2014 :
