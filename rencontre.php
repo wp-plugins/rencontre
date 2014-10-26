@@ -223,7 +223,20 @@ class Rencontre
 		echo "<script type='text/javascript' src='".plugins_url('rencontre/js/ajaxfileupload.js')."'></script>";
 		if (isset($_POST['facebook']) || isset($_POST['npa'])) Rencontre::update_rencontre_options($_POST);
 		global $rencOpt; global $rencDiv;
-		$a=glob($rencDiv['basedir']."/tmp/*rencontre.csv");
+		// $a=glob($rencDiv['basedir']."/tmp/*rencontre.csv");  // fonctionne mal
+		// alternative a glob ******
+		$a=array();
+		if ($h=opendir($rencDiv['basedir']."/tmp/"))
+			{
+			while (($file=readdir($h))!==false)
+				{
+				$ext=explode('.',$file);
+				$ext=$ext[count($ext)-1];
+				if ($ext=='csv' && $file!='.' && $file!='..' && strpos($file,"rencontre")!==false) $a[]=$rencDiv['basedir']."/tmp/".$file;
+				}
+			closedir($h);
+			}
+		// ************************
 		if(is_array($a)) array_map('unlink', $a);
 		?>
 		<div class='wrap'>
@@ -1050,7 +1063,7 @@ class Rencontre
 		return $age;
 		}
 	//
-	static function f_ficheLibre() // Creation du fichier HTML de presentation des membres en libre acces pour la page d accueil
+	static function f_ficheLibre($mix=0) // Creation du fichier HTML de presentation des membres en libre acces pour la page d accueil
 		{
 		if (!file_exists(plugin_dir_path( __FILE__ ).'/cache/cache_portraits_accueil.html'))
 			{
@@ -1067,11 +1080,40 @@ class Rencontre
 				if($r->c_liste_categ=='d') $drap[$r->c_liste_iso] = $r->c_liste_valeur;
 				else if($r->c_liste_categ=='p')$drapNom[$r->c_liste_iso] = $r->c_liste_valeur;
 				}
-			$q = $wpdb->get_results("SELECT U.ID, U.display_name, U.user_registered, R.i_sex, R.i_zsex, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre, P.t_annonce
-				FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P 
-				WHERE R.i_photo!=0 and R.user_id=P.user_id and R.user_id=U.ID and TO_DAYS(NOW())-TO_DAYS(U.user_registered)>=".$rencOpt['jlibre']." and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30
-				ORDER BY U.user_registered DESC
-				LIMIT ".$rencOpt['npa']);
+			if ($mix) // repartition homogene hommes / femmes
+				{
+				$qh = $wpdb->get_results("SELECT U.ID, U.display_name, U.user_registered, R.i_sex, R.i_zsex, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre, P.t_annonce
+					FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P 
+					WHERE R.i_photo!=0 and R.i_sex=0 and R.user_id=P.user_id and R.user_id=U.ID and TO_DAYS(NOW())-TO_DAYS(U.user_registered)>=".$rencOpt['jlibre']." and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30
+					ORDER BY U.user_registered DESC
+					LIMIT ".$rencOpt['npa']);
+				$qf = $wpdb->get_results("SELECT U.ID, U.display_name, U.user_registered, R.i_sex, R.i_zsex, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre, P.t_annonce
+					FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P 
+					WHERE R.i_photo!=0 and R.i_sex=1 and R.user_id=P.user_id and R.user_id=U.ID and TO_DAYS(NOW())-TO_DAYS(U.user_registered)>=".$rencOpt['jlibre']." and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30
+					ORDER BY U.user_registered DESC
+					LIMIT ".$rencOpt['npa']);
+				reset($qh); reset($qf); $ch=0; $cf=0; $q=array(); $c=0;
+				do
+					{
+					if(mt_rand(0,1) && $cf-$ch<5) // femme
+						{
+						if($cf==0 && $qf) {$q[]=current($qf); ++$cf; ++$c;}
+						else if(next($qf)!==false) {$q[]=current($qf); ++$cf; ++$c;}
+						else $ch=-10; // Fin
+						}
+					else if($ch-$cf<5) // homme
+						{
+						if($ch==0 && $qh) {$q[]=current($qh); ++$ch; ++$c;}
+						else if(next($qh)!==false) {$q[]=current($qh); ++$ch; ++$c;}
+						else $cf=-10; // Fin
+						}
+					}while(($ch+$cf)>-15 && $c<$rencOpt['npa']); // false = stop
+				}
+			else $q = $wpdb->get_results("SELECT U.ID, U.display_name, U.user_registered, R.i_sex, R.i_zsex, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre, P.t_annonce
+					FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P 
+					WHERE R.i_photo!=0 and R.user_id=P.user_id and R.user_id=U.ID and TO_DAYS(NOW())-TO_DAYS(U.user_registered)>=".$rencOpt['jlibre']." and CHAR_LENGTH(P.t_titre)>4 and CHAR_LENGTH(P.t_annonce)>30
+					ORDER BY U.user_registered DESC
+					LIMIT ".$rencOpt['npa']);
 			$c = 0;
 			if($q) foreach($q as $r)
 				{ 

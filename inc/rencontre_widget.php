@@ -290,10 +290,10 @@ class RencontreWidget extends WP_widget
 					
 					<div class="rencBox">
 						<ul>
-							<?php if (!$bl1) { ?><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Envoyer un mail','rencontre');?></li></a>
+							<?php if (!$bl1) { ?><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Envoyer un message','rencontre');?></li></a>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Lui sourire','rencontre');?></li></a>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='demcont';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Demander un contact','rencontre');?></li></a>
-							<?php } else echo '<li class="rencLiOff">'.__('Envoyer un mail','rencontre').'</li><li class="rencLiOff">'.__('Lui sourire','rencontre').'</li><li class="rencLiOff">'.__('Demander un contact','rencontre').'</li>'; ?>
+							<?php } else echo '<li class="rencLiOff">'.__('Envoyer un message','rencontre').'</li><li class="rencLiOff">'.__('Lui sourire','rencontre').'</li><li class="rencLiOff">'.__('Demander un contact','rencontre').'</li>'; ?>
 							<?php if ($l && !$bl1 && $rencOpt['tchat']==1) echo '<a href="javascript:void(0)" onClick="f_tchat('.$mid.','.$id.',\''.plugins_url('rencontre/inc/rencontre_tchat.php').'\',1,\''.$s->display_name.'\')"><li>'.__('Tchater','rencontre').'</li></a>';
 							else if ($rencOpt['tchat']==1) echo '<li class="rencLiOff">'.__('Tchater','rencontre').'</li>'; ?>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='bloque';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php echo (!$bl)?__('Bloquer','rencontre'):__('D&eacute;bloquer','rencontre'); ?></li></a>
@@ -841,9 +841,9 @@ class RencontreWidget extends WP_widget
 						</div>
 						<div class="abso135">
 							<?php if (!$bl1) { ?>
-							<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Envoyer un mail','rencontre');?></a></div>
+							<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Envoyer un message','rencontre');?></a></div>
 							<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Lui sourire','rencontre');?></a></div>
-							<?php } else echo '<div class="button right rencLiOff">'.__('Envoyer un mail','rencontre').'</div><div class="button right rencLiOff">'.__('Lui sourire','rencontre').'</div>'; ?>
+							<?php } else echo '<div class="button right rencLiOff">'.__('Envoyer un message','rencontre').'</div><div class="button right rencLiOff">'.__('Lui sourire','rencontre').'</div>'; ?>
 							<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='portrait';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Profil','rencontre');?></a></div>
 						</div>
 					</div><!-- .grandeBox .right -->
@@ -1516,7 +1516,7 @@ class RencontreWidget extends WP_widget
 						echo __('pour','rencontre').'&nbsp;'.(($r->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($r->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))); ?>
 					</div>
 					<div class="abso135">
-						<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Envoyer un mail','rencontre');?></a></div>
+						<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Envoyer un message','rencontre');?></a></div>
 						<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire1';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Lui sourire','rencontre');?></a></div>
 						<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='portrait';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Profil','rencontre');?></a></div>
 					</div>
