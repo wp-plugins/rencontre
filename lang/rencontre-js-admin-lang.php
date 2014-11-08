@@ -17,7 +17,7 @@ $lang = array(
 	'supp_la_photo'=>__('Supprimer la photo','rencontre'),
 	'supp_photo'=>__('Supprimer cette photo','rencontre'),
 	'supp_compte'=>__('Supprimer ce compte ?','rencontre'),
-	'libre_mail'=>__('Liberer ce mail ?','rencontre'),
+	'libre_mail'=>__('Lib&eacute;rer ce mail ?','rencontre'),
 
 	);
 	// rencobjet.sauvegarde

@@ -22,7 +22,7 @@ require('inc/rencontre_filter.php' );
 				if(!$n) // pas de pays ou table vide
 					{
 					$m = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_liste");
-					if(!$m) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez re-installer les pays','rencontre').'</p></div>';
+					if(!$m) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez r&eacute;-installer les pays','rencontre').'</p></div>';
 					else
 						{
 						$o = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users");
@@ -148,7 +148,7 @@ function rencontre_creation_table()
 // **********************************************************************************
 // CLASSE Rencontre
 // **********************************************************************************
-if(is_admin()) require(dirname (__FILE__) . '/inc/base.php');
+if(is_admin()) require(dirname(__FILE__).'/inc/base.php');
 new Rencontre();
 class Rencontre
 	{
@@ -176,9 +176,12 @@ class Rencontre
 			update_option('rencontre_options', $rencOpt);
 			}
 		load_plugin_textdomain('rencontre', false, dirname(plugin_basename( __FILE__ )).'/lang/'); // language
-		add_action('admin_menu', array($this, 'admin_menu_link')); // Menu admin
 		add_action('widgets_init', array($this, 'rencwidget')); // WIDGET
-		add_action('admin_print_scripts', array($this, 'adminCSS')); // CSS pour le bouton du menu
+		if(is_admin())
+			{
+			add_action('admin_menu', array($this, 'admin_menu_link')); // Menu admin
+			add_action('admin_print_scripts', array($this, 'adminCSS')); // CSS pour le bouton du menu
+			}
 		}
 	//
 	function admin_menu_link()
@@ -203,7 +206,7 @@ class Rencontre
 		if (isset($f['prison'])) $rencOpt['prison'] = $f['prison']; else $rencOpt['prison'] = 30;
 		if (isset($f['tchat'])) $rencOpt['tchat'] = 1; else $rencOpt['tchat'] = 0;
 		if (isset($f['hcron'])) $rencOpt['hcron'] = $f['hcron']; else $rencOpt['hcron'] = 3;
-		if (isset($f['mailmois'])) $rencOpt['mailmois'] = 1; else $rencOpt['mailmois'] = 0;
+		if (isset($f['mailmois'])) $rencOpt['mailmois'] =  $f['mailmois']; else $rencOpt['mailmois'] = 0;
 		if (isset($f['textmail'])) $rencOpt['textmail'] = $f['textmail']; else $rencOpt['textmail'] = '';
 		if (isset($f['mailanniv'])) $rencOpt['mailanniv'] = 1; else $rencOpt['mailanniv'] = 0;
 		if (isset($f['textanniv'])) $rencOpt['textanniv'] = $f['textanniv']; else $rencOpt['textanniv'] = '';
@@ -223,8 +226,6 @@ class Rencontre
 		echo "<script type='text/javascript' src='".plugins_url('rencontre/js/ajaxfileupload.js')."'></script>";
 		if (isset($_POST['facebook']) || isset($_POST['npa'])) Rencontre::update_rencontre_options($_POST);
 		global $rencOpt; global $rencDiv;
-		// $a=glob($rencDiv['basedir']."/tmp/*rencontre.csv");  // fonctionne mal
-		// alternative a glob ******
 		$a=array();
 		if ($h=opendir($rencDiv['basedir']."/tmp/"))
 			{
@@ -316,9 +317,14 @@ class Rencontre
 						<td><input type="checkbox" name="mailsupp" value="1" <?php if ($rencOpt['mailsupp'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Envoi automatique d\'un mail mensuel de synth&egrave;se aux membres (r&eacute;parti sur le mois)', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Envoi automatique d\'un mail de synth&egrave;se aux membres (r&eacute;parti chaque jour)', 'rencontre'); ?></label></th>
 						<td>
-							<input type="checkbox" name="mailmois" value="1" <?php if ($rencOpt['mailmois'])echo 'checked'; ?>>
+							<select name="mailmois">
+								<option value="0" <?php if (!$rencOpt['mailmois'])echo 'selected'; ?>><?php _e('Non', 'rencontre'); ?></option>
+								<option value="1" <?php if ($rencOpt['mailmois']==1)echo 'selected'; ?>><?php _e('Mensuel', 'rencontre'); ?></option>
+								<option value="2" <?php if ($rencOpt['mailmois']==2)echo 'selected'; ?>><?php _e('Bimensuel', 'rencontre'); ?></option>
+								<option value="3" <?php if ($rencOpt['mailmois']==3)echo 'selected'; ?>><?php _e('Hebdomadaire', 'rencontre'); ?></option>
+							</select>
 							<?php 
 							$d2 = dirname(__FILE__).'/inc/rencontre_cron.txt';
 							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Maximum cette semaine', 'rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/j', 'rencontre')."<br />(".__('envoy&eacute;s lors de la maintenance', 'rencontre').")</p>";
@@ -369,7 +375,6 @@ class Rencontre
 				<div style="display:none;" id="photoCsv"><?php _e('R&eacute;cup&eacute;rer les photos en FTP dans wp-content/uploads/tmp/','rencontre') ?></div>
 			</div>
 			<hr />
-			<?php echo $rencDiv['basedir']; ?>
 			<h2><?php _e('Import des membres en CSV','rencontre') ?></h2>
 			<p><?php _e('D&eacute;poser les photos des membres en FTP dans wp-content/uploads/tmp/photo_import/ avant de commencer (accessible RW - pas de sous-dossier).','rencontre') ?></p>
 			<p><?php _e('Pour conna&icirc;tre le format &agrave; respecter, faire un export et s\'inspirer du fichier (la premi&egrave;re ligne avec le titre des colonnes n\'est pas trait&eacute;e).','rencontre') ?></p>
@@ -1007,10 +1012,16 @@ class Rencontre
 	//
 	function rencwidget()
 		{
+		global $rencOpt;
 		if (is_user_logged_in())
 			{
 			global $current_user; global $rencOpt; global $rencDiv;
 			$rol = $current_user->roles;
+			if (isset($_GET["rencidfm"]))
+				{ // acces a la fiche d un membre depuis un lien email
+				$_SESSION["rencidfm"] = preg_replace("/[^0-9]+/","",$_GET["rencidfm"]);
+				echo "<script language='JavaScript'>document.location.href='".$rencOpt['home']."';</script>"; 
+				}
 			if (array_shift($rol)=="subscriber" && (!isset($_POST['nouveau']) || !$_POST['nouveau'])) $_SESSION['rencontre']='nouveau';
 			else if (!isset($_SESSION['rencontre']) || !isset($_POST['page']) || !$_POST['page']) $_SESSION['rencontre']='mini,accueil,menu';
 			else if ($_POST['page']=='portrait') $_SESSION['rencontre']='portrait,menu';
@@ -1041,6 +1052,7 @@ class Rencontre
 			if (isset($_POST['nouveau']) && $_POST['nouveau'] && isset($_POST['pass1']) && $_POST['pass1']) RencontreWidget::f_changePass($current_user->ID);
 			register_widget("RencontreWidget"); // class
 			}
+		else if (isset($_GET["rencidfm"])) echo "<script language='JavaScript'>document.location.href='".esc_url(home_url('/'))."wp-login.php?redirect_to=".$rencOpt['home']."?rencidfm=".$_GET["rencidfm"]."';</script>"; 
 		}
 	//
 	function adminCSS()
