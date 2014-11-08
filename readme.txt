@@ -32,7 +32,17 @@ This WordPress plugin allows you to create a real dating website with Wordpress.
 * Import/Export members in CSV with photos ;
 * Standalone, not depend on other services ;
 
-available languages : FR, US, ES (thanks to Sanjay Gandhi), DA (thanks to C-FR.net), CN (thanks to Lucien Huang)
+= Internationalization =
+
+Rencontre is currently available in :
+
+* French
+* English
+* Spanish - thanks to Sanjay Gandhi
+* Danish - thanks to [C-FR](http://www.C-FR.net/ "C-FR")
+* Chinese - thanks to Lucien Huang
+
+If you have translated the plugin in your language or want to, please let me know on Support page.
 
 == Installation ==
 
@@ -136,8 +146,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix some bugs.
 
 20/10/2014 : Update 1 : Countries and profiles in Chinese language (thanks to Lucien Huang).
-
 26/10/2014 : Update 2 : homogeneous distribution between men and women in un-logged homepage.
+08/11/2014 : Update 3 : improves the automatic email sending (backlink, monthly/fortnightly/weekly options).
 
 = 1.2 =
 14/09/2014 :
