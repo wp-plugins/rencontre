@@ -68,7 +68,7 @@ function f_cron()
 //
 function set_html_content_type(){ return 'text/html'; }
 //
-function f_cron_on($f=0)
+function f_cron_on($cronBis=0)
 	{
 	// NETTOYAGE QUOTIDIEN
 	global $wpdb; global $rencOpt; global $rencDiv;
@@ -87,7 +87,7 @@ function f_cron_on($f=0)
 	$style .= 'div.age,div.ville{color:#9f5824;font-size:0.7em;width:65px;overflow:hidden;line-height:1.15em;} ';
 	$style .= 'div.box1 p{font-size:.7em;color:#000;height:3.6em;line-height:1.2em;overflow:hidden;margin-top:5px;} ';
 	$style .= 'div.box1 img.drap{width:30px;height:20px;margin-left:4px;}</style>';
-	if(!$f)
+	if(!$cronBis)
 		{
 		// 1. Efface les _transient dans wp_option
 		$wpdb->query("DELETE FROM ".$wpdb->prefix."options WHERE option_name like '\_transient\_namespace\_%' OR option_name like '\_transient\_timeout\_namespace\_%' ");
@@ -192,7 +192,7 @@ function f_cron_on($f=0)
 	if($rencOpt['mailmois']==2)
 		{
 		$j0 = floor(($j/15-floor($j/15)) * 15 + .00001); // horloge de jour de 0 a 14
-		if(!$f) // CRON (H)
+		if(!$cronBis) // CRON (H)
 			{
 			$max = floor(max(0, $rencOpt['qmail']*.85)); // 85% du max - heure creuse - 15% restant pour inscription nouveaux membres et anniv
 			$j1=$j0+15;
@@ -206,7 +206,7 @@ function f_cron_on($f=0)
 	else if($rencOpt['mailmois']==3)
 		{
 		$j0 = floor(($j/7-floor($j/7)) * 7 + .00001); // horloge de jour de 0 a 6
-		if(!$f) // CRON (H)
+		if(!$cronBis) // CRON (H)
 			{
 			$max = floor(max(0, $rencOpt['qmail']*.85)); // 85% du max - heure creuse - 15% restant pour inscription nouveaux membres et anniv
 			$j1=$j0+7; $j2=$j0+14; $j3=$j0+21;
@@ -220,7 +220,7 @@ function f_cron_on($f=0)
 	else
 		{
 		$jj = ($j>29)?$j-30:$j+30; // aujourd'hui : 34
-		if(!$f) $max = floor(max(0, $rencOpt['qmail']*.85)); // 85% du max - heure creuse - 15% restant pour inscription nouveaux membres et anniv
+		if(!$cronBis) $max = floor(max(0, $rencOpt['qmail']*.85)); // 85% du max - heure creuse - 15% restant pour inscription nouveaux membres et anniv
 		else $max = floor(max(0, $rencOpt['qmail']*.95)); // 95% du max - heure creuse - 5% restant pour inscription nouveaux membres
 		}
 		// 9.1 selection des membres
@@ -232,24 +232,24 @@ function f_cron_on($f=0)
 		else if($r->c_liste_categ=='p')$drapNom[$r->c_liste_iso] = $r->c_liste_valeur;
 		}
 	$q=0;
-	if(!$f && $rencOpt['mailmois']<2) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
-		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
-		WHERE SECOND(U.user_registered)='".$j."' AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
-	else if($f && $rencOpt['mailmois']<2) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
-		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
-		WHERE SECOND(U.user_registered)='".$jj."' AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
-	else if(!$f && $rencOpt['mailmois']==2) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
+	if(!$cronBis && $rencOpt['mailmois']==2) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
 		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
 		WHERE SECOND(U.user_registered) IN (".$j0.",".$j1.") AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
-	else if($f && $rencOpt['mailmois']==2) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
+	else if($cronBis && $rencOpt['mailmois']==2) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
 		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
 		WHERE (SECOND(U.user_registered) IN (".$j2.",".$j3.") AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
-	else if(!$f && $rencOpt['mailmois']==3) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
+	else if(!$cronBis&& $rencOpt['mailmois']==3) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
 		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
 		WHERE SECOND(U.user_registered) IN (".$j0.",".$j1.",".$j2.",".$j3.") AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
-	else if($f && $rencOpt['mailmois']==3) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
+	else if($cronBis && $rencOpt['mailmois']==3) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
 		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
 		WHERE (SECOND(U.user_registered) IN (".$j4.",".$j5.",".$j6.",".$j7.",".$j8.") AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
+	else if(!$cronBis) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
+		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
+		WHERE SECOND(U.user_registered)='".$j."' AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
+	else if($cronBis) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
+		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
+		WHERE SECOND(U.user_registered)='".$jj."' AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
 		// 9.2 boucle de mail
 	$ct=0;
 	if ($q) foreach($q as $r)
@@ -382,7 +382,7 @@ function f_cron_on($f=0)
 		}
 	//
 	if (date("N")!="1")$t=@fopen(dirname(__FILE__).'/rencontre_cron.txt', 'w'); @fwrite($t,max((file_get_contents(dirname(__FILE__).'/rencontre_cron.txt')+0),$cm)); @fclose($t);
-	if($f) @unlink(dirname(__FILE__).'/rencontre_cronBis.txt'); // CRON BIS effectue
+	if($cronBis) @unlink(dirname(__FILE__).'/rencontre_cronBis.txt'); // CRON BIS effectue
 	else {$t=@fopen(dirname(__FILE__).'/rencontre_cronBis.txt', 'w'); @fclose($t);} // CRON BIS a faire
 	@unlink(dirname(__FILE__).'/rencontre_cronOn.txt');
 	clearstatcache();
