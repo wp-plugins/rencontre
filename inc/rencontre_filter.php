@@ -237,13 +237,13 @@ function f_cron_on($cronBis=0)
 		WHERE SECOND(U.user_registered) IN (".$j0.",".$j1.") AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
 	else if($cronBis && $rencOpt['mailmois']==2) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
 		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
-		WHERE (SECOND(U.user_registered) IN (".$j2.",".$j3.") AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
+		WHERE SECOND(U.user_registered) IN (".$j2.",".$j3.") AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
 	else if(!$cronBis&& $rencOpt['mailmois']==3) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
 		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
 		WHERE SECOND(U.user_registered) IN (".$j0.",".$j1.",".$j2.",".$j3.") AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
 	else if($cronBis && $rencOpt['mailmois']==3) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
 		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
-		WHERE (SECOND(U.user_registered) IN (".$j4.",".$j5.",".$j6.",".$j7.",".$j8.") AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
+		WHERE SECOND(U.user_registered) IN (".$j4.",".$j5.",".$j6.",".$j7.",".$j8.") AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
 	else if(!$cronBis) $q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, P.t_action, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation 
 		FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
 		WHERE SECOND(U.user_registered)='".$j."' AND U.ID=P.user_id AND U.ID=R.user_id ORDER BY P.d_modif DESC LIMIT ".$max);
