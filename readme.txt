@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Rencontre ===
 Contributors: jacques malgrange
 Donate link: http://www.boiteasite.fr/
 Tags: date, dating, meet, love, chat, webcam, rencontres
@@ -150,6 +150,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 26/10/2014 : Update 2 : homogeneous distribution between men and women in un-logged homepage.
 
 08/11/2014 : Update 3 : improves the automatic email sending (backlink, monthly/fortnightly/weekly options).
+
+26/11/2014 : Update 4 : fix defect with smiles in search result.
 
 = 1.2 =
 14/09/2014 :

@@ -1526,7 +1526,7 @@ class RencontreWidget extends WP_widget
 					</div>
 					<div class="abso135">
 						<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Envoyer un message','rencontre');?></a></div>
-						<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire1';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Lui sourire','rencontre');?></a></div>
+						<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Lui sourire','rencontre');?></a></div>
 						<div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='portrait';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Profil','rencontre');?></a></div>
 					</div>
 				</div><!-- .grandeBox .right -->
