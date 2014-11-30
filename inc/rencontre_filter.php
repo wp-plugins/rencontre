@@ -441,7 +441,7 @@ function f_cron_liste($d2)
 					{
 					if (file_exists($rencDiv['basedir']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10)."-mini.jpg")) $u = $rencDiv['baseurl']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10)."-mini.jpg";
 					else $u = plugins_url('rencontre/images/no-photo60.jpg');
-					$s .= "<a href='".esc_url(home_url('/'))."index.php?rencidfm=".$action['contactIn'][$v]['i']."' target='_blank'><td>".$q1."</td><td><img src='".$u."' alt=''/></td></a>";
+					$s .= "<td><a href='".esc_url(home_url('/'))."index.php?rencidfm=".$action['contactIn'][$v]['i']."' target='_blank'><img src='".$u."' alt=''/><div style='color:#444;font-size:.9em;font-family:\"DejaVu Sans\",sans-serif;margin:0 3px;'>".substr($q1,0,10)."</div></a>"."\r\n"."</td>";
 					}
 				$s .= "</tr></table>"."\r\n";
 				}
