@@ -46,13 +46,13 @@ If you have translated the plugin in your language or want to, please let me kno
 
 == Installation ==
 
-*Install and Activate*
+= Install and Activate =
 
 1. Unzip the downloaded rencontre zip file
 2. Upload the `rencontre` folder and its contents into the `wp-content/plugins/` directory of your WordPress installation
 3. Activate Rencontre from Plugins page
 
-*Implement*
+= Implement =
 
 Method 1 : In your theme :
 
@@ -152,6 +152,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 08/11/2014 : Update 3 : improves the automatic email sending (backlink, monthly/fortnightly/weekly options).
 
 26/11/2014 : Update 4 : fix defect with smiles in search result.
+
+30/11/2014 : Update 5 : translation correction.
 
 = 1.2 =
 14/09/2014 :
