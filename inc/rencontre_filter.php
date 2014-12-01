@@ -33,6 +33,7 @@ if (is_admin())
 add_action('plugins_loaded', 'f_cron');
 function f_cron()
 	{
+	if (function_exists('wpGeonames')) add_action('wp_ajax_city', 'f_city'); // ici pour le "plugins_loaded" - plugin WP-GeoNames
 	$d = dirname(__FILE__).'/rencontre_cron.txt';
 	$d1 = dirname(__FILE__).'/rencontre_cronOn.txt';
 	$d2 = dirname(__FILE__).'/rencontre_cronListe.txt'; if (!file_exists($d2)) {$t=@fopen($d2,'w'); @fwrite($t,'0'); @fclose($t);}
@@ -619,6 +620,16 @@ function f_drap()
 			sort($tab);
 			foreach($tab as $r) { echo "<option value='".$r."'>".$r."</option>"; }
 			}
+		}
+	}
+//
+function f_city() // plugin WP-GeoNames
+	{
+	global $wpdb;
+	$s = $wpdb->get_results("SELECT name FROM ".$wpdb->prefix."geonames WHERE country_code='".strip_tags($_POST["iso"])."' and feature_class='P' and name LIKE '".strip_tags($_POST["city"])."%' ORDER BY name LIMIT 10");
+	foreach($s as $t)
+		{
+		echo '<div onClick="document.getElementById(\'rencVille\').value=this.innerHTML;document.getElementById(\'rencCity\').innerHTML=\'\';">'.$t->name.'</div>';
 		}
 	}
 //

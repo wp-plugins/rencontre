@@ -154,10 +154,11 @@ class RencontreWidget extends WP_widget
 									</select>
 								</td>
 								<td>
-									<input name="ville" type="text" size="12">
+									<input id="rencVille" name="ville" type="text" size="12" <?php if (function_exists('wpGeonames')) echo 'onkeyup="f_city(this,\''.admin_url('admin-ajax.php').'\',document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].value);"'; ?> />
+									<div class="rencCity" id="rencCity"></div>
 								</td>
 								<td>
-									<select name="pays" size=6 onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect1');">
+									<select id="rencPays" name="pays" size=6 onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect1');">
 										<?php RencontreWidget::f_pays($rencOpt['pays']); ?>
 										
 									</select>
@@ -1676,7 +1677,7 @@ class RencontreWidget extends WP_widget
 				</tr>
 				<tr>
 					<td>
-						<select name="pays" size=6 onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect2');">
+						<select id="rencPays" name="pays" size=6 onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect2');">
 							<?php RencontreWidget::f_pays($q->c_pays); ?>
 							
 						</select>
@@ -1694,7 +1695,8 @@ class RencontreWidget extends WP_widget
 				</tr>
 				<tr>
 					<td>
-						<input name="ville" type="text" size="18" value="<?php echo $q->c_ville; ?>">
+						<input id="rencVille" name="ville" type="text" size="18" value="<?php echo $q->c_ville; ?>" <?php if (function_exists('wpGeonames')) echo 'onkeyup="f_city(this,\''.admin_url('admin-ajax.php').'\',document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].value);"'; ?> />
+						<div class="rencCity" id="rencCity"></div>
 					</td>
 					<td>
 						<input style="display:none;" name="email" type="text" size="18" value="<?php // echo $q->user_email; ?>">
