@@ -90,6 +90,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 = Useful plugins to work with Rencontre =
 * WP Better Emails : Adds a customizable good looking HTML template to all WP default plain/text emails ;
 * GeoIP Detect : Add IP country flag in Rencontre members admin tab - Facilitates the detection of fake profile.
+* WP GeoNames : Insert all or part of the global GeoNames database in your WordPress base - Suggest city to members.
 
 = Conditions to appear in un-logged homepage =
 * Wait few days (parameter in admin) ;
@@ -154,6 +155,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 26/11/2014 : Update 4 : fix defect with smiles in search result.
 
 30/11/2014 : Update 5 : translation correction.
+
+01/12/2014 : Update 6 : suggest a city from the geonames database if plugin wp-geonames is installed.
 
 = 1.2 =
 14/09/2014 :

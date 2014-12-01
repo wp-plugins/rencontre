@@ -38,6 +38,9 @@
 /*.miniBox {width:24%;height:110px;}*/
 .miniBox {width:135px;height:100px;margin-right:5px;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}
 .maxiBox{width:480px;min-height:100px; padding:5px;}
+.rencCity {font-weight:400;color:#5abfd4;line-height:1.1em;}
+.rencCity>div {cursor:pointer;}
+.rencCity>div:hover {font-weight:700;color:#d7bd4;}
 
 .portraitPhoto {float:left; text-align:center;padding-bottom:10px;min-height:300px;}
 #portraitGrande {max-width:99%;max-height:250px;margin-bottom:5px; border-radius:4px;}
