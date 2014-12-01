@@ -1418,7 +1418,7 @@ class RencontreWidget extends WP_widget
 							</tr>
 							<tr>
 								<td><?php _e('Pays','rencontre');?>&nbsp;:</td>
-								<td><select name="pays" onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect2');">
+								<td><select id="rencPays" name="pays" onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect2');">
 									<?php RencontreWidget::f_pays($rencOpt['pays']); ?>
 									
 									</select>
@@ -1434,7 +1434,10 @@ class RencontreWidget extends WP_widget
 							</tr>
 							<tr>
 								<td><?php _e('Ville','rencontre');?>&nbsp;:</td>
-								<td><input type="text" name="ville" /></td>
+								<td>
+									<input id="rencVille" name="ville" type="text" size="12" <?php if (function_exists('wpGeonames')) echo 'onkeyup="f_city(this,\''.admin_url('admin-ajax.php').'\',document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].value);"'; ?> />
+									<div class="rencCity" id="rencCity"></div>
+								</td>
 							</tr>
 							<tr>
 								<td><?php _e('Uniquement avec photo','rencontre');?>&nbsp;</td>
