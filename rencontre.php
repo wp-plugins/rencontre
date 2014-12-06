@@ -4,7 +4,7 @@ Plugin Name: Rencontre
 Author: Jacques Malgrange
 Plugin URI: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
 Description: A free powerful and exhaustive dating plugin with private messaging, webcam chat, search by profile and automatic sending of email. No third party.
-Version: 1.3
+Version: 1.4
 Author URI: http://www.boiteasite.fr
 */
 
@@ -22,7 +22,7 @@ require('inc/rencontre_filter.php' );
 				if(!$n) // pas de pays ou table vide
 					{
 					$m = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_liste");
-					if(!$m) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez r&eacute;-installer les pays','rencontre').'</p></div>';
+					if(!$m) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - '.__('Vous devez installer les pays','rencontre').'</p></div>';
 					else
 						{
 						$o = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users");
@@ -62,6 +62,8 @@ function rencontre_creation_table()
 			`c_pays` varchar(50) NOT NULL,
 			`c_region` varchar(50) NOT NULL,
 			`c_ville` varchar(50) NOT NULL,
+			`e_lat` decimal(10,5) NOT NULL,
+			`e_lon` decimal(10,5) NOT NULL,
 			`i_sex` tinyint NOT NULL,
 			`d_naissance` date NOT NULL,
 			`i_taille` tinyint unsigned NOT NULL,
@@ -71,6 +73,7 @@ function rencontre_creation_table()
 			`i_zage_max` tinyint unsigned NOT NULL,
 			`i_zrelation` tinyint NOT NULL,
 			`i_photo` bigint(20) unsigned NOT NULL,
+			`d_session` datetime NOT NULL,
 			FOREIGN KEY (`user_id`) REFERENCES ".$wpdb->prefix . "users(`ID`) ON DELETE CASCADE
 			) $charset_collate;";
 		dbDelta($sql);
@@ -103,17 +106,6 @@ function rencontre_creation_table()
 			) $charset_collate;";
 		dbDelta($sql);
 		}
-		// **** PATCH V1.2 : langue pour les pays *****************************************
-			$sql = $wpdb->get_var('SELECT c_liste_categ FROM '.$wpdb->prefix.'rencontre_liste WHERE c_liste_categ="Pays"');
-			if($sql) // update
-				{
-				$wpdb->query("TRUNCATE TABLE ".$wpdb->prefix."rencontre_liste");
-				$sql1 = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix.'rencontre_liste');
-				$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_liste DROP COLUMN i_liste_lien ");
-				$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_liste ADD `c_liste_iso` varchar(2) NOT NULL");
-				$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_liste ADD `c_liste_lang` varchar(2) NOT NULL");
-				}
-		// ************************************************************************************
 	$nom = $wpdb->prefix . 'rencontre_msg';
 	if($wpdb->get_var("SHOW TABLES LIKE '$db_table_name'")!=$nom)
 		{
@@ -155,7 +147,7 @@ class Rencontre
 	private $class_name = 'rencontre';
 	private $width      = '100%';
 	private $height     = '200px';
-	private $version = '1.3';
+	private $version = '1.4';
 	function __construct()
 		{
 		// Variables globale Rencontre
@@ -182,6 +174,27 @@ class Rencontre
 			add_action('admin_menu', array($this, 'admin_menu_link')); // Menu admin
 			add_action('admin_print_scripts', array($this, 'adminCSS')); // CSS pour le bouton du menu
 			}
+		// ****************** V1.4 (GPS) ********************
+		$q = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."rencontre_users");
+		if(!isset($q->e_lat))
+			{
+			$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_users 
+				ADD `e_lat` decimal(10,5) NOT NULL,
+				ADD `e_lon` decimal(10,5) NOT NULL,
+				ADD `d_session` datetime NOT NULL");
+			// **** PATCH V1.2 : langue pour les pays ***************************
+			$sql = $wpdb->get_var('SELECT c_liste_categ FROM '.$wpdb->prefix.'rencontre_liste WHERE c_liste_categ="Pays"');
+			if($sql) // update
+				{
+				$wpdb->query("TRUNCATE TABLE ".$wpdb->prefix."rencontre_liste");
+				$sql1 = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix.'rencontre_liste');
+				$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_liste DROP COLUMN i_liste_lien ");
+				$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_liste ADD `c_liste_iso` varchar(2) NOT NULL");
+				$wpdb->query("ALTER TABLE ".$wpdb->prefix."rencontre_liste ADD `c_liste_lang` varchar(2) NOT NULL");
+				}
+			// **********************************************************************
+			}
+		// *************************************************
 		}
 	//
 	function admin_menu_link()
@@ -603,7 +616,6 @@ class Rencontre
 								$out[$r['i']] = $r['v'];
 								}
 							$out1="";$out2=""; $c=0; $d="";
-						//	if($in) 
 							foreach ($in as $r=>$r1)
 								{
 								if ($d!=$r1[1]) // nouvel onglet
@@ -1075,7 +1087,7 @@ class Rencontre
 		return $age;
 		}
 	//
-	static function f_ficheLibre($mix=0) // Creation du fichier HTML de presentation des membres en libre acces pour la page d accueil
+	static function f_ficheLibre($mix=0,$ret=0) // Creation du fichier HTML de presentation des membres en libre acces pour la page d accueil
 		{
 		if (!file_exists(plugin_dir_path( __FILE__ ).'/cache/cache_portraits_accueil.html'))
 			{
@@ -1172,7 +1184,13 @@ class Rencontre
 			$out.="\r\n".'<div class="clear">&nbsp;</div></div><!-- #widgRenc -->'."\r\n";
 			$t = fopen(plugin_dir_path( __FILE__ ).'/cache/cache_portraits_accueil.html', 'w');
 			if ($t) { fwrite($t,$out); fclose($t); }
-			echo $out;
+			if(!$ret) echo $out;
+			else return $out; // SHORTCODE
+			}
+		else if($ret) // SHORTCODE
+			{
+			$out = file_get_contents(plugin_dir_path( __FILE__ ).'/cache/cache_portraits_accueil.html');
+			return $out; 
 			}
 		else include(plugin_dir_path( __FILE__ ).'/cache/cache_portraits_accueil.html');
 		}
@@ -1212,5 +1230,4 @@ class Rencontre
 	//
 	} // FIN DE LA CLASSE
 // *****************************************************************************************
-//
 ?>

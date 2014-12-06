@@ -4,7 +4,7 @@ Donate link: http://www.boiteasite.fr/
 Tags: date, dating, meet, love, chat, webcam, rencontres
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,12 +21,14 @@ This WordPress plugin allows you to create a real dating website with Wordpress.
 * Private Members chat with webcam ;
 * Sending smiles and contact requests ;
 * Advanced Search ;
+* Proximity search on GoogleMap ;
 * Reporting of non-compliant member profiles ;
 * Connecting with a FaceBook account ;
 * Sending regular emails to members in accordance with the quota server ;
 * Using the wp_users table for members to benefit of WordPress functions ;
 * Daily cleaning to maintain the level of performance ;
-* Low resource ;
+* Low resource, optimized for shared web server ;
+* Unlimited number of members ;
 * Multilingual ;
 * Easy administration with filtering members ;
 * Import/Export members in CSV with photos ;
@@ -54,7 +56,9 @@ If you have translated the plugin in your language or want to, please let me kno
 
 = Implement =
 
-Method 1 : In your theme :
+**Primo**
+
+Method 1 : In your theme (recommended) :
 
 In your theme folder, in the page used for the dating part (index.php if you want to use the home page), add the content :
 `&lt;?php if(is_user_logged_in()) {
@@ -67,6 +71,8 @@ Method 2 : With a Widget :
 `&lt;?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('my-area-name')) : endif; ?&gt;`
 * In admin panel, move the 'rencontre' widget to 'my-area-name' area.
 
+**Secundo**
+
 For visitors not connected, you can view thumbnails and small profile of the last registered members using the shortcode [rencontre_libre] or php
 `&lt;?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?&gt;`
 If you write f_ficheLibre(1), there will be as many men as women.
@@ -74,14 +80,24 @@ If you write f_ficheLibre(1), there will be as many men as women.
 You can also get the number of members in base with this php and ('girl'), ('men'), ('girlPhoto'), ('menPhoto') or () for all :
 `&lt;?php if(!is_user_logged_in()) echo Rencontre::f_nbMembre('girlPhoto'); ?&gt;`
 
+**Tertio**
+
 You need to add the WP connection link. You can add this in the header to have the WP and the Facebook connections links :
 `&lt;?php Rencontre::f_loginFB(); 
 	wp_loginout(home_url()); if (!is_user_logged_in()) { ?&gt;
 		&lt;a href="wp-login.php?action=register"&gt;&lt;?php _e('Register'); ?&gt;&lt;/a&gt;
 &lt;?php } ?&gt;`
 
+**Quarto**
+
 When ready, go to admin panel and load the countries, load the profiles, set all parameters of the plugin and don't forget to save.
 
+**Quinto**
+
+Register as a member : Click Register, add login and email.
+
+If you are localhost, you can't validate the email, but, in Admin panel / users, you can change the password of this new members.
+Then, log in with this new login/password. Welcome to the dating part.
 
 More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
 
@@ -95,7 +111,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 = Conditions to appear in un-logged homepage =
 * Wait few days (parameter in admin) ;
 * Have a photo on my profile ;
-* Have an attention-catcher and an ad with more than 30 characters.
+* Have an attention-catcher and an ad with more than 30 characters ;
+* Rencontre::f_ficheLibre() is on the right template.
 
 = How to personalize style =
 The default style file is located in `rencontre/css/rencontre.css`.
@@ -125,6 +142,12 @@ Add little flags in the header of your theme. On click, you create cookie with t
 	&lt;/a&gt;
 &lt;/div&gt;`
 
+= What to include with WP-GeoNames =
+* Columns : minimum is name, latitude, longitude, country code, feature class & code.
+* Type of data : only P (city).
+
+It's better to limit the data size.
+
 More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
 
 == Screenshots ==
@@ -134,8 +157,17 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 3. Administration members.
 4. Administration of available profiles.
 5. Private webcam chat.
+6. Proximity search on GoogleMap.
 
 == Changelog ==
+
+= 1.4 =
+06/12/2014 :
+
+* Proximity search with GoogleMap.
+* Improve separation between gay / heterosexual.
+* Fix bug with Shortcode.
+* Search result order by date of last connection.
 
 = 1.3 =
 15/10/2014 :

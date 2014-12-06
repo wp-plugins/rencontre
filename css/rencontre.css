@@ -41,6 +41,10 @@
 .rencCity {font-weight:400;color:#5abfd4;line-height:1.1em;}
 .rencCity>div {cursor:pointer;}
 .rencCity>div:hover {font-weight:700;color:#d7bd4;}
+.rencTMap{text-align:left;margin:20px;color:#000;line-height:1.2em;display:none;}
+#rencMap{display:none;background-color:#e8e5ce;border:2px solid #e0cdbf;width:320px;height:300px;opacity:1;}
+#rencMap2{display:none;background-color:#e8e5ce;border:2px solid #e0cdbf;height:400px;opacity:1;}
+#rencMap2>div{width:100%;}
 
 .portraitPhoto {float:left; text-align:center;padding-bottom:10px;min-height:300px;}
 #portraitGrande {max-width:99%;max-height:250px;margin-bottom:5px; border-radius:4px;}
@@ -49,6 +53,7 @@
 .rencPortrait img.flag{float:right;margin:10px;border:1px solid #555;border-radius:2px;}
 .rencPortrait .titre{margin-bottom:10px;}
 .rencPortrait .ville {color:#dd6e28;margin:-10px 0 5px;}
+.rencPortrait .ville span{font-size:95%; padding-left:5px;}
 .renc1 {color:#dd6e28;margin:5px 0;font-weight:700;}
 .rencPortrait p{clear:both;margin-top:10px;font-size:85%;}
 .rencPortrait ul, .rencMenu ul {list-style:none;margin:0;}
@@ -69,11 +74,13 @@
 .rencBox img.monFlag {position:absolute; top:4px;left:88%;border:1px solid #555;border-radius:2px;}
 .rencBox .maVille, .rencBox .monAge {color:#9f5824;margin:2px 0;}
 .rencBox .maRecherche {clear:left;color:#444;font-size:0.75em;}
-.rencBox .button {float:right; display:inline-block; background-color:#e8e5ce;color:#1c0d02;border:1px solid #555; border-radius:4px;margin:5px 3px 2px; padding:5px;font-size:90%;}
+.rencBox .button {float:right; display:inline-block; background-color:#e8e5ce;color:#1c0d02;border:1px solid #555; border-radius:4px;margin:5px 3px 2px; padding:5px;font-size:90%;cursor:pointer;}
 .rencBox .button:hover, .rencPortrait ul li:hover, .rencMenu ul li:hover {background-color:#bfb190;}
 .rencBox .abso135 {position:absolute; bottom:5px;right:5px; }
 .rencBox .abso225 {position:absolute; bottom:0px;left:5px;color:#444;font-size:0.85em;}
 .rencBox input[type="checkbox"] {margin:3px 20px 0 -2px;padding-top:5px;}
+.rencBox table{width:100%;}
+.rencBox table td {vertical-align:middle;}
 .rencBonjour {position:absolute;top:10px;right:10px;text-align:right;font-size:120%;}
 .rencNouveau, .rencCompte {padding:15px; text-align:justify;}
 .rencNouveau table tr td, .rencCompte table tr td {text-align:center;vertical-align:top; padding:10px 25px 25px;}
@@ -100,7 +107,7 @@
 #portraitSauv span {margin-right:10px;padding:5px 10px;border-radius:4px;background-color:#e8e5ce;}
 #portraitSauv span:hover {cursor:pointer;background-color:#bfb190;}
 #infoChange, #rencAlert, #rencAlert1 {font-size:110%; color:red; font-weight:bold;}
-#formTrouve table td {padding:5px 20px 5px 10px;}
+#formTrouve table td {padding:5px 10px;}
 #formTrouve table tr:nth-child(2n+1) {background-color:#e8e5ce;}
 #rencFantome{width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,.5);}
 #rencFantome .rencFantome{font-size:120%;text-align:center;line-height:1.6em;width:30%;margin:10% auto;background-color:#fff;padding:3%;opacity:1;filter:alpha(opacity=100);-moz-opacity:1.00;opacity:1.00;z-index:999;}

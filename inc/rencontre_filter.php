@@ -6,7 +6,22 @@ add_action('init', 'f_inLine', 1); // session
 add_action('wp_logout', 'f_outLine'); // session
 add_filter('random_password', 'f_length_pass'); function f_length_pass($pass) {$pass = substr($pass,0,3); return $pass;}
 add_action('admin_bar_menu', 'f_admin_menu', 999);
-add_shortcode('rencontre_libre', 'f_shortcode_libre'); function f_shortcode_libre() {Rencontre::f_ficheLibre();} // shortcode : [rencontre_libre]
+add_shortcode('rencontre_libre', 'f_shortcode_libre');
+
+
+
+
+
+function f_shortcode_libre() {return Rencontre::f_ficheLibre(0,1);} // shortcode : [rencontre_libre]
+//function f_shortcode_libre() {return "**********TOTO***********";} // shortcode : [rencontre_libre]
+
+
+
+
+
+
+
+
 if (isset($_COOKIE['lang']) && strlen($_COOKIE['lang'])==5) add_filter('locale', 'set_locale2'); function set_locale2() { return $_COOKIE['lang']; }
 // Mail
 add_filter ('retrieve_password_message', 'retrieve_password_message2', 10, 2);
@@ -495,11 +510,12 @@ function f_inLine()
 	if (is_user_logged_in())
 		{
 		if (!session_id()) session_start();
-		global $current_user; global $rencDiv;
+		global $current_user; global $rencDiv; global $wpdb; 
 		if (!is_dir($rencDiv['basedir'].'/tchat/')) mkdir($rencDiv['basedir'].'/tchat/');
 		if (!is_dir($rencDiv['basedir'].'/session/')) mkdir($rencDiv['basedir'].'/session/');
 		$t = fopen($rencDiv['basedir'].'/session/'.$current_user->ID.'.txt', 'w') or die();
 		fclose($t);
+		$wpdb->update($wpdb->prefix.'rencontre_users', array('d_session'=>date("Y-m-d H:i:s")), array('user_id'=>$current_user->ID));
 		}
 	}
 //
@@ -626,10 +642,10 @@ function f_drap()
 function f_city() // plugin WP-GeoNames
 	{
 	global $wpdb;
-	$s = $wpdb->get_results("SELECT name FROM ".$wpdb->prefix."geonames WHERE country_code='".strip_tags($_POST["iso"])."' and feature_class='P' and name LIKE '".strip_tags($_POST["city"])."%' ORDER BY name LIMIT 10");
+	$s = $wpdb->get_results("SELECT name, latitude, longitude FROM ".$wpdb->prefix."geonames WHERE country_code='".strip_tags($_POST["iso"])."' and feature_class='P' and name LIKE '".strip_tags($_POST["city"])."%' ORDER BY name LIMIT 10");
 	foreach($s as $t)
 		{
-		echo '<div onClick="document.getElementById(\'rencVille\').value=this.innerHTML;document.getElementById(\'rencCity\').innerHTML=\'\';">'.$t->name.'</div>';
+		echo '<div onClick=\'f_cityMap("'.$t->name.'","'.$t->latitude.'","'.$t->longitude.'",'.($_POST["ch"]?'1':'0').');\'>'.$t->name.'</div>';
 		}
 	}
 //
