@@ -169,6 +169,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix bug with Shortcode.
 * Search result order by date of last connection.
 
+23/12/2014 : Update 1 : Fix style bug.
+
 = 1.3 =
 15/10/2014 :
 
