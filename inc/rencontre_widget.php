@@ -317,6 +317,7 @@ class RencontreWidget extends WP_widget
 							<div class="titre"><?php echo stripslashes($s->t_titre); ?></div>
 						</div>
 						<p><?php echo stripslashes($s->t_annonce); ?></p>
+						<div>&nbsp;</div>
 						<div class="abso225">
 							<?php echo __('Je cherche','rencontre').'&nbsp;'.(($s->i_zsex==1)?__('une femme','rencontre'):__('un homme','rencontre'));
 							if($s->i_zsex==$s->i_sex) echo '&nbsp;'.__('homo','rencontre');
@@ -881,7 +882,7 @@ class RencontreWidget extends WP_widget
 						<?php RencontreWidget::f_miniPortrait($r->user_id); ?>
 						<div class="maxiBox right rel">
 								<?php echo stripslashes($r->t_annonce); ?>
-							<div style="height:40px;"></div>
+							<div style="height:45px;"></div>
 							<div class="abso225">
 								<?php echo __('Je cherche','rencontre').'&nbsp;'.(($r->i_zsex==1)?__('une femme','rencontre'):__('un homme','rencontre')).'<br />';
 								echo '&nbsp;'.__('entre','rencontre').'&nbsp;'.$r->i_zage_min.'&nbsp;'.__('et','rencontre').'&nbsp;'.$r->i_zage_max.'&nbsp;'.__('ans','rencontre').'<br />';
