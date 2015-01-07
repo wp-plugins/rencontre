@@ -7,21 +7,7 @@ add_action('wp_logout', 'f_outLine'); // session
 add_filter('random_password', 'f_length_pass'); function f_length_pass($pass) {$pass = substr($pass,0,3); return $pass;}
 add_action('admin_bar_menu', 'f_admin_menu', 999);
 add_shortcode('rencontre_libre', 'f_shortcode_libre');
-
-
-
-
-
 function f_shortcode_libre() {return Rencontre::f_ficheLibre(0,1);} // shortcode : [rencontre_libre]
-//function f_shortcode_libre() {return "**********TOTO***********";} // shortcode : [rencontre_libre]
-
-
-
-
-
-
-
-
 if (isset($_COOKIE['lang']) && strlen($_COOKIE['lang'])==5) add_filter('locale', 'set_locale2'); function set_locale2() { return $_COOKIE['lang']; }
 // Mail
 add_filter ('retrieve_password_message', 'retrieve_password_message2', 10, 2);
