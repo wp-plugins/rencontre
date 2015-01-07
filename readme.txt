@@ -171,6 +171,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 23/12/2014 : Update 1 : Fix style bug.
 
+07/01/2015 : Update 2 : Change the request to GET. Add custom text in image copyright.
+
 = 1.3 =
 15/10/2014 :
 

@@ -164,7 +164,7 @@ class Rencontre
 		if(!$q) $rencDiv['lang'] = "en_US";
 		if (!$rencOpt)
 			{
-			$rencOpt = array('facebook'=>'','fblog'=>'','home'=>'','pays'=>'','limit'=>20,'tchat'=>0,'hcron'=>3,'mailmois'=>0,'textmail'=>'','mailanniv'=>0,'textanniv'=>'','qmail'=>25,'npa'=>12,'jlibre'=>3,'prison'=>30,'anniv'=>1,'ligne'=>1,'mailsupp'=>1,'onlyphoto'=>1,'imcopyright'=>1);
+			$rencOpt = array('facebook'=>'','fblog'=>'','home'=>'','pays'=>'','limit'=>20,'tchat'=>0,'hcron'=>3,'mailmois'=>0,'textmail'=>'','mailanniv'=>0,'textanniv'=>'','qmail'=>25,'npa'=>12,'jlibre'=>3,'prison'=>30,'anniv'=>1,'ligne'=>1,'mailsupp'=>1,'onlyphoto'=>1,'imcopyright'=>1,'txtcopyright'=>'');
 			update_option('rencontre_options', $rencOpt);
 			}
 		load_plugin_textdomain('rencontre', false, dirname(plugin_basename( __FILE__ )).'/lang/'); // language
@@ -225,7 +225,8 @@ class Rencontre
 		if (isset($f['textanniv'])) $rencOpt['textanniv'] = $f['textanniv']; else $rencOpt['textanniv'] = '';
 		if (isset($f['qmail'])) $rencOpt['qmail'] = $f['qmail']; else $rencOpt['qmail'] = 25;
 		if (isset($f['npa'])) $rencOpt['npa'] = $f['npa']; else $rencOpt['npa'] = 12;
-		if (isset($f['imcopyright'])) $rencOpt['imcopyright'] = 1; else $rencOpt['imcopyright'] = 0;
+		if (isset($f['imcopyright'])) $rencOpt['imcopyright'] = $f['imcopyright']; else $rencOpt['imcopyright'] = 0;
+		if (isset($f['txtcopyright'])) $rencOpt['txtcopyright'] = stripslashes($f['txtcopyright']); else $rencOpt['txtcopyright'] = ""; 
 		if (isset($f['anniv'])) $rencOpt['anniv'] = 1; else $rencOpt['anniv'] = 0;
 		if (isset($f['ligne'])) $rencOpt['ligne'] = 1; else $rencOpt['ligne'] = 0;
 		if (isset($f['mailsupp'])) $rencOpt['mailsupp'] = 1; else $rencOpt['mailsupp'] = 0;
@@ -319,7 +320,17 @@ class Rencontre
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label><?php _e('Afficher un copyright discret sur les photos', 'rencontre'); ?></label></th>
-						<td><input type="checkbox" name="imcopyright" value="1" <?php if ($rencOpt['imcopyright'])echo 'checked'; ?>></td>
+						<td>
+							<select name="imcopyright">
+								<option value="0" <?php if (!$rencOpt['imcopyright'])echo 'selected'; ?>><?php _e('Non', 'rencontre'); ?></option>
+								<option value="1" <?php if ($rencOpt['imcopyright']==1)echo 'selected'; ?>><?php _e('Inclin&eacute; vers le haut', 'rencontre'); ?></option>
+								<option value="2" <?php if ($rencOpt['imcopyright']==2)echo 'selected'; ?>><?php _e('Inclin&eacute; vers le bas', 'rencontre'); ?></option>
+							</select>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label><?php _e('Texte du copyright sur les photos. Vide => URL du site.', 'rencontre'); ?></label></th>
+						<td><input type="text" name="txtcopyright" value="<?php echo $rencOpt['txtcopyright']; ?>" /></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label><?php _e('Membres sans photo moins visibles', 'rencontre'); ?></label></th>
@@ -668,22 +679,22 @@ class Rencontre
 				{
 				f_userPrison($_POST["a1"]);
 				}
-			$tri="";
-				if (isset($_GET['tri']))
-					{
-					if ($_GET['tri']=='date') $tri='ORDER BY Q.d_prison ASC';
-					else if ($_GET['tri']=='Rdate') $tri='ORDER BY Q.d_prison DESC';
-					else if ($_GET['tri']=='mail') $tri='ORDER BY Q.c_mail ASC';
-					else if ($_GET['tri']=='Rmail') $tri='ORDER BY Q.c_mail DESC';
-					else if ($_GET['tri']=='ip') $tri='ORDER BY Q.c_ip ASC';
-					else if ($_GET['tri']=='Rip') $tri='ORDER BY R.d_naissance DESC';
-					}
-				$pagenum = isset($_GET['pagenum'])?absint($_GET['pagenum']):1;
-				$limit = 100;
-				$q = $wpdb->get_results("SELECT Q.id, Q.d_prison, Q.c_mail, Q.c_ip FROM ".$wpdb->prefix."rencontre_prison Q ".$tri." LIMIT ".(($pagenum-1)*$limit).",".$limit);
-				$total = $wpdb->get_var("SELECT COUNT(id) FROM ".$wpdb->prefix . "rencontre_prison");
-				$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>'&laquo;','next_text'=>'&raquo;','total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
-				if ($page_links) echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">'.$page_links.'</div></div>';
+			$tri='ORDER BY Q.d_prison DESC';
+			if (isset($_GET['tri']))
+				{
+				if ($_GET['tri']=='date') $tri='ORDER BY Q.d_prison ASC';
+				else if ($_GET['tri']=='Rdate') $tri='ORDER BY Q.d_prison DESC';
+				else if ($_GET['tri']=='mail') $tri='ORDER BY Q.c_mail ASC';
+				else if ($_GET['tri']=='Rmail') $tri='ORDER BY Q.c_mail DESC';
+				else if ($_GET['tri']=='ip') $tri='ORDER BY Q.c_ip ASC';
+				else if ($_GET['tri']=='Rip') $tri='ORDER BY R.d_naissance DESC';
+				}
+			$pagenum = isset($_GET['pagenum'])?absint($_GET['pagenum']):1;
+			$limit = 100;
+			$q = $wpdb->get_results("SELECT Q.id, Q.d_prison, Q.c_mail, Q.c_ip FROM ".$wpdb->prefix."rencontre_prison Q ".$tri." LIMIT ".(($pagenum-1)*$limit).",".$limit);
+			$total = $wpdb->get_var("SELECT COUNT(id) FROM ".$wpdb->prefix . "rencontre_prison");
+			$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>'&laquo;','next_text'=>'&raquo;','total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
+			if ($page_links) echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">'.$page_links.'</div></div>';
 			?>
 			<form name='listPrison' method='post' action=''><input type='hidden' name='a1' value='' />
 			<table class="prison">
@@ -1035,21 +1046,21 @@ class Rencontre
 				echo "<script language='JavaScript'>document.location.href='".$rencOpt['home']."';</script>"; 
 				}
 			if (array_shift($rol)=="subscriber" && (!isset($_POST['nouveau']) || !$_POST['nouveau'])) $_SESSION['rencontre']='nouveau';
-			else if (!isset($_SESSION['rencontre']) || !isset($_POST['page']) || !$_POST['page']) $_SESSION['rencontre']='mini,accueil,menu';
-			else if ($_POST['page']=='portrait') $_SESSION['rencontre']='portrait,menu';
-			else if ($_POST['page']=='sourire') $_SESSION['rencontre']='portrait,menu,sourire';
-			else if ($_POST['page']=='demcont') $_SESSION['rencontre']='portrait,menu,demcont';
-			else if ($_POST['page']=='signale') $_SESSION['rencontre']='portrait,menu,signale';
-			else if ($_POST['page']=='bloque') $_SESSION['rencontre']='portrait,menu,bloque';
-			else if ($_POST['page']=='change') $_SESSION['rencontre']='change,menu';
-			else if ($_POST['page']=='cherche') $_SESSION['rencontre']='cherche,accueil,menu';
-			else if ($_POST['page']=='trouve') $_SESSION['rencontre']='trouve,accueil,menu';
-			else if ($_POST['page']=='liste') $_SESSION['rencontre']='trouve,liste,accueil,menu';
-			else if ($_POST['page']=='msg') $_SESSION['rencontre']='msg,accueil,menu';
-			else if ($_POST['page']=='ecrire') $_SESSION['rencontre']='ecrire,accueil,menu';
-			else if ($_POST['page']=='compte') $_SESSION['rencontre']='compte,accueil,menu';
-			else if ($_POST['page']=='password') $_SESSION['rencontre']='mini,accueil,menu,password';
-			else if ($_POST['page']=='fin')
+			else if (!isset($_SESSION['rencontre']) || ((!isset($_POST['page']) || !$_POST['page']) && (!isset($_GET['page']) || !$_GET['page']))) $_SESSION['rencontre']='mini,accueil,menu';
+			else if (isset($_POST['page']) && $_POST['page']=='password') $_SESSION['rencontre']='mini,accueil,menu,password';
+			else if (isset($_GET['page']) && $_GET['page']=='portrait') $_SESSION['rencontre']='portrait,menu';
+			else if (isset($_GET['page']) && $_GET['page']=='sourire') $_SESSION['rencontre']='portrait,menu,sourire';
+			else if (isset($_GET['page']) && $_GET['page']=='demcont') $_SESSION['rencontre']='portrait,menu,demcont';
+			else if (isset($_GET['page']) && $_GET['page']=='signale') $_SESSION['rencontre']='portrait,menu,signale';
+			else if (isset($_GET['page']) && $_GET['page']=='bloque') $_SESSION['rencontre']='portrait,menu,bloque';
+			else if (isset($_GET['page']) && $_GET['page']=='change') $_SESSION['rencontre']='change,menu';
+			else if (isset($_GET['page']) && $_GET['page']=='cherche') $_SESSION['rencontre']='cherche,accueil,menu';
+			else if (isset($_GET['page']) && $_GET['page']=='trouve') $_SESSION['rencontre']='trouve,accueil,menu';
+			else if (isset($_GET['page']) && $_GET['page']=='liste') $_SESSION['rencontre']='trouve,liste,accueil,menu';
+			else if (isset($_GET['page']) && $_GET['page']=='msg') $_SESSION['rencontre']='msg,accueil,menu';
+			else if (isset($_GET['page']) && $_GET['page']=='ecrire') $_SESSION['rencontre']='ecrire,accueil,menu';
+			else if (isset($_GET['page']) && $_GET['page']=='compte') $_SESSION['rencontre']='compte,accueil,menu';
+			else if (isset($_POST['page']) && $_POST['page']=='fin')
 				{
 				f_userSupp($current_user->ID,$current_user->user_login,0);
 				if ($rencOpt['mailsupp'])
