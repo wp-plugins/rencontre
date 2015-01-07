@@ -43,6 +43,7 @@ Rencontre is currently available in :
 * Spanish - thanks to Sanjay Gandhi
 * Danish - thanks to [C-FR](http://www.C-FR.net/ "C-FR")
 * Chinese - thanks to Lucien Huang
+* Portuguese - thanks to Patricio Fernandes
 
 If you have translated the plugin in your language or want to, please let me know on Support page.
 
