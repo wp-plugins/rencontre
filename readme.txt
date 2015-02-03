@@ -127,10 +127,10 @@ in your css file :
 
 = How to show only the girls in un-logged homepage =
 There are four categories differentiated by a different class CSS : girl, men, gaygirl and gaymen.
-To see only the heterosexual girls, add in the CSS file of your theme
-`#widgRenc .rencBox.men,
-#widgRenc .rencBox.gaygirl,
-#widgRenc .rencBox.gaymen{display:none;}`
+To see only the heterosexual girls, add in the CSS file of your theme :
+` #widgRenc .rencBox.men,
+ #widgRenc .rencBox.gaygirl,
+ #widgRenc .rencBox.gaymen{display:none;}`
 
 = How to set the plugin multilingual =
 Add little flags in the header of your theme. On click, you create cookie with the right language. Then, the site changes language (back and front office) :
