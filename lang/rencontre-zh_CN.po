@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rencontre\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-07 22:18+0100\n"
-"PO-Revision-Date: 2015-01-07 22:19+0100\n"
+"POT-Creation-Date: 2015-02-03 16:58+0100\n"
+"PO-Revision-Date: 2015-02-03 16:58+0100\n"
 "Last-Translator: jacques Malgrange <contacter@boiteasite.fr>\n"
 "Language-Team: boiteasite.fr\n"
 "Language: en_US\n"
@@ -29,7 +29,7 @@ msgid "Rencontre - G&eacute;n&eacute;ral"
 msgstr "约会 - 配置"
 
 #: ../rencontre.php:203
-#: ../rencontre.php:260
+#: ../rencontre.php:262
 msgid "G&eacute;n&eacute;ral"
 msgstr "配置"
 
@@ -38,7 +38,7 @@ msgid "Rencontre - Membres"
 msgstr "约会 - 会员"
 
 #: ../rencontre.php:204
-#: ../rencontre.php:446
+#: ../rencontre.php:464
 msgid "Membres"
 msgstr "会员"
 
@@ -47,7 +47,7 @@ msgid "Rencontre - Prison"
 msgstr "约会 - 黑名单"
 
 #: ../rencontre.php:205
-#: ../rencontre.php:676
+#: ../rencontre.php:702
 msgid "Prison"
 msgstr "黑名单"
 
@@ -56,9 +56,9 @@ msgid "Rencontre - Profil"
 msgstr "约会 - 信息"
 
 #: ../rencontre.php:206
-#: ../rencontre.php:761
-#: ../inc/rencontre_widget.php:873
-#: ../inc/rencontre_widget.php:1634
+#: ../rencontre.php:787
+#: ../inc/rencontre_widget.php:874
+#: ../inc/rencontre_widget.php:1651
 msgid "Profil"
 msgstr "信息"
 
@@ -67,584 +67,599 @@ msgid "Rencontre - Pays"
 msgstr "约会 - 国家"
 
 #: ../rencontre.php:207
-#: ../rencontre.php:505
-#: ../inc/rencontre_widget.php:570
-#: ../inc/rencontre_widget.php:1442
+#: ../rencontre.php:531
+#: ../inc/rencontre_widget.php:571
+#: ../inc/rencontre_widget.php:1459
 #: ../lang/rencontre-js-admin-lang.php:12
 msgid "Pays"
 msgstr "国家"
 
-#: ../rencontre.php:264
+#: ../rencontre.php:266
 msgid "Framework pour le bouton J'aime de Facebook"
 msgstr "使用FACEBOOK里我爱的按钮"
 
-#: ../rencontre.php:268
+#: ../rencontre.php:270
 msgid "AppID pour connexion par Facebook (vide si pas install&eacute;)"
 msgstr "使用FACEBOOK里的AppID信息(如果没有可以留空)"
 
-#: ../rencontre.php:273
+#: ../rencontre.php:275
 msgid "Page o&ugrave; est install&eacute; le plugin"
 msgstr "安装插件的网页"
 
-#: ../rencontre.php:285
+#: ../rencontre.php:287
 msgid "Pays s&eacute;l&eacute;ctionn&eacute; par d&eacute;faut"
 msgstr "默认的国家"
 
-#: ../rencontre.php:294
+#: ../rencontre.php:296
 msgid "Nombre de portrait en page d'accueil non connect&eacute;"
 msgstr "没登陆时首页显示的会员"
 
-#: ../rencontre.php:298
+#: ../rencontre.php:300
 msgid "Nombre de jours d'attente avant pr&eacute;sence en page d'accueil"
 msgstr "会员在首页显示需要等待的天数"
 
-#: ../rencontre.php:302
+#: ../rencontre.php:304
 msgid "Dur&eacute;e de la prison en jour (compte supprim&eacute;)"
 msgstr "在黑名单的天数 (删除的会员)"
 
-#: ../rencontre.php:306
+#: ../rencontre.php:308
 msgid "Nombre max de r&eacute;sultats par recherche"
 msgstr "每个搜寻可以的最多结果"
 
-#: ../rencontre.php:310
-#: ../inc/rencontre_widget.php:621
+#: ../rencontre.php:312
+#: ../inc/rencontre_widget.php:622
 msgid "Anniversaires du jour"
 msgstr "今天庆祝生日的会员"
 
-#: ../rencontre.php:314
+#: ../rencontre.php:316
 msgid "Profils actuellement en ligne"
 msgstr "目前在线的会员"
 
-#: ../rencontre.php:318
+#: ../rencontre.php:320
 msgid "Activer le chat"
 msgstr "开启聊天系统"
 
-#: ../rencontre.php:322
+#: ../rencontre.php:324
+msgid "Activer Google-Map"
+msgstr "启用谷歌地图"
+
+#: ../rencontre.php:328
+msgid "Nombre de photos"
+msgstr "照片数量"
+
+#: ../rencontre.php:340
 msgid "Afficher un copyright discret sur les photos"
 msgstr "在会员的图片上显示版权"
 
-#: ../rencontre.php:325
-#: ../rencontre.php:347
+#: ../rencontre.php:343
+#: ../rencontre.php:365
 msgid "Non"
 msgstr "没有"
 
-#: ../rencontre.php:326
+#: ../rencontre.php:344
 msgid "Inclin&eacute; vers le haut"
 msgstr "倾斜向上"
 
-#: ../rencontre.php:327
+#: ../rencontre.php:345
 msgid "Inclin&eacute; vers le bas"
 msgstr "向下倾斜"
 
-#: ../rencontre.php:332
+#: ../rencontre.php:350
 msgid "Texte du copyright sur les photos. Vide => URL du site."
 msgstr "在图片版权文本。空=>网站URL。"
 
-#: ../rencontre.php:336
+#: ../rencontre.php:354
 msgid "Membres sans photo moins visibles"
 msgstr "不显示没照片的会员"
 
-#: ../rencontre.php:340
+#: ../rencontre.php:358
 msgid "Envoyer un mail &agrave; l'utilisateur dont le compte est supprim&eacute;"
 msgstr "给被删除的会员发电子邮件"
 
-#: ../rencontre.php:344
+#: ../rencontre.php:362
 msgid "Envoi automatique d'un mail de synth&egrave;se aux membres (r&eacute;parti chaque jour)"
 msgstr "自动发送一封电子邮件，总结会员（每天派发）"
 
-#: ../rencontre.php:348
+#: ../rencontre.php:366
 msgid "Mensuel"
 msgstr "每月一次"
 
-#: ../rencontre.php:349
+#: ../rencontre.php:367
 msgid "Bimensuel"
 msgstr "半月刊"
 
-#: ../rencontre.php:350
+#: ../rencontre.php:368
 msgid "Hebdomadaire"
 msgstr "周刊"
 
-#: ../rencontre.php:354
-#: ../rencontre.php:384
+#: ../rencontre.php:372
+#: ../rencontre.php:402
 msgid "Maximum cette semaine"
 msgstr "这周的最大数据"
 
-#: ../rencontre.php:354
-#: ../rencontre.php:384
+#: ../rencontre.php:372
+#: ../rencontre.php:402
 msgid "mail/h"
 msgstr "电子邮件/小时"
 
-#: ../rencontre.php:354
+#: ../rencontre.php:372
 msgid "envoy&eacute;s lors de la maintenance"
 msgstr "维修时发的电子邮件"
 
-#: ../rencontre.php:359
+#: ../rencontre.php:377
 msgid "Heure des t&acirc;ches de maintenance (heures creuses)"
 msgstr "维修时间段 (最繁忙时段除外)"
 
-#: ../rencontre.php:362
+#: ../rencontre.php:380
 msgid "heures"
 msgstr "点钟"
 
-#: ../rencontre.php:367
+#: ../rencontre.php:385
 msgid "Texte d'introduction pour le mail mensuel (Apr&egrave;s bonjour login - Avant les sourires et demandes de contact)"
 msgstr "给会员发每月的电子邮件里的开场白 (紧接在您好后面)"
 
-#: ../rencontre.php:371
+#: ../rencontre.php:389
 msgid "Envoi automatique d'un mail de bon anniversaire aux membres"
 msgstr "给会员发祝贺生日的电子邮件"
 
-#: ../rencontre.php:375
+#: ../rencontre.php:393
 msgid "Texte complet pour le mail de bon anniversaire (Apr&egrave;s bonjour login)"
 msgstr "给会员发祝贺生日的电子邮件内容 (紧接在您好后面)"
 
-#: ../rencontre.php:379
+#: ../rencontre.php:397
 msgid "Nombre max de mail envoy&eacute;s par heure"
 msgstr "给会员发电子邮件每小时的最高数量"
 
-#: ../rencontre.php:384
+#: ../rencontre.php:402
 msgid "hors p&eacute;riode de maintenance"
 msgstr "维修时间段除外"
 
-#: ../rencontre.php:390
-#: ../inc/rencontre_widget.php:1882
+#: ../rencontre.php:408
+#: ../inc/rencontre_widget.php:1899
 #: ../lang/rencontre-js-admin-lang.php:4
 msgid "Sauvegarde"
 msgstr "保存"
 
-#: ../rencontre.php:394
+#: ../rencontre.php:412
 msgid "Export des membres en CSV"
 msgstr "在CSV导出成员"
 
-#: ../rencontre.php:396
+#: ../rencontre.php:414
 msgid "Exporter en CSV"
 msgstr "导出为CSV"
 
-#: ../rencontre.php:399
+#: ../rencontre.php:417
 msgid "R&eacute;cup&eacute;rer les photos en FTP dans wp-content/uploads/tmp/"
 msgstr "取回照片通过FTP在 wp-content/uploads/tmp/"
 
-#: ../rencontre.php:402
+#: ../rencontre.php:420
 msgid "Import des membres en CSV"
 msgstr "在CSV导入成员"
 
-#: ../rencontre.php:403
+#: ../rencontre.php:421
 msgid "D&eacute;poser les photos des membres en FTP dans wp-content/uploads/tmp/photo_import/ avant de commencer (accessible RW - pas de sous-dossier)."
 msgstr "把会员照片中的 wp-content/uploads/tmp/photo_import/ 通过FTP开始之前（可刻录- 帕斯 - 德 - 苏-档案）"
 
-#: ../rencontre.php:404
+#: ../rencontre.php:422
 msgid "Pour conna&icirc;tre le format &agrave; respecter, faire un export et s'inspirer du fichier (la premi&egrave;re ligne avec le titre des colonnes n'est pas trait&eacute;e)."
 msgstr "做一个出口，看它得到正确的格式（与各列的标题的第一行不治疗）。"
 
-#: ../rencontre.php:405
+#: ../rencontre.php:423
 msgid "En cas d'interruption durant l'import des photos, recommencer la proc&eacute;dure. Les doublons sont supprim&eacute;s."
 msgstr "如果照片的导入过程中中断，重新开始的过程。杜布隆被杀害。"
 
-#: ../rencontre.php:408
+#: ../rencontre.php:426
 msgid "Fichier CSV"
 msgstr "CSV文件"
 
-#: ../rencontre.php:414
+#: ../rencontre.php:432
 msgid "Importer en CSV"
 msgstr "在导入CSV"
 
-#: ../rencontre.php:415
+#: ../rencontre.php:433
 msgid "Fichier charg&eacute;"
 msgstr "文件加载"
 
-#: ../rencontre.php:416
+#: ../rencontre.php:434
 msgid "Erreur !"
 msgstr "错误！"
 
-#: ../rencontre.php:417
+#: ../rencontre.php:435
 msgid "Import donn&eacute;es termin&eacute;"
 msgstr "导入数据完成"
 
-#: ../rencontre.php:418
+#: ../rencontre.php:436
 msgid "Import Photos"
 msgstr "照片导入"
 
-#: ../rencontre.php:420
+#: ../rencontre.php:438
 msgid "Import termin&eacute;"
 msgstr "导入完成"
 
-#: ../rencontre.php:450
+#: ../rencontre.php:468
 msgid "Nombre de membres inscrits"
 msgstr "注册会员数"
 
-#: ../rencontre.php:451
+#: ../rencontre.php:469
 msgid "Nombre de membres avec profil et photo"
 msgstr "有照片个人介绍的注册会员数"
 
-#: ../rencontre.php:460
-#: ../rencontre.php:1069
-#: ../inc/rencontre_widget.php:1887
-msgid "Suppression du compte"
-msgstr "删除帐户"
-
-#: ../rencontre.php:461
-#: ../rencontre.php:1070
-msgid "Votre compte a &eacute;t&eacute; supprim&eacute;"
-msgstr "您帐户被删除"
-
-#: ../rencontre.php:496
-#: ../rencontre.php:498
-#: ../rencontre.php:500
-#: ../rencontre.php:505
-#: ../rencontre.php:506
-#: ../rencontre.php:507
-#: ../rencontre.php:508
-#: ../rencontre.php:702
-#: ../rencontre.php:703
-#: ../rencontre.php:704
-msgid "Trier"
-msgstr "重新排列"
-
-#: ../rencontre.php:497
-msgid "Photo"
-msgstr "照片"
-
-#: ../rencontre.php:498
-#: ../inc/rencontre_widget.php:1525
+#: ../rencontre.php:472
+#: ../rencontre.php:524
+#: ../inc/rencontre_widget.php:1542
 msgid "Pseudo"
 msgstr "昵称"
 
-#: ../rencontre.php:499
+#: ../rencontre.php:474
+#: ../inc/rencontre_widget.php:583
+#: ../inc/rencontre_widget.php:1548
+msgid "Cherche"
+msgstr "搜索"
+
+#: ../rencontre.php:485
+#: ../rencontre.php:1095
+#: ../inc/rencontre_widget.php:1904
+msgid "Suppression du compte"
+msgstr "删除帐户"
+
+#: ../rencontre.php:486
+#: ../rencontre.php:1096
+msgid "Votre compte a &eacute;t&eacute; supprim&eacute;"
+msgstr "您帐户被删除"
+
+#: ../rencontre.php:522
+#: ../rencontre.php:524
+#: ../rencontre.php:526
+#: ../rencontre.php:531
+#: ../rencontre.php:532
+#: ../rencontre.php:533
+#: ../rencontre.php:534
+#: ../rencontre.php:728
+#: ../rencontre.php:729
+#: ../rencontre.php:730
+msgid "Trier"
+msgstr "重新排列"
+
+#: ../rencontre.php:523
+msgid "Photo"
+msgstr "照片"
+
+#: ../rencontre.php:525
 msgid "Sex"
 msgstr "性别"
 
-#: ../rencontre.php:500
-#: ../inc/rencontre_widget.php:537
-#: ../inc/rencontre_widget.php:556
-#: ../inc/rencontre_widget.php:1390
+#: ../rencontre.php:526
+#: ../inc/rencontre_widget.php:538
+#: ../inc/rencontre_widget.php:557
+#: ../inc/rencontre_widget.php:1407
 msgid "Age"
 msgstr "年龄"
 
-#: ../rencontre.php:501
-#: ../inc/rencontre_widget.php:1407
+#: ../rencontre.php:527
+#: ../inc/rencontre_widget.php:1424
 msgid "Taille"
 msgstr "身高"
 
-#: ../rencontre.php:502
-#: ../inc/rencontre_widget.php:1424
+#: ../rencontre.php:528
+#: ../inc/rencontre_widget.php:1441
 msgid "Poids"
 msgstr "体重"
 
-#: ../rencontre.php:503
-#: ../inc/rencontre_widget.php:53
-#: ../inc/rencontre_widget.php:1382
+#: ../rencontre.php:529
+#: ../inc/rencontre_widget.php:54
+#: ../inc/rencontre_widget.php:1399
 msgid "Recherche"
 msgstr "搜寻"
 
-#: ../rencontre.php:504
+#: ../rencontre.php:530
 msgid "Accroche"
 msgstr "我的内心独白"
 
-#: ../rencontre.php:506
+#: ../rencontre.php:532
 msgid "Annonce (modif)"
 msgstr "我的个性展示 (更改)"
 
-#: ../rencontre.php:507
-#: ../rencontre.php:704
+#: ../rencontre.php:533
+#: ../rencontre.php:730
 msgid "Adresse IP"
 msgstr "IP 地址"
 
-#: ../rencontre.php:508
+#: ../rencontre.php:534
 msgid "Signalement"
 msgstr "检举"
 
-#: ../rencontre.php:509
+#: ../rencontre.php:535
 msgid "Supp"
 msgstr "删除"
 
-#: ../rencontre.php:517
-#: ../rencontre.php:518
+#: ../rencontre.php:543
+#: ../rencontre.php:544
 msgid "Voir"
 msgstr "观察"
 
-#: ../rencontre.php:520
-#: ../inc/rencontre_widget.php:138
-#: ../inc/rencontre_widget.php:220
-#: ../inc/rencontre_widget.php:304
-#: ../inc/rencontre_widget.php:1765
-#: ../inc/rencontre_widget.php:1854
+#: ../rencontre.php:546
+#: ../inc/rencontre_widget.php:139
+#: ../inc/rencontre_widget.php:221
+#: ../inc/rencontre_widget.php:305
+#: ../inc/rencontre_widget.php:1782
+#: ../inc/rencontre_widget.php:1871
 msgid "Homme"
 msgstr "先生"
 
-#: ../rencontre.php:520
-#: ../inc/rencontre_widget.php:139
-#: ../inc/rencontre_widget.php:221
-#: ../inc/rencontre_widget.php:304
-#: ../inc/rencontre_widget.php:1766
-#: ../inc/rencontre_widget.php:1855
+#: ../rencontre.php:546
+#: ../inc/rencontre_widget.php:140
+#: ../inc/rencontre_widget.php:222
+#: ../inc/rencontre_widget.php:305
+#: ../inc/rencontre_widget.php:1783
+#: ../inc/rencontre_widget.php:1872
 msgid "Femme"
 msgstr "女士"
 
-#: ../rencontre.php:524
-#: ../inc/rencontre_widget.php:236
-#: ../inc/rencontre_widget.php:313
-#: ../inc/rencontre_widget.php:540
-#: ../inc/rencontre_widget.php:866
-#: ../inc/rencontre_widget.php:1629
-#: ../inc/rencontre_widget.php:1876
+#: ../rencontre.php:550
+#: ../inc/rencontre_widget.php:237
+#: ../inc/rencontre_widget.php:314
+#: ../inc/rencontre_widget.php:541
+#: ../inc/rencontre_widget.php:867
+#: ../inc/rencontre_widget.php:1646
+#: ../inc/rencontre_widget.php:1893
 msgid "Relation s&eacute;rieuse"
 msgstr "婚姻"
 
-#: ../rencontre.php:524
-#: ../inc/rencontre_widget.php:237
-#: ../inc/rencontre_widget.php:313
-#: ../inc/rencontre_widget.php:540
-#: ../inc/rencontre_widget.php:866
-#: ../inc/rencontre_widget.php:1629
-#: ../inc/rencontre_widget.php:1877
+#: ../rencontre.php:550
+#: ../inc/rencontre_widget.php:238
+#: ../inc/rencontre_widget.php:314
+#: ../inc/rencontre_widget.php:541
+#: ../inc/rencontre_widget.php:867
+#: ../inc/rencontre_widget.php:1646
+#: ../inc/rencontre_widget.php:1894
 msgid "Relation libre"
 msgstr "一夜情"
 
-#: ../rencontre.php:524
-#: ../inc/rencontre_widget.php:238
-#: ../inc/rencontre_widget.php:313
-#: ../inc/rencontre_widget.php:540
-#: ../inc/rencontre_widget.php:866
-#: ../inc/rencontre_widget.php:1629
-#: ../inc/rencontre_widget.php:1878
+#: ../rencontre.php:550
+#: ../inc/rencontre_widget.php:239
+#: ../inc/rencontre_widget.php:314
+#: ../inc/rencontre_widget.php:541
+#: ../inc/rencontre_widget.php:867
+#: ../inc/rencontre_widget.php:1646
+#: ../inc/rencontre_widget.php:1895
 msgid "Amiti&eacute;"
 msgstr "交友"
 
-#: ../rencontre.php:526
-#: ../inc/rencontre_widget.php:562
-#: ../inc/rencontre_widget.php:1397
+#: ../rencontre.php:552
+#: ../inc/rencontre_widget.php:563
 #: ../inc/rencontre_widget.php:1414
-#: ../inc/rencontre_widget.php:1432
+#: ../inc/rencontre_widget.php:1431
+#: ../inc/rencontre_widget.php:1449
 msgid "&agrave;"
 msgstr "至"
 
-#: ../rencontre.php:540
-#: ../rencontre.php:850
-#: ../rencontre.php:879
-#: ../rencontre.php:903
-#: ../rencontre.php:1015
-#: ../rencontre.php:1026
+#: ../rencontre.php:566
+#: ../rencontre.php:876
+#: ../rencontre.php:905
+#: ../rencontre.php:929
+#: ../rencontre.php:1041
+#: ../rencontre.php:1052
 #: ../lang/rencontre-js-admin-lang.php:7
 msgid "Supprimer"
 msgstr "删除"
 
-#: ../rencontre.php:579
+#: ../rencontre.php:605
 msgid "Modifier un profil"
 msgstr "更新个人资料"
 
-#: ../rencontre.php:580
-#: ../inc/rencontre_widget.php:882
-#: ../inc/rencontre_widget.php:1643
+#: ../rencontre.php:606
+#: ../inc/rencontre_widget.php:883
+#: ../inc/rencontre_widget.php:1660
 msgid "Page pr&eacute;c&eacute;dente"
 msgstr "前一页"
 
-#: ../rencontre.php:581
+#: ../rencontre.php:607
 msgid "Retour Membres"
 msgstr "回到会员名单"
 
-#: ../rencontre.php:585
-#: ../inc/rencontre_widget.php:465
+#: ../rencontre.php:611
+#: ../inc/rencontre_widget.php:466
 msgid "Sauvegarde du profil"
 msgstr "保存个人资料"
 
-#: ../rencontre.php:595
+#: ../rencontre.php:621
 #: ../inc/rencontre_widget.php:437
 msgid "Cliquer pour supprimer"
 msgstr "删除"
 
-#: ../rencontre.php:598
+#: ../rencontre.php:624
 #: ../inc/rencontre_widget.php:440
 msgid "Cliquer pour ajouter une photo"
 msgstr "添加个人头像"
 
-#: ../rencontre.php:601
-#: ../inc/rencontre_widget.php:444
+#: ../rencontre.php:627
+#: ../inc/rencontre_widget.php:445
 msgid "Supprimer toutes les photos"
 msgstr "删除所有照片"
 
-#: ../rencontre.php:612
-#: ../inc/rencontre_widget.php:458
+#: ../rencontre.php:638
+#: ../inc/rencontre_widget.php:459
 msgid "Mon accroche"
 msgstr "我的内心独白"
 
-#: ../rencontre.php:614
-#: ../inc/rencontre_widget.php:460
+#: ../rencontre.php:640
+#: ../inc/rencontre_widget.php:461
 msgid "Mon annonce"
 msgstr "我的个性展示"
 
-#: ../rencontre.php:654
-#: ../inc/rencontre_widget.php:451
+#: ../rencontre.php:680
+#: ../inc/rencontre_widget.php:452
 msgid "Effectu&eacute;e"
 msgstr "执行完毕"
 
-#: ../rencontre.php:702
-#: ../inc/rencontre_widget.php:1268
-#: ../inc/rencontre_widget.php:1293
-#: ../inc/rencontre_widget.php:1336
+#: ../rencontre.php:728
+#: ../inc/rencontre_widget.php:1281
+#: ../inc/rencontre_widget.php:1306
+#: ../inc/rencontre_widget.php:1349
 msgid "Date"
 msgstr "日期"
 
-#: ../rencontre.php:703
+#: ../rencontre.php:729
 msgid "Adresse mail"
 msgstr "电子邮件地址"
 
-#: ../rencontre.php:705
+#: ../rencontre.php:731
 msgid "Fin"
 msgstr "结束"
 
-#: ../rencontre.php:715
+#: ../rencontre.php:741
 msgid "Lib&eacute;rer"
 msgstr "放弃"
 
-#: ../rencontre.php:765
+#: ../rencontre.php:791
 msgid "Il ne semble pas y avoir de profil. Vous pouvez charger les profils par d&eacute;faut si vous le souhaitez."
 msgstr "没有找到您的最新个人资料, 可以显示您的默认资料"
 
-#: ../rencontre.php:766
+#: ../rencontre.php:792
 msgid "Charger profils"
 msgstr "更新资料"
 
-#: ../rencontre.php:771
-#: ../rencontre.php:965
+#: ../rencontre.php:797
+#: ../rencontre.php:991
 msgid "La table des pays est vide. Vous pouvez charger les pays et r&eacute;gions par d&eacute;faut si vous le souhaitez."
 msgstr "在数据库里没找到世界国家资料, 您可以注入默认世界国家和省市资料"
 
-#: ../rencontre.php:772
-#: ../rencontre.php:966
+#: ../rencontre.php:798
+#: ../rencontre.php:992
 msgid "Charger pays"
 msgstr "更新世界国家"
 
-#: ../rencontre.php:776
+#: ../rencontre.php:802
 msgid "Mettre &agrave; jour le profil des membres"
 msgstr "更新会员个人资料"
 
-#: ../rencontre.php:777
+#: ../rencontre.php:803
 msgid "Vous avez fait des modifications. Pensez &agrave; mettre &agrave; jour lorsque vous aurez termin&eacute;."
 msgstr "您更改过您的个人资料, 请不要忘记保存"
 
-#: ../rencontre.php:780
+#: ../rencontre.php:806
 msgid "Vous pouvez cr&eacute;er, renommer et supprimer les diff&eacute;rents items du profil."
 msgstr "您可以创建更改和删除所有档案里的资料"
 
-#: ../rencontre.php:782
+#: ../rencontre.php:808
 msgid "Attention, ce n'est pas sans cons&eacute;quences. Les changements seront appliqu&eacute;s sur les profils des membres ce qui peut choquer. Prudence !"
 msgstr "请小心, 所有的更改将更新用户资料.是否继续?"
 
-#: ../rencontre.php:784
-#: ../rencontre.php:970
+#: ../rencontre.php:810
+#: ../rencontre.php:996
 msgid "Langue de r&eacute;f&eacute;rence"
 msgstr "主要默认使用语言"
 
-#: ../rencontre.php:784
-#: ../rencontre.php:970
+#: ../rencontre.php:810
+#: ../rencontre.php:996
 msgid "Autres"
 msgstr "其它的"
 
-#: ../rencontre.php:797
-#: ../rencontre.php:983
+#: ../rencontre.php:823
+#: ../rencontre.php:1009
 msgid "Ajouter une langue (2 lettres minuscules conformes au code du pays)"
 msgstr "添加语言 (世界国家编号的头两个小写字母, 比如法语fr, 英语en, 中文cn)"
 
-#: ../rencontre.php:799
-#: ../rencontre.php:985
+#: ../rencontre.php:825
+#: ../rencontre.php:1011
 msgid "Ajouter une langue"
 msgstr "添加语言"
 
-#: ../rencontre.php:802
-#: ../rencontre.php:988
+#: ../rencontre.php:828
+#: ../rencontre.php:1014
 msgid "Supprimer une langue et tout le contenu associ&eacute;"
 msgstr "删除语言和跟语言相关的信息"
 
-#: ../rencontre.php:806
-#: ../rencontre.php:992
+#: ../rencontre.php:832
+#: ../rencontre.php:1018
 msgid "Supprimer une langue"
 msgstr "删除一个语言"
 
-#: ../rencontre.php:813
+#: ../rencontre.php:839
 msgid "Ajouter une cat&eacute;gorie"
 msgstr "添加一个分类"
 
-#: ../rencontre.php:833
+#: ../rencontre.php:859
 msgid "Modifier le nom"
 msgstr "更改名字"
 
-#: ../rencontre.php:834
+#: ../rencontre.php:860
 msgid "Supprimer toute la cat&eacute;gorie"
 msgstr "删除分类"
 
-#: ../rencontre.php:838
-#: ../rencontre.php:839
+#: ../rencontre.php:864
+#: ../rencontre.php:865
 msgid "Ajouter une valeur &agrave; cette cat&eacute;gorie"
 msgstr "添加分类中的一个信息"
 
-#: ../rencontre.php:849
-#: ../rencontre.php:1014
+#: ../rencontre.php:875
+#: ../rencontre.php:1040
 msgid "Modifier le nom ou le type"
 msgstr "更改名字或种类"
 
-#: ../rencontre.php:857
+#: ../rencontre.php:883
 msgid "Une ligne de texte (TEXT)"
 msgstr "一行字(文字)"
 
-#: ../rencontre.php:860
+#: ../rencontre.php:886
 msgid "Grande zone de texte (TEXTAREA)"
 msgstr "大文字空白(文字大空格)"
 
-#: ../rencontre.php:864
-#: ../rencontre.php:888
-#: ../rencontre.php:1020
+#: ../rencontre.php:890
+#: ../rencontre.php:914
+#: ../rencontre.php:1046
 msgid "Ajouter une valeur"
 msgstr "减价一个信息"
 
-#: ../rencontre.php:865
+#: ../rencontre.php:891
 msgid "Liste &agrave; choix unique (SELECT)"
 msgstr "单项选自的清单"
 
-#: ../rencontre.php:878
-#: ../rencontre.php:902
-#: ../rencontre.php:1025
+#: ../rencontre.php:904
+#: ../rencontre.php:928
+#: ../rencontre.php:1051
 msgid "Modifier"
 msgstr "更改"
 
-#: ../rencontre.php:889
+#: ../rencontre.php:915
 msgid "Liste &agrave; choix multiples (CHECKBOX)"
 msgstr "多项选自的清单"
 
-#: ../rencontre.php:961
+#: ../rencontre.php:987
 msgid "Pays et R&eacute;gions"
 msgstr "国家和省份"
 
-#: ../rencontre.php:969
+#: ../rencontre.php:995
 msgid "Vous pouvez cr&eacute;er, renommer et supprimer les pays et r&eacute;gions."
 msgstr "您可以创建更改和删除所有国家省份档案里的资料"
 
-#: ../rencontre.php:999
+#: ../rencontre.php:1025
 msgid "Ajouter un pays"
 msgstr "创建新的国家"
 
-#: ../rencontre.php:1021
+#: ../rencontre.php:1047
 msgid "R&eacute;gions"
 msgstr "省份"
 
-#: ../rencontre.php:1183
+#: ../rencontre.php:1209
 #: ../inc/rencontre_filter.php:288
-#: ../inc/rencontre_widget.php:226
-#: ../inc/rencontre_widget.php:230
-#: ../inc/rencontre_widget.php:304
-#: ../inc/rencontre_widget.php:312
-#: ../inc/rencontre_widget.php:537
-#: ../inc/rencontre_widget.php:558
-#: ../inc/rencontre_widget.php:564
-#: ../inc/rencontre_widget.php:566
-#: ../inc/rencontre_widget.php:865
-#: ../inc/rencontre_widget.php:1197
-#: ../inc/rencontre_widget.php:1225
-#: ../inc/rencontre_widget.php:1393
-#: ../inc/rencontre_widget.php:1399
-#: ../inc/rencontre_widget.php:1401
-#: ../inc/rencontre_widget.php:1628
-#: ../inc/rencontre_widget.php:1860
-#: ../inc/rencontre_widget.php:1864
+#: ../inc/rencontre_widget.php:227
+#: ../inc/rencontre_widget.php:231
+#: ../inc/rencontre_widget.php:305
+#: ../inc/rencontre_widget.php:313
+#: ../inc/rencontre_widget.php:538
+#: ../inc/rencontre_widget.php:559
+#: ../inc/rencontre_widget.php:565
+#: ../inc/rencontre_widget.php:567
+#: ../inc/rencontre_widget.php:866
+#: ../inc/rencontre_widget.php:1210
+#: ../inc/rencontre_widget.php:1238
+#: ../inc/rencontre_widget.php:1410
+#: ../inc/rencontre_widget.php:1416
+#: ../inc/rencontre_widget.php:1418
+#: ../inc/rencontre_widget.php:1645
+#: ../inc/rencontre_widget.php:1877
+#: ../inc/rencontre_widget.php:1881
 msgid "ans"
 msgstr "岁"
 
@@ -657,8 +672,8 @@ msgstr "更改"
 #: ../inc/rencontre_filter.php:170
 #: ../inc/rencontre_filter.php:264
 #: ../inc/rencontre_filter.php:435
-#: ../inc/rencontre_widget.php:71
-#: ../inc/rencontre_widget.php:93
+#: ../inc/rencontre_widget.php:72
+#: ../inc/rencontre_widget.php:94
 msgid "Bonjour"
 msgstr "您好"
 
@@ -685,7 +700,7 @@ msgstr "您收到的关注"
 
 #: ../inc/rencontre_filter.php:337
 #: ../inc/rencontre_filter.php:454
-#: ../inc/rencontre_widget.php:1267
+#: ../inc/rencontre_widget.php:1280
 msgid "Vous avez"
 msgstr "您收到"
 
@@ -696,7 +711,7 @@ msgstr "个短信"
 
 #: ../inc/rencontre_filter.php:337
 #: ../inc/rencontre_filter.php:454
-#: ../inc/rencontre_widget.php:1267
+#: ../inc/rencontre_widget.php:1280
 msgid "message"
 msgstr "短信"
 
@@ -719,8 +734,8 @@ msgid "Un membre vous contacte"
 msgstr "有一位会员关注了您"
 
 #: ../inc/rencontre_filter.php:524
-#: ../inc/rencontre_widget.php:1154
 #: ../inc/rencontre_widget.php:1167
+#: ../inc/rencontre_widget.php:1180
 msgid "Indiff&eacute;rent"
 msgstr "其他"
 
@@ -776,521 +791,520 @@ msgstr "[%s] 您的用户名和密码"
 msgid "Widget pour int&eacute;grer le site de rencontre"
 msgstr "可以在您网站上调用的Rencontre小工具"
 
-#: ../inc/rencontre_widget.php:49
+#: ../inc/rencontre_widget.php:50
 msgid "Ma page d'accueil"
 msgstr "主页"
 
-#: ../inc/rencontre_widget.php:50
+#: ../inc/rencontre_widget.php:51
 msgid "Ma fiche"
 msgstr "我的个人资料"
 
-#: ../inc/rencontre_widget.php:51
-#: ../inc/rencontre_widget.php:424
-#: ../inc/rencontre_widget.php:541
+#: ../inc/rencontre_widget.php:52
+#: ../inc/rencontre_widget.php:425
+#: ../inc/rencontre_widget.php:542
 msgid "Modifier mon profil"
 msgstr "更新我的个人资料"
 
-#: ../inc/rencontre_widget.php:52
+#: ../inc/rencontre_widget.php:53
 msgid "Messagerie"
 msgstr "站内短信"
 
-#: ../inc/rencontre_widget.php:54
-#: ../inc/rencontre_widget.php:1754
+#: ../inc/rencontre_widget.php:55
+#: ../inc/rencontre_widget.php:1771
 msgid "Mon compte"
 msgstr "我的个人帐户"
 
-#: ../inc/rencontre_widget.php:84
+#: ../inc/rencontre_widget.php:85
 msgid "Votre adresse mail est actuellement en quarantaine. D&eacute;sol&eacute;"
 msgstr "不好意思,您的电子邮件目前还没有激活"
 
-#: ../inc/rencontre_widget.php:93
+#: ../inc/rencontre_widget.php:94
 msgid "bienvenue sur le site"
 msgstr "欢迎您访问"
 
-#: ../inc/rencontre_widget.php:95
+#: ../inc/rencontre_widget.php:96
 msgid "Vous pourrez acc&eacute;der &agrave; l'ensemble des possibilit&eacute;s offertes par le site dans quelques minutes."
 msgstr "您很快可以享受我们为您提供的所有优质一流服务."
 
-#: ../inc/rencontre_widget.php:96
+#: ../inc/rencontre_widget.php:97
 msgid "Avant cela, vous devez fournir quelques &eacute;l&eacute;ments demand&eacute;s ci-dessous."
 msgstr "请提供以下的必要信息."
 
-#: ../inc/rencontre_widget.php:99
+#: ../inc/rencontre_widget.php:100
 msgid "Nous tenons &agrave; vous pr&eacute;ciser que nous n'utilisons pas vos donn&eacute;es personnelles en dehors de ce site."
 msgstr "我们向您保证您所有个人信息的隐私和安全保密,"
 
-#: ../inc/rencontre_widget.php:100
+#: ../inc/rencontre_widget.php:101
 msgid "La suppression de votre compte, de votre part ou de la notre, entra&icirc;ne l'effacement de l'ensemble des donn&eacute;es vous concernants."
 msgstr "如果您以后决定自己删除帐户的话,您的所有个人信息将不被保存,"
 
-#: ../inc/rencontre_widget.php:101
+#: ../inc/rencontre_widget.php:102
 msgid "Ceci est &eacute;galement valable pour les mails que vous avez envoy&eacute;s aux autres membres ainsi que ceux qu'ils vous ont envoy&eacute;s."
 msgstr "包括您跟其他会员交换的短消息."
 
-#: ../inc/rencontre_widget.php:104
+#: ../inc/rencontre_widget.php:105
 msgid "Nous vous souhaitons de belles rencontres fructueuses."
 msgstr "祝福您能在这里找到自己的另一半!"
 
-#: ../inc/rencontre_widget.php:109
+#: ../inc/rencontre_widget.php:110
 msgid "Changer de pseudo (apr&egrave;s, ce ne sera plus possible)"
 msgstr "更改您的呢称 (之后将不能再更改)"
 
-#: ../inc/rencontre_widget.php:113
+#: ../inc/rencontre_widget.php:114
 msgid "Nouveau mot de passe (minimum 6)"
 msgstr "填写新密码 (至少6个字母)"
 
-#: ../inc/rencontre_widget.php:114
+#: ../inc/rencontre_widget.php:115
 msgid "Nouveau mot de passe (confirmation)"
 msgstr "确认新密码"
 
-#: ../inc/rencontre_widget.php:126
+#: ../inc/rencontre_widget.php:127
 msgid "Le changement du mot de passe est obligatoire pour cette premi&egrave;re connexion"
 msgstr "您必须更新密码, 更新后请用您的新密码重新登陆会员区."
 
-#: ../inc/rencontre_widget.php:130
-#: ../inc/rencontre_widget.php:1759
+#: ../inc/rencontre_widget.php:131
+#: ../inc/rencontre_widget.php:1776
 msgid "Je suis"
 msgstr "我是"
 
-#: ../inc/rencontre_widget.php:131
-#: ../inc/rencontre_widget.php:1760
+#: ../inc/rencontre_widget.php:132
+#: ../inc/rencontre_widget.php:1777
 msgid "N&eacute; le"
 msgstr "生日"
 
-#: ../inc/rencontre_widget.php:132
-#: ../inc/rencontre_widget.php:1785
+#: ../inc/rencontre_widget.php:133
+#: ../inc/rencontre_widget.php:1802
 msgid "Mon pays"
 msgstr "现在所在国家"
 
-#: ../inc/rencontre_widget.php:133
-#: ../inc/rencontre_widget.php:1786
+#: ../inc/rencontre_widget.php:134
+#: ../inc/rencontre_widget.php:1803
 msgid "Ma r&eacute;gion"
 msgstr "现在所在省份"
 
-#: ../inc/rencontre_widget.php:173
-#: ../inc/rencontre_widget.php:1830
+#: ../inc/rencontre_widget.php:174
+#: ../inc/rencontre_widget.php:1847
 msgid "Ma taille"
 msgstr "身高"
 
-#: ../inc/rencontre_widget.php:174
-#: ../inc/rencontre_widget.php:1831
+#: ../inc/rencontre_widget.php:175
+#: ../inc/rencontre_widget.php:1848
 msgid "Mon poids"
 msgstr "体重"
 
-#: ../inc/rencontre_widget.php:175
-#: ../inc/rencontre_widget.php:1805
+#: ../inc/rencontre_widget.php:176
+#: ../inc/rencontre_widget.php:1822
 msgid "Ma ville"
 msgstr "现在所在城市"
 
-#: ../inc/rencontre_widget.php:181
-#: ../inc/rencontre_widget.php:1410
-#: ../inc/rencontre_widget.php:1416
-#: ../inc/rencontre_widget.php:1418
-#: ../inc/rencontre_widget.php:1836
+#: ../inc/rencontre_widget.php:182
+#: ../inc/rencontre_widget.php:1427
+#: ../inc/rencontre_widget.php:1433
+#: ../inc/rencontre_widget.php:1435
+#: ../inc/rencontre_widget.php:1853
 msgid "cm"
 msgstr "厘米"
 
-#: ../inc/rencontre_widget.php:187
-#: ../inc/rencontre_widget.php:1427
-#: ../inc/rencontre_widget.php:1428
-#: ../inc/rencontre_widget.php:1434
-#: ../inc/rencontre_widget.php:1436
-#: ../inc/rencontre_widget.php:1842
+#: ../inc/rencontre_widget.php:188
+#: ../inc/rencontre_widget.php:1444
+#: ../inc/rencontre_widget.php:1445
+#: ../inc/rencontre_widget.php:1451
+#: ../inc/rencontre_widget.php:1453
+#: ../inc/rencontre_widget.php:1859
 msgid "kg"
 msgstr "公斤"
 
-#: ../inc/rencontre_widget.php:199
-#: ../inc/rencontre_widget.php:1464
-#: ../inc/rencontre_widget.php:1487
-#: ../inc/rencontre_widget.php:1814
+#: ../inc/rencontre_widget.php:200
+#: ../inc/rencontre_widget.php:1481
+#: ../inc/rencontre_widget.php:1504
+#: ../inc/rencontre_widget.php:1831
 msgid "Ajuster le lieu en d&eacute;pla&ccedil;ant / zoomant la carte."
 msgstr "移动/缩放地图调整位置。"
 
-#: ../inc/rencontre_widget.php:200
-#: ../inc/rencontre_widget.php:1465
-#: ../inc/rencontre_widget.php:1488
-#: ../inc/rencontre_widget.php:1815
+#: ../inc/rencontre_widget.php:201
+#: ../inc/rencontre_widget.php:1482
+#: ../inc/rencontre_widget.php:1505
+#: ../inc/rencontre_widget.php:1832
 msgid "Un clic sur la carte repositionne le curseur."
 msgstr "在地图上的点击位置的光标。"
 
-#: ../inc/rencontre_widget.php:201
-#: ../inc/rencontre_widget.php:1466
-#: ../inc/rencontre_widget.php:1489
-#: ../inc/rencontre_widget.php:1816
+#: ../inc/rencontre_widget.php:202
+#: ../inc/rencontre_widget.php:1483
+#: ../inc/rencontre_widget.php:1506
+#: ../inc/rencontre_widget.php:1833
 msgid "Valider la position"
 msgstr "验证位置"
 
-#: ../inc/rencontre_widget.php:212
-#: ../inc/rencontre_widget.php:310
-#: ../inc/rencontre_widget.php:864
-#: ../inc/rencontre_widget.php:1627
-#: ../inc/rencontre_widget.php:1848
+#: ../inc/rencontre_widget.php:213
+#: ../inc/rencontre_widget.php:311
+#: ../inc/rencontre_widget.php:865
+#: ../inc/rencontre_widget.php:1644
+#: ../inc/rencontre_widget.php:1865
 msgid "Je cherche"
 msgstr "我找寻的是"
 
-#: ../inc/rencontre_widget.php:213
-#: ../inc/rencontre_widget.php:1849
+#: ../inc/rencontre_widget.php:214
+#: ../inc/rencontre_widget.php:1866
 msgid "Age min/max"
 msgstr "年纪 (最年青到最年迈)"
 
-#: ../inc/rencontre_widget.php:214
-#: ../inc/rencontre_widget.php:1870
+#: ../inc/rencontre_widget.php:215
+#: ../inc/rencontre_widget.php:1887
 msgid "Pour"
 msgstr "目的"
 
-#: ../inc/rencontre_widget.php:242
-#: ../inc/rencontre_widget.php:948
+#: ../inc/rencontre_widget.php:243
+#: ../inc/rencontre_widget.php:961
 msgid "Envoi"
 msgstr "保存"
 
-#: ../inc/rencontre_widget.php:295
-#: ../inc/rencontre_widget.php:1188
+#: ../inc/rencontre_widget.php:296
+#: ../inc/rencontre_widget.php:1201
 msgid "en ligne"
 msgstr "在线"
 
-#: ../inc/rencontre_widget.php:295
-#: ../inc/rencontre_widget.php:1188
+#: ../inc/rencontre_widget.php:296
+#: ../inc/rencontre_widget.php:1201
 msgid "hors-ligne"
 msgstr "不在线"
 
-#: ../inc/rencontre_widget.php:298
+#: ../inc/rencontre_widget.php:299
 msgid "(bloqu&eacute;)"
 msgstr "(黑名单)"
 
-#: ../inc/rencontre_widget.php:310
-#: ../inc/rencontre_widget.php:540
-#: ../inc/rencontre_widget.php:864
-#: ../inc/rencontre_widget.php:1627
+#: ../inc/rencontre_widget.php:311
+#: ../inc/rencontre_widget.php:541
+#: ../inc/rencontre_widget.php:865
+#: ../inc/rencontre_widget.php:1644
 msgid "une femme"
 msgstr "一位女性"
 
-#: ../inc/rencontre_widget.php:310
-#: ../inc/rencontre_widget.php:540
-#: ../inc/rencontre_widget.php:864
-#: ../inc/rencontre_widget.php:1627
+#: ../inc/rencontre_widget.php:311
+#: ../inc/rencontre_widget.php:541
+#: ../inc/rencontre_widget.php:865
+#: ../inc/rencontre_widget.php:1644
 msgid "un homme"
 msgstr "一位男性"
 
-#: ../inc/rencontre_widget.php:311
+#: ../inc/rencontre_widget.php:312
 msgid "homo"
 msgstr "同性恋者"
 
-#: ../inc/rencontre_widget.php:312
-#: ../inc/rencontre_widget.php:865
-#: ../inc/rencontre_widget.php:1628
+#: ../inc/rencontre_widget.php:313
+#: ../inc/rencontre_widget.php:866
+#: ../inc/rencontre_widget.php:1645
 msgid "entre"
 msgstr "年纪在"
 
-#: ../inc/rencontre_widget.php:312
-#: ../inc/rencontre_widget.php:865
-#: ../inc/rencontre_widget.php:1628
+#: ../inc/rencontre_widget.php:313
+#: ../inc/rencontre_widget.php:866
+#: ../inc/rencontre_widget.php:1645
 msgid "et"
 msgstr "和"
 
-#: ../inc/rencontre_widget.php:313
-#: ../inc/rencontre_widget.php:540
-#: ../inc/rencontre_widget.php:866
-#: ../inc/rencontre_widget.php:1629
+#: ../inc/rencontre_widget.php:314
+#: ../inc/rencontre_widget.php:541
+#: ../inc/rencontre_widget.php:867
+#: ../inc/rencontre_widget.php:1646
 msgid "pour"
 msgstr "为"
 
-#: ../inc/rencontre_widget.php:320
-#: ../inc/rencontre_widget.php:323
-#: ../inc/rencontre_widget.php:870
-#: ../inc/rencontre_widget.php:872
-#: ../inc/rencontre_widget.php:1632
+#: ../inc/rencontre_widget.php:321
+#: ../inc/rencontre_widget.php:324
+#: ../inc/rencontre_widget.php:871
+#: ../inc/rencontre_widget.php:873
+#: ../inc/rencontre_widget.php:1649
 msgid "Envoyer un message"
 msgstr "发送消息"
 
-#: ../inc/rencontre_widget.php:321
-#: ../inc/rencontre_widget.php:323
-#: ../inc/rencontre_widget.php:871
+#: ../inc/rencontre_widget.php:322
+#: ../inc/rencontre_widget.php:324
 #: ../inc/rencontre_widget.php:872
-#: ../inc/rencontre_widget.php:1633
+#: ../inc/rencontre_widget.php:873
+#: ../inc/rencontre_widget.php:1650
 msgid "Lui sourire"
 msgstr "打招呼"
 
-#: ../inc/rencontre_widget.php:322
 #: ../inc/rencontre_widget.php:323
+#: ../inc/rencontre_widget.php:324
 msgid "Demander un contact"
 msgstr "加为好友"
 
-#: ../inc/rencontre_widget.php:324
 #: ../inc/rencontre_widget.php:325
+#: ../inc/rencontre_widget.php:326
 msgid "Tchater"
 msgstr "聊天"
 
-#: ../inc/rencontre_widget.php:326
+#: ../inc/rencontre_widget.php:327
 msgid "Bloquer"
 msgstr "加入黑名单"
 
-#: ../inc/rencontre_widget.php:326
+#: ../inc/rencontre_widget.php:327
 msgid "D&eacute;bloquer"
 msgstr "注销黑名单"
 
-#: ../inc/rencontre_widget.php:327
+#: ../inc/rencontre_widget.php:328
 msgid "Signaler un faux profil ou un contenu inadapt&eacute;"
 msgstr "汇报管理员有不佳内容"
 
-#: ../inc/rencontre_widget.php:327
+#: ../inc/rencontre_widget.php:328
 msgid "Signaler"
 msgstr "汇报管理员"
 
-#: ../inc/rencontre_widget.php:328
+#: ../inc/rencontre_widget.php:329
 msgid "Vous &ecirc;tes bloqu&eacute; !"
 msgstr "您被列如黑名单"
 
-#: ../inc/rencontre_widget.php:338
+#: ../inc/rencontre_widget.php:339
 msgid "Message envoy&eacute;"
 msgstr "信息已发送"
 
-#: ../inc/rencontre_widget.php:443
+#: ../inc/rencontre_widget.php:444
 msgid "Cliquer la vignette"
 msgstr "点击图片"
 
-#: ../inc/rencontre_widget.php:529
+#: ../inc/rencontre_widget.php:530
 msgid "Mot de passe chang&eacute; !"
 msgstr "密码更改成功"
 
-#: ../inc/rencontre_widget.php:538
-#: ../inc/rencontre_widget.php:1459
-#: ../inc/rencontre_widget.php:1480
-#: ../inc/rencontre_widget.php:1503
+#: ../inc/rencontre_widget.php:539
+#: ../inc/rencontre_widget.php:1476
+#: ../inc/rencontre_widget.php:1497
+#: ../inc/rencontre_widget.php:1520
 msgid "Ville"
 msgstr "城市"
 
-#: ../inc/rencontre_widget.php:540
+#: ../inc/rencontre_widget.php:541
 msgid "Je recherche"
 msgstr "我找寻的是"
 
-#: ../inc/rencontre_widget.php:542
+#: ../inc/rencontre_widget.php:543
 msgid "Sourire"
 msgstr "收到的招呼"
 
-#: ../inc/rencontre_widget.php:543
+#: ../inc/rencontre_widget.php:544
 msgid "Regard"
 msgstr "看过我信息的会员"
 
-#: ../inc/rencontre_widget.php:544
+#: ../inc/rencontre_widget.php:545
 msgid "Demandes de contact"
 msgstr "加好友的请求"
 
-#: ../inc/rencontre_widget.php:547
+#: ../inc/rencontre_widget.php:548
 msgid "A qui j'ai souri ?"
 msgstr "我跟哪些会员打过招呼?"
 
-#: ../inc/rencontre_widget.php:548
+#: ../inc/rencontre_widget.php:549
 msgid "A qui j'ai demand&eacute; un contact ?"
 msgstr "我跟哪些会员加为好友?"
 
-#: ../inc/rencontre_widget.php:549
+#: ../inc/rencontre_widget.php:550
 msgid "Qui j'ai bloqu&eacute; ?"
 msgstr "我跟哪些会员加入黑名单?"
 
-#: ../inc/rencontre_widget.php:552
+#: ../inc/rencontre_widget.php:553
 msgid "Recherche rapide"
 msgstr "搜索"
 
-#: ../inc/rencontre_widget.php:556
-#: ../inc/rencontre_widget.php:1391
+#: ../inc/rencontre_widget.php:557
 #: ../inc/rencontre_widget.php:1408
 #: ../inc/rencontre_widget.php:1425
+#: ../inc/rencontre_widget.php:1442
 msgid "de"
 msgstr "从"
 
-#: ../inc/rencontre_widget.php:576
-#: ../inc/rencontre_widget.php:1450
+#: ../inc/rencontre_widget.php:577
+#: ../inc/rencontre_widget.php:1467
 #: ../lang/rencontre-js-admin-lang.php:13
 msgid "R&eacute;gion"
 msgstr "地区"
 
-#: ../inc/rencontre_widget.php:582
-#: ../inc/rencontre_widget.php:1531
-msgid "Cherche"
-msgstr "搜索"
-
-#: ../inc/rencontre_widget.php:607
+#: ../inc/rencontre_widget.php:608
 msgid "Portraits s&eacute;lectionn&eacute;s"
 msgstr "您可能感兴趣的人"
 
-#: ../inc/rencontre_widget.php:637
+#: ../inc/rencontre_widget.php:638
 msgid "Actuellement en ligne"
 msgstr "在线会员"
 
-#: ../inc/rencontre_widget.php:650
+#: ../inc/rencontre_widget.php:651
 msgid "Nouveaux inscrits"
 msgstr "新会员"
 
-#: ../inc/rencontre_widget.php:693
+#: ../inc/rencontre_widget.php:694
 msgid "J'ai souri &agrave;"
 msgstr "我加为好友的是"
 
-#: ../inc/rencontre_widget.php:720
+#: ../inc/rencontre_widget.php:721
 msgid "J'ai re&ccedil;u un sourire de"
 msgstr "把我加为好友的会员如下"
 
-#: ../inc/rencontre_widget.php:747
+#: ../inc/rencontre_widget.php:748
 msgid "J'ai demand&eacute; un contact &agrave;"
 msgstr "我加为好友的会员是"
 
-#: ../inc/rencontre_widget.php:774
+#: ../inc/rencontre_widget.php:775
 msgid "J'ai eu une demande de contact de"
 msgstr "把我加为好友的会员是"
 
-#: ../inc/rencontre_widget.php:801
+#: ../inc/rencontre_widget.php:802
 msgid "J'ai &eacute;t&eacute; regard&eacute; par"
 msgstr "阅览过我个人资料的会员是"
 
-#: ../inc/rencontre_widget.php:828
+#: ../inc/rencontre_widget.php:829
 msgid "J'ai bloqu&eacute;"
 msgstr "被我加入了黑名单的是"
 
-#: ../inc/rencontre_widget.php:858
+#: ../inc/rencontre_widget.php:859
 msgid "Le"
 msgstr "这个"
 
-#: ../inc/rencontre_widget.php:888
-#: ../inc/rencontre_widget.php:1649
+#: ../inc/rencontre_widget.php:889
+#: ../inc/rencontre_widget.php:1666
 msgid "Page suivante"
 msgstr "下一页"
 
-#: ../inc/rencontre_widget.php:934
+#: ../inc/rencontre_widget.php:935
 msgid "Envoyer un message &agrave;"
 msgstr "给会员发信息"
 
-#: ../inc/rencontre_widget.php:946
-#: ../inc/rencontre_widget.php:1268
-#: ../inc/rencontre_widget.php:1293
+#: ../inc/rencontre_widget.php:950
+#: ../inc/rencontre_widget.php:951
+#: ../inc/rencontre_widget.php:953
+#: ../inc/rencontre_widget.php:958
+#: ../inc/rencontre_widget.php:1281
+#: ../inc/rencontre_widget.php:1306
 msgid "Sujet"
 msgstr "主题"
 
-#: ../inc/rencontre_widget.php:947
-#: ../inc/rencontre_widget.php:1327
+#: ../inc/rencontre_widget.php:955
+#: ../inc/rencontre_widget.php:959
+#: ../inc/rencontre_widget.php:1340
 msgid "Message"
 msgstr "短信"
 
-#: ../inc/rencontre_widget.php:971
+#: ../inc/rencontre_widget.php:984
 msgid "Votre profil est vide. Vous &ecirc;tes invisible des autres membres. Pour b&eacute;n&eacute;ficier des avantages du site, merci de modifier votre profil."
 msgstr "您的个人信息目前不完全,其他会员还不能看到您, 请填写您的详细资料."
 
-#: ../inc/rencontre_widget.php:972
+#: ../inc/rencontre_widget.php:985
 msgid "Fermer"
 msgstr "关闭"
 
-#: ../inc/rencontre_widget.php:1261
-#: ../inc/rencontre_widget.php:1288
-#: ../inc/rencontre_widget.php:1320
+#: ../inc/rencontre_widget.php:1274
+#: ../inc/rencontre_widget.php:1301
+#: ../inc/rencontre_widget.php:1333
 msgid "Boite de r&eacute;ception"
 msgstr "收件箱"
 
-#: ../inc/rencontre_widget.php:1263
-#: ../inc/rencontre_widget.php:1290
-#: ../inc/rencontre_widget.php:1323
+#: ../inc/rencontre_widget.php:1276
+#: ../inc/rencontre_widget.php:1303
+#: ../inc/rencontre_widget.php:1336
 msgid "Messages envoy&eacute;s"
 msgstr "已发出邮件"
 
-#: ../inc/rencontre_widget.php:1267
+#: ../inc/rencontre_widget.php:1280
 msgid "non lu"
 msgstr "未读邮件"
 
-#: ../inc/rencontre_widget.php:1268
+#: ../inc/rencontre_widget.php:1281
 msgid "Emetteur"
 msgstr "发件者"
 
-#: ../inc/rencontre_widget.php:1293
+#: ../inc/rencontre_widget.php:1306
 msgid "Destinataire"
 msgstr "收件者"
 
-#: ../inc/rencontre_widget.php:1330
+#: ../inc/rencontre_widget.php:1343
 msgid "De"
 msgstr "从"
 
-#: ../inc/rencontre_widget.php:1338
+#: ../inc/rencontre_widget.php:1351
 msgid "A"
 msgstr "到"
 
-#: ../inc/rencontre_widget.php:1342
+#: ../inc/rencontre_widget.php:1355
 msgid "R&eacute;pondre"
 msgstr "回复"
 
-#: ../inc/rencontre_widget.php:1474
-#: ../inc/rencontre_widget.php:1497
+#: ../inc/rencontre_widget.php:1491
+#: ../inc/rencontre_widget.php:1514
 msgid "Distance max (km)"
 msgstr "最大距离（公里）"
 
-#: ../inc/rencontre_widget.php:1506
+#: ../inc/rencontre_widget.php:1523
 msgid "Compte incomplet : GoogleMap impossible"
 msgstr "不完整的账户：没有GoogleMap的"
 
-#: ../inc/rencontre_widget.php:1513
+#: ../inc/rencontre_widget.php:1530
 msgid "Uniquement avec photo"
 msgstr "仅有照片的会员"
 
-#: ../inc/rencontre_widget.php:1517
+#: ../inc/rencontre_widget.php:1534
 msgid "Affinit&eacute; avec mon profil"
 msgstr "跟我有缘分的"
 
-#: ../inc/rencontre_widget.php:1521
+#: ../inc/rencontre_widget.php:1538
 msgid "Mot dans l'annonce"
 msgstr "个性展示里的关键词"
 
-#: ../inc/rencontre_widget.php:1727
+#: ../inc/rencontre_widget.php:1744
 msgid "Changement du mot de passe"
 msgstr "密码更改"
 
-#: ../inc/rencontre_widget.php:1732
+#: ../inc/rencontre_widget.php:1749
 msgid "Ancien"
 msgstr "旧密码"
 
-#: ../inc/rencontre_widget.php:1733
+#: ../inc/rencontre_widget.php:1750
 msgid "Nouveau"
 msgstr "新密码"
 
-#: ../inc/rencontre_widget.php:1734
+#: ../inc/rencontre_widget.php:1751
 msgid "Retaper le nouveau"
 msgstr "确认密码"
 
-#: ../inc/rencontre_widget.php:1748
+#: ../inc/rencontre_widget.php:1765
 msgid "Change"
 msgstr "更改"
 
-#: ../inc/rencontre_widget.php:1891
+#: ../inc/rencontre_widget.php:1908
 msgid "Cette action provoquera la suppression compl&egrave;te de votre compte et de tout ce qui vous concerne de notre serveur. Nous ne conservons aucun historique des comptes supprim&eacute;s."
 msgstr "您的帐户将被删除, 您的档案不能再恢复, "
 
-#: ../inc/rencontre_widget.php:1894
+#: ../inc/rencontre_widget.php:1911
 msgid "Attention, cette action est irr&eacute;versible !"
 msgstr "请好好考虑 !"
 
-#: ../inc/rencontre_widget.php:1895
+#: ../inc/rencontre_widget.php:1912
 msgid "Supprimer le compte"
 msgstr "删除帐户"
 
-#: ../inc/rencontre_widget.php:1910
+#: ../inc/rencontre_widget.php:1927
 msgid "sourire d&eacute;j&agrave; envoy&eacute;"
 msgstr "已经发出的加为好友请求"
 
-#: ../inc/rencontre_widget.php:1924
+#: ../inc/rencontre_widget.php:1941
 msgid "sourire envoy&eacute;"
 msgstr "加为好友请求成功发出"
 
-#: ../inc/rencontre_widget.php:1944
+#: ../inc/rencontre_widget.php:1961
 msgid "contact d&eacute;j&agrave; demand&eacute;"
 msgstr "已经打过的招呼"
 
-#: ../inc/rencontre_widget.php:1961
+#: ../inc/rencontre_widget.php:1978
 msgid "demande de contact envoy&eacute;e"
 msgstr "打招呼成功发出"
 
-#: ../inc/rencontre_widget.php:1972
+#: ../inc/rencontre_widget.php:1989
 msgid "Signalement d&eacute;j&agrave; effectu&eacute;"
 msgstr "已经汇报过管理员"
 
-#: ../inc/rencontre_widget.php:1977
+#: ../inc/rencontre_widget.php:1994
 msgid "Merci pour votre signalement"
 msgstr "谢谢您的汇报"
 
-#: ../inc/rencontre_widget.php:2057
+#: ../inc/rencontre_widget.php:2074
 msgid "de ma position"
 msgstr "从我的位置"
 

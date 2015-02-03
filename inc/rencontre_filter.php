@@ -420,7 +420,7 @@ function f_cron_liste($d2)
 			{
 			++$c;
 			if($c>$max) break;
-			$lis .= $r[1].",";
+			if($r[1]) $lis .= $r[1].","; else --$c;
 			}
 		if (strlen($lis)>2) $lis = substr($lis,0,-1) . ')'; else $lis='(0)';
 		closedir($dh);
