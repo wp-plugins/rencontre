@@ -128,7 +128,8 @@ in your css file :
 = How to show only the girls in un-logged homepage =
 There are four categories differentiated by a different class CSS : girl, men, gaygirl and gaymen.
 To see only the heterosexual girls, add in the CSS file of your theme :
-` #widgRenc .rencBox.men,
+` /* CSS */
+ #widgRenc .rencBox.men,
  #widgRenc .rencBox.gaygirl,
  #widgRenc .rencBox.gaymen{display:none;}`
 
