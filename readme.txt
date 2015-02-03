@@ -1,9 +1,9 @@
 === Rencontre ===
 Contributors: jacques malgrange
-Donate link: http://www.boiteasite.fr/
+Donate link: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
 Tags: date, dating, meet, love, chat, webcam, rencontres
 Requires at least: 3.0.1
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -173,6 +173,14 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 23/12/2014 : Update 1 : Fix style bug.
 
 07/01/2015 : Update 2 : Change the request to GET. Add custom text in image copyright.
+
+03/02/2015 : Update 3
+
+* Number of pictures configurable from one to eight.
+* Add dropbox to pictures.
+* Add previous msg when reply.
+* Fix bug in msg with same subject.
+* Fix some bugs.
 
 = 1.3 =
 15/10/2014 :

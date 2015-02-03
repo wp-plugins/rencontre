@@ -164,7 +164,7 @@ class Rencontre
 		if(!$q) $rencDiv['lang'] = "en_US";
 		if (!$rencOpt)
 			{
-			$rencOpt = array('facebook'=>'','fblog'=>'','home'=>'','pays'=>'','limit'=>20,'tchat'=>0,'hcron'=>3,'mailmois'=>0,'textmail'=>'','mailanniv'=>0,'textanniv'=>'','qmail'=>25,'npa'=>12,'jlibre'=>3,'prison'=>30,'anniv'=>1,'ligne'=>1,'mailsupp'=>1,'onlyphoto'=>1,'imcopyright'=>1,'txtcopyright'=>'');
+			$rencOpt = array('facebook'=>'','fblog'=>'','home'=>'','pays'=>'','limit'=>20,'tchat'=>0,'map'=>0,'hcron'=>3,'mailmois'=>0,'textmail'=>'','mailanniv'=>0,'textanniv'=>'','qmail'=>25,'npa'=>12,'jlibre'=>3,'prison'=>30,'anniv'=>1,'ligne'=>1,'mailsupp'=>1,'onlyphoto'=>1,'imnb'=>4,'imcopyright'=>1,'txtcopyright'=>'');
 			update_option('rencontre_options', $rencOpt);
 			}
 		load_plugin_textdomain('rencontre', false, dirname(plugin_basename( __FILE__ )).'/lang/'); // language
@@ -218,6 +218,7 @@ class Rencontre
 		if (isset($f['jlibre'])) $rencOpt['jlibre'] = $f['jlibre']; else $rencOpt['jlibre'] = 0;
 		if (isset($f['prison'])) $rencOpt['prison'] = $f['prison']; else $rencOpt['prison'] = 30;
 		if (isset($f['tchat'])) $rencOpt['tchat'] = 1; else $rencOpt['tchat'] = 0;
+		if (isset($f['map'])) $rencOpt['map'] = 1; else $rencOpt['map'] = 0;
 		if (isset($f['hcron'])) $rencOpt['hcron'] = $f['hcron']; else $rencOpt['hcron'] = 3;
 		if (isset($f['mailmois'])) $rencOpt['mailmois'] =  $f['mailmois']; else $rencOpt['mailmois'] = 0;
 		if (isset($f['textmail'])) $rencOpt['textmail'] = $f['textmail']; else $rencOpt['textmail'] = '';
@@ -225,6 +226,7 @@ class Rencontre
 		if (isset($f['textanniv'])) $rencOpt['textanniv'] = $f['textanniv']; else $rencOpt['textanniv'] = '';
 		if (isset($f['qmail'])) $rencOpt['qmail'] = $f['qmail']; else $rencOpt['qmail'] = 25;
 		if (isset($f['npa'])) $rencOpt['npa'] = $f['npa']; else $rencOpt['npa'] = 12;
+		if (isset($f['imnb'])) $rencOpt['imnb'] = $f['imnb']; else $rencOpt['imnb'] = 4;
 		if (isset($f['imcopyright'])) $rencOpt['imcopyright'] = $f['imcopyright']; else $rencOpt['imcopyright'] = 0;
 		if (isset($f['txtcopyright'])) $rencOpt['txtcopyright'] = stripslashes($f['txtcopyright']); else $rencOpt['txtcopyright'] = ""; 
 		if (isset($f['anniv'])) $rencOpt['anniv'] = 1; else $rencOpt['anniv'] = 0;
@@ -308,15 +310,31 @@ class Rencontre
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label><?php _e('Anniversaires du jour', 'rencontre'); ?></label></th>
-						<td><input type="checkbox" name="anniv" value="1" <?php if ($rencOpt['anniv'])echo 'checked'; ?>></td>
+						<td><input type="checkbox" name="anniv" value="1" <?php if (isset($rencOpt['anniv'])&&$rencOpt['anniv'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label><?php _e('Profils actuellement en ligne', 'rencontre'); ?></label></th>
-						<td><input type="checkbox" name="ligne" value="1" <?php if ($rencOpt['ligne'])echo 'checked'; ?>></td>
+						<td><input type="checkbox" name="ligne" value="1" <?php if (isset($rencOpt['ligne'])&&$rencOpt['ligne'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label><?php _e('Activer le chat', 'rencontre'); ?></label></th>
-						<td><input type="checkbox" name="tchat" value="1" <?php if ($rencOpt['tchat'])echo 'checked'; ?>></td>
+						<td><input type="checkbox" name="tchat" value="1" <?php if (isset($rencOpt['tchat'])&&$rencOpt['tchat'])echo 'checked'; ?>></td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label><?php _e('Activer Google-Map', 'rencontre'); ?></label></th>
+						<td><input type="checkbox" name="map" value="1" <?php if (isset($rencOpt['map'])&&$rencOpt['map'])echo 'checked'; ?>></td>
+					</tr>
+					<tr valign="top">
+						<th scope="row"><label><?php _e('Nombre de photos', 'rencontre'); ?></label></th>
+						<td>
+							<select name="imnb">
+								<?php if(!isset($rencOpt['imnb']) || $rencOpt['imnb']<1 || $rencOpt['imnb']>8) $rencOpt['imnb']=4;
+								for($v=1; $v<9; ++$v)
+									{
+									echo '<option value="'.$v.'"'.(($rencOpt['imnb']==$v)?' selected':'').'>'.$v.'</option>';
+									} ?>
+							</select>
+						</td>
 					</tr>
 					<tr valign="top">
 						<th scope="row"><label><?php _e('Afficher un copyright discret sur les photos', 'rencontre'); ?></label></th>
@@ -449,6 +467,13 @@ class Rencontre
 			$np = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=P.user_id AND R.i_photo>0 AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30");
 			echo "<p style='color:#D54E21;'>".__('Nombre de membres inscrits','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$nm."</span></p>";
 			echo "<p style='color:#D54E21;'>".__('Nombre de membres avec profil et photo','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$np."</span></p>";
+			?>
+			<form name="rencPseu" method="post" action="">
+				<label><?php _e('Pseudo', 'rencontre'); ?> : <label>
+				<input type="text" name="pseu" />
+				<input type="submit" class="button-primary" value="<?php _e('Cherche', 'rencontre'); ?>" />
+			</form>
+			<?php
 			if (!isset($_GET["id"]))
 				{
 				if (isset($_POST["a1"]) && $_POST["a1"] && $_POST["a2"]) 
@@ -480,6 +505,7 @@ class Rencontre
 						else if ($_GET['tri']=='signal') $tri='ORDER BY length(P.t_signal) DESC';
 						}
 					else $tri='ORDER BY P.d_modif DESC';
+					if(isset($_POST['pseu']) && $_POST['pseu']!="") $tri = "and U.user_login='".$_POST['pseu']."' ".$tri;
 					$pagenum = isset($_GET['pagenum'])?absint($_GET['pagenum']):1;
 					$limit = 100;
 					$q = $wpdb->get_results("SELECT U.ID, U.user_login, U.display_name, R.c_ip, R.c_pays, R.c_region, R.c_ville, R.d_naissance, R.i_taille, R.i_poids, R.i_sex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, P.d_modif, P.t_titre, P.t_annonce
