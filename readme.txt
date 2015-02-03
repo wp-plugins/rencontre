@@ -120,37 +120,28 @@ The default style file is located in `rencontre/css/rencontre.css`.
 You simply need to copy lines to be modified in the css file of your theme. And you can as well add other lines.
 To overwrite default css file, add `#widgRenc` (and space) at the beginning of every new line.
 Example :
-
-```
-in rencontre.css :
+`in rencontre.css :
 .rencTab {background-color:#e8e5ce;}
 in your css file :
-#widgRenc .rencTab {background-color:#aaa; padding:1px;}
-```
+#widgRenc .rencTab {background-color:#aaa; padding:1px;}`
 
 = How to show only the girls in un-logged homepage =
 There are four categories differentiated by a different class CSS : girl, men, gaygirl and gaymen.
 To see only the heterosexual girls, add in the CSS file of your theme
-
-```
-#widgRenc .rencBox.men,
+`#widgRenc .rencBox.men,
 #widgRenc .rencBox.gaygirl,
-#widgRenc .rencBox.gaymen{display:none;}
-```
+#widgRenc .rencBox.gaymen{display:none;}`
 
 = How to set the plugin multilingual =
 Add little flags in the header of your theme. On click, you create cookie with the right language. Then, the site changes language (back and front office) :
-
-```
-&lt;div id="lang"&gt;
+`&lt;div id="lang"&gt;
 	&lt;a href="" title="Fran&ccedil;ais" onClick="javascript:document.cookie='lang=fr_FR'"&gt;
 		&lt;img src="&lt;?php echo plugins_url('rencontre/images/drapeaux/France.png'); ?&gt;" alt="Fran&ccedil;ais" /&gt;
 	&lt;/a&gt;
 	&lt;a href="" title="English" onClick="javascript:document.cookie='lang=en_US'"&gt;
 		&lt;img src="&lt;?php echo plugins_url('rencontre/images/drapeaux/Royaume-Uni.png'); ?&gt;" alt="English" /&gt;
 	&lt;/a&gt;
-&lt;/div&gt;
-```
+&lt;/div&gt;`
 
 = What to include with WP-GeoNames =
 * Columns : minimum is name, latitude, longitude, country code, feature class & code.
