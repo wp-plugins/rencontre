@@ -20,6 +20,7 @@ table.prison td {padding:4px 15px 0;}
 .pleineBox {width:100%;}
 .petiteBox {width:33%;}
 .grandeBox  {width:66%;}
+.portraitPhoto{min-width:268px;}
 .rencPortrait {min-height:600px;}
 .rencPortrait img.flag{float:right;margin:10px;border:1px solid #555;border-radius:2px;}
 .rencPortrait .titre{margin-bottom:10px;}
@@ -41,3 +42,4 @@ table.prison td {padding:4px 15px 0;}
 #portraitSauv span {color:#555;margin-right:10px;padding:5px 10px;border-radius:4px;background-color:#e5d4ac;border:1px solid #555;}
 #portraitSauv span:hover {cursor:pointer;background-color:#bfb190;}
 img#portraitGrande {}
+.rencBlocimg {max-width:260px;}

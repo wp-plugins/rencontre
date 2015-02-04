@@ -434,7 +434,7 @@ class RencontreWidget extends WP_widget
 								{
 								if ($s->i_photo>=$mid*10+$v)
 									{
-									echo '<span><a href="javascript:void(0)" onClick="f_supp_photo('.($mid*10+$v).')"><img onMouseOver="f_vignette_change('.($mid*10+$v).')" class="portraitMini" src="'.$rencDiv['baseurl'].'/portrait/'.floor($mid/1000).'/'.($mid*10+$v).'-mini.jpg?r='.rand().'" alt="'.__('Cliquer pour supprimer','rencontre').'" title="'.__('Cliquer pour supprimer','rencontre').'" /></a></span>'."\n";
+									echo '<a href="javascript:void(0)" onClick="f_supp_photo('.($mid*10+$v).')"><img onMouseOver="f_vignette_change('.($mid*10+$v).')" class="portraitMini" src="'.$rencDiv['baseurl'].'/portrait/'.floor($mid/1000).'/'.($mid*10+$v).'-mini.jpg?r='.rand().'" alt="'.__('Cliquer pour supprimer','rencontre').'" title="'.__('Cliquer pour supprimer','rencontre').'" /></a>'."\n";
 									echo '<img style="display:none;" src="'.$rencDiv['baseurl'].'/portrait/'.floor($mid/1000).'/'.($mid*10+$v).'-grande.jpg?r='.rand().'" />'."\n";
 									}
 								else { ?><a href="javascript:void(0)" onClick="f_plus_photo(<?php echo $s->i_photo; ?>)"><img class="portraitMini" src="<?php echo plugins_url('rencontre/images/no-photo60.jpg'); ?>" alt="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" title="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" /></a>
@@ -554,6 +554,7 @@ class RencontreWidget extends WP_widget
 						<form name='formMonAccueil' method='get' action=''>
 							<input type='hidden' name='page' value='' /><input type='hidden' name='sex' value='<?php echo $zsex ?>' />
 							<input type='hidden' name='homo' value='<?php echo $homo; ?>' />
+							<input type='hidden' name='pagine' value='0' />
 							<div class="rencItem"><?php _e('Age','rencontre');?>&nbsp;<span><?php _e('de','rencontre');?>&nbsp;
 								<select name="ageMin" onChange="f_min(this.options[this.selectedIndex].value,'formMonAccueil','ageMin','ageMax');">
 									<?php for ($v=18;$v<99;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('ans','rencontre').'</option>';}?>
@@ -666,7 +667,16 @@ class RencontreWidget extends WP_widget
 				$pagine = (isset($_GET['pagine'])?$_GET['pagine']:0);
 				$suiv = 1;
 				?> 
-				
+				<form name='rencPagine' method='get' action=''>
+					<input type='hidden' name='page' value='cherche' />
+					<input type='hidden' name='sex' value='<?php echo (isset($_GET['sex'])?$_GET['sex']:''); ?>' />
+					<input type='hidden' name='homo' value='<?php echo (isset($_GET['homo'])?$_GET['homo']:''); ?>' />
+					<input type='hidden' name='pagine' value='<?php echo $pagine; ?>' />
+					<input type='hidden' name='ageMin' value='<?php echo (isset($_GET['ageMin'])?$_GET['ageMin']:''); ?>' />
+					<input type='hidden' name='ageMax' value='<?php echo (isset($_GET['ageMax'])?$_GET['ageMax']:''); ?>' />
+					<input type='hidden' name='pays' value='<?php echo (isset($_GET['pays'])?$_GET['pays']:''); ?>' />
+					<input type='hidden' name='region' value='<?php echo (isset($_GET['region'])?$_GET['region']:''); ?>' />
+				</form>
 				<div class="grandeBox left">
 				<?php global $wpdb;
 				if (isset($_GET['sex']) && $_GET['sex']!='')
