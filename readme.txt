@@ -183,6 +183,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix bug in msg with same subject.
 * Fix some bugs.
 
+04/02/2015 : Update 4 : Style select box, fix some bugs.
+
 = 1.3 =
 15/10/2014 :
 

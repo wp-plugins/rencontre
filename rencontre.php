@@ -611,10 +611,9 @@ class Rencontre
 						<div id="portraitSauv"><span onClick="f_sauv_profil(<?php echo $mid; ?>)"><?php _e('Sauvegarde du profil','rencontre');?></span></div>
 						<div class="petiteBox portraitPhoto left">
 							<div class="rencBox">
-								<div id="changePhoto"></div>
 								<img id="portraitGrande" src="<?php if(($s->i_photo)!=0) echo $rencDiv['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10).'-grande.jpg?r='.rand(); else echo plugins_url('rencontre/images').'/no-photo600.jpg'; ?>" width=250 height=250 alt="" />
-								<div>
-								<?php for ($v=0;$v<4;++$v)
+								<div class="rencBlocimg">
+								<?php for ($v=0;$v<$rencOpt['imnb'];++$v)
 									{
 									if ($s->i_photo>=$id*10+$v)
 										{
@@ -624,6 +623,7 @@ class Rencontre
 									else { ?><a href="javascript:void(0)" onClick="f_plus_photo(<?php echo $s->i_photo; ?>)"><img class="portraitMini" src="<?php echo plugins_url('rencontre/images/no-photo60.jpg'); ?>" alt="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" title="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" /></a>
 									<?php } } ?>
 								</div>
+								<div id="changePhoto"></div>
 								<div class="bouton"><a href="javascript:void(0)" onClick="f_suppAll_photo()"><?php _e('Supprimer toutes les photos','rencontre');?></a></div>
 							</div>
 						</div>
