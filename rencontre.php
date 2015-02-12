@@ -258,10 +258,11 @@ class Rencontre
 		?>
 		<div class='wrap'>
 			<div class='icon32' id='icon-options-general'><br/></div>
+			<?php if(file_exists(dirname(__FILE__).'/inc/rencontre_don.php')) include(dirname(__FILE__).'/inc/rencontre_don.php'); ?>
 			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
 			<h2><?php _e('G&eacute;n&eacute;ral', 'rencontre'); ?></h2>
 			<form method="post" name="rencontre_options" action="admin.php?page=rencontre.php">
-				<table class="form-table">
+				<table class="form-table" style="max-width:600px;clear:none;">
 					<tr valign="top">
 						<th scope="row"><label><?php _e('Framework pour le bouton J\'aime de Facebook', 'rencontre'); ?></label></th>
 						<td><textarea  name="facebook"><?php echo $rencOpt['facebook']; ?></textarea></td>

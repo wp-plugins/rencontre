@@ -266,7 +266,7 @@ class RencontreWidget extends WP_widget
 				$bl = RencontreWidget::f_etat_bloque($id,$mid); // je l ai bloque ? - lecture de MID
 				}
 			global $wpdb;
-			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_region, R.c_ville, R.i_sex, R.d_naissance, R.i_taille, R.i_poids, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, R.e_lat, R.e_lon, P.t_titre, P.t_annonce, P.t_profil, P.t_action FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$id." and R.user_id=P.user_id and R.user_id=U.ID");
+			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_region, R.c_ville, R.i_sex, R.d_naissance, R.i_taille, R.i_poids, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, R.e_lat, R.e_lon, R.d_session, P.t_titre, P.t_annonce, P.t_profil, P.t_action FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$id." and R.user_id=P.user_id and R.user_id=U.ID");
 			$bl1= RencontreWidget::f_etat_bloque1($id,$mid,$s->t_action); // je suis bloque ?
 			?>
 			
@@ -313,6 +313,7 @@ class RencontreWidget extends WP_widget
 							echo '&nbsp;'.__('entre','rencontre').'&nbsp;'.$s->i_zage_min.'&nbsp;'.__('et','rencontre').'&nbsp;'.$s->i_zage_max.'&nbsp;'.__('ans','rencontre');
 							echo '&nbsp;'.__('pour','rencontre').'&nbsp;'.(($s->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($s->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))); ?>
 						</div>
+						<?php if(isset($s->d_session)) echo '<div class="rencDate" style="text-transform:capitalize;width:auto;position:absolute;right:5px;bottom:0;">'.__('en ligne','rencontre').'&nbsp;:&nbsp;'.substr($s->d_session,8,2).'.'.substr($s->d_session,5,2).'.'.substr($s->d_session,0,4).'</div>'; ?>
 					</div>
 					<?php if ($id!=$mid) { ?>
 					
@@ -681,7 +682,7 @@ class RencontreWidget extends WP_widget
 				<?php global $wpdb;
 				if (isset($_GET['sex']) && $_GET['sex']!='')
 					{
-					$s="SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce , P.t_action 
+					$s="SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.d_session, P.t_annonce, P.t_action
 						FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
 						WHERE P.user_id=R.user_id";
 					if ($_GET['region']) $s.=" and R.c_region LIKE '".addslashes($wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE id='".strip_tags($_GET['region'])."'"))."'";
@@ -867,6 +868,7 @@ class RencontreWidget extends WP_widget
 					?>
 					<div class="rencBox">
 					<?php if (isset($r->date)) echo '<div class="rencDate">'.__('Le','rencontre').'&nbsp;'.substr($r->date,8,2).'.'.substr($r->date,5,2).'.'.substr($r->date,0,4).'</div>'; ?>
+					<?php if (isset($r->d_session)) echo '<div class="rencDate" style="text-transform:capitalize">'.__('en ligne','rencontre').'&nbsp;:&nbsp;'.substr($r->d_session,8,2).'.'.substr($r->d_session,5,2).'.'.substr($r->d_session,0,4).'</div>'; ?>
 						<?php RencontreWidget::f_miniPortrait($r->user_id); ?>
 						<div class="maxiBox right rel">
 								<?php echo stripslashes($r->t_annonce); ?>
@@ -1601,7 +1603,7 @@ class RencontreWidget extends WP_widget
 			WHERE U.user_login LIKE '%".strip_tags($_GET['pseudo'])."%' and R.i_sex=".strip_tags($_GET['zsex'])." and U.ID=R.user_id and P.user_id=R.user_id";
 		else
 			{
-			$s="SELECT U.user_login, R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, R.e_lat, R.e_lon, P.t_annonce FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R WHERE U.ID=R.user_id and P.user_id=R.user_id and R.i_sex=".strip_tags($_GET['zsex'])." and R.i_zsex".((strip_tags($_GET['homo']))?'=':'!=').strip_tags($_GET['zsex']);
+			$s="SELECT U.user_login, R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, R.e_lat, R.e_lon, R.d_session, P.t_annonce FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R WHERE U.ID=R.user_id and P.user_id=R.user_id and R.i_sex=".strip_tags($_GET['zsex'])." and R.i_zsex".((strip_tags($_GET['homo']))?'=':'!=').strip_tags($_GET['zsex']);
 			if ($_GET['ageMin']>18) {$zmin=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d"), date("Y")-strip_tags($_GET['ageMin']))); $s.=" and R.d_naissance<'".$zmin."'";}
 			if ($_GET['ageMax']<99) {$zmax=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d"), date("Y")-strip_tags($_GET['ageMax'])));  $s.=" and R.d_naissance>'".$zmax."'";}
 			if(strip_tags($_GET['homo'])) $s.=" and R.user_id!=".strip_tags($_GET['id']);
@@ -1646,6 +1648,7 @@ class RencontreWidget extends WP_widget
 		foreach($q as $r)
 			{ ?>
 			<div class="rencBox">
+				<?php if (isset($r->d_session)) echo '<div class="rencDate" style="text-transform:capitalize">'.__('en ligne','rencontre').'&nbsp;:&nbsp;'.substr($r->d_session,8,2).'.'.substr($r->d_session,5,2).'.'.substr($r->d_session,0,4).'</div>'; ?>
 				<?php RencontreWidget::f_miniPortrait($r->user_id); ?>
 				<div class="maxiBox right rel">
 					<?php echo stripslashes($r->t_annonce); ?>
