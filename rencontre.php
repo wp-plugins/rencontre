@@ -1075,6 +1075,17 @@ class Rencontre
 			if (array_shift($rol)=="subscriber" && (!isset($_POST['nouveau']) || !$_POST['nouveau'])) $_SESSION['rencontre']='nouveau';
 			else if (!isset($_SESSION['rencontre']) || ((!isset($_POST['page']) || !$_POST['page']) && (!isset($_GET['page']) || !$_GET['page']))) $_SESSION['rencontre']='mini,accueil,menu';
 			else if (isset($_POST['page']) && $_POST['page']=='password') $_SESSION['rencontre']='mini,accueil,menu,password';
+			else if (isset($_POST['page']) && $_POST['page']=='fin')
+				{
+				f_userSupp($current_user->ID,$current_user->user_login,0);
+				if ($rencOpt['mailsupp'])
+					{
+					$q = $wpdb->get_var("SELECT user_email FROM ".$wpdb->prefix."users WHERE ID='".$current_user->ID."'");
+					$objet  = wp_specialchars_decode($rencDiv['blogname'], ENT_QUOTES).' - '.__('Suppression du compte','rencontre');
+					$message  = __('Votre compte a &eacute;t&eacute; supprim&eacute;','rencontre');
+					@wp_mail($q, $objet, $message);
+					}
+				}
 			else if (isset($_GET['page']) && $_GET['page']=='portrait') $_SESSION['rencontre']='portrait,menu';
 			else if (isset($_GET['page']) && $_GET['page']=='sourire') $_SESSION['rencontre']='portrait,menu,sourire';
 			else if (isset($_GET['page']) && $_GET['page']=='demcont') $_SESSION['rencontre']='portrait,menu,demcont';
@@ -1087,17 +1098,6 @@ class Rencontre
 			else if (isset($_GET['page']) && $_GET['page']=='msg') $_SESSION['rencontre']='msg,accueil,menu';
 			else if (isset($_GET['page']) && $_GET['page']=='ecrire') $_SESSION['rencontre']='ecrire,accueil,menu';
 			else if (isset($_GET['page']) && $_GET['page']=='compte') $_SESSION['rencontre']='compte,accueil,menu';
-			else if (isset($_POST['page']) && $_POST['page']=='fin')
-				{
-				f_userSupp($current_user->ID,$current_user->user_login,0);
-				if ($rencOpt['mailsupp'])
-					{
-					$q = $wpdb->get_var("SELECT user_email FROM ".$wpdb->prefix."users WHERE ID='".$current_user->ID."'");
-					$objet  = wp_specialchars_decode($rencDiv['blogname'], ENT_QUOTES).' - '.__('Suppression du compte','rencontre');
-					$message  = __('Votre compte a &eacute;t&eacute; supprim&eacute;','rencontre');
-					@wp_mail($q, $objet, $message);
-					}
-				}
 			require(dirname (__FILE__) . '/inc/rencontre_widget.php');
 			if (isset($_POST['nouveau']) && $_POST['nouveau'] && isset($_POST['pass1']) && $_POST['pass1']) RencontreWidget::f_changePass($current_user->ID);
 			register_widget("RencontreWidget"); // class

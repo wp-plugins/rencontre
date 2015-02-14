@@ -187,6 +187,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 12/02/2015 : Update 5 : Display date of last connection.
 
+14/02/2015 : Update 6 : Fix unsubscribe and subscribe bug.
+
 = 1.3 =
 15/10/2014 :
 

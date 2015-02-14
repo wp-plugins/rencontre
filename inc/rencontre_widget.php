@@ -30,7 +30,7 @@ class RencontreWidget extends WP_widget
 			if($r->c_liste_categ=='d') $drap[$r->c_liste_iso] = $r->c_liste_valeur;
 			else if($r->c_liste_categ=='p')$drapNom[$r->c_liste_iso] = $r->c_liste_valeur;
 			}
-		if (isset($_POST['nouveau']) && $_POST['nouveau']==$mid) RencontreWidget::f_nouveauMembre($mid); 
+		if (isset($_POST['nouveau']) && $_POST['nouveau']==$mid) RencontreWidget::f_nouveauMembre($mid);
 		// *****************************************************************************************************************
 		// 0. Partie menu
 		$alias = $wpdb->get_var("SELECT user_login FROM ".$wpdb->prefix."users WHERE ID='".$mid."'");
@@ -313,7 +313,7 @@ class RencontreWidget extends WP_widget
 							echo '&nbsp;'.__('entre','rencontre').'&nbsp;'.$s->i_zage_min.'&nbsp;'.__('et','rencontre').'&nbsp;'.$s->i_zage_max.'&nbsp;'.__('ans','rencontre');
 							echo '&nbsp;'.__('pour','rencontre').'&nbsp;'.(($s->i_zrelation==0)?__('Relation s&eacute;rieuse','rencontre'):''.(($s->i_zrelation==1)?__('Relation libre','rencontre'):__('Amiti&eacute;','rencontre'))); ?>
 						</div>
-						<?php if(isset($s->d_session)) echo '<div class="rencDate" style="text-transform:capitalize;width:auto;position:absolute;right:5px;bottom:0;">'.__('en ligne','rencontre').'&nbsp;:&nbsp;'.substr($s->d_session,8,2).'.'.substr($s->d_session,5,2).'.'.substr($s->d_session,0,4).'</div>'; ?>
+						<?php if(isset($s->d_session) && $mid!=$id) echo '<div class="rencDate" style="text-transform:capitalize;width:auto;position:absolute;right:5px;bottom:0;">'.__('en ligne','rencontre').'&nbsp;:&nbsp;'.substr($s->d_session,8,2).'.'.substr($s->d_session,5,2).'.'.substr($s->d_session,0,4).'</div>'; ?>
 					</div>
 					<?php if ($id!=$mid) { ?>
 					
