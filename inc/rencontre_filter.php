@@ -533,8 +533,8 @@ function f_pseudo()
 	$user = wp_get_current_user();
 	global $wpdb; 
 	$q = $wpdb->get_var("SELECT U.ID FROM ".$wpdb->prefix."users U WHERE user_login='".strip_tags($_POST['name'])."' and user_email!='".$user->user_email."' ");
-	if (!$q) echo 'ok';
-	else echo 'nok';
+	if (!$q) echo true;
+	else echo false; // already exist
 	}
 //
 function f_testPass()
