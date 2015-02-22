@@ -243,7 +243,8 @@ class Rencontre
 		if (isset($_POST['facebook']) || isset($_POST['npa'])) Rencontre::update_rencontre_options($_POST);
 		global $rencOpt; global $rencDiv;
 		$a=array();
-		if ($h=opendir($rencDiv['basedir']."/tmp/"))
+		if(!is_dir($rencDiv['basedir'].'/tmp/')) mkdir($rencDiv['basedir'].'/tmp/');
+		if($h=opendir($rencDiv['basedir']."/tmp/"))
 			{
 			while (($file=readdir($h))!==false)
 				{
