@@ -93,6 +93,8 @@ You need to add the WP connection link. You can add this in the header to have t
 
 When ready, go to admin panel and load the countries, load the profiles, set all parameters of the plugin and don't forget to save.
 
+In Settings / General, check the box 'Anyone can register' with role 'Subscriber'.
+
 **Quinto**
 
 Register as a member : Click Register, add login and email.
@@ -188,6 +190,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 12/02/2015 : Update 5 : Display date of last connection.
 
 14/02/2015 : Update 6 : Fix unsubscribe and subscribe bug.
+
+22/02/2015 : Update 7 : Fix warning during installation.
 
 = 1.3 =
 15/10/2014 :
