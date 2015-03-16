@@ -4,7 +4,7 @@ Donate link: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
 Tags: date, dating, meet, love, chat, webcam, rencontres
 Requires at least: 3.0.1
 Tested up to: 4.1
-Stable tag: 1.4
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -164,6 +164,9 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 6. Proximity search on GoogleMap.
 
 == Changelog ==
+
+= 1.5 =
+16/03/2015 : Change main language from French to English
 
 = 1.4 =
 06/12/2014 :

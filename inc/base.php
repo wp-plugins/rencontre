@@ -277,7 +277,7 @@ function profil_edit($a2,$a3,$a4,$a5,$a6)
 					if($c4[$v]['a']==$qr->c_lang)
 						{
 						$a = $qr->t_valeur;
-						if ($a=="") $a = '["*** '. __('A MODIFIER','rencontre').' ***"]';
+						if ($a=="") $a = '["*** '. __('TO CHANGE','rencontre').' ***"]';
 						$wpdb->query("UPDATE ".$wpdb->prefix."rencontre_profil SET c_label='".$c4[$v]['b']."', t_valeur='".$a."', i_type='".$a6."', i_poids='".(($q->i_poids<5)?($q->i_poids+5):$q->i_poids)."' WHERE id='".$a2."' AND c_lang='".$c4[$v]['a']."' ");
 						}
 					}
@@ -326,10 +326,10 @@ function profil_plus($a2,$a3,$a4,$a5)
 			{
 			if($v==0)
 				{
-				$wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_profil (c_categ,c_label,t_valeur,i_type,i_poids,c_lang) VALUES('".$c4[$v]['b']."','*** ". __('A MODIFIER','rencontre')." ***','',1,0,'".$c4[$v]['a']."')");
+				$wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_profil (c_categ,c_label,t_valeur,i_type,i_poids,c_lang) VALUES('".$c4[$v]['b']."','*** ". __('TO CHANGE','rencontre')." ***','',1,0,'".$c4[$v]['a']."')");
 				$lastid = $wpdb->insert_id;
 				}
-			else $wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_profil (id,c_categ,c_label,t_valeur,i_type,i_poids,c_lang) VALUES('".$lastid."','".$c4[$v]['b']."','*** ". __('A MODIFIER','rencontre')." ***','',1,0,'".$c4[$v]['a']."')");
+			else $wpdb->query("INSERT INTO ".$wpdb->prefix."rencontre_profil (id,c_categ,c_label,t_valeur,i_type,i_poids,c_lang) VALUES('".$lastid."','".$c4[$v]['b']."','*** ". __('TO CHANGE','rencontre')." ***','',1,0,'".$c4[$v]['a']."')");
 			}
 		}
 	else if ($a3=="c_label") 

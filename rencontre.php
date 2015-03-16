@@ -4,7 +4,7 @@ Plugin Name: Rencontre
 Author: Jacques Malgrange
 Plugin URI: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
 Description: A free powerful and exhaustive dating plugin with private messaging, webcam chat, search by profile and automatic sending of email. No third party.
-Version: 1.4
+Version: 1.5
 Author URI: http://www.boiteasite.fr
 */
 
@@ -22,11 +22,11 @@ require('inc/rencontre_filter.php' );
 				if(!$n) // pas de pays ou table vide
 					{
 					$m = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_liste");
-					if(!$m) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - '.__('Vous devez installer les pays','rencontre').'</p></div>';
+					if(!$m) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - '.__('You have to install countries','rencontre').'</p></div>';
 					else
 						{
 						$o = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users");
-						if($o) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('Vous devez d&eacute;sactiver puis r&eacute;activer le plugin','rencontre').'</p></div>';
+						if($o) echo '<div class="update-nag"><p>Plugin <strong>Rencontre</strong> - Patch V1.2 : '.__('You have to deactivate then reactivate the plugin','rencontre').'</p></div>';
 						}
 					}
 				}
@@ -147,7 +147,7 @@ class Rencontre
 	private $class_name = 'rencontre';
 	private $width      = '100%';
 	private $height     = '200px';
-	private $version = '1.4';
+	private $version = '1.5';
 	function __construct()
 		{
 		// Variables globale Rencontre
@@ -200,11 +200,11 @@ class Rencontre
 	function admin_menu_link()
 		{
 		add_menu_page('Rencontre', 'Rencontre', 'manage_options', basename(__FILE__), array(&$this, 'menu_general'), 'div'); // ajoute un menu Rencontre (et son premier sous-menu)
-		add_submenu_page('rencontre.php', __('Rencontre - G&eacute;n&eacute;ral','rencontre'), __('G&eacute;n&eacute;ral','rencontre'), 'manage_options', 'rencontre.php', array(&$this, 'menu_general') ); // repete le premier sous-menu (pour changer le nom)
-		add_submenu_page('rencontre.php', __('Rencontre - Membres','rencontre'), __('Membres','rencontre'), 'manage_options', 'membres', array(&$this, 'menu_membres') );
-		add_submenu_page('rencontre.php', __('Rencontre - Prison','rencontre'), __('Prison','rencontre'), 'manage_options', 'prison', array(&$this, 'menu_prison') );
-		add_submenu_page('rencontre.php', __('Rencontre - Profil','rencontre'), __('Profil','rencontre'), 'manage_options', 'profil', array(&$this, 'menu_profil') );
-		add_submenu_page('rencontre.php', __('Rencontre - Pays','rencontre'), __('Pays','rencontre'), 'manage_options', 'pays', array(&$this, 'menu_pays') );
+		add_submenu_page('rencontre.php', __('Rencontre - General','rencontre'), __('General','rencontre'), 'manage_options', 'rencontre.php', array(&$this, 'menu_general') ); // repete le premier sous-menu (pour changer le nom)
+		add_submenu_page('rencontre.php', __('Rencontre - Members','rencontre'), __('Members','rencontre'), 'manage_options', 'membres', array(&$this, 'menu_membres') );
+		add_submenu_page('rencontre.php', __('Rencontre - Jail','rencontre'), __('Jail','rencontre'), 'manage_options', 'prison', array(&$this, 'menu_prison') );
+		add_submenu_page('rencontre.php', __('Rencontre - Profile','rencontre'), __('Profile','rencontre'), 'manage_options', 'profil', array(&$this, 'menu_profil') );
+		add_submenu_page('rencontre.php', __('Rencontre - Countries','rencontre'), __('Country','rencontre'), 'manage_options', 'pays', array(&$this, 'menu_pays') );
 		}
 	//
 	function update_rencontre_options($f)
@@ -261,20 +261,20 @@ class Rencontre
 			<div class='icon32' id='icon-options-general'><br/></div>
 			<?php if(file_exists(dirname(__FILE__).'/inc/rencontre_don.php')) include(dirname(__FILE__).'/inc/rencontre_don.php'); ?>
 			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
-			<h2><?php _e('G&eacute;n&eacute;ral', 'rencontre'); ?></h2>
+			<h2><?php _e('General', 'rencontre'); ?></h2>
 			<form method="post" name="rencontre_options" action="admin.php?page=rencontre.php">
 				<table class="form-table" style="max-width:600px;clear:none;">
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Framework pour le bouton J\'aime de Facebook', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Framework for the Facebook Like button', 'rencontre'); ?></label></th>
 						<td><textarea  name="facebook"><?php echo $rencOpt['facebook']; ?></textarea></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('AppID pour connexion par Facebook (vide si pas install&eacute;)', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('AppID for Facebook connection (empty if not installed)', 'rencontre'); ?></label></th>
 						<td><input type="text" class="regular-text" name="fblog" value="<?php echo $rencOpt['fblog']; ?>" /></td>
 					</tr>
 					
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Page o&ugrave; est install&eacute; le plugin', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Page where is settled the plugin', 'rencontre'); ?></label></th>
 						<td>
 							<select name="home">
 								<option value="" <?php echo ($rencOpt['home']?'':'selected'); ?>>Index</option>
@@ -286,7 +286,7 @@ class Rencontre
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Pays s&eacute;l&eacute;ctionn&eacute; par d&eacute;faut', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Country selected by default', 'rencontre'); ?></label></th>
 						<td>
 							<select name="pays">
 							<?php RencontreWidget::f_pays($rencOpt['pays']); ?>
@@ -295,39 +295,39 @@ class Rencontre
 					</tr>
 				
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Nombre de portrait en page d\'accueil non connect&eacute;', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Number of portrait homepage unconnected', 'rencontre'); ?></label></th>
 						<td><input type="text" class="regular-text" name="npa" value="<?php echo $rencOpt['npa']; ?>" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Nombre de jours d\'attente avant pr&eacute;sence en page d\'accueil', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Number of days to wait before presence homepage', 'rencontre'); ?></label></th>
 						<td><input type="text" class="regular-text" name="jlibre" value="<?php echo $rencOpt['jlibre']; ?>" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Dur&eacute;e de la prison en jour (compte supprim&eacute;)', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Number of days in jail (deleted account)', 'rencontre'); ?></label></th>
 						<td><input type="text" class="regular-text" name="prison" value="<?php echo $rencOpt['prison']; ?>" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Nombre max de r&eacute;sultats par recherche', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Max number of results per search', 'rencontre'); ?></label></th>
 						<td><input type="text" class="regular-text" name="limit" value="<?php echo $rencOpt['limit']; ?>" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Anniversaires du jour', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Today\'s birthday', 'rencontre'); ?></label></th>
 						<td><input type="checkbox" name="anniv" value="1" <?php if (isset($rencOpt['anniv'])&&$rencOpt['anniv'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Profils actuellement en ligne', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Profiles currently online', 'rencontre'); ?></label></th>
 						<td><input type="checkbox" name="ligne" value="1" <?php if (isset($rencOpt['ligne'])&&$rencOpt['ligne'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Activer le chat', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Enable chat', 'rencontre'); ?></label></th>
 						<td><input type="checkbox" name="tchat" value="1" <?php if (isset($rencOpt['tchat'])&&$rencOpt['tchat'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Activer Google-Map', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Enable Google-Map', 'rencontre'); ?></label></th>
 						<td><input type="checkbox" name="map" value="1" <?php if (isset($rencOpt['map'])&&$rencOpt['map'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Nombre de photos', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Number of photos', 'rencontre'); ?></label></th>
 						<td>
 							<select name="imnb">
 								<?php if(!isset($rencOpt['imnb']) || $rencOpt['imnb']<1 || $rencOpt['imnb']>8) $rencOpt['imnb']=4;
@@ -339,105 +339,105 @@ class Rencontre
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Afficher un copyright discret sur les photos', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('View a discrete copyright on photos', 'rencontre'); ?></label></th>
 						<td>
 							<select name="imcopyright">
-								<option value="0" <?php if (!$rencOpt['imcopyright'])echo 'selected'; ?>><?php _e('Non', 'rencontre'); ?></option>
-								<option value="1" <?php if ($rencOpt['imcopyright']==1)echo 'selected'; ?>><?php _e('Inclin&eacute; vers le haut', 'rencontre'); ?></option>
-								<option value="2" <?php if ($rencOpt['imcopyright']==2)echo 'selected'; ?>><?php _e('Inclin&eacute; vers le bas', 'rencontre'); ?></option>
+								<option value="0" <?php if (!$rencOpt['imcopyright'])echo 'selected'; ?>><?php _e('No', 'rencontre'); ?></option>
+								<option value="1" <?php if ($rencOpt['imcopyright']==1)echo 'selected'; ?>><?php _e('Upwardly inclined', 'rencontre'); ?></option>
+								<option value="2" <?php if ($rencOpt['imcopyright']==2)echo 'selected'; ?>><?php _e('Downwardly inclined', 'rencontre'); ?></option>
 							</select>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Texte du copyright sur les photos. Vide => URL du site.', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Copyright text on pictures. Empty => Site URL.', 'rencontre'); ?></label></th>
 						<td><input type="text" name="txtcopyright" value="<?php echo $rencOpt['txtcopyright']; ?>" /></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Membres sans photo moins visibles', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Members without photo less visible', 'rencontre'); ?></label></th>
 						<td><input type="checkbox" name="onlyphoto" value="1" <?php if ($rencOpt['onlyphoto'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Envoyer un mail &agrave; l\'utilisateur dont le compte est supprim&eacute;', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Send an email to the user whose account is deleted', 'rencontre'); ?></label></th>
 						<td><input type="checkbox" name="mailsupp" value="1" <?php if ($rencOpt['mailsupp'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Envoi automatique d\'un mail de synth&egrave;se aux membres (r&eacute;parti chaque jour)', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Automatic sending a summary email to members (shared daily)', 'rencontre'); ?></label></th>
 						<td>
 							<select name="mailmois">
-								<option value="0" <?php if (!$rencOpt['mailmois'])echo 'selected'; ?>><?php _e('Non', 'rencontre'); ?></option>
-								<option value="1" <?php if ($rencOpt['mailmois']==1)echo 'selected'; ?>><?php _e('Mensuel', 'rencontre'); ?></option>
-								<option value="2" <?php if ($rencOpt['mailmois']==2)echo 'selected'; ?>><?php _e('Bimensuel', 'rencontre'); ?></option>
-								<option value="3" <?php if ($rencOpt['mailmois']==3)echo 'selected'; ?>><?php _e('Hebdomadaire', 'rencontre'); ?></option>
+								<option value="0" <?php if (!$rencOpt['mailmois'])echo 'selected'; ?>><?php _e('No', 'rencontre'); ?></option>
+								<option value="1" <?php if ($rencOpt['mailmois']==1)echo 'selected'; ?>><?php _e('Monthly', 'rencontre'); ?></option>
+								<option value="2" <?php if ($rencOpt['mailmois']==2)echo 'selected'; ?>><?php _e('Fortnightly', 'rencontre'); ?></option>
+								<option value="3" <?php if ($rencOpt['mailmois']==3)echo 'selected'; ?>><?php _e('Weekly', 'rencontre'); ?></option>
 							</select>
 							<?php 
 							$d2 = dirname(__FILE__).'/inc/rencontre_cron.txt';
-							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Maximum cette semaine', 'rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/h', 'rencontre')."<br />(".__('envoy&eacute;s lors de la maintenance', 'rencontre').")</p>";
+							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Up this week', 'rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/hour', 'rencontre')."<br />(".__('sent during maintenance', 'rencontre').")</p>";
 							?>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Heure des t&acirc;ches de maintenance (heures creuses)', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Hour maintenance tasks (off peak)', 'rencontre'); ?></label></th>
 						<td>
 							<select name="hcron">
-								<?php for ($v=0;$v<24;++$v) {echo '<option value="'.$v.'" '.(($rencOpt['hcron']==$v)?'selected':'').'>&nbsp;'.$v.__('heures','rencontre').'</option>';} ?>
+								<?php for ($v=0;$v<24;++$v) {echo '<option value="'.$v.'" '.(($rencOpt['hcron']==$v)?'selected':'').'>&nbsp;'.$v.__('hours','rencontre').'</option>';} ?>
 							</select>
 						</td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Texte d\'introduction pour le mail mensuel (Apr&egrave;s bonjour login - Avant les sourires et demandes de contact)', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Introductory text for the monthly email (After hello login - Before the smiles and contact requests)', 'rencontre'); ?></label></th>
 						<td><textarea name="textmail"><?php echo stripslashes($rencOpt['textmail']); ?></textarea></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Envoi automatique d\'un mail de bon anniversaire aux membres', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Automatically sending an email happy birthday members', 'rencontre'); ?></label></th>
 						<td><input type="checkbox" name="mailanniv" value="1" <?php if ($rencOpt['mailanniv'])echo 'checked'; ?>></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Texte complet pour le mail de bon anniversaire (Apr&egrave;s bonjour login)', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Full text for the birthday mail (After hello pseudo)', 'rencontre'); ?></label></th>
 						<td><textarea name="textanniv"><?php echo stripslashes($rencOpt['textanniv']); ?></textarea></td>
 					</tr>
 					<tr valign="top">
-						<th scope="row"><label><?php _e('Nombre max de mail envoy&eacute;s par heure', 'rencontre'); ?></label></th>
+						<th scope="row"><label><?php _e('Max number of mails sent per hour', 'rencontre'); ?></label></th>
 						<td>
 							<input type="text" class="regular-text" name="qmail" value="<?php echo $rencOpt['qmail']; ?>" />
 							<?php 
 							$d2 = dirname(__FILE__).'/inc/rencontre_cronListe.txt';
-							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Maximum cette semaine', 'rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/h', 'rencontre')."<br />(".__('hors p&eacute;riode de maintenance', 'rencontre').")</p>";
+							if (file_exists($d2)) echo "<p style='color:#D54E21;'>".__('Up this week', 'rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".file_get_contents($d2)."</span>&nbsp;".__('mail/hour', 'rencontre')."<br />(".__('except during maintenance', 'rencontre').")</p>";
 							?>
 						</td>
 					</tr>
 				</table>
 				<p class="submit">
-					<input type="submit" class="button-primary" value="<?php _e('Sauvegarde','rencontre') ?>" />
+					<input type="submit" class="button-primary" value="<?php _e('Save','rencontre') ?>" />
 				</p>
 			</form>
 			<hr />
-			<h2><?php _e('Export des membres en CSV','rencontre') ?></h2>
+			<h2><?php _e('Export members in CSV','rencontre') ?></h2>
 			<div>
-				<a class="button-primary" href="javascript:void(0)" onclick="f_exportCsv();"><?php _e('Exporter en CSV','rencontre');?></a>
+				<a class="button-primary" href="javascript:void(0)" onclick="f_exportCsv();"><?php _e('Export in CSV','rencontre');?></a>
 				<img id="waitCsv" src="<?php echo plugins_url('rencontre/images/loading.gif'); ?>" style="margin:0 0 -10px 20px;display:none;" />
 				<a href="" style="display:none;margin:0 10px;" id="rencCsv" type='text/csv' >export_rencontre.csv</a>
-				<div style="display:none;" id="photoCsv"><?php _e('R&eacute;cup&eacute;rer les photos en FTP dans wp-content/uploads/tmp/','rencontre') ?></div>
+				<div style="display:none;" id="photoCsv"><?php _e('Get back photos by FTP in wp-content/uploads/tmp/','rencontre') ?></div>
 			</div>
 			<hr />
-			<h2><?php _e('Import des membres en CSV','rencontre') ?></h2>
-			<p><?php _e('D&eacute;poser les photos des membres en FTP dans wp-content/uploads/tmp/photo_import/ avant de commencer (accessible RW - pas de sous-dossier).','rencontre') ?></p>
-			<p><?php _e('Pour conna&icirc;tre le format &agrave; respecter, faire un export et s\'inspirer du fichier (la premi&egrave;re ligne avec le titre des colonnes n\'est pas trait&eacute;e).','rencontre') ?></p>
-			<p><?php _e('En cas d\'interruption durant l\'import des photos, recommencer la proc&eacute;dure. Les doublons sont supprim&eacute;s.','rencontre') ?></p>
+			<h2><?php _e('Import members in CSV','rencontre') ?></h2>
+			<p><?php _e('Put members photos in wp-content/uploads/tmp/photo_import/ by FTP before the start (right RW - no sub folder).','rencontre') ?></p>
+			<p><?php _e('Make an export and look at it to get the right format (The first line is not treated).','rencontre') ?></p>
+			<p><?php _e('In case of interruption during the import of photos, restart the procedure. Doubloons are killed.','rencontre') ?></p>
 			<form name='rencCsv' action="<?php echo plugins_url('rencontre/inc/upload_csv.php'); ?>" method="post" enctype="multipart/form-data" target="uplFrame" onSubmit="startUpload();">
 				<div>
-					<label><?php _e('Fichier CSV','rencontre') ?> : <label>
+					<label><?php _e('CSV File','rencontre') ?> : <label>
 					<input name="fileCsv" type="file" />
 					<img id="loadingCsv" src="<?php echo plugins_url('rencontre/images/loading.gif'); ?>" style="margin:0 0 -10px 20px;display:none;" />
 				</div>
 				<br />
 				<div>
-					<input type="submit" class="button-primary" name="submitCsv" value="<?php _e('Importer en CSV','rencontre');?>" />
-					<span id="impCsv1" style="margin:0 10px;display:none;"><?php _e('Fichier charg&eacute;','rencontre');?></span>
-					<span id="impCsv2" style="margin:0 10px;display:none;"><?php _e('Erreur !','rencontre');?></span>
-					<span id="impCsv3" style="margin:0 10px;display:none;"><?php _e('Import donn&eacute;es termin&eacute;','rencontre');?></span>
-					<span id="impCsv4" style="margin:0 10px;display:none;"><?php _e('Import Photos','rencontre');?> : </span>
+					<input type="submit" class="button-primary" name="submitCsv" value="<?php _e('Import in CSV','rencontre');?>" />
+					<span id="impCsv1" style="margin:0 10px;display:none;"><?php _e('File loaded','rencontre');?></span>
+					<span id="impCsv2" style="margin:0 10px;display:none;"><?php _e('Error !','rencontre');?></span>
+					<span id="impCsv3" style="margin:0 10px;display:none;"><?php _e('Import data completed','rencontre');?></span>
+					<span id="impCsv4" style="margin:0 10px;display:none;"><?php _e('Photos Import','rencontre');?> : </span>
 					<span id="impCsv5" style="margin-left:-5px;"></span>
-					<span id="impCsv6" style="margin:0 10px;display:none;"><?php _e('Import termin&eacute;','rencontre');?></span>
+					<span id="impCsv6" style="margin:0 10px;display:none;"><?php _e('Import completed','rencontre');?></span>
 				</div>
 			</form>
 			<iframe id="uplFrame" name="uplFrame" src="#" style="width:0;height:0;border:0px solid #fff;">
@@ -463,17 +463,17 @@ class Rencontre
 		<div class='wrap'>
 			<div class='icon32' id='icon-options-general'><br/></div>
 			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
-			<h2><?php _e('Membres', 'rencontre'); ?></h2>
+			<h2><?php _e('Members', 'rencontre'); ?></h2>
 			<?php 
 			$nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users");
 			$np = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=P.user_id AND R.i_photo>0 AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30");
-			echo "<p style='color:#D54E21;'>".__('Nombre de membres inscrits','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$nm."</span></p>";
-			echo "<p style='color:#D54E21;'>".__('Nombre de membres avec profil et photo','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$np."</span></p>";
+			echo "<p style='color:#D54E21;'>".__('Number of registered members','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$nm."</span></p>";
+			echo "<p style='color:#D54E21;'>".__('Number of members with profile and photo','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$np."</span></p>";
 			?>
 			<form name="rencPseu" method="post" action="">
-				<label><?php _e('Pseudo', 'rencontre'); ?> : <label>
+				<label><?php _e('Alias', 'rencontre'); ?> : <label>
 				<input type="text" name="pseu" />
-				<input type="submit" class="button-primary" value="<?php _e('Cherche', 'rencontre'); ?>" />
+				<input type="submit" class="button-primary" value="<?php _e('Find', 'rencontre'); ?>" />
 			</form>
 			<?php
 			if (!isset($_GET["id"]))
@@ -484,8 +484,8 @@ class Rencontre
 					if ($rencOpt['mailsupp'])
 						{
 						$q = $wpdb->get_var("SELECT user_email FROM ".$wpdb->prefix."users WHERE ID='".$_POST["a1"]."'");
-						$objet  = wp_specialchars_decode($rencDiv['blogname'], ENT_QUOTES).' - '.__('Suppression du compte','rencontre');
-						$message  = __('Votre compte a &eacute;t&eacute; supprim&eacute;','rencontre');
+						$objet  = wp_specialchars_decode($rencDiv['blogname'], ENT_QUOTES).' - '.__('Account deletion','rencontre');
+						$message  = __('Your account has been deleted','rencontre');
 						@wp_mail($q, $objet, $message);
 						}
 					}
@@ -521,20 +521,20 @@ class Rencontre
 				<form name='listUser' method='post' action=''><input type='hidden' name='a1' value='' /><input type='hidden' name='a2' value='' />
 				<table class="membre">
 					<tr>
-						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='id') echo 'R'; ?>id" title="<?php _e('Trier','rencontre'); ?>">ID</a></td>
+						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='id') echo 'R'; ?>id" title="<?php _e('Sort','rencontre'); ?>">ID</a></td>
 						<td><?php _e('Photo','rencontre');?></td>
-						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='pseudo') echo 'R'; ?>pseudo" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Pseudo','rencontre');?></a></td>
+						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='pseudo') echo 'R'; ?>pseudo" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Alias','rencontre');?></a></td>
 						<td><?php _e('Sex','rencontre');?></td>
-						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='age') echo 'R'; ?>age" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Age','rencontre');?><a></td>
-						<td><?php _e('Taille','rencontre');?></td>
-						<td><?php _e('Poids','rencontre');?></td>
-						<td><?php _e('Recherche','rencontre');?></td>
-						<td><?php _e('Accroche','rencontre');?></td>
-						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='pays') echo 'R'; ?>pays" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Pays','rencontre');?></a></td>
-						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='modif') echo 'R'; ?>modif" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Annonce (modif)','rencontre');?></a></td>
-						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Adresse IP','rencontre');?></a></td>
-						<td><a href="admin.php?page=membres&tri=signal" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Signalement','rencontre');?></a></td>
-						<td><?php _e('Supp','rencontre');?></td>
+						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='age') echo 'R'; ?>age" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Age','rencontre');?><a></td>
+						<td><?php _e('Size','rencontre');?></td>
+						<td><?php _e('Weight','rencontre');?></td>
+						<td><?php _e('Search','rencontre');?></td>
+						<td><?php _e('Hang','rencontre');?></td>
+						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='pays') echo 'R'; ?>pays" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Country','rencontre');?></a></td>
+						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='modif') echo 'R'; ?>modif" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Ad (change)','rencontre');?></a></td>
+						<td><a href="admin.php?page=membres&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Sort','rencontre'); ?>"><?php _e('IP address','rencontre');?></a></td>
+						<td><a href="admin.php?page=membres&tri=signal" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Reporting','rencontre');?></a></td>
+						<td><?php _e('Del','rencontre');?></td>
 					</tr>
 				<?php
 				$categ="";
@@ -542,16 +542,16 @@ class Rencontre
 					{
 					$q = $wpdb->get_var("SELECT t_signal FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$s->ID."'"); $signal=json_decode($q,true);
 					echo '<tr>';
-					echo '<td><a href="admin.php?page=membres&id='.$s->ID.'" title="'.__('Voir','rencontre').'">'.$s->ID.'</a></td>';
-					echo '<td><a href="admin.php?page=membres&id='.$s->ID.'" title="'.__('Voir','rencontre').'"><img class="tete" src="'.($s->i_photo!=0?get_bloginfo('url').'/wp-content/uploads/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10).'-mini.jpg" alt="" /></a></td>':plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" /></td>');
+					echo '<td><a href="admin.php?page=membres&id='.$s->ID.'" title="'.__('See','rencontre').'">'.$s->ID.'</a></td>';
+					echo '<td><a href="admin.php?page=membres&id='.$s->ID.'" title="'.__('See','rencontre').'"><img class="tete" src="'.($s->i_photo!=0?get_bloginfo('url').'/wp-content/uploads/portrait/'.floor(($s->ID)/1000).'/'.(($s->ID)*10).'-mini.jpg" alt="" /></a></td>':plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" /></td>');
 					echo '<td>'.$s->user_login.'</td>';
-					echo '<td>'.(($s->i_sex==0)?__('Homme','rencontre').'</td>':__('Femme','rencontre').'</td>');
+					echo '<td>'.(($s->i_sex==0)?__('Man','rencontre').'</td>':__('Woman','rencontre').'</td>');
 					echo '<td>'.$this->f_age($s->d_naissance).'</td>';
 					echo '<td>'.$s->i_taille.' cm</td>';
 					echo '<td>'.$s->i_poids.' kg</td>';
-					if ($s->i_zrelation==0) echo '<td>'.__('Relation s&eacute;rieuse','rencontre'); elseif ($s->i_zrelation==1) echo '<td>'.__('Relation libre','rencontre'); elseif ($s->i_zrelation==2) echo '<td>'.__('Amiti&eacute;','rencontre');
+					if ($s->i_zrelation==0) echo '<td>'.__('Serious relationship','rencontre'); elseif ($s->i_zrelation==1) echo '<td>'.__('Open relationship','rencontre'); elseif ($s->i_zrelation==2) echo '<td>'.__('Friendship','rencontre');
 					else echo '<td>'.$s->i_zrelation;
-					echo '<br />'.$s->i_zage_min.' '. __('&agrave;','rencontre').' '.$s->i_zage_max.'</td>';
+					echo '<br />'.$s->i_zage_min.' '. __('to','rencontre').' '.$s->i_zage_max.'</td>';
 					echo '<td>'.$s->t_titre.'</td>';
 					if(isset($drapNom[$s->c_pays]) && $s->c_pays!="") echo '<td><img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$drap[$s->c_pays].'" alt="'.$drapNom[$s->c_pays].'" title="'.$drapNom[$s->c_pays].'" />';
 					else echo '<td>'.$s->c_pays;
@@ -565,7 +565,7 @@ class Rencontre
 					else $ipays=null;
 					echo '<td>'.$s->c_ip.(($ipays)?'<br/><img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$ipays.'" alt="'.$geoip->country_name.'" title="'.$geoip->country_name.'" />':'').'</td>';
 					echo '<td>'.((count($signal))?count($signal):'').'</td>';
-					echo '<td><a href="javascript:void(0)" class="rencSupp" onClick="f_fin('.$s->ID.',\''.$s->user_login.'\')" title="'.__('Supprimer','rencontre').'"></a></td>';
+					echo '<td><a href="javascript:void(0)" class="rencSupp" onClick="f_fin('.$s->ID.',\''.$s->user_login.'\')" title="'.__('Remove','rencontre').'"></a></td>';
 					echo '</tr>';
 					}
 				?>
@@ -604,13 +604,13 @@ class Rencontre
 				$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_ville, R.i_photo, P.t_titre, P.t_annonce, P.t_profil FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$id." and R.user_id=P.user_id and R.user_id=U.ID");
 				?>
 				
-				<h3><?php _e('Modifier un profil','rencontre');?></h3>
-				<div class="bouton"><a href="javascript:void(0)" onclick="javascript:history.back();"><?php _e('Page pr&eacute;c&eacute;dente','rencontre');?></a></div>
-				<div class="bouton"><a href="<?php echo admin_url(); ?>admin.php?page=membres"><?php _e('Retour Membres','rencontre');?></a></div>
+				<h3><?php _e('Change My Profile','rencontre');?></h3>
+				<div class="bouton"><a href="javascript:void(0)" onclick="javascript:history.back();"><?php _e('Previous page','rencontre');?></a></div>
+				<div class="bouton"><a href="<?php echo admin_url(); ?>admin.php?page=membres"><?php _e('Back Members','rencontre');?></a></div>
 				<div class="rencPortrait">
 					<form name='portraitChange' method='post' enctype="multipart/form-data" action=''>
 						<input type='hidden' name='a1' value='' /><input type='hidden' name='a2' value='' /><input type='hidden' name='page' value='' />
-						<div id="portraitSauv"><span onClick="f_sauv_profil(<?php echo $mid; ?>)"><?php _e('Sauvegarde du profil','rencontre');?></span></div>
+						<div id="portraitSauv"><span onClick="f_sauv_profil(<?php echo $mid; ?>)"><?php _e('Save profile','rencontre');?></span></div>
 						<div class="petiteBox portraitPhoto left">
 							<div class="rencBox">
 								<img id="portraitGrande" src="<?php if(($s->i_photo)!=0) echo $rencDiv['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10).'-grande.jpg?r='.rand(); else echo plugins_url('rencontre/images').'/no-photo600.jpg'; ?>" width=250 height=250 alt="" />
@@ -619,14 +619,14 @@ class Rencontre
 									{
 									if ($s->i_photo>=$id*10+$v)
 										{
-										echo '<a href="javascript:void(0)" onClick="f_supp_photo('.($id*10+$v).')"><img onMouseOver="f_vignette_change('.($id*10+$v).')" class="portraitMini" src="'.$rencDiv['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10+$v).'-mini.jpg?r='.rand().'" alt="'.__('Cliquer pour supprimer','rencontre').'" title="'.__('Cliquer pour supprimer','rencontre').'" /></a>'."\n";
+										echo '<a href="javascript:void(0)" onClick="f_supp_photo('.($id*10+$v).')"><img onMouseOver="f_vignette_change('.($id*10+$v).')" class="portraitMini" src="'.$rencDiv['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10+$v).'-mini.jpg?r='.rand().'" alt="'.__('Click to delete','rencontre').'" title="'.__('Click to delete','rencontre').'" /></a>'."\n";
 										echo '<img style="display:none;" src="'.$rencDiv['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10+$v).'-grande.jpg?r='.rand().'" />'."\n";
 										}
-									else { ?><a href="javascript:void(0)" onClick="f_plus_photo(<?php echo $s->i_photo; ?>)"><img class="portraitMini" src="<?php echo plugins_url('rencontre/images/no-photo60.jpg'); ?>" alt="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" title="<?php _e('Cliquer pour ajouter une photo','rencontre'); ?>" /></a>
+									else { ?><a href="javascript:void(0)" onClick="f_plus_photo(<?php echo $s->i_photo; ?>)"><img class="portraitMini" src="<?php echo plugins_url('rencontre/images/no-photo60.jpg'); ?>" alt="<?php _e('Click to add a photo','rencontre'); ?>" title="<?php _e('Click to add a photo','rencontre'); ?>" /></a>
 									<?php } } ?>
 								</div>
 								<div id="changePhoto"></div>
-								<div class="bouton"><a href="javascript:void(0)" onClick="f_suppAll_photo()"><?php _e('Supprimer toutes les photos','rencontre');?></a></div>
+								<div class="bouton"><a href="javascript:void(0)" onClick="f_suppAll_photo()"><?php _e('Delete all photos','rencontre');?></a></div>
 							</div>
 						</div>
 						<div class="grandeBox right">
@@ -637,9 +637,9 @@ class Rencontre
 								<div class="grid_10">
 									<h3><?php echo $s->display_name; ?></h3>
 									<div class="ville"><?php echo $s->c_ville; ?></div>
-									<label><?php _e('Mon accroche','rencontre');?></label><br />
+									<label><?php _e('My attention-catcher','rencontre');?></label><br />
 									<input type="text" name="titre" value="<?php echo $s->t_titre; ?>" /><br /><br />
-									<label><?php _e('Mon annonce','rencontre');?></label><br />
+									<label><?php _e('My ad','rencontre');?></label><br />
 									<textarea name="annonce" rows="10" style="width:95%;"><?php echo $s->t_annonce; ?></textarea>
 								</div>
 							</div>
@@ -679,7 +679,7 @@ class Rencontre
 							echo $out1.$out2;
 							?>
 							
-								<em id="infoChange"><?php if(isset($_POST["a1"]) && $_POST["a1"]=="sauvProfil") _e('Effectu&eacute;e','rencontre'); ?>&nbsp;</em>
+								<em id="infoChange"><?php if(isset($_POST["a1"]) && $_POST["a1"]=="sauvProfil") _e('Done','rencontre'); ?>&nbsp;</em>
 							</div>
 						</div>
 					</form>
@@ -701,7 +701,7 @@ class Rencontre
 		<div class='wrap'>
 			<div class='icon32' id='icon-options-general'><br/></div>
 			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
-			<h2><?php _e('Prison', 'rencontre'); ?></h2>
+			<h2><?php _e('Jail', 'rencontre'); ?></h2>
 			<?php 
 			if (isset($_POST["a1"])) 
 				{
@@ -727,10 +727,10 @@ class Rencontre
 			<form name='listPrison' method='post' action=''><input type='hidden' name='a1' value='' />
 			<table class="prison">
 				<tr>
-					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='date') echo 'R'; ?>date" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Date','rencontre');?></a></td>
-					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='mail') echo 'R'; ?>mail" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Adresse mail','rencontre');?></a></td>
-					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Trier','rencontre'); ?>"><?php _e('Adresse IP','rencontre');?><a></td>
-					<td><?php _e('Fin','rencontre');?></td>
+					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='date') echo 'R'; ?>date" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Date','rencontre');?></a></td>
+					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='mail') echo 'R'; ?>mail" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Email address','rencontre');?></a></td>
+					<td><a href="admin.php?page=prison&tri=<?php if ($_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Sort','rencontre'); ?>"><?php _e('IP address','rencontre');?><a></td>
+					<td><?php _e('End','rencontre');?></td>
 				</tr>
 			<?php
 			$categ="";
@@ -740,7 +740,7 @@ class Rencontre
 				echo '<td>'.$s->d_prison.'</td>';
 				echo '<td>'.$s->c_mail.'</td>';
 				echo '<td>'.$s->c_ip.'</td>';
-				echo '<td><a href="javascript:void(0)" class="rencSupp" onClick="f_liberte('.$s->id.')" title="'.__('Lib&eacute;rer','rencontre').'"></a></td>';
+				echo '<td><a href="javascript:void(0)" class="rencSupp" onClick="f_liberte('.$s->id.')" title="'.__('Release','rencontre').'"></a></td>';
 				echo '</tr>';
 				}
 			?>
@@ -786,30 +786,30 @@ class Rencontre
 			</form>
 			<div class='icon32' id='icon-options-general'><br/></div>
 			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
-			<h2><?php _e('Profil', 'rencontre'); ?></h2>
+			<h2><?php _e('Profile', 'rencontre'); ?></h2>
 			<?php $n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_profil");
 			if($n==0)
 				{
-				echo "<p>".__('Il ne semble pas y avoir de profil. Vous pouvez charger les profils par d&eacute;faut si vous le souhaitez.', 'rencontre')."</p>";
-				echo "<a href='javascript:void(0)' class='button-primary' onClick='document.forms[\"menu_profil\"].elements[\"a1\"].value=\"profil\";document.forms[\"menu_profil\"].elements[\"a2\"].value=\"profil\";document.forms[\"menu_profil\"].submit();'>". __('Charger profils', 'rencontre')."</a>";
+				echo "<p>".__('It does not appear to be any profile. You can load the default profile if you wish.', 'rencontre')."</p>";
+				echo "<a href='javascript:void(0)' class='button-primary' onClick='document.forms[\"menu_profil\"].elements[\"a1\"].value=\"profil\";document.forms[\"menu_profil\"].elements[\"a2\"].value=\"profil\";document.forms[\"menu_profil\"].submit();'>". __('Load profiles', 'rencontre')."</a>";
 				}
 			$n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_liste");
 			if($n==0)
 				{
-				echo "<p>".__('La table des pays est vide. Vous pouvez charger les pays et r&eacute;gions par d&eacute;faut si vous le souhaitez.', 'rencontre')."</p>";
-				echo "<a href='javascript:void(0)' class='button-primary' onClick='document.forms[\"menu_profil\"].elements[\"a1\"].value=\"pays\";document.forms[\"menu_profil\"].elements[\"a2\"].value=\"pays\";document.forms[\"menu_profil\"].submit();'>". __('Charger pays', 'rencontre')."</a>";
+				echo "<p>".__('The country table is empty. You can load the countries and regions by default if you wish.', 'rencontre')."</p>";
+				echo "<a href='javascript:void(0)' class='button-primary' onClick='document.forms[\"menu_profil\"].elements[\"a1\"].value=\"pays\";document.forms[\"menu_profil\"].elements[\"a2\"].value=\"pays\";document.forms[\"menu_profil\"].submit();'>". __('Load countries', 'rencontre')."</a>";
 				}
 			if(file_exists(dirname(__FILE__).'/inc/rencontre_synchronise.txt')) { ?>
 			<p>
-				<a href='javascript:void(0)' class='button-primary' onClick='f_synchronise();'><?php _e('Mettre &agrave; jour le profil des membres', 'rencontre'); ?></a>
-				&nbsp;:&nbsp;<span style="color:red;font-weight:700;"><?php _e('Vous avez fait des modifications. Pensez &agrave; mettre &agrave; jour lorsque vous aurez termin&eacute;.', 'rencontre'); ?></span>
+				<a href='javascript:void(0)' class='button-primary' onClick='f_synchronise();'><?php _e('Update member profile', 'rencontre'); ?></a>
+				&nbsp;:&nbsp;<span style="color:red;font-weight:700;"><?php _e('You have made changes. Remember to update when you\'re done.', 'rencontre'); ?></span>
 			</p><?php } ?>
 			
-			<p><?php _e('Vous pouvez cr&eacute;er, renommer et supprimer les diff&eacute;rents items du profil.', 'rencontre'); ?></p>
+			<p><?php _e('You can create, rename and delete items from the profile.', 'rencontre'); ?></p>
 			<p>
-				<?php _e('Attention, ce n\'est pas sans cons&eacute;quences. Les changements seront appliqu&eacute;s sur les profils des membres ce qui peut choquer. Prudence !', 'rencontre'); ?>&nbsp;
+				<?php _e('Warning, this is not without consequences. The changes will be applied to the member profiles that can offend. Caution !', 'rencontre'); ?>&nbsp;
 			</p>
-			<h3><?php _e('Langue de r&eacute;f&eacute;rence', 'rencontre'); echo ' : <span style="color:#700;">'.$loc.'</span> --- ' . __('Autres', 'rencontre').'&nbsp;:&nbsp;';
+			<h3><?php _e('Ref language', 'rencontre'); echo ' : <span style="color:#700;">'.$loc.'</span> --- ' . __('Other', 'rencontre').'&nbsp;:&nbsp;';
 			$ls = '';
 			foreach($q2 as $r2)
 				{
@@ -822,23 +822,23 @@ class Rencontre
 			?></h3>
 			<ul>
 				<li>
-					<label><?php _e('Ajouter une langue (2 lettres minuscules conformes au code du pays)', 'rencontre'); ?>&nbsp;</label>&nbsp;
+					<label><?php _e('Add Language (2 lowercase letters comply with country code)', 'rencontre'); ?>&nbsp;</label>&nbsp;
 					<input type="text" name="langplus" maxlength="2" size="2" />
-					<a href='javascript:void(0)' class='button-primary' onClick='f_langplus();'><?php _e('Ajouter une langue', 'rencontre'); ?></a>
+					<a href='javascript:void(0)' class='button-primary' onClick='f_langplus();'><?php _e('Add a language', 'rencontre'); ?></a>
 				</li>
 				<li>
-					<label><?php _e('Supprimer une langue et tout le contenu associ&eacute;', 'rencontre'); ?>&nbsp;</label>&nbsp;
+					<label><?php _e('Remove a language and all related content', 'rencontre'); ?>&nbsp;</label>&nbsp;
 					<select id="langsupp">
 						<?php echo $ls; ?>
 					</select>
-					<a href='javascript:void(0)' class='button-primary' onClick='f_langsupp();'><?php _e('Supprimer une langue', 'rencontre'); ?></a>
+					<a href='javascript:void(0)' class='button-primary' onClick='f_langsupp();'><?php _e('Remove a language', 'rencontre'); ?></a>
 				</li>
 			</ul>
 			<br />
 			<div id="edit_profil"></div>
 			<div style='margin:8px 12px 12px;'>
 				<a href='javascript:void(0)' class='rencPlus' onClick='f_plus(0,"c_categ","","<?php echo $loc2; ?>");' title='Ajouter une cat&eacute;gorie'></a>
-				<span style='font-style:italic;'><?php _e('Ajouter une cat&eacute;gorie','rencontre');?></span>
+				<span style='font-style:italic;'><?php _e('Add category','rencontre');?></span>
 			</div>
 			<?php
 			$q = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."rencontre_profil WHERE c_lang='".$loc."' ORDER BY c_categ");
@@ -858,13 +858,13 @@ class Rencontre
 						$a4 .= $r1->c_lang . '=' . $r1->c_categ . '&';
 						}
 					echo '<h3>';
-					echo '<a href="javascript:void(0)" class="rencEdit" onClick="f_edit('.$r->id.',\'c_categ\',\''.urlencode($a4).'\',\'\');" title="'.__('Modifier le nom','rencontre').'"></a>';
-					echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_supp('.$r->id.',\'c_categ\',0);" title="'.__('Supprimer toute la cat&eacute;gorie','rencontre').'"></a>';
+					echo '<a href="javascript:void(0)" class="rencEdit" onClick="f_edit('.$r->id.',\'c_categ\',\''.urlencode($a4).'\',\'\');" title="'.__('Change the name','rencontre').'"></a>';
+					echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_supp('.$r->id.',\'c_categ\',0);" title="'.__('Remove the category','rencontre').'"></a>';
 					echo $categ.'</h3>';
 					echo $out . '</div>';
 				// LABEL
-					echo '<a href="javascript:void(0)" class="rencPlus" onClick="f_plus('.$r->id.',\'c_label\',\'\',\''.$loc2.'\');" title="'.__('Ajouter une valeur &agrave; cette cat&eacute;gorie','rencontre').'"></a>';
-					echo '<span style="font-style:italic;">'.__('Ajouter une valeur &agrave; cette cat&eacute;gorie','rencontre').'</span><br /><br />';
+					echo '<a href="javascript:void(0)" class="rencPlus" onClick="f_plus('.$r->id.',\'c_label\',\'\',\''.$loc2.'\');" title="'.__('Add value to this category','rencontre').'"></a>';
+					echo '<span style="font-style:italic;">'.__('Add value to this category','rencontre').'</span><br /><br />';
 					}
 				$out = '';
 				$a4 = $r->c_lang . '=' . $r->c_label . '&';
@@ -874,23 +874,23 @@ class Rencontre
 					$a4 .= $r1->c_lang . '=' . $r1->c_label . '&';
 					}
 				echo '<div class="rencLabel">';
-				echo '<a href="javascript:void(0)" class="rencEdit" onClick="f_edit('.$r->id.',\'c_label\',\''.urlencode($a4).'\','.$r->i_type.');" title="'.__('Modifier le nom ou le type','rencontre').'"></a>';
-				echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_supp('.$r->id.',\'c_label\',0);" title="'.__('Supprimer','rencontre').'"></a>';
+				echo '<a href="javascript:void(0)" class="rencEdit" onClick="f_edit('.$r->id.',\'c_label\',\''.urlencode($a4).'\','.$r->i_type.');" title="'.__('Change the name or type','rencontre').'"></a>';
+				echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_supp('.$r->id.',\'c_label\',0);" title="'.__('Remove','rencontre').'"></a>';
 				echo $r->c_label . '<br />';
 				echo $out . '</div><div style="height:5px;"></div>';
 				// VALEUR
 				switch($r->i_type)
 					{
 					case 1 :
-					echo '<div class="rencValeur rencType">'.__('Une ligne de texte (TEXT)','rencontre').'</div>'."\r\n";
+					echo '<div class="rencValeur rencType">'.__('A line of text (TEXT)','rencontre').'</div>'."\r\n";
 					break;
 					case 2 :
-					echo '<div class="rencValeur rencType">'.__('Grande zone de texte (TEXTAREA)','rencontre').'</div>'."\r\n";
+					echo '<div class="rencValeur rencType">'.__('Large text box (TEXTAREA)','rencontre').'</div>'."\r\n";
 					break;
 					case 3 :
 					echo '<div class="rencValeur">';
-					echo '<a href="javascript:void(0)" class="rencPlus" onClick="f_plus('.$r->id.',\'t_valeur\',\'\',\''.$loc2.'\');" title="'.__('Ajouter une valeur','rencontre').'"></a>';
-					echo '<span class="rencType">'.__('Liste &agrave; choix unique (SELECT)','rencontre').'</span>';
+					echo '<a href="javascript:void(0)" class="rencPlus" onClick="f_plus('.$r->id.',\'t_valeur\',\'\',\''.$loc2.'\');" title="'.__('Add Value','rencontre').'"></a>';
+					echo '<span class="rencType">'.__('Single choice list (SELECT)','rencontre').'</span>';
 					$s = json_decode($r->t_valeur);
 					$s1=Array(); $s2=Array(); foreach($q1 as $r1) { $s1[] = json_decode($r1->t_valeur); $s2[] = $r1->c_lang; }
 					$c=0;
@@ -903,8 +903,8 @@ class Rencontre
 							$a4 .= $s2[$v] . '=' . $s1[$v][$c] . '&';
 							$t .= ($v!=0?'<br />':''). '<span style="margin:0 0 0 37px;color:#777;">'.$s2[$v].' : '.$s1[$v][$c]. '</span>';
 							}
-						echo '<br /><a href="javascript:void(0)" class="rencEdit" onClick="f_edit('.$r->id.',\'t_valeur\',\''.urlencode($a4).'\','.$c.');" title="'.__('Modifier','rencontre').'"></a>';
-						echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_supp('.$r->id.',\'t_valeur\','.$c.');" title="'.__('Supprimer','rencontre').'"></a>';
+						echo '<br /><a href="javascript:void(0)" class="rencEdit" onClick="f_edit('.$r->id.',\'t_valeur\',\''.urlencode($a4).'\','.$c.');" title="'.__('Change','rencontre').'"></a>';
+						echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_supp('.$r->id.',\'t_valeur\','.$c.');" title="'.__('Remove','rencontre').'"></a>';
 						echo $ss . '<br />';
 						echo $t . "\r\n";
 						++$c;
@@ -913,8 +913,8 @@ class Rencontre
 					break;
 					case 4 :
 					echo '<div class="rencValeur">';
-					echo '<a href="javascript:void(0)" class="rencPlus" onClick="f_plus('.$r->id.',\'t_valeur\',\'\',\''.$loc2.'\');" title="'.__('Ajouter une valeur','rencontre').'"></a>';
-					echo '<span class="rencType">'.__('Liste &agrave; choix multiples (CHECKBOX)','rencontre').'</span>';
+					echo '<a href="javascript:void(0)" class="rencPlus" onClick="f_plus('.$r->id.',\'t_valeur\',\'\',\''.$loc2.'\');" title="'.__('Add Value','rencontre').'"></a>';
+					echo '<span class="rencType">'.__('Multiple choice list (CHECKBOX)','rencontre').'</span>';
 					$s = json_decode($r->t_valeur);
 					$s1=Array(); $s2=Array(); foreach($q1 as $r1) { $s1[] = json_decode($r1->t_valeur); $s2[] = $r1->c_lang; }
 					$c=0;
@@ -927,8 +927,8 @@ class Rencontre
 							$a4 .= $s2[$v] . '=' . $s1[$v][$c] . '&';
 							$t .= ($v!=0?'<br />':''). '<span style="margin:0 0 0 37px;color:#777;">'.$s2[$v].' : '.$s1[$v][$c]. '</span>';
 							}
-						echo '<br /><a href="javascript:void(0)" class="rencEdit" onClick="f_edit('.$r->id.',\'t_valeur\',\''.urlencode($a4).'\','.$c.');" title="'.__('Modifier','rencontre').'"></a>';
-						echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_supp('.$r->id.',\'t_valeur\','.$c.');" title="'.__('Supprimer','rencontre').'"></a>';
+						echo '<br /><a href="javascript:void(0)" class="rencEdit" onClick="f_edit('.$r->id.',\'t_valeur\',\''.urlencode($a4).'\','.$c.');" title="'.__('Change','rencontre').'"></a>';
+						echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_supp('.$r->id.',\'t_valeur\','.$c.');" title="'.__('Remove','rencontre').'"></a>';
 						echo $ss . '<br />';
 						echo $t . "\r\n";
 						++$c;
@@ -986,16 +986,16 @@ class Rencontre
 			</form>
 			<div class='icon32' id='icon-options-general'><br/></div>
 			<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $this->version; ?></span></h2>
-			<h2><?php _e('Pays et R&eacute;gions', 'rencontre'); ?></h2>
+			<h2><?php _e('Countries and Regions', 'rencontre'); ?></h2>
 			<?php $n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_liste");
 			if($n==0)
 				{
-				echo "<p>".__('La table des pays est vide. Vous pouvez charger les pays et r&eacute;gions par d&eacute;faut si vous le souhaitez.', 'rencontre')."</p>";
-				echo "<a href='javascript:void(0)' class='button-primary' onClick='document.forms[\"menu_liste\"].elements[\"a1\"].value=\"pays\";document.forms[\"menu_liste\"].elements[\"a2\"].value=\"pays\";document.forms[\"menu_liste\"].submit();'>". __('Charger pays', 'rencontre')."</a>";
+				echo "<p>".__('The country table is empty. You can load the countries and regions by default if you wish.', 'rencontre')."</p>";
+				echo "<a href='javascript:void(0)' class='button-primary' onClick='document.forms[\"menu_liste\"].elements[\"a1\"].value=\"pays\";document.forms[\"menu_liste\"].elements[\"a2\"].value=\"pays\";document.forms[\"menu_liste\"].submit();'>". __('Load countries', 'rencontre')."</a>";
 				} ?>
 			
-			<p><?php _e('Vous pouvez cr&eacute;er, renommer et supprimer les pays et r&eacute;gions.', 'rencontre'); ?></p>
-			<h3><?php _e('Langue de r&eacute;f&eacute;rence', 'rencontre'); echo ' : <span style="color:#700;">'.$loc.'</span> --- ' . __('Autres', 'rencontre').'&nbsp;:&nbsp;';
+			<p><?php _e('You can create, rename and delete countries and regions.', 'rencontre'); ?></p>
+			<h3><?php _e('Ref language', 'rencontre'); echo ' : <span style="color:#700;">'.$loc.'</span> --- ' . __('Other', 'rencontre').'&nbsp;:&nbsp;';
 			$ls = '';
 			foreach($q2 as $r2)
 				{
@@ -1008,23 +1008,23 @@ class Rencontre
 			?></h3>
 			<ul>
 				<li>
-					<label><?php _e('Ajouter une langue (2 lettres minuscules conformes au code du pays)', 'rencontre'); ?>&nbsp;</label>&nbsp;
+					<label><?php _e('Add Language (2 lowercase letters comply with country code)', 'rencontre'); ?>&nbsp;</label>&nbsp;
 					<input type="text" name="langplus" maxlength="2" size="2" />
-					<a href='javascript:void(0)' class='button-primary' onClick='f_liste_langplus();'><?php _e('Ajouter une langue', 'rencontre'); ?></a>
+					<a href='javascript:void(0)' class='button-primary' onClick='f_liste_langplus();'><?php _e('Add a language', 'rencontre'); ?></a>
 				</li>
 				<li>
-					<label><?php _e('Supprimer une langue et tout le contenu associ&eacute;', 'rencontre'); ?>&nbsp;</label>&nbsp;
+					<label><?php _e('Remove a language and all related content', 'rencontre'); ?>&nbsp;</label>&nbsp;
 					<select id="langsupp">
 						<?php echo $ls; ?>
 					</select>
-					<a href='javascript:void(0)' class='button-primary' onClick='f_liste_langsupp();'><?php _e('Supprimer une langue', 'rencontre'); ?></a>
+					<a href='javascript:void(0)' class='button-primary' onClick='f_liste_langsupp();'><?php _e('Remove a language', 'rencontre'); ?></a>
 				</li>
 			</ul>
 			<br />
 			<div id="edit_liste"></div>
 			<div style='margin:8px 12px 12px;'>
 				<a href='javascript:void(0)' class='rencPlus' onClick='f_liste_plus(0,"p","","<?php echo $loc2; ?>");' title='Ajouter un pays'></a>
-				<span style='font-style:italic;'><?php _e('Ajouter un pays','rencontre');?></span>
+				<span style='font-style:italic;'><?php _e('Add a country','rencontre');?></span>
 			</div>
 			<?php
 			$q = $wpdb->get_results("SELECT c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' GROUP BY c_liste_iso"); // liste des codes ISO
@@ -1039,19 +1039,19 @@ class Rencontre
 					$a4 .= $r1->c_liste_lang . '=' . $r1->c_liste_valeur . '&';
 					}
 				echo '<div class="rencLabel">';
-				echo '<a href="javascript:void(0)" class="rencEdit" onClick="f_liste_edit(\''.$r->c_liste_iso.'\',\'p\',\''.urlencode($a4).'\');" title="'.__('Modifier le nom ou le type','rencontre').'"></a>';
-				echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_liste_supp(\''.$r->c_liste_iso.'\',\'p\',0);" title="'.__('Supprimer','rencontre').'"></a>';
+				echo '<a href="javascript:void(0)" class="rencEdit" onClick="f_liste_edit(\''.$r->c_liste_iso.'\',\'p\',\''.urlencode($a4).'\');" title="'.__('Change the name or type','rencontre').'"></a>';
+				echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_liste_supp(\''.$r->c_liste_iso.'\',\'p\',0);" title="'.__('Remove','rencontre').'"></a>';
 				echo $out1.'&nbsp;('.$r->c_liste_iso.')<br />';
 				if(isset($drap[$r->c_liste_iso])) echo '<img style="position:absolute;width:30px;height:20px;" src="'.plugins_url('rencontre/images/drapeaux/').$drap[$r->c_liste_iso].'" />';
 				echo $out . '</div><div style="height:5px;"></div>';
 				echo '<div class="rencValeur">';
-				echo '<a href="javascript:void(0)" class="rencPlus" onClick="f_liste_plus(\''.$r->c_liste_iso.'\',\'r\',\'\',\''.$loc2.'\');" title="'.__('Ajouter une valeur','rencontre').'"></a>';
-				echo '<span class="rencType">'.__('R&eacute;gions','rencontre').'</span>';
+				echo '<a href="javascript:void(0)" class="rencPlus" onClick="f_liste_plus(\''.$r->c_liste_iso.'\',\'r\',\'\',\''.$loc2.'\');" title="'.__('Add Value','rencontre').'"></a>';
+				echo '<span class="rencType">'.__('Regions','rencontre').'</span>';
 				$q2 = $wpdb->get_results("SELECT id, c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_iso='".$r->c_liste_iso."' and c_liste_categ='r' ");
 				foreach($q2 as $r2)
 					{
-					echo '<br /><a href="javascript:void(0)" class="rencEdit" onClick="f_liste_edit('.$r2->id.',\'r\',\''.$r2->c_liste_valeur.'\');" title="'.__('Modifier','rencontre').'"></a>';
-					echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_liste_supp('.$r2->id.',\'r\',0);" title="'.__('Supprimer','rencontre').'"></a>';
+					echo '<br /><a href="javascript:void(0)" class="rencEdit" onClick="f_liste_edit('.$r2->id.',\'r\',\''.$r2->c_liste_valeur.'\');" title="'.__('Change','rencontre').'"></a>';
+					echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_liste_supp('.$r2->id.',\'r\',0);" title="'.__('Remove','rencontre').'"></a>';
 					echo '<span style="margin:0 0 0 5px;color:#777;">'.$r2->c_liste_valeur. '</span>' . "\r\n";
 					}
 				echo '</div><br style="clear:left;"/>'."\r\n";
@@ -1082,8 +1082,8 @@ class Rencontre
 				if ($rencOpt['mailsupp'])
 					{
 					$q = $wpdb->get_var("SELECT user_email FROM ".$wpdb->prefix."users WHERE ID='".$current_user->ID."'");
-					$objet  = wp_specialchars_decode($rencDiv['blogname'], ENT_QUOTES).' - '.__('Suppression du compte','rencontre');
-					$message  = __('Votre compte a &eacute;t&eacute; supprim&eacute;','rencontre');
+					$objet  = wp_specialchars_decode($rencDiv['blogname'], ENT_QUOTES).' - '.__('Account deletion','rencontre');
+					$message  = __('Your account has been deleted','rencontre');
 					@wp_mail($q, $objet, $message);
 					}
 				}
@@ -1208,7 +1208,7 @@ class Rencontre
 					}
 				else $out.='<img class="tete" src="'.plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$r->display_name.'" />';
 				$out.='<div><h3>'.$r->display_name.'</h3>';
-				$out.='<div class="monAge">'.Rencontre::f_age($r->d_naissance).'&nbsp;'.__('ans','rencontre').'</div>';
+				$out.='<div class="monAge">'.Rencontre::f_age($r->d_naissance).'&nbsp;'.__('years','rencontre').'</div>';
 				$out.='<div class="maVille">'.$r->c_ville.'</div></div>';
 				$out.='<p style="width:100%;">'.$b.'</p>';
 				$out.='</a></div><div style="font-size:0.8em;padding:2px 2px 0 4px;">'.$a; 

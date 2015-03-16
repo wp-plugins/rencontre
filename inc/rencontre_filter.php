@@ -167,7 +167,7 @@ function f_cron_on($cronBis=0)
 			$q = $wpdb->get_results("SELECT U.ID, U.user_login, U.user_email, R.user_id FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R WHERE d_naissance LIKE '%".date('m-d')."' AND U.ID=R.user_id LIMIT ".floor(max(0, $rencOpt['qmail']*.1)) );
 			foreach($q as $r)
 				{
-				$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>".__('Bonjour','rencontre')." ".$r->user_login.","."\r\n";
+				$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>".__('Hello','rencontre')." ".$r->user_login.","."\r\n";
 				if ($rencOpt['textanniv'] && strlen($rencOpt['textanniv'])>10) $s .= "<br />".nl2br(stripslashes($rencOpt['textanniv']))."\r\n";
 				$he = '';
 				if(!has_filter('wp_mail') && !has_filter('wp_mail_content_type'))
@@ -261,10 +261,10 @@ function f_cron_on($cronBis=0)
 		if ($rencOpt['mailmois'] && $ct<=$max)
 			{
 			// BONJOUR
-			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>".__('Bonjour','rencontre')."&nbsp;".$r->user_login.","."\r\n";
+			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>".__('Hello','rencontre')."&nbsp;".$r->user_login.","."\r\n";
 			if ($rencOpt['textmail'] && strlen($rencOpt['textmail'])>10) $s .= "<br />".nl2br(stripslashes($rencOpt['textmail']))."\r\n";
 			// NBR VISITES
-			$s .= "<p class='mot2'>".__('Votre profil a &eacute;t&eacute; visit&eacute;','rencontre')."&nbsp;<span class='mot1'>".count($action['visite'])."&nbsp;".__('fois','rencontre')."</span>.</p>";
+			$s .= "<p class='mot2'>".__('Your profile has been visited','rencontre')."&nbsp;<span class='mot1'>".count($action['visite'])."&nbsp;".__('time','rencontre')."</span>.</p>";
 			// PROPOSITIONS
 			$zmin=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d"), date("Y")-$r->i_zage_min));
 			$zmax=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d"), date("Y")-$r->i_zage_max));
@@ -274,7 +274,7 @@ function f_cron_on($cronBis=0)
 					ORDER BY U.user_registered DESC LIMIT 4");
 			if ($q1)
 				{
-				$s .= "<p class='mot2'>".__('Voici une s&eacute;lection de membres qui pourraient vous int&eacute;resser','rencontre')." :</p><table class='tab' cellspacing='7'><tr>";
+				$s .= "<p class='mot2'>".__('Here\'s a selection of members that may interest you','rencontre')." :</p><table class='tab' cellspacing='7'><tr>";
 				foreach($q1 as $r1)
 					{
 					if (file_exists($rencDiv['basedir']."/portrait/".floor($r1->ID/1000)."/".($r1->ID*10)."-mini.jpg")) $u = $rencDiv['baseurl']."/portrait/".floor($r1->ID/1000)."/".($r1->ID*10)."-mini.jpg";
@@ -285,7 +285,7 @@ function f_cron_on($cronBis=0)
 					if ($today['mois'] <= $mois) {if ($mois == $today['mois']) {if ($jour > $today['jour'])$age--;}else $age--;}
 					$s .= "<td><a href='".esc_url(home_url('/'))."index.php?rencidfm=".$r1->ID."' target='_blank'>";
 					$s .= "<div class='box1'><img src='".$u."' alt='".substr($r1->user_login,0,10)."'/><div class='box2'>";
-					$s .= "<div class='nom'>".substr($r1->user_login,0,10)."</div><div class='age'>".$age."&nbsp;".__('ans','rencontre')."</div><div class='ville'>".$r1->c_ville."</div></div>";
+					$s .= "<div class='nom'>".substr($r1->user_login,0,10)."</div><div class='age'>".$age."&nbsp;".__('years','rencontre')."</div><div class='ville'>".$r1->c_ville."</div></div>";
 					$s .= "<p><img class='drap' src='".plugins_url('rencontre/images/drapeaux/').$drap[$r1->c_pays]."' />";
 					$s .= substr($r1->t_titre,0,45)."</p></div>";
 					$s .= "</a>"."\r\n"."</td>";
@@ -295,7 +295,7 @@ function f_cron_on($cronBis=0)
 			// SOURIRES
 			if (isset($action['sourireIn']) && count($action['sourireIn']))
 				{
-				$t = "<p class='mot2'>".__('Vous avez re&ccedil;u un sourire de','rencontre')." :</p><table class='tab'><tr>";
+				$t = "<p class='mot2'>".__('You have received a smile from','rencontre')." :</p><table class='tab'><tr>";
 				$c = 0;
 				for ($v=0; $v<count($action['sourireIn']);++$v)
 					{
@@ -315,7 +315,7 @@ function f_cron_on($cronBis=0)
 			// DEMANDES DE CONTACT
 			if (isset($action['contactIn']) && count($action['contactIn']))
 				{
-				$t = "<p class='mot2'>".__('Vous avez re&ccedil;u une demande de contact de','rencontre')." :</p><table class='tab'><tr>";
+				$t = "<p class='mot2'>".__('You have received a contact request from','rencontre')." :</p><table class='tab'><tr>";
 				$c = 0;
 				for ($v=0; $v<count($action['contactIn']);++$v)
 					{
@@ -334,9 +334,9 @@ function f_cron_on($cronBis=0)
 				}
 			// MESSAGES
 			$n = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_msg M WHERE M.recipient='".$r->user_login."' and M.read=0 and M.deleted=0");
-			if ($n) $s .= "<p class='mot2'>".__('Vous avez','rencontre')."&nbsp;<span class='mot1'>".$n."&nbsp;".(($n>1)?__('messages','rencontre'):__('message','rencontre'))."</span>&nbsp;".__('dans votre boite de r&eacute;ception.','rencontre').'</p>';
+			if ($n) $s .= "<p class='mot2'>".__('You have','rencontre')."&nbsp;<span class='mot1'>".$n."&nbsp;".(($n>1)?__('messages','rencontre'):__('message','rencontre'))."</span>&nbsp;".__('in your inbox.','rencontre').'</p>';
 			// MOT DE LA FIN
-			$s .= "<p>".__("N'h&eacute;sitez pas &agrave; nous faire part de vos remarques.",'rencontre')."<br /><br />".__('Cordialement,','rencontre')."<br />".$bn."</p></div>"."\r\n";
+			$s .= "<p>".__("Do not hesitate to send us your comments.",'rencontre')."<br /><br />".__('Regards,','rencontre')."<br />".$bn."</p></div>"."\r\n";
 			//
 			$s1 .= $s;
 			$he = '';
@@ -432,11 +432,11 @@ function f_cron_liste($d2)
 			{
 			$b = 0;
 			$action= json_decode($r->t_action,true);
-			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;color:#000;'>".__('Bonjour','rencontre')."&nbsp;".$r->user_login.","."\r\n";
+			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;color:#000;'>".__('Hello','rencontre')."&nbsp;".$r->user_login.","."\r\n";
 			if (count($action['contactIn']))
 				{
 				$b = 1;
-				$s .= "<p>".__('Vous avez re&ccedil;u une demande de contact de','rencontre')."</p><table><tr>";
+				$s .= "<p>".__('You have received a contact request from','rencontre')."</p><table><tr>";
 				$v = count($action['contactIn'])-1;
 				$q1 = $wpdb->get_var("SELECT U.user_login FROM ".$wpdb->prefix."users U WHERE ID='".$action['contactIn'][$v]['i']."'");
 				if ($q1)
@@ -451,9 +451,9 @@ function f_cron_liste($d2)
 			if ($n)
 				{
 				$b = 1;
-				$s .= "<p>".__('Vous avez','rencontre')."&nbsp;".$n."&nbsp;".(($n>1)?__('messages','rencontre'):__('message','rencontre'))."&nbsp;".__('dans votre boite de r&eacute;ception.','rencontre')."</p>";
+				$s .= "<p>".__('You have','rencontre')."&nbsp;".$n."&nbsp;".(($n>1)?__('messages','rencontre'):__('message','rencontre'))."&nbsp;".__('in your inbox.','rencontre')."</p>";
 				}
-			$s .= "<br /><br />".__('Cordialement,','rencontre')."<br />".$bn."</div>";
+			$s .= "<br /><br />".__('Regards,','rencontre')."<br />".$bn."</div>";
 			if($b)
 				{
 				$he = '';
@@ -463,7 +463,7 @@ function f_cron_liste($d2)
 					$he[] = 'Content-type: text/html';
 					$s = '<html><head></head><body>' . $s . '</body></html>';
 					}
-				@wp_mail($r->user_email, $bn." - ".__('Un membre vous contacte','rencontre'), $s, $he);
+				@wp_mail($r->user_email, $bn." - ".__('A member contact you','rencontre'), $s, $he);
 				++$cm;
 				}
 			$d = filemtime(dirname(__FILE__).'/cron_liste/'.$r->ID.'.txt');
@@ -521,7 +521,7 @@ function prevent_admin_access()
 function f_admin_bar($content) { return (current_user_can("administrator")) ? $content : false; }
 function f_regionBDD()
 	{ 
-	echo '<option value="">- '.__('Indiff&eacute;rent','rencontre').' -</option>';
+	echo '<option value="">- '.__('Immaterial','rencontre').' -</option>';
 	global $wpdb; 
 	$iso = strip_tags($_POST['pays']);
 	$q = $wpdb->get_results("SELECT id, c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_iso='".$iso."' and c_liste_categ='r' ");
@@ -558,11 +558,11 @@ function retrieve_password_message2($old_message, $key)
 	else $u = get_user_by('slug',$_POST['user_login']);
 	wp_set_password($p,$u->id); // changement MdP
 	// 2. mail
-	$message = __('Une personne a demand&eacute; un nouveau mot de passe pour ce compte.','rencontre')."<br />";
+	$message = __('Someone requested a new password for this account.','rencontre')."<br />";
 	$message .= network_site_url()."<br /><br />";
 	$message .= sprintf(__('Login : %s','rencontre'), $u->user_login)."<br /><br />";
-	$message .= __('Le mot de passe a &eacute;t&eacute; chang&eacute;. Vous pouvez maintenant vous connecter et le changer &agrave; nouveau depuis votre interface si vous le souhaitez.','rencontre')."<br /><br />";
-	$message .= __('Nouveau mot de passe : ','rencontre').$p;
+	$message .= __('The password has been changed. You can log in and change it from your interface if you want.','rencontre')."<br /><br />";
+	$message .= __('New password :','rencontre').'&nbsp;'.$p;
 	return $message;
 	}
 //
