@@ -1,0 +1,1437 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: rencontre\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-03-16 23:42+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: jacques Malgrange <contacter@boiteasite.fr>\n"
+"Language-Team: boiteasite.fr <contacter@boiteasite.fr>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Danish\n"
+"X-Poedit-Country: DENMARK\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../rencontre.php:25
+msgid "You have to install countries"
+msgstr "Du skal installere de lande"
+
+#: ../rencontre.php:29
+msgid "You have to deactivate then reactivate the plugin"
+msgstr "Du er n&oslash;dt til at deaktivere og derefter genaktivere plugin"
+
+#: ../rencontre.php:203
+msgid "Rencontre - General"
+msgstr "Dating - generelt"
+
+#: ../rencontre.php:203
+#: ../rencontre.php:264
+msgid "General"
+msgstr "Generelt"
+
+#: ../rencontre.php:204
+msgid "Rencontre - Members"
+msgstr "Dating - profiler"
+
+#: ../rencontre.php:204
+#: ../rencontre.php:466
+msgid "Members"
+msgstr "Profiler"
+
+#: ../rencontre.php:205
+msgid "Rencontre - Jail"
+msgstr "Dating - f&aelig;ngsel"
+
+#: ../rencontre.php:205
+#: ../rencontre.php:704
+msgid "Jail"
+msgstr "F&aelig;ngsel"
+
+#: ../rencontre.php:206
+msgid "Rencontre - Profile"
+msgstr "Daring - profil"
+
+#: ../rencontre.php:206
+#: ../rencontre.php:789
+#: ../inc/rencontre_widget.php:886
+#: ../inc/rencontre_widget.php:1664
+msgid "Profile"
+msgstr "Profil"
+
+#: ../rencontre.php:207
+msgid "Rencontre - Countries"
+msgstr "Dating - lande"
+
+#: ../rencontre.php:207
+#: ../rencontre.php:533
+#: ../inc/rencontre_widget.php:573
+#: ../inc/rencontre_widget.php:1471
+#: ../lang/rencontre-js-admin-lang.php:12
+msgid "Country"
+msgstr "Land"
+
+#: ../rencontre.php:268
+msgid "Framework for the Facebook Like button"
+msgstr "Rammerne for knappen Facebook Like"
+
+#: ../rencontre.php:272
+msgid "AppID for Facebook connection (empty if not installed)"
+msgstr "AppID for Facebook-forbindelse (tom hvis ikke installeret)"
+
+#: ../rencontre.php:277
+msgid "Page where is settled the plugin"
+msgstr "Side hvor plugin er placeret"
+
+#: ../rencontre.php:289
+msgid "Country selected by default"
+msgstr "Land valgt som standard"
+
+#: ../rencontre.php:298
+msgid "Number of portrait homepage unconnected"
+msgstr "Antal sider unden tilknytning"
+
+#: ../rencontre.php:302
+msgid "Number of days to wait before presence homepage"
+msgstr "Antal dage f&oslash;r hjemmesiden vises"
+
+#: ../rencontre.php:306
+msgid "Number of days in jail (deleted account)"
+msgstr "Dage i f&aelig;ngsel ( slettede profiler )"
+
+#: ../rencontre.php:310
+msgid "Max number of results per search"
+msgstr "Max antal resultater der kan vises per s&oslash;gning"
+
+#: ../rencontre.php:314
+#: ../inc/rencontre_widget.php:624
+msgid "Today's birthday"
+msgstr "De har f&oslash;dselsdag i dag"
+
+#: ../rencontre.php:318
+msgid "Profiles currently online"
+msgstr "Profiler der er online"
+
+#: ../rencontre.php:322
+msgid "Enable chat"
+msgstr "Tilf&oslash;j Chat"
+
+#: ../rencontre.php:326
+msgid "Enable Google-Map"
+msgstr "Aktiver google-map"
+
+#: ../rencontre.php:330
+msgid "Number of photos"
+msgstr "Antallet af billeder"
+
+#: ../rencontre.php:342
+msgid "View a discrete copyright on photos"
+msgstr "S&aelig;t en diskret copyright p&aring; billeder"
+
+#: ../rencontre.php:345
+#: ../rencontre.php:367
+msgid "No"
+msgstr "Ingen"
+
+#: ../rencontre.php:346
+msgid "Upwardly inclined"
+msgstr "Vippes op"
+
+#: ../rencontre.php:347
+msgid "Downwardly inclined"
+msgstr "Skrå nedadgående"
+
+#: ../rencontre.php:352
+msgid "Copyright text on pictures. Empty => Site URL."
+msgstr "Copyright tekst på billeder. Tom => site URL."
+
+#: ../rencontre.php:356
+msgid "Members without photo less visible"
+msgstr "Profiler uden foto er mindre synlige"
+
+#: ../rencontre.php:360
+msgid "Send an email to the user whose account is deleted"
+msgstr "Send e-mail til bruger n&aring;r profilen er slettet"
+
+#: ../rencontre.php:364
+msgid "Automatic sending a summary email to members (shared daily)"
+msgstr "Automatisk sende en email resumé til medlemmerne (distribueret hver dag)"
+
+#: ../rencontre.php:368
+msgid "Monthly"
+msgstr "Månedlige"
+
+#: ../rencontre.php:369
+msgid "Fortnightly"
+msgstr "Hver fjortende dag"
+
+#: ../rencontre.php:370
+msgid "Weekly"
+msgstr "Ugentlig"
+
+#: ../rencontre.php:374
+#: ../rencontre.php:404
+msgid "Up this week"
+msgstr "I alt denne uge"
+
+#: ../rencontre.php:374
+#: ../rencontre.php:404
+msgid "mail/hour"
+msgstr "e-mail/timer"
+
+#: ../rencontre.php:374
+msgid "sent during maintenance"
+msgstr "sendes under vedligeholdelse"
+
+#: ../rencontre.php:379
+msgid "Hour maintenance tasks (off peak)"
+msgstr "Tid for vedligeholdesopgaver"
+
+#: ../rencontre.php:382
+msgid "hours"
+msgstr "timer"
+
+#: ../rencontre.php:387
+msgid "Introductory text for the monthly email (After hello login - Before the smiles and contact requests)"
+msgstr "Indledende tekst til den m&aring;nedlige e-mail (Efter goddag login - F&oslash;r smil, anmodninger og kontaktoplysninger)"
+
+#: ../rencontre.php:391
+msgid "Automatically sending an email happy birthday members"
+msgstr "Send automatisk e-mail til profiler der har f&oslash;dselsdag"
+
+#: ../rencontre.php:395
+msgid "Full text for the birthday mail (After hello pseudo)"
+msgstr "F&oslash;dselsdags tekst til e-mail, efter Hej og profilnavnet"
+
+#: ../rencontre.php:399
+msgid "Max number of mails sent per hour"
+msgstr "Max antal e-mails der kan sende per time"
+
+#: ../rencontre.php:404
+msgid "except during maintenance"
+msgstr "undtagen i forbindelse med vedligeholdelse"
+
+#: ../rencontre.php:410
+#: ../inc/rencontre_widget.php:1912
+#: ../lang/rencontre-js-admin-lang.php:4
+msgid "Save"
+msgstr "Gem"
+
+#: ../rencontre.php:414
+msgid "Export members in CSV"
+msgstr "Eksport medlemmer i CSV"
+
+#: ../rencontre.php:416
+msgid "Export in CSV"
+msgstr "Eksport i CSV"
+
+#: ../rencontre.php:419
+msgid "Get back photos by FTP in wp-content/uploads/tmp/"
+msgstr "Kom tilbage billeder via FTP i wp-content/uploads/tmp/"
+
+#: ../rencontre.php:422
+msgid "Import members in CSV"
+msgstr "Importer medlemmer i CSV"
+
+#: ../rencontre.php:423
+msgid "Put members photos in wp-content/uploads/tmp/photo_import/ by FTP before the start (right RW - no sub folder)."
+msgstr "Put medlemmernes billeder i wp-content/uploads/tmp/photo_import/ via FTP før start (højre RW - ingen undermappe)"
+
+#: ../rencontre.php:424
+msgid "Make an export and look at it to get the right format (The first line is not treated)."
+msgstr "Foretag en eksport og se på det for at få det rigtige format (første linje ikke behandles)."
+
+#: ../rencontre.php:425
+msgid "In case of interruption during the import of photos, restart the procedure. Doubloons are killed."
+msgstr "I tilfælde af afbrydelse under import af billeder, begynde forfra proceduren. Dubloner bliver dræbt."
+
+#: ../rencontre.php:428
+msgid "CSV File"
+msgstr "CSV fil"
+
+#: ../rencontre.php:434
+msgid "Import in CSV"
+msgstr "Import i CSV"
+
+#: ../rencontre.php:435
+msgid "File loaded"
+msgstr "indlæst"
+
+#: ../rencontre.php:436
+msgid "Error !"
+msgstr "Fejl !"
+
+#: ../rencontre.php:437
+msgid "Import data completed"
+msgstr "Importer data afsluttet"
+
+#: ../rencontre.php:438
+msgid "Photos Import"
+msgstr "Billeder Import"
+
+#: ../rencontre.php:440
+msgid "Import completed"
+msgstr "import afsluttet"
+
+#: ../rencontre.php:470
+msgid "Number of registered members"
+msgstr "Antal af registerede profiler"
+
+#: ../rencontre.php:471
+msgid "Number of members with profile and photo"
+msgstr "Antal af profiler med foto"
+
+#: ../rencontre.php:474
+#: ../rencontre.php:526
+#: ../inc/rencontre_widget.php:1554
+msgid "Alias"
+msgstr "Alias"
+
+#: ../rencontre.php:476
+#: ../inc/rencontre_widget.php:585
+#: ../inc/rencontre_widget.php:1560
+msgid "Find"
+msgstr "S&oslash;g"
+
+#: ../rencontre.php:487
+#: ../rencontre.php:1085
+#: ../inc/rencontre_widget.php:1917
+msgid "Account deletion"
+msgstr "Sletning af profil og konto"
+
+#: ../rencontre.php:488
+#: ../rencontre.php:1086
+msgid "Your account has been deleted"
+msgstr "Din konto er slettet"
+
+#: ../rencontre.php:524
+#: ../rencontre.php:526
+#: ../rencontre.php:528
+#: ../rencontre.php:533
+#: ../rencontre.php:534
+#: ../rencontre.php:535
+#: ../rencontre.php:536
+#: ../rencontre.php:730
+#: ../rencontre.php:731
+#: ../rencontre.php:732
+msgid "Sort"
+msgstr "Sortere"
+
+#: ../rencontre.php:525
+msgid "Photo"
+msgstr "Foto"
+
+#: ../rencontre.php:527
+msgid "Sex"
+msgstr "Sex"
+
+#: ../rencontre.php:528
+#: ../inc/rencontre_widget.php:539
+#: ../inc/rencontre_widget.php:559
+#: ../inc/rencontre_widget.php:1419
+msgid "Age"
+msgstr "Alder"
+
+#: ../rencontre.php:529
+#: ../inc/rencontre_widget.php:1436
+msgid "Size"
+msgstr "St&oslash;rrelse"
+
+#: ../rencontre.php:530
+#: ../inc/rencontre_widget.php:1453
+msgid "Weight"
+msgstr "V&aelig;gt"
+
+#: ../rencontre.php:531
+#: ../inc/rencontre_widget.php:54
+#: ../inc/rencontre_widget.php:1411
+msgid "Search"
+msgstr "S&oslash;gning"
+
+#: ../rencontre.php:532
+msgid "Hang"
+msgstr "Hang"
+
+#: ../rencontre.php:534
+msgid "Ad (change)"
+msgstr "Annonce &aelig;ndring"
+
+#: ../rencontre.php:535
+#: ../rencontre.php:732
+msgid "IP address"
+msgstr "IP adresse"
+
+#: ../rencontre.php:536
+msgid "Reporting"
+msgstr "Rapportering"
+
+#: ../rencontre.php:537
+#: ../lang/rencontre-js-admin-lang.php:6
+msgid "Del"
+msgstr "Slet"
+
+#: ../rencontre.php:545
+#: ../rencontre.php:546
+msgid "See"
+msgstr "Se"
+
+#: ../rencontre.php:548
+#: ../inc/rencontre_widget.php:139
+#: ../inc/rencontre_widget.php:221
+#: ../inc/rencontre_widget.php:305
+#: ../inc/rencontre_widget.php:1795
+#: ../inc/rencontre_widget.php:1884
+msgid "Man"
+msgstr "mand"
+
+#: ../rencontre.php:548
+#: ../inc/rencontre_widget.php:140
+#: ../inc/rencontre_widget.php:222
+#: ../inc/rencontre_widget.php:305
+#: ../inc/rencontre_widget.php:1796
+#: ../inc/rencontre_widget.php:1885
+msgid "Woman"
+msgstr "Kvinde"
+
+#: ../rencontre.php:552
+#: ../inc/rencontre_widget.php:237
+#: ../inc/rencontre_widget.php:314
+#: ../inc/rencontre_widget.php:542
+#: ../inc/rencontre_widget.php:879
+#: ../inc/rencontre_widget.php:1659
+#: ../inc/rencontre_widget.php:1906
+msgid "Serious relationship"
+msgstr "K&aelig;reste dating"
+
+#: ../rencontre.php:552
+#: ../inc/rencontre_widget.php:238
+#: ../inc/rencontre_widget.php:314
+#: ../inc/rencontre_widget.php:542
+#: ../inc/rencontre_widget.php:879
+#: ../inc/rencontre_widget.php:1659
+#: ../inc/rencontre_widget.php:1907
+msgid "Open relationship"
+msgstr "Sex dating"
+
+#: ../rencontre.php:552
+#: ../inc/rencontre_widget.php:239
+#: ../inc/rencontre_widget.php:314
+#: ../inc/rencontre_widget.php:542
+#: ../inc/rencontre_widget.php:879
+#: ../inc/rencontre_widget.php:1659
+#: ../inc/rencontre_widget.php:1908
+msgid "Friendship"
+msgstr "Venskab"
+
+#: ../rencontre.php:554
+#: ../inc/rencontre_widget.php:565
+#: ../inc/rencontre_widget.php:1426
+#: ../inc/rencontre_widget.php:1443
+#: ../inc/rencontre_widget.php:1461
+msgid "to"
+msgstr "til"
+
+#: ../rencontre.php:568
+#: ../rencontre.php:878
+#: ../rencontre.php:907
+#: ../rencontre.php:931
+#: ../rencontre.php:1043
+#: ../rencontre.php:1054
+#: ../lang/rencontre-js-admin-lang.php:7
+msgid "Remove"
+msgstr "Slet"
+
+#: ../rencontre.php:607
+msgid "Change My Profile"
+msgstr "Skift min profil"
+
+#: ../rencontre.php:608
+#: ../inc/rencontre_widget.php:895
+#: ../inc/rencontre_widget.php:1673
+msgid "Previous page"
+msgstr "Forige side"
+
+#: ../rencontre.php:609
+msgid "Back Members"
+msgstr "Forige profil"
+
+#: ../rencontre.php:613
+#: ../inc/rencontre_widget.php:467
+msgid "Save profile"
+msgstr "Gem profil"
+
+#: ../rencontre.php:622
+#: ../inc/rencontre_widget.php:438
+msgid "Click to delete"
+msgstr "Klik for at slette"
+
+#: ../rencontre.php:625
+#: ../inc/rencontre_widget.php:441
+msgid "Click to add a photo"
+msgstr "Klik for at tilf&oslash;je billede"
+
+#: ../rencontre.php:629
+#: ../inc/rencontre_widget.php:446
+msgid "Delete all photos"
+msgstr "Slet alle billeder"
+
+#: ../rencontre.php:640
+#: ../inc/rencontre_widget.php:460
+msgid "My attention-catcher"
+msgstr "Min karakter"
+
+#: ../rencontre.php:642
+#: ../inc/rencontre_widget.php:462
+msgid "My ad"
+msgstr "Min annonce"
+
+#: ../rencontre.php:682
+#: ../inc/rencontre_widget.php:453
+msgid "Done"
+msgstr "F&aelig;rdig"
+
+#: ../rencontre.php:730
+#: ../inc/rencontre_widget.php:1293
+#: ../inc/rencontre_widget.php:1318
+#: ../inc/rencontre_widget.php:1361
+msgid "Date"
+msgstr "Dato"
+
+#: ../rencontre.php:731
+msgid "Email address"
+msgstr "E-mail adresse"
+
+#: ../rencontre.php:733
+msgid "End"
+msgstr "Slut"
+
+#: ../rencontre.php:743
+msgid "Release"
+msgstr "Frigivet"
+
+#: ../rencontre.php:793
+msgid "It does not appear to be any profile. You can load the default profile if you wish."
+msgstr "Der er ikke nogen profil. Du kan indl&aelig;se en standard profil, hvis du &oslash;nsker det."
+
+#: ../rencontre.php:794
+msgid "Load profiles"
+msgstr "Vis profiler"
+
+#: ../rencontre.php:799
+#: ../rencontre.php:993
+msgid "The country table is empty. You can load the countries and regions by default if you wish."
+msgstr "Lande tabellen er tom. Du kan indl&aelig;se de lande og regioner du &oslash;nsker som standard."
+
+#: ../rencontre.php:800
+#: ../rencontre.php:994
+msgid "Load countries"
+msgstr "Vis lande"
+
+#: ../rencontre.php:804
+msgid "Update member profile"
+msgstr "Opdater profil"
+
+#: ../rencontre.php:805
+msgid "You have made changes. Remember to update when you're done."
+msgstr "Du har foretaget &aelig;ndringer, husk at gemme n&aring;r du er f&aelig;rdig"
+
+#: ../rencontre.php:808
+msgid "You can create, rename and delete items from the profile."
+msgstr "Du kan oprette, omd&oslash;be og slette indhold fra profilen."
+
+#: ../rencontre.php:810
+msgid "Warning, this is not without consequences. The changes will be applied to the member profiles that can offend. Caution !"
+msgstr "Advarsel, dette er ikke uden konsekvenser. &aelig;ndringerne vil blive anvendt til medlemslandene profiler, der kan chokere. Forsigtig!"
+
+#: ../rencontre.php:812
+#: ../rencontre.php:998
+msgid "Ref language"
+msgstr "Refererende sprog"
+
+#: ../rencontre.php:812
+#: ../rencontre.php:998
+msgid "Other"
+msgstr "Andre"
+
+#: ../rencontre.php:825
+#: ../rencontre.php:1011
+msgid "Add Language (2 lowercase letters comply with country code)"
+msgstr "Tilf&oslash;j sprog (2 sm&aring; bogstaver i overensstemmelse med landekode)"
+
+#: ../rencontre.php:827
+#: ../rencontre.php:1013
+msgid "Add a language"
+msgstr "Tilf&oslash;j et sprog"
+
+#: ../rencontre.php:830
+#: ../rencontre.php:1016
+msgid "Remove a language and all related content"
+msgstr "Slet sprog og relateret indhold"
+
+#: ../rencontre.php:834
+#: ../rencontre.php:1020
+msgid "Remove a language"
+msgstr "Slet sprog"
+
+#: ../rencontre.php:841
+msgid "Add category"
+msgstr "Tilf&oslash;j kategori"
+
+#: ../rencontre.php:861
+msgid "Change the name"
+msgstr "Skift navn"
+
+#: ../rencontre.php:862
+msgid "Remove the category"
+msgstr "Slet kategorien"
+
+#: ../rencontre.php:866
+#: ../rencontre.php:867
+msgid "Add value to this category"
+msgstr "Tilf&oslash;j v&aelig;rdi til kategori"
+
+#: ../rencontre.php:877
+#: ../rencontre.php:1042
+msgid "Change the name or type"
+msgstr "Skift navn og type"
+
+#: ../rencontre.php:885
+msgid "A line of text (TEXT)"
+msgstr "Enkelt tekst linje"
+
+#: ../rencontre.php:888
+msgid "Large text box (TEXTAREA)"
+msgstr "Stor tekst boks ( skrivefelt )"
+
+#: ../rencontre.php:892
+#: ../rencontre.php:916
+#: ../rencontre.php:1048
+msgid "Add Value"
+msgstr "Tilf&oslash;j v&aelig;rdi"
+
+#: ../rencontre.php:893
+msgid "Single choice list (SELECT)"
+msgstr "Single list ( v&aelig;lg )"
+
+#: ../rencontre.php:906
+#: ../rencontre.php:930
+#: ../rencontre.php:1053
+#: ../inc/rencontre_widget.php:1778
+msgid "Change"
+msgstr "Skift"
+
+#: ../rencontre.php:917
+msgid "Multiple choice list (CHECKBOX)"
+msgstr "Multi liste ( brug checkbox )"
+
+#: ../rencontre.php:989
+msgid "Countries and Regions"
+msgstr "Lande og regioner"
+
+#: ../rencontre.php:997
+msgid "You can create, rename and delete countries and regions."
+msgstr "Du kan oprette, omd&oslash;be og slette lande og regioner"
+
+#: ../rencontre.php:1027
+msgid "Add a country"
+msgstr "Tilf&oslash;j land"
+
+#: ../rencontre.php:1049
+msgid "Regions"
+msgstr "Regioner"
+
+#: ../rencontre.php:1211
+#: ../inc/rencontre_filter.php:288
+#: ../inc/rencontre_widget.php:227
+#: ../inc/rencontre_widget.php:231
+#: ../inc/rencontre_widget.php:305
+#: ../inc/rencontre_widget.php:313
+#: ../inc/rencontre_widget.php:539
+#: ../inc/rencontre_widget.php:561
+#: ../inc/rencontre_widget.php:567
+#: ../inc/rencontre_widget.php:569
+#: ../inc/rencontre_widget.php:878
+#: ../inc/rencontre_widget.php:1222
+#: ../inc/rencontre_widget.php:1250
+#: ../inc/rencontre_widget.php:1422
+#: ../inc/rencontre_widget.php:1428
+#: ../inc/rencontre_widget.php:1430
+#: ../inc/rencontre_widget.php:1658
+#: ../inc/rencontre_widget.php:1890
+#: ../inc/rencontre_widget.php:1894
+msgid "years"
+msgstr "&aring;rig"
+
+#: ../inc/base.php:280
+#: ../inc/base.php:329
+#: ../inc/base.php:332
+msgid "TO CHANGE"
+msgstr "ÆNDRER"
+
+#: ../inc/rencontre_don.php:4
+msgid "Help Improve This Plugin!"
+msgstr "Forbedre dette plugin"
+
+#: ../inc/rencontre_don.php:8
+msgid "Enjoyed this free dating plugin?  A donation will help us to spend more time to make it evolve. Thanks for your contribution."
+msgstr "Nyd denne gratis plugin? En donation vil hjælpe os med at finde tid til at gøre det udvikle sig. Tak for din deltagelse."
+
+#: ../inc/rencontre_don.php:16
+msgid "US"
+msgstr "DK"
+
+#: ../inc/rencontre_don.php:17
+msgid "Rencontre Plugin Donation"
+msgstr "donation plugin Rencontre"
+
+#: ../inc/rencontre_don.php:22
+msgid "PayPal - The most secure online payment solution !"
+msgstr "PayPal - Online betalingsløsning"
+
+#: ../inc/rencontre_don.php:27
+msgid "You can also help us by"
+msgstr "Du kan også hjælpe ved at"
+
+#: ../inc/rencontre_don.php:27
+msgid "rating this plugin"
+msgstr "bemærke dette plugin"
+
+#: ../inc/rencontre_filter.php:170
+#: ../inc/rencontre_filter.php:264
+#: ../inc/rencontre_filter.php:435
+#: ../inc/rencontre_widget.php:72
+#: ../inc/rencontre_widget.php:94
+msgid "Hello"
+msgstr "Hej"
+
+#: ../inc/rencontre_filter.php:267
+msgid "Your profile has been visited"
+msgstr "Din profil har v&aelig;ret bes&oslash;gt"
+
+#: ../inc/rencontre_filter.php:267
+msgid "time"
+msgstr "tid"
+
+#: ../inc/rencontre_filter.php:277
+msgid "Here's a selection of members that may interest you"
+msgstr "Her er et udvalg af medlemmer, der kan interessere dig"
+
+#: ../inc/rencontre_filter.php:298
+msgid "You have received a smile from"
+msgstr "Du har modtaget et smil fra"
+
+#: ../inc/rencontre_filter.php:318
+#: ../inc/rencontre_filter.php:439
+msgid "You have received a contact request from"
+msgstr "Du har modtaget en anmodning fra en profil"
+
+#: ../inc/rencontre_filter.php:337
+#: ../inc/rencontre_filter.php:454
+#: ../inc/rencontre_widget.php:1292
+msgid "You have"
+msgstr "Du har"
+
+#: ../inc/rencontre_filter.php:337
+#: ../inc/rencontre_filter.php:454
+msgid "messages"
+msgstr "beskeder"
+
+#: ../inc/rencontre_filter.php:337
+#: ../inc/rencontre_filter.php:454
+#: ../inc/rencontre_widget.php:1292
+msgid "message"
+msgstr "besked"
+
+#: ../inc/rencontre_filter.php:337
+#: ../inc/rencontre_filter.php:454
+msgid "in your inbox."
+msgstr "i din indbox"
+
+#: ../inc/rencontre_filter.php:339
+msgid "Do not hesitate to send us your comments."
+msgstr "Du er altid velkommen til at sende os en kommentar"
+
+#: ../inc/rencontre_filter.php:339
+#: ../inc/rencontre_filter.php:456
+msgid "Regards,"
+msgstr "Hilsen"
+
+#: ../inc/rencontre_filter.php:466
+msgid "A member contact you"
+msgstr "En profil har kontaktet dig"
+
+#: ../inc/rencontre_filter.php:524
+#: ../inc/rencontre_widget.php:1179
+#: ../inc/rencontre_widget.php:1192
+msgid "Immaterial"
+msgstr "immaterielt"
+
+#: ../inc/rencontre_filter.php:561
+msgid "Someone requested a new password for this account."
+msgstr "Nogen har anmodet om nyt password for denne konto"
+
+#: ../inc/rencontre_filter.php:563
+#, php-format
+msgid "Login : %s"
+msgstr ""
+
+#: ../inc/rencontre_filter.php:564
+msgid "The password has been changed. You can log in and change it from your interface if you want."
+msgstr "Adgangskoden er blevet &aelig;ndret. Du kan nu logge ind og &aelig;ndre det igen fra din konto side, hvis du &oslash;nsker det."
+
+#: ../inc/rencontre_filter.php:565
+msgid "New password :"
+msgstr "Nyt password"
+
+#: ../inc/rencontre_filter.php:645
+#, php-format
+msgid "New user registration on your site %s:"
+msgstr ""
+
+#: ../inc/rencontre_filter.php:646
+#: ../inc/rencontre_filter.php:650
+#, php-format
+msgid "Username: %s"
+msgstr ""
+
+#: ../inc/rencontre_filter.php:647
+#, php-format
+msgid "E-mail: %s"
+msgstr ""
+
+#: ../inc/rencontre_filter.php:648
+#, php-format
+msgid "[%s] New User Registration"
+msgstr ""
+
+#: ../inc/rencontre_filter.php:651
+#, php-format
+msgid "Password: %s"
+msgstr ""
+
+#: ../inc/rencontre_filter.php:652
+#, php-format
+msgid "[%s] Your username and password"
+msgstr ""
+
+#: ../inc/rencontre_widget.php:10
+msgid "Widget to integrate the dating website"
+msgstr "Widget til at integrere p&aring; dating hjemmesiden"
+
+#: ../inc/rencontre_widget.php:50
+msgid "My homepage"
+msgstr "Start side"
+
+#: ../inc/rencontre_widget.php:51
+msgid "My card"
+msgstr "Mit kort"
+
+#: ../inc/rencontre_widget.php:52
+#: ../inc/rencontre_widget.php:426
+#: ../inc/rencontre_widget.php:543
+msgid "Edit My Profile"
+msgstr "&aelig;ndre min profil"
+
+#: ../inc/rencontre_widget.php:53
+msgid "Messaging"
+msgstr "Beskeder"
+
+#: ../inc/rencontre_widget.php:55
+#: ../inc/rencontre_widget.php:1784
+msgid "My Account"
+msgstr "Min konto"
+
+#: ../inc/rencontre_widget.php:85
+msgid "Your email address is currently in quarantine. Sorry"
+msgstr "Din e-mail adresse er ikke brugbar / er i karant&aelig;ne"
+
+#: ../inc/rencontre_widget.php:94
+msgid "welcome to the site"
+msgstr "Velkommen"
+
+#: ../inc/rencontre_widget.php:96
+msgid "You will access all the possibilities offered by the site in few minutes."
+msgstr "Du kan f&aring; adgang til alle de sp&aelig;mdende muligheder, i l&oslash;bet af et par minutter - s&aring; kom bare i gang !"
+
+#: ../inc/rencontre_widget.php:97
+msgid "Before that, you need to provide some information requested below."
+msgstr "Du er n&oslash;d til at udfylde alle oplysningerne nedenfor"
+
+#: ../inc/rencontre_widget.php:100
+msgid "We would like to inform you that we do not use your personal data outside of this site."
+msgstr "Alle personlige oplysninger er underlagt person data loven, og bruges udelukkende fortroligt p&aring; denne side."
+
+#: ../inc/rencontre_widget.php:101
+msgid "Deleting your account on your part or ours, causes the deletion of all your data."
+msgstr "Sletning af din profil indeb&aelig;rer at alle data slettes"
+
+#: ../inc/rencontre_widget.php:102
+msgid "This also applies to messages that you have sent to other members as well as those they have sent to you."
+msgstr "Dette g&aelig;lder ogs&aring; for meddelelser, du har sendt til andre medlemmer s&aring;vel som dem, der har sendt til dig."
+
+#: ../inc/rencontre_widget.php:105
+msgid "We wish you nice encounters."
+msgstr "Du &oslash;nskes held og lykke med din s&oslash;gning"
+
+#: ../inc/rencontre_widget.php:110
+msgid "Change nickname (after, it will not be possible)"
+msgstr "Skift profilnavn ( kan derefter ikke rettes / &aelig;ndres mere )"
+
+#: ../inc/rencontre_widget.php:114
+msgid "New password (6 min)"
+msgstr "Nyt password ( minimum 6 karakter )"
+
+#: ../inc/rencontre_widget.php:115
+msgid "New password (again)"
+msgstr "Nyt password ( igen )"
+
+#: ../inc/rencontre_widget.php:127
+msgid "Changing the password is required for this first connection"
+msgstr "&aelig;ndring af adgangskode er p&aring;kr&aelig;vet, den f&oslash;rste gang du er logget ind."
+
+#: ../inc/rencontre_widget.php:131
+#: ../inc/rencontre_widget.php:1789
+msgid "I am"
+msgstr "Om mig"
+
+#: ../inc/rencontre_widget.php:132
+#: ../inc/rencontre_widget.php:1790
+msgid "Born"
+msgstr "F&oslash;dt den"
+
+#: ../inc/rencontre_widget.php:133
+#: ../inc/rencontre_widget.php:1815
+msgid "My country"
+msgstr "Mit land"
+
+#: ../inc/rencontre_widget.php:134
+#: ../inc/rencontre_widget.php:1816
+msgid "My region"
+msgstr "Min region"
+
+#: ../inc/rencontre_widget.php:174
+#: ../inc/rencontre_widget.php:1860
+msgid "My size"
+msgstr "Min st&oslash;rrelse"
+
+#: ../inc/rencontre_widget.php:175
+#: ../inc/rencontre_widget.php:1861
+msgid "My weight"
+msgstr "Min v&aelig;gt"
+
+#: ../inc/rencontre_widget.php:176
+#: ../inc/rencontre_widget.php:1835
+msgid "My city"
+msgstr "Min ny"
+
+#: ../inc/rencontre_widget.php:182
+#: ../inc/rencontre_widget.php:1439
+#: ../inc/rencontre_widget.php:1445
+#: ../inc/rencontre_widget.php:1447
+#: ../inc/rencontre_widget.php:1866
+msgid "cm"
+msgstr "cm"
+
+#: ../inc/rencontre_widget.php:188
+#: ../inc/rencontre_widget.php:1456
+#: ../inc/rencontre_widget.php:1457
+#: ../inc/rencontre_widget.php:1463
+#: ../inc/rencontre_widget.php:1465
+#: ../inc/rencontre_widget.php:1872
+msgid "kg"
+msgstr "kg"
+
+#: ../inc/rencontre_widget.php:200
+#: ../inc/rencontre_widget.php:1493
+#: ../inc/rencontre_widget.php:1516
+#: ../inc/rencontre_widget.php:1844
+msgid "Adjust the location by moving / zooming the map."
+msgstr "Juster placering ved at flytte / zoome kortet."
+
+#: ../inc/rencontre_widget.php:201
+#: ../inc/rencontre_widget.php:1494
+#: ../inc/rencontre_widget.php:1517
+#: ../inc/rencontre_widget.php:1845
+msgid "Clicking on the map will place the cursor."
+msgstr "Et klik på kortet placerer markøren."
+
+#: ../inc/rencontre_widget.php:202
+#: ../inc/rencontre_widget.php:1495
+#: ../inc/rencontre_widget.php:1518
+#: ../inc/rencontre_widget.php:1846
+msgid "Validate the position"
+msgstr "Godkend position"
+
+#: ../inc/rencontre_widget.php:213
+#: ../inc/rencontre_widget.php:311
+#: ../inc/rencontre_widget.php:542
+#: ../inc/rencontre_widget.php:877
+#: ../inc/rencontre_widget.php:1657
+#: ../inc/rencontre_widget.php:1878
+msgid "I'm looking for"
+msgstr "Jeg s&oslash;ger efter"
+
+#: ../inc/rencontre_widget.php:214
+#: ../inc/rencontre_widget.php:1879
+msgid "Age min/max"
+msgstr "Alder min/max"
+
+#: ../inc/rencontre_widget.php:215
+#: ../inc/rencontre_widget.php:1900
+msgid "For"
+msgstr "Til"
+
+#: ../inc/rencontre_widget.php:243
+#: ../inc/rencontre_widget.php:973
+msgid "Send"
+msgstr "Send"
+
+#: ../inc/rencontre_widget.php:296
+#: ../inc/rencontre_widget.php:316
+#: ../inc/rencontre_widget.php:871
+#: ../inc/rencontre_widget.php:1213
+#: ../inc/rencontre_widget.php:1651
+msgid "online"
+msgstr "online"
+
+#: ../inc/rencontre_widget.php:296
+#: ../inc/rencontre_widget.php:1213
+msgid "offline"
+msgstr "offline"
+
+#: ../inc/rencontre_widget.php:299
+msgid "(blocked)"
+msgstr "(blokeret)"
+
+#: ../inc/rencontre_widget.php:311
+#: ../inc/rencontre_widget.php:542
+#: ../inc/rencontre_widget.php:877
+#: ../inc/rencontre_widget.php:1657
+msgid "a woman"
+msgstr "Kvinde"
+
+#: ../inc/rencontre_widget.php:311
+#: ../inc/rencontre_widget.php:542
+#: ../inc/rencontre_widget.php:877
+#: ../inc/rencontre_widget.php:1657
+msgid "a man"
+msgstr "Mand"
+
+#: ../inc/rencontre_widget.php:312
+msgid "gay"
+msgstr "gay"
+
+#: ../inc/rencontre_widget.php:313
+#: ../inc/rencontre_widget.php:878
+#: ../inc/rencontre_widget.php:1658
+msgid "between"
+msgstr "mellem"
+
+#: ../inc/rencontre_widget.php:313
+#: ../inc/rencontre_widget.php:878
+#: ../inc/rencontre_widget.php:1658
+msgid "and"
+msgstr "og"
+
+#: ../inc/rencontre_widget.php:314
+#: ../inc/rencontre_widget.php:542
+#: ../inc/rencontre_widget.php:879
+#: ../inc/rencontre_widget.php:1659
+msgid "for"
+msgstr "til"
+
+#: ../inc/rencontre_widget.php:322
+#: ../inc/rencontre_widget.php:325
+#: ../inc/rencontre_widget.php:883
+#: ../inc/rencontre_widget.php:885
+#: ../inc/rencontre_widget.php:1662
+msgid "Send a message"
+msgstr "Sende en meddelelse"
+
+#: ../inc/rencontre_widget.php:323
+#: ../inc/rencontre_widget.php:325
+#: ../inc/rencontre_widget.php:544
+#: ../inc/rencontre_widget.php:884
+#: ../inc/rencontre_widget.php:885
+#: ../inc/rencontre_widget.php:1663
+msgid "Smile"
+msgstr "smil"
+
+#: ../inc/rencontre_widget.php:324
+#: ../inc/rencontre_widget.php:325
+msgid "Ask for a contact"
+msgstr "Sp&oslash;rg om kontakt"
+
+#: ../inc/rencontre_widget.php:326
+#: ../inc/rencontre_widget.php:327
+msgid "Chat"
+msgstr "Chat"
+
+#: ../inc/rencontre_widget.php:328
+msgid "Block"
+msgstr "Bloker"
+
+#: ../inc/rencontre_widget.php:328
+msgid "Unblock"
+msgstr "Fjern blokering"
+
+#: ../inc/rencontre_widget.php:329
+msgid "Report a fake profile or inappropriate content"
+msgstr "Rapporter en falsk profil eller upassende / usandt indhold"
+
+#: ../inc/rencontre_widget.php:329
+msgid "Report"
+msgstr "Rapporter"
+
+#: ../inc/rencontre_widget.php:330
+msgid "You are blocked !"
+msgstr "Du er blokeret"
+
+#: ../inc/rencontre_widget.php:340
+msgid "Message sent"
+msgstr "besked sendt"
+
+#: ../inc/rencontre_widget.php:445
+msgid "Click the photo"
+msgstr "Klik på foto"
+
+#: ../inc/rencontre_widget.php:531
+msgid "Password changed !"
+msgstr "Password er &aelig;ndret"
+
+#: ../inc/rencontre_widget.php:540
+#: ../inc/rencontre_widget.php:1488
+#: ../inc/rencontre_widget.php:1509
+#: ../inc/rencontre_widget.php:1532
+msgid "City"
+msgstr "By"
+
+#: ../inc/rencontre_widget.php:545
+msgid "Look"
+msgstr "Se her"
+
+#: ../inc/rencontre_widget.php:546
+msgid "Contact requests"
+msgstr "Kontakt anmodning"
+
+#: ../inc/rencontre_widget.php:549
+msgid "Who I smiled ?"
+msgstr "Hven jeg har sendt smil"
+
+#: ../inc/rencontre_widget.php:550
+msgid "Who I asked for a contact ?"
+msgstr "Hvem jeg har kontaktet"
+
+#: ../inc/rencontre_widget.php:551
+msgid "Who I've blocked ?"
+msgstr "Profiler jeg har blokeret"
+
+#: ../inc/rencontre_widget.php:554
+msgid "Quick Search"
+msgstr "Kvik s&oslash;gning"
+
+#: ../inc/rencontre_widget.php:559
+#: ../inc/rencontre_widget.php:1420
+#: ../inc/rencontre_widget.php:1437
+#: ../inc/rencontre_widget.php:1454
+msgid "from"
+msgstr "fra"
+
+#: ../inc/rencontre_widget.php:579
+#: ../inc/rencontre_widget.php:1479
+#: ../lang/rencontre-js-admin-lang.php:13
+msgid "Region"
+msgstr "Region"
+
+#: ../inc/rencontre_widget.php:610
+msgid "Selected portraits"
+msgstr "Udvalgte profiler"
+
+#: ../inc/rencontre_widget.php:640
+msgid "Online now"
+msgstr "Online nu"
+
+#: ../inc/rencontre_widget.php:653
+msgid "New entrants"
+msgstr "Nye profiler"
+
+#: ../inc/rencontre_widget.php:705
+msgid "I smiled at"
+msgstr "Jeg har sendt smil til"
+
+#: ../inc/rencontre_widget.php:732
+msgid "I got a smile from"
+msgstr "Jeg har f&aring;et smil fra"
+
+#: ../inc/rencontre_widget.php:759
+msgid "I asked a contact"
+msgstr "Jeg &oslash;nsker kontakt"
+
+#: ../inc/rencontre_widget.php:786
+msgid "I had a contact request from"
+msgstr "Jeg har modtaget kontakt anmodring fra"
+
+#: ../inc/rencontre_widget.php:813
+msgid "I was watched by"
+msgstr "De har bes&oslash;gt min profil"
+
+#: ../inc/rencontre_widget.php:840
+msgid "I locked"
+msgstr "De har blokeret mig"
+
+#: ../inc/rencontre_widget.php:870
+msgid "The"
+msgstr "Denne"
+
+#: ../inc/rencontre_widget.php:901
+#: ../inc/rencontre_widget.php:1679
+msgid "Next Page"
+msgstr "Næste side"
+
+#: ../inc/rencontre_widget.php:947
+msgid "Send a message to"
+msgstr "Send en besked til"
+
+#: ../inc/rencontre_widget.php:962
+#: ../inc/rencontre_widget.php:963
+#: ../inc/rencontre_widget.php:965
+#: ../inc/rencontre_widget.php:970
+#: ../inc/rencontre_widget.php:1293
+#: ../inc/rencontre_widget.php:1318
+msgid "Subject"
+msgstr "Emne"
+
+#: ../inc/rencontre_widget.php:967
+#: ../inc/rencontre_widget.php:971
+#: ../inc/rencontre_widget.php:1352
+msgid "Message"
+msgstr "Besked"
+
+#: ../inc/rencontre_widget.php:996
+msgid "Your profile is empty. You are invisible to other members. To take advantage of the site, thank you edit your profile."
+msgstr "Din profil er ikke udfyldt. Du er usynlig for andre profiler. Udfyld din profil og kom i gang med at s&oslash;ge og m&oslash;de nye sp&aelig;ndende profiler."
+
+#: ../inc/rencontre_widget.php:997
+msgid "Close"
+msgstr "Lukket"
+
+#: ../inc/rencontre_widget.php:1286
+#: ../inc/rencontre_widget.php:1313
+#: ../inc/rencontre_widget.php:1345
+msgid "Inbox"
+msgstr "Indbox"
+
+#: ../inc/rencontre_widget.php:1288
+#: ../inc/rencontre_widget.php:1315
+#: ../inc/rencontre_widget.php:1348
+msgid "Messages sent"
+msgstr "Sendte beskeder"
+
+#: ../inc/rencontre_widget.php:1292
+msgid "unread"
+msgstr "ikke l&aelig;st"
+
+#: ../inc/rencontre_widget.php:1293
+msgid "Sender"
+msgstr "Sender"
+
+#: ../inc/rencontre_widget.php:1318
+msgid "Receiver"
+msgstr "Modtaget"
+
+#: ../inc/rencontre_widget.php:1355
+msgid "From"
+msgstr "Fra"
+
+#: ../inc/rencontre_widget.php:1363
+msgid "To"
+msgstr "Til"
+
+#: ../inc/rencontre_widget.php:1367
+msgid "Answer"
+msgstr "Svar"
+
+#: ../inc/rencontre_widget.php:1503
+#: ../inc/rencontre_widget.php:1526
+msgid "Max range (km)"
+msgstr "Max afstand (km)"
+
+#: ../inc/rencontre_widget.php:1535
+msgid "Incomplete account: no GoogleMap"
+msgstr "Ufuldstændig konto : nej GoogleMap"
+
+#: ../inc/rencontre_widget.php:1542
+msgid "Only with picture"
+msgstr "Kun med foto"
+
+#: ../inc/rencontre_widget.php:1546
+msgid "Affinity with my profile"
+msgstr "Tilknytning til min profil"
+
+#: ../inc/rencontre_widget.php:1550
+msgid "Word in the ad"
+msgstr "Min profil tekst"
+
+#: ../inc/rencontre_widget.php:1757
+msgid "Change password"
+msgstr "&aelig;ndre password"
+
+#: ../inc/rencontre_widget.php:1762
+msgid "Former"
+msgstr "Tidligere"
+
+#: ../inc/rencontre_widget.php:1763
+msgid "New"
+msgstr "Nyt"
+
+#: ../inc/rencontre_widget.php:1764
+msgid "Retype the new"
+msgstr "Skriv igen"
+
+#: ../inc/rencontre_widget.php:1921
+msgid "This action will result in the complete deletion of your account and everything about you from our server. We do not keep historical accounts."
+msgstr "Denne handling vil resultere i en fuldst&aelig;ndig sletning af din konto og alt om dig fra vores server. Vi gemmer ikke historiske beretninger."
+
+#: ../inc/rencontre_widget.php:1924
+msgid "Please note that this action is irreversible !"
+msgstr "Bem&aelig;rk, denne handling kan ikke fortrydes !"
+
+#: ../inc/rencontre_widget.php:1925
+msgid "Delete Account"
+msgstr "Slet konto"
+
+#: ../inc/rencontre_widget.php:1940
+msgid "Smile already sent"
+msgstr "Smil er allerede sendt"
+
+#: ../inc/rencontre_widget.php:1954
+msgid "Smile sent"
+msgstr "Smil er sendt"
+
+#: ../inc/rencontre_widget.php:1974
+msgid "Contact already requested"
+msgstr "Kontakt allerede anmodet"
+
+#: ../inc/rencontre_widget.php:1991
+msgid "Contact request sent"
+msgstr "Kontakt anmodning sendt"
+
+#: ../inc/rencontre_widget.php:2002
+msgid "Reporting already done"
+msgstr "Rapportering er sket"
+
+#: ../inc/rencontre_widget.php:2007
+msgid "Thank you for your report"
+msgstr "Tak for Din report"
+
+#: ../inc/rencontre_widget.php:2087
+msgid "from my position"
+msgstr "fra min position"
+
+#: ../lang/rencontre-js-lang.php:3
+#: ../lang/rencontre-js-admin-lang.php:18
+msgid "Delete this photo"
+msgstr "Slet dette foto"
+
+#: ../lang/rencontre-js-lang.php:4
+#: ../lang/rencontre-js-admin-lang.php:17
+msgid "Delete photo"
+msgstr "Slet foto"
+
+#: ../lang/rencontre-js-lang.php:5
+#: ../lang/rencontre-js-admin-lang.php:16
+msgid "Add this photo"
+msgstr "Tilf&oslash;j foto"
+
+#: ../lang/rencontre-js-lang.php:6
+msgid "incomplete fields or error"
+msgstr "ufuldst&aelig;ndige felter eller direkte fejl"
+
+#: ../lang/rencontre-js-lang.php:7
+msgid "Nickname unavailable"
+msgstr "Profil navn er optaget, v&aelig;lg et nyt"
+
+#: ../lang/rencontre-js-lang.php:8
+msgid "Confirm the deletion of the account ?"
+msgstr "Bekr&aelig;ft sletning af din profil"
+
+#: ../lang/rencontre-js-lang.php:9
+msgid "New Passwords are differents"
+msgstr "Password stemmer ikke overens"
+
+#: ../lang/rencontre-js-lang.php:10
+msgid "The original password is wrong"
+msgstr "Det oprindelige Password er forkert"
+
+#: ../lang/rencontre-js-lang.php:11
+msgid "Write and press <Enter>"
+msgstr "Skriv og tryk enter"
+
+#: ../lang/rencontre-js-lang.php:12
+msgid "Chat request sent. Wait ..."
+msgstr "Chat anmodning sendt - vent !"
+
+#: ../lang/rencontre-js-lang.php:13
+msgid "Chat request accepted. You can start..."
+msgstr "Chat anmodning accepteret. Du kan starte."
+
+#: ../lang/rencontre-js-lang.php:14
+msgid "You have a chat request"
+msgstr "Du har modtaget en Chat anmodning"
+
+#: ../lang/rencontre-js-lang.php:15
+msgid "Ignore"
+msgstr "Ignorer"
+
+#: ../lang/rencontre-js-lang.php:16
+msgid "Accept"
+msgstr "acceptere"
+
+#: ../lang/rencontre-js-lang.php:17
+msgid "Your contact closed his window."
+msgstr "Den anden har lukket forbindelsen"
+
+#: ../lang/rencontre-js-admin-lang.php:3
+msgid "Change the value"
+msgstr "Skift v&aelig;rdi"
+
+#: ../lang/rencontre-js-admin-lang.php:5
+msgid "Confirm"
+msgstr "Bekr&aelig;ft"
+
+#: ../lang/rencontre-js-admin-lang.php:8
+msgid "Category"
+msgstr "Kategori"
+
+#: ../lang/rencontre-js-admin-lang.php:9
+msgid "Value"
+msgstr "V&aelig;rdi"
+
+#: ../lang/rencontre-js-admin-lang.php:10
+msgid "New Item"
+msgstr "Nye emner"
+
+#: ../lang/rencontre-js-admin-lang.php:11
+msgid "Add"
+msgstr "Tilf&oslash;j"
+
+#: ../lang/rencontre-js-admin-lang.php:14
+msgid "Code ISO"
+msgstr "Code ISO"
+
+#: ../lang/rencontre-js-admin-lang.php:15
+msgid "Image file"
+msgstr "Billede fil"
+
+#: ../lang/rencontre-js-admin-lang.php:19
+msgid "Delete Account ?"
+msgstr "Slet profil og konto ?"
+
+#: ../lang/rencontre-js-admin-lang.php:20
+msgid "Release this mail ?"
+msgstr "Frigiv mailen"
+
