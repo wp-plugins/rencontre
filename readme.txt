@@ -38,8 +38,8 @@ This WordPress plugin allows you to create a real dating website with Wordpress.
 
 Rencontre is currently available in :
 
-* French
-* English
+* English (main language)
+* French - thanks to me :)
 * Spanish - thanks to Sanjay Gandhi
 * Danish - thanks to [C-FR](http://www.C-FR.net/ "C-FR")
 * Chinese - thanks to Lucien Huang
@@ -167,6 +167,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 = 1.5 =
 16/03/2015 : Change main language from French to English
+
+25/03/2015 : Update 1 : Fix pagination bug in search result after first page.
 
 = 1.4 =
 06/12/2014 :

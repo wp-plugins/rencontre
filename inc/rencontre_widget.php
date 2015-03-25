@@ -670,6 +670,7 @@ class RencontreWidget extends WP_widget
 				?> 
 				<form name='rencPagine' method='get' action=''>
 					<input type='hidden' name='page' value='cherche' />
+					<input type='hidden' name='id' value='<?php echo (isset($_GET['id'])?$_GET['id']:''); ?>' />
 					<input type='hidden' name='sex' value='<?php echo (isset($_GET['sex'])?$_GET['sex']:''); ?>' />
 					<input type='hidden' name='homo' value='<?php echo (isset($_GET['homo'])?$_GET['homo']:''); ?>' />
 					<input type='hidden' name='pagine' value='<?php echo $pagine; ?>' />
@@ -700,7 +701,7 @@ class RencontreWidget extends WP_widget
 					if($wpdb->num_rows<=$rencOpt['limit']) $suiv=0;
 					else array_pop($q); // supp le dernier ($rencOpt['limit']+1) qui sert a savoir si page suivante
 					}
-				else if ($_GET['id']=='sourireOut')
+				else if (isset($_GET['id']) && $_GET['id']=='sourireOut')
 					{
 					echo '<h3 style="text-align:center;">'.__('I smiled at','rencontre').'&nbsp;...</h3>';
 					$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
@@ -727,7 +728,7 @@ class RencontreWidget extends WP_widget
 							}
 						}
 					}
-				else if ($_GET['id']=='sourireIn')
+				else if (isset($_GET['id']) && $_GET['id']=='sourireIn')
 					{
 					echo '<h3 style="text-align:center;">'.__('I got a smile from','rencontre').'&nbsp;...</h3>';
 					$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
@@ -754,7 +755,7 @@ class RencontreWidget extends WP_widget
 							}
 						}
 					}
-				else if ($_GET['id']=='contactOut')
+				else if (isset($_GET['id']) && $_GET['id']=='contactOut')
 					{
 					echo '<h3 style="text-align:center;">'.__('I asked a contact','rencontre').'&nbsp;...</h3>';
 					$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
@@ -781,7 +782,7 @@ class RencontreWidget extends WP_widget
 							}
 						}
 					}
-				else if ($_GET['id']=='contactIn')
+				else if (isset($_GET['id']) && $_GET['id']=='contactIn')
 					{
 					echo '<h3 style="text-align:center;">'.__('I had a contact request from','rencontre').'&nbsp;...</h3>';
 					$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
@@ -808,7 +809,7 @@ class RencontreWidget extends WP_widget
 							}
 						}
 					}
-				else if ($_GET['id']=='visite')
+				else if (isset($_GET['id']) && $_GET['id']=='visite')
 					{
 					echo '<h3 style="text-align:center;">'.__('I was watched by','rencontre').'&nbsp;...</h3>';
 					$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
@@ -835,7 +836,7 @@ class RencontreWidget extends WP_widget
 							}
 						}
 					}
-				else if ($_GET['id']=='bloque')
+				else if (isset($_GET['id']) && $_GET['id']=='bloque')
 					{
 					echo '<h3 style="text-align:center;">'.__('I locked','rencontre').'&nbsp;...</h3>';
 					$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."'");
