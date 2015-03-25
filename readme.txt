@@ -168,7 +168,11 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 = 1.5 =
 16/03/2015 : Change main language from French to English
 
-25/03/2015 : Update 1 : Fix pagination bug in search result after first page.
+25/03/2015 : Update 1
+
+* Fix pagination bug in search result after first page.
+* Fix bug when change profil in admin.
+* Search user in admin by Alias or E-mail.
 
 = 1.4 =
 06/12/2014 :
