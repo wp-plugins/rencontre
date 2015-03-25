@@ -565,5 +565,25 @@ function f_userPrison($f)
 	global $wpdb;
 	$wpdb->delete($wpdb->prefix.'rencontre_prison', array('id'=>$f));
 	}
+function sauvProfilAdm($in,$id)
+	{
+	// Copie de la fonction dans rencontre_widget avec POST au lieu de GET
+	// entree : Sauvegarde du profil
+	// sortie bdd : [{"i":10,"v":"Sur une ile deserte avec mon amoureux."},{"i":35,"v":0},{"i":53,"v":[0,4,6]}]
+	$u = "";
+	if($in) foreach ($in as $r=>$r1) 
+		{
+		switch ($r1[0])
+			{
+			case 1: if ($_POST['text'.$r]!="") $u.='{"i":'.$r.',"v":"'.str_replace('"','',strip_tags(stripslashes($_POST['text'.$r]))).'"},'; break;
+			case 2: if ($_POST['area'.$r]!="") $u.='{"i":'.$r.',"v":"'.str_replace('"','',strip_tags(stripslashes($_POST['area'.$r]))).'"},'; break;
+			case 3: if ($_POST['select'.$r]>0) $u.='{"i":'.$r.',"v":'.(strip_tags($_POST['select'.$r]-1)).'},'; break;
+			case 4: if (!empty($_POST['check'.$r])) {$u.='{"i":'.$r.',"v":['; foreach ($_POST['check'.$r] as $r2) { $u.=$r2.',';} $u=substr($u, 0, -1).']},';} break;
+			}
+		}
+	global $wpdb;
+	$wpdb->update($wpdb->prefix.'rencontre_users_profil', array('d_modif'=>date("Y-m-d H:i:s"),'t_titre'=>strip_tags(stripslashes($_POST['titre'])),'t_annonce'=>strip_tags(stripslashes($_POST['annonce'])),'t_profil'=>'['.substr($u, 0, -1).']'), array('user_id'=>$id));
+	}
+//
 //
 ?>

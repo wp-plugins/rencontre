@@ -470,14 +470,15 @@ class Rencontre
 			echo "<p style='color:#D54E21;'>".__('Number of registered members','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$nm."</span></p>";
 			echo "<p style='color:#D54E21;'>".__('Number of members with profile and photo','rencontre')."&nbsp;:&nbsp;<span style='color:#111;font-weight:700;'>".$np."</span></p>";
 			?>
+			<?php
+			if (!isset($_GET["id"]))
+				{ ?>
 			<form name="rencPseu" method="post" action="">
-				<label><?php _e('Alias', 'rencontre'); ?> : <label>
+				<label><?php _e('Alias or email', 'rencontre'); ?> : <label>
 				<input type="text" name="pseu" />
 				<input type="submit" class="button-primary" value="<?php _e('Find', 'rencontre'); ?>" />
 			</form>
-			<?php
-			if (!isset($_GET["id"]))
-				{
+				<?php
 				if (isset($_POST["a1"]) && $_POST["a1"] && $_POST["a2"]) 
 					{
 					f_userSupp($_POST["a1"],$_POST["a2"],1);
@@ -507,7 +508,7 @@ class Rencontre
 						else if ($_GET['tri']=='signal') $tri='ORDER BY length(P.t_signal) DESC';
 						}
 					else $tri='ORDER BY P.d_modif DESC';
-					if(isset($_POST['pseu']) && $_POST['pseu']!="") $tri = "and U.user_login='".$_POST['pseu']."' ".$tri;
+					if(isset($_POST['pseu']) && $_POST['pseu']!="") $tri = "and (U.user_login='".$_POST['pseu']."' or U.user_email='".$_POST['pseu']."') ".$tri;
 					$pagenum = isset($_GET['pagenum'])?absint($_GET['pagenum']):1;
 					$limit = 100;
 					$q = $wpdb->get_results("SELECT U.ID, U.user_login, U.display_name, R.c_ip, R.c_pays, R.c_region, R.c_ville, R.d_naissance, R.i_taille, R.i_poids, R.i_sex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, P.d_modif, P.t_titre, P.t_annonce
@@ -586,6 +587,8 @@ class Rencontre
 					$in[$r->id][2] = $r->c_label;
 					$in[$r->id][3] = $r->t_valeur;
 					}
+				if(!isset($_SESSION['a1'])) $_SESSION['a1'] = "0";
+				if(!isset($_SESSION['a2'])) $_SESSION['a2'] = "0";
 				if (isset($_POST["a1"]) && !($_SESSION['a1']==$_POST["a1"] && $_SESSION['a2']==$_POST["a2"]))
 					{
 					if ($_POST["a1"]=="suppImg") RencontreWidget::suppImg($_POST["a2"],$id);
@@ -594,7 +597,7 @@ class Rencontre
 					}
 				if (isset($_POST["a1"]))
 					{
-					if ($_POST["a1"]=="sauvProfil") RencontreWidget::sauvProfil($in,$id);
+					if ($_POST["a1"]=="sauvProfil") sauvProfilAdm($in,$id);
 					if ($_POST["a1"]=="suppImg")
 						{
 						$_SESSION['a1'] = $_POST["a1"];
@@ -610,7 +613,7 @@ class Rencontre
 				<div class="rencPortrait">
 					<form name='portraitChange' method='post' enctype="multipart/form-data" action=''>
 						<input type='hidden' name='a1' value='' /><input type='hidden' name='a2' value='' /><input type='hidden' name='page' value='' />
-						<div id="portraitSauv"><span onClick="f_sauv_profil(<?php echo $mid; ?>)"><?php _e('Save profile','rencontre');?></span></div>
+						<div id="portraitSauv"><span onClick="f_sauv_profil(<?php echo $id; ?>)"><?php _e('Save profile','rencontre');?></span></div>
 						<div class="petiteBox portraitPhoto left">
 							<div class="rencBox">
 								<img id="portraitGrande" src="<?php if(($s->i_photo)!=0) echo $rencDiv['baseurl'].'/portrait/'.floor($id/1000).'/'.($id*10).'-grande.jpg?r='.rand(); else echo plugins_url('rencontre/images').'/no-photo600.jpg'; ?>" width=250 height=250 alt="" />
