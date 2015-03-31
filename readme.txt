@@ -108,6 +108,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 = What template file to use =
 In WordPress default themes (2013, 2015...) you have to do that :
+
 * copy page.php ;
 * paste it with new name (ex : page-rencontre.php) ;
 * add the code mentioned in installation para secundo and tertio at the best place, just after content div ;
@@ -115,7 +116,9 @@ In WordPress default themes (2013, 2015...) you have to do that :
 * in admin panel / page, create or change a page to set page-rencontre as template ;
 * in admin panel / settings / reading, choose static page and the page you just changed.
 
-If nothing happens, add `&lt;h1>*** HELLO ***&lt;/h1>`. If you don't see this title, you are not using the right template.
+If nothing happens, add 
+`&lt;h1&gt;*** HELLO ***&lt;/h1&gt;`
+If you don't see this title, you are not using the right template.
 
 = Useful plugins to work with Rencontre =
 * WP Better Emails : Adds a customizable good looking HTML template to all WP default plain/text emails ;
