@@ -61,7 +61,7 @@ If you have translated the plugin in your language or want to, please let me kno
 
 Method 1 : In your theme (recommended) :
 
-In your theme folder, in the page used for the dating part (index.php if you want to use the home page), add the content :
+In your theme folder, in the page used for the dating part (index.php if you want to use the home page - see F.A.Q.), add the content :
 `&lt;?php if(is_user_logged_in()) {
 $renc=new RencontreWidget; $renc->widget(0,0);} ?&gt;`
 
@@ -105,6 +105,17 @@ Then, log in with this new login/password. Welcome to the dating part.
 More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html).
 
 == Frequently Asked Questions ==
+
+= What template file to use =
+In WordPress default themes (2013, 2015...) you have to do that :
+* copy page.php ;
+* paste it with new name (ex : page-rencontre.php) ;
+* add the code mentioned in installation para secundo and tertio at the best place, just after content div ;
+* clean unneeded code ;
+* in admin panel / page, create or change a page to set page-rencontre as template ;
+* in admin panel / settings / reading, choose static page and the page you just changed.
+
+If nothing happens, add `&lt;h1>*** HELLO ***&lt;/h1>`. If you don't see this title, you are not using the right template.
 
 = Useful plugins to work with Rencontre =
 * WP Better Emails : Adds a customizable good looking HTML template to all WP default plain/text emails ;
