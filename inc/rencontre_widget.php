@@ -998,12 +998,13 @@ class RencontreWidget extends WP_widget
 					<span onClick="f_fantome();"><?php _e('Close','rencontre');?></span>
 					</div>
 				</div><?php } ?>
-				
-				<div style="clear:both;">&nbsp;</div>
-			</div><!-- #widgRenc -->
 			<?php
-			}
+			} ?>
+			<div style="clear:both;">&nbsp;</div>
+		</div><!-- #widgRenc -->
+		<?php
 		}
+	// *************** FUNCTION ********************
 	//
 	function update($content_new, $content_old)
 		{

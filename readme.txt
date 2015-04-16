@@ -61,7 +61,7 @@ If you have translated the plugin in your language or want to, please let me kno
 
 Method 1 : In your theme (recommended) :
 
-In your theme folder, in the page used for the dating part (index.php if you want to use the home page - see F.A.Q.), add the content :
+In your theme folder, in the page used for the dating part (index.php or page.php if you want to use the home page - see F.A.Q.), add the content :
 `&lt;?php if(is_user_logged_in()) {
 $renc=new RencontreWidget; $renc->widget(0,0);} ?&gt;`
 
@@ -72,9 +72,17 @@ Method 2 : With a Widget :
 `&lt;?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('my-area-name')) : endif; ?&gt;`
 * In admin panel, move the 'rencontre' widget to 'my-area-name' area.
 
+Method 3 : Shortcode - The simplest way :
+
+add shortcode [rencontre] in your page.
+
 **Secundo**
 
-For visitors not connected, you can view thumbnails and small profile of the last registered members using the shortcode [rencontre_libre] or php
+For visitors not connected, you can view thumbnails and small profile of the last registered members using one of this two methods :
+
+* The simplest way without options : the shortcode [rencontre_libre].
+* More options : php code in your theme :
+
 `&lt;?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?&gt;`
 If you write f_ficheLibre(1), there will be as many men as women.
 
@@ -83,7 +91,7 @@ You can also get the number of members in base with this php and ('girl'), ('men
 
 **Tertio**
 
-You need to add the WP connection link. You can add this in the header to have the WP and the Facebook connections links :
+You need to add the WP connection link. You can add this in the header.php to have the WP and the Facebook connections links :
 `&lt;?php Rencontre::f_loginFB(); 
 	wp_loginout(home_url()); if (!is_user_logged_in()) { ?&gt;
 		&lt;a href="wp-login.php?action=register"&gt;&lt;?php _e('Register'); ?&gt;&lt;/a&gt;
@@ -170,12 +178,13 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 == Screenshots ==
 
-1. The home page of a connected member.
-2. Visitor's home page when not connected.
-3. Administration members.
-4. Administration of available profiles.
-5. Private webcam chat.
-6. Proximity search on GoogleMap.
+1. The home page of a connected member - Exemple with theme Twenty thirteen.
+2. Visitor's home page when not connected - Exemple with theme Twenty thirteen.
+3. Visitor's home page when not connected - Exemple with theme Twenty fifteen.
+4. Administration members.
+5. Administration of available profiles.
+6. Private webcam chat.
+7. Proximity search on GoogleMap.
 
 == Changelog ==
 
@@ -187,6 +196,10 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix pagination bug in search result after first page.
 * Fix bug when change profil in admin.
 * Search user in admin by Alias or E-mail.
+
+16/04/2015 : Update 2
+* add shortcode [rencontre] to simplify installation.
+* fix CSS bug with footer.
 
 = 1.4 =
 06/12/2014 :
