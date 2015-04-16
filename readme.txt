@@ -198,6 +198,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Search user in admin by Alias or E-mail.
 
 16/04/2015 : Update 2
+
 * add shortcode [rencontre] to simplify installation.
 * fix CSS bug with footer.
 
