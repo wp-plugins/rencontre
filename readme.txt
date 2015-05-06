@@ -192,7 +192,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 = 1.6 =
 06/05/2015 : 
 
-* Add hook for the Premium Kit.
+* Add hook for the new Premium Kit.
 * Add online link on main page.
 * Add search by relation.
 * 15% speed improvement.
