@@ -17,6 +17,7 @@
 .grid_10{width:81.66666%;}
 .rencMiniPortrait{margin:0;position:relative;float:left;}
 .miniPortrait{position:relative;float:left;background-color:#fbf8f3;border:1px solid #f3eddd;margin:2px;padding:3px;border-radius:3px;text-transform:capitalize;}
+.miniPortrait.highlight{background-color:#fbf1df;border:1px solid #e3d2a6;}
 .miniPortrait:hover{border-bottom:2px solid #f3eddd;border-top:none;box-shadow:0 1px 0 #555;}
 .miniPortrait img.tete{float:right;width:60px;border-radius:3px;}
 .miniPortrait img.flag{position:absolute;top:70px;left:105px;border:1px solid #555;border-radius:2px;}
@@ -76,6 +77,8 @@
 .rencBox .button:hover, .rencPortrait ul li:hover, .rencMenu ul li:hover{background-color:#bfb190;}
 .rencBox .abso135{position:absolute;bottom:5px;right:5px;}
 .rencBox .abso225{position:absolute;bottom:0px;left:5px;color:#444;font-size:0.85em;}
+.rencBox .affinity{color:#444;font-size:0.85em;margin:0;padding:0;}
+.rencBox .abso225 span,.rencBox .affinity span{color:#9f5824;}
 .rencBox input[type="checkbox"]{margin:3px 20px 0 -2px;padding-top:5px;}
 .rencBox table{width:100%;}
 .rencBox table td{vertical-align:middle;}

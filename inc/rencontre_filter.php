@@ -1,9 +1,9 @@
 <?php
 // Filtres / Action : General
-add_filter('show_admin_bar' , 'f_admin_bar'); // Visualisation barre admin
-add_action('init', 'prevent_admin_access', 0); // bloque acces au tableau de bord
-add_action('init', 'f_inLine', 1); // session
-add_action('wp_logout', 'f_outLine'); // session
+add_filter('show_admin_bar' , 'rencAdminBar'); // Visualisation barre admin
+add_action('init', 'rencPreventAdminAccess', 0); // bloque acces au tableau de bord
+add_action('init', 'rencInLine', 1); // session
+add_action('wp_logout', 'rencOutLine'); // session
 add_filter('random_password', 'f_length_pass'); function f_length_pass($pass) {$pass = substr($pass,0,3); return $pass;}
 add_action('admin_bar_menu', 'f_admin_menu', 999);
 add_shortcode('rencontre_libre', 'f_shortcode_rencontre_libre');
@@ -16,10 +16,10 @@ add_filter ('retrieve_password_message', 'retrieve_password_message2', 10, 2);
 // AJAX
 add_action('wp_ajax_regionBDD', 'f_regionBDD'); // AJAX - retour des regions dans le select
 add_action('wp_ajax_sourire', 'f_sourire'); function f_sourire() {}
-add_action('wp_ajax_voirMsg', 'f_voirMsg'); function f_voirMsg() {RencontreWidget::f_voirMsg($_POST['msg'],$_POST['alias']);}
-add_action('wp_ajax_suppMsg', 'f_suppMsg'); function f_suppMsg() {RencontreWidget::f_suppMsg($_POST['msg'],$_POST['alias']);}
-add_action('wp_ajax_boiteEnvoi', 'f_boiteEnvoi'); function f_boiteEnvoi() {RencontreWidget::f_boiteEnvoi($_POST['alias']);}
-add_action('wp_ajax_boiteReception', 'f_boiteReception'); function f_boiteReception() {RencontreWidget::f_boiteReception($_POST['alias']);}
+add_action('wp_ajax_voirMsg', 'f_voirMsg'); function f_voirMsg() {RencontreWidget::f_voirMsg($_POST['msg'],$_POST['alias'],(isset($_POST['ho'])?$_POST['ho']:false));}
+add_action('wp_ajax_suppMsg', 'f_suppMsg'); function f_suppMsg() {RencontreWidget::f_suppMsg($_POST['msg'],$_POST['alias'],(isset($_POST['ho'])?$_POST['ho']:false));}
+add_action('wp_ajax_boiteEnvoi', 'f_boiteEnvoi'); function f_boiteEnvoi() {RencontreWidget::f_boiteEnvoi($_POST['alias'],(isset($_POST['ho'])?$_POST['ho']:false));}
+add_action('wp_ajax_boiteReception', 'f_boiteReception'); function f_boiteReception() {RencontreWidget::f_boiteReception($_POST['alias'],(isset($_POST['ho'])?$_POST['ho']:false));}
 add_action('wp_ajax_pseudo', 'f_pseudo');
 add_action('wp_ajax_iniPass', 'f_iniPass'); // premiere connexion - changement mot de passe initial et pseudo
 add_action('wp_ajax_testPass', 'f_testPass'); // changement du mot de passe
@@ -77,6 +77,7 @@ function f_cron_on($cronBis=0)
 	// NETTOYAGE QUOTIDIEN
 	global $wpdb; global $rencOpt; global $rencDiv;
 	$bn = get_bloginfo('name');
+	$s1 = ""; // (synthese admin)
 	$cm = 0; // compteur de mail
 	$style = '<style>span.mot1{color:red;} ';
 	$style .= 'table.tab{display:block;padding:3px 0;border-top:1px dashed #888;border-bottom:1px dashed #888;text-align:center;} ';
@@ -171,6 +172,7 @@ function f_cron_on($cronBis=0)
 				{
 				$s = "<div style='text-align:left;margin:5px 5px 5px 10px;'>".__('Hello','rencontre')." ".$r->user_login.","."\r\n";
 				if ($rencOpt['textanniv'] && strlen($rencOpt['textanniv'])>10) $s .= "<br />".nl2br(stripslashes($rencOpt['textanniv']))."\r\n";
+				$s .= "</div>\r\n";
 				$he = '';
 				if(!has_filter('wp_mail') && !has_filter('wp_mail_content_type'))
 					{
@@ -191,7 +193,6 @@ function f_cron_on($cronBis=0)
 			}
 		}
 	// 9 Mail vers les membres et nettoyage des comptes actions (suppression comptes inexistants)
-	$s1 = "";
 	$j = floor((floor(time()/86400)/60 - floor(floor(time()/86400)/60)) * 60 +.00001); // horloge de jour de 0 à 59 (temps unix) - ex : aujourd'hui -> 4
 	if($rencOpt['mailmois']==2)
 		{
@@ -279,7 +280,7 @@ function f_cron_on($cronBis=0)
 				$s .= "<p class='mot2'>".__('Here\'s a selection of members that may interest you','rencontre')." :</p><table class='tab' cellspacing='7'><tr>";
 				foreach($q1 as $r1)
 					{
-					if (file_exists($rencDiv['basedir']."/portrait/".floor($r1->ID/1000)."/".($r1->ID*10)."-mini.jpg")) $u = $rencDiv['baseurl']."/portrait/".floor($r1->ID/1000)."/".($r1->ID*10)."-mini.jpg";
+					if (file_exists($rencDiv['basedir']."/portrait/".floor($r1->ID/1000)."/".Rencontre::f_img(($r1->ID*10)."-mini").".jpg")) $u = $rencDiv['baseurl']."/portrait/".floor($r1->ID/1000)."/".Rencontre::f_img(($r1->ID*10)."-mini").".jpg";
 					else $u = plugins_url('rencontre/images/no-photo60.jpg');
 					list($annee, $mois, $jour) = explode('-', $r1->d_naissance);
 					$today['mois'] = date('n'); $today['jour'] = date('j'); $today['annee'] = date('Y');
@@ -305,7 +306,7 @@ function f_cron_on($cronBis=0)
 					if ($q1)
 						{
 						++$c;
-						if (file_exists($rencDiv['basedir']."/portrait/".floor($action['sourireIn'][$v]['i']/1000)."/".($action['sourireIn'][$v]['i']*10)."-mini.jpg")) $u = $rencDiv['baseurl']."/portrait/".floor($action['sourireIn'][$v]['i']/1000)."/".($action['sourireIn'][$v]['i']*10)."-mini.jpg";
+						if (file_exists($rencDiv['basedir']."/portrait/".floor($action['sourireIn'][$v]['i']/1000)."/".Rencontre::f_img(($action['sourireIn'][$v]['i']*10)."-mini").".jpg")) $u = $rencDiv['baseurl']."/portrait/".floor($action['sourireIn'][$v]['i']/1000)."/".Rencontre::f_img(($action['sourireIn'][$v]['i']*10)."-mini").".jpg";
 						else $u = plugins_url('rencontre/images/no-photo60.jpg');
 						$s .= $t . "<td><a href='".esc_url(home_url('/'))."index.php?rencidfm=".$action['sourireIn'][$v]['i']."' target='_blank'><img src='".$u."' alt=''/><div class='mot3'>".substr($q1,0,10)."</div></a>"."\r\n"."</td>";
 						if ($c/6==floor($c/6)) $s .="</tr><tr>";
@@ -325,7 +326,7 @@ function f_cron_on($cronBis=0)
 					if ($q1)
 						{
 						++$c;
-						if (file_exists($rencDiv['basedir']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10)."-mini.jpg")) $u = $rencDiv['baseurl']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10)."-mini.jpg";
+						if (file_exists($rencDiv['basedir']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".Rencontre::f_img(($action['contactIn'][$v]['i']*10)."-mini").".jpg")) $u = $rencDiv['baseurl']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".Rencontre::f_img(($action['contactIn'][$v]['i']*10)."-mini").".jpg";
 						else $u = plugins_url('rencontre/images/no-photo60.jpg');
 						$s .= $t . "<td><a href='".esc_url(home_url('/'))."index.php?rencidfm=".$action['contactIn'][$v]['i']."' target='_blank'><img src='".$u."' alt=''/><div class='mot3'>".substr($q1,0,10)."</div></a>"."\r\n"."</td>";
 						if ($c/6==floor($c/6)) $s .="</tr><tr>";
@@ -443,7 +444,7 @@ function f_cron_liste($d2)
 				$q1 = $wpdb->get_var("SELECT U.user_login FROM ".$wpdb->prefix."users U WHERE ID='".$action['contactIn'][$v]['i']."'");
 				if ($q1)
 					{
-					if (file_exists($rencDiv['basedir']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10)."-mini.jpg")) $u = $rencDiv['baseurl']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".($action['contactIn'][$v]['i']*10)."-mini.jpg";
+					if (file_exists($rencDiv['basedir']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".Rencontre::f_img(($action['contactIn'][$v]['i']*10)."-mini").".jpg")) $u = $rencDiv['baseurl']."/portrait/".floor($action['contactIn'][$v]['i']/1000)."/".Rencontre::f_img(($action['contactIn'][$v]['i']*10)."-mini").".jpg";
 					else $u = plugins_url('rencontre/images/no-photo60.jpg');
 					$s .= "<td><a href='".esc_url(home_url('/'))."index.php?rencidfm=".$action['contactIn'][$v]['i']."' target='_blank'><img src='".$u."' alt=''/><div style='color:#444;font-size:.9em;font-family:\"DejaVu Sans\",sans-serif;margin:0 3px;'>".substr($q1,0,10)."</div></a>"."\r\n"."</td>";
 					}
@@ -487,13 +488,13 @@ function f_admin_menu ($wp_admin_bar)
 	$args = array(
 		'id'=>'rencontre',
 		'title'=>'<img src="'.plugins_url('rencontre/images/rencontre.png').'" />',
-		'href'=>admin_url('admin.php?page=membres'),
+		'href'=>admin_url('admin.php?page=rencmembers'),
 		'meta'=>array('class'=>'rencontre',
 		'title'=>'Rencontre'));
 	$wp_admin_bar->add_node($args);
 	}
 //
-function f_inLine()
+function rencInLine()
 	{
 	if (is_user_logged_in())
 		{
@@ -507,20 +508,20 @@ function f_inLine()
 		}
 	}
 //
-function f_outLine()
+function rencOutLine()
 	{
 	global $current_user; global $rencDiv;
 	if (file_exists($rencDiv['basedir'].'/session/'.$current_user->ID.'.txt')) unlink($rencDiv['basedir'].'/session/'.$current_user->ID.'.txt');
 	session_destroy();
 	}
 //
-function prevent_admin_access()
+function rencPreventAdminAccess()
 	{
 	global $rencDiv;
 	$a=strtolower($_SERVER['REQUEST_URI']);
 	if (strpos($a,'/wp-admin')!==false && strpos($a,'admin-ajax.php')==false && !current_user_can("administrator")) { wp_redirect($rencDiv['siteurl']); exit; }
 	}
-function f_admin_bar($content) { return (current_user_can("administrator")) ? $content : false; }
+function rencAdminBar($content) { return (current_user_can("administrator")) ? $content : false; }
 function f_regionBDD()
 	{ 
 	echo '<option value="">- '.__('Immaterial','rencontre').' -</option>';
@@ -660,10 +661,10 @@ function f_userSupp($f,$a,$b)
 	$r = 'wp-content/uploads/portrait/'.floor($f/1000);
 	for ($v=0; $v<6; $v++)
 		{
-		if (file_exists($r."/".$f.$v.".jpg")) unlink($r."/".$f.$v.".jpg");
-		if (file_exists($r."/".$f.$v."-mini.jpg")) unlink($r."/".$f.$v."-mini.jpg");
-		if (file_exists($r."/".$f.$v."-grande.jpg")) unlink($r."/".$f.$v."-grande.jpg");
-		if (file_exists($r."/".$f.$v."-libre.jpg")) unlink($r."/".$f.$v."-libre.jpg");
+		if (file_exists($r."/".Rencontre::f_img($f.$v).".jpg")) unlink($r."/".Rencontre::f_img($f.$v).".jpg");
+		if (file_exists($r."/".Rencontre::f_img($f.$v."-mini").".jpg")) unlink($r."/".Rencontre::f_img($f.$v."-mini").".jpg");
+		if (file_exists($r."/".Rencontre::f_img($f.$v."-grande").".jpg")) unlink($r."/".Rencontre::f_img($f.$v."-grande").".jpg");
+		if (file_exists($r."/".Rencontre::f_img($f.$v."-libre").".jpg")) unlink($r."/".Rencontre::f_img($f.$v."-libre").".jpg");
 		}
 	if (!is_admin()) wp_logout();
 	global $wpdb;

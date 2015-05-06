@@ -35,7 +35,7 @@ function f_importCsv(f){
 	if(f){
 		jQuery(document).ready(function(){
 			document.getElementById('loadingCsv').style.display='inline';
-			jQuery.post('admin-ajax.php',{'action':'importCsv','cas':f},function(r){
+			jQuery.post('admin-ajax.php',{'action':'importCsv','cas':f},function(r){//alert(r);
 				if(f==2)csv=r.substring(0,r.length-1);
 				document.getElementById('impCsv3').style.display='inline';
 				document.getElementById('impCsv4').style.display='inline';
@@ -308,12 +308,12 @@ function f_liste_langsupp(){
 // ****************************************
 // ONGLETS MEMBRES & PRISON
 // ****************************************
-function f_vignette(f){
-	ff="../wp-content/uploads/portrait/"+Math.floor((f)/10000)+"/"+f+"-grande.jpg?r="+Math.random();
+function f_vignette(f,img){
+	ff="../wp-content/uploads/portrait/"+Math.floor((f)/10000)+"/"+img+".jpg?r="+Math.random();
 	document.getElementById('portraitGrande').src=ff;
 }
-function f_vignette_change(f){
-	f_vignette(f);
+function f_vignette_change(f,img){
+	f_vignette(f,img);
 	document.getElementById('changePhoto').innerHTML='';
 }
 function f_supp_photo(f){

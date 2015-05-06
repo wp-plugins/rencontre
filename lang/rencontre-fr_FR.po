@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rencontre\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-25 10:53+0100\n"
+"POT-Creation-Date: 2015-05-02 18:01+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: jacques Malgrange <contacter@boiteasite.fr>\n"
 "Language-Team: boiteasite.fr <contacter@boiteasite.fr>\n"
@@ -25,647 +25,86 @@ msgstr "Vous devez installer les pays"
 msgid "You have to deactivate then reactivate the plugin"
 msgstr "Vous devez d&eacute;sactiver puis r&eacute;activer le plugin"
 
-#: ../rencontre.php:203
+#: ../rencontre.php:201
 msgid "Rencontre - General"
 msgstr "Rencontre - G&eacute;n&eacute;ral"
 
-#: ../rencontre.php:203
-#: ../rencontre.php:264
+#: ../rencontre.php:201
+#: ../inc/base.php:615
 msgid "General"
 msgstr "G&eacute;n&eacute;ral"
 
-#: ../rencontre.php:204
+#: ../rencontre.php:202
 msgid "Rencontre - Members"
 msgstr "Rencontre - Membres"
 
-#: ../rencontre.php:204
-#: ../rencontre.php:466
+#: ../rencontre.php:202
+#: ../inc/base.php:833
 msgid "Members"
 msgstr "Membres"
 
-#: ../rencontre.php:205
+#: ../rencontre.php:203
 msgid "Rencontre - Jail"
 msgstr "Rencontre - Prison"
 
-#: ../rencontre.php:205
-#: ../rencontre.php:707
+#: ../rencontre.php:203
+#: ../inc/base.php:1077
 msgid "Jail"
 msgstr "Prison"
 
-#: ../rencontre.php:206
+#: ../rencontre.php:204
 msgid "Rencontre - Profile"
 msgstr "Rencontre - Profil"
 
-#: ../rencontre.php:206
-#: ../rencontre.php:792
-#: ../inc/rencontre_widget.php:887
-#: ../inc/rencontre_widget.php:1665
+#: ../rencontre.php:204
+#: ../inc/base.php:1162
+#: ../inc/rencontre_widget.php:958
+#: ../inc/rencontre_widget.php:1806
 msgid "Profile"
 msgstr "Profil"
 
-#: ../rencontre.php:207
+#: ../rencontre.php:205
 msgid "Rencontre - Countries"
 msgstr "Rencontre - Pays"
 
-#: ../rencontre.php:207
-#: ../rencontre.php:534
-#: ../inc/rencontre_widget.php:573
-#: ../inc/rencontre_widget.php:1472
+#: ../rencontre.php:205
+#: ../inc/base.php:902
+#: ../inc/rencontre_widget.php:619
+#: ../inc/rencontre_widget.php:1550
 #: ../lang/rencontre-js-admin-lang.php:12
 msgid "Country"
 msgstr "Pays"
 
-#: ../rencontre.php:268
-msgid "Framework for the Facebook Like button"
-msgstr "Framework pour le bouton J'aime de Facebook"
-
-#: ../rencontre.php:272
-msgid "AppID for Facebook connection (empty if not installed)"
-msgstr "AppID pour connexion par Facebook (vide si pas install&eacute;)"
-
-#: ../rencontre.php:277
-msgid "Page where is settled the plugin"
-msgstr "Page o&ugrave; est install&eacute; le plugin"
-
-#: ../rencontre.php:289
-msgid "Country selected by default"
-msgstr "Pays s&eacute;l&eacute;ctionn&eacute; par d&eacute;faut"
-
-#: ../rencontre.php:298
-msgid "Number of portrait homepage unconnected"
-msgstr "Nombre de portrait en page d'accueil non connect&eacute;"
-
-#: ../rencontre.php:302
-msgid "Number of days to wait before presence homepage"
-msgstr "Nombre de jours d'attente avant pr&eacute;sence en page d'accueil"
-
-#: ../rencontre.php:306
-msgid "Number of days in jail (deleted account)"
-msgstr "Dur&eacute;e de la prison en jour (compte supprim&eacute;)"
-
-#: ../rencontre.php:310
-msgid "Max number of results per search"
-msgstr "Nombre max de r&eacute;sultats par recherche"
-
-#: ../rencontre.php:314
-#: ../inc/rencontre_widget.php:624
-msgid "Today's birthday"
-msgstr "Anniversaires du jour"
-
-#: ../rencontre.php:318
-msgid "Profiles currently online"
-msgstr "Profils actuellement en ligne"
-
-#: ../rencontre.php:322
-msgid "Enable chat"
-msgstr "Activer le chat"
-
-#: ../rencontre.php:326
-msgid "Enable Google-Map"
-msgstr "Activer Google-Map"
-
-#: ../rencontre.php:330
-msgid "Number of photos"
-msgstr "Nombre de photos"
-
-#: ../rencontre.php:342
-msgid "View a discrete copyright on photos"
-msgstr "Afficher un copyright discret sur les photos"
-
-#: ../rencontre.php:345
-#: ../rencontre.php:367
-msgid "No"
-msgstr "Non"
-
-#: ../rencontre.php:346
-msgid "Upwardly inclined"
-msgstr "Inclin&eacute; vers le haut"
-
-#: ../rencontre.php:347
-msgid "Downwardly inclined"
-msgstr "Inclin&eacute; vers le bas"
-
-#: ../rencontre.php:352
-msgid "Copyright text on pictures. Empty => Site URL."
-msgstr "Texte du copyright sur les photos. Vide => URL du site."
-
-#: ../rencontre.php:356
-msgid "Members without photo less visible"
-msgstr "Membres sans photo moins visibles"
-
-#: ../rencontre.php:360
-msgid "Send an email to the user whose account is deleted"
-msgstr "Envoyer un mail &agrave; l'utilisateur dont le compte est supprim&eacute;"
-
-#: ../rencontre.php:364
-msgid "Automatic sending a summary email to members (shared daily)"
-msgstr "Envoi automatique d'un mail de synth&egrave;se aux membres (r&eacute;parti chaque jour)"
-
-#: ../rencontre.php:368
-msgid "Monthly"
-msgstr "Mensuel"
-
-#: ../rencontre.php:369
-msgid "Fortnightly"
-msgstr "Bimensuel"
-
-#: ../rencontre.php:370
-msgid "Weekly"
-msgstr "Hebdomadaire"
-
-#: ../rencontre.php:374
-#: ../rencontre.php:404
-msgid "Up this week"
-msgstr "Maximum cette semaine"
-
-#: ../rencontre.php:374
-#: ../rencontre.php:404
-msgid "mail/hour"
-msgstr "mail/h"
-
-#: ../rencontre.php:374
-msgid "sent during maintenance"
-msgstr "envoy&eacute;s lors de la maintenance"
-
-#: ../rencontre.php:379
-msgid "Hour maintenance tasks (off peak)"
-msgstr "Heure des t&acirc;ches de maintenance (heures creuses)"
-
-#: ../rencontre.php:382
-msgid "hours"
-msgstr "heures"
-
-#: ../rencontre.php:387
-msgid "Introductory text for the monthly email (After hello login - Before the smiles and contact requests)"
-msgstr "Texte d'introduction pour le mail mensuel (Apr&egrave;s bonjour login - Avant les sourires et demandes de contact)"
-
-#: ../rencontre.php:391
-msgid "Automatically sending an email happy birthday members"
-msgstr "Envoi automatique d'un mail de bon anniversaire aux membres"
-
-#: ../rencontre.php:395
-msgid "Full text for the birthday mail (After hello pseudo)"
-msgstr "Texte complet pour le mail de bon anniversaire (Apr&egrave;s bonjour login)"
-
-#: ../rencontre.php:399
-msgid "Max number of mails sent per hour"
-msgstr "Nombre max de mail envoy&eacute;s par heure"
-
-#: ../rencontre.php:404
-msgid "except during maintenance"
-msgstr "hors p&eacute;riode de maintenance"
-
-#: ../rencontre.php:410
-#: ../inc/rencontre_widget.php:1913
-#: ../lang/rencontre-js-admin-lang.php:4
-msgid "Save"
-msgstr "Sauvegarde"
-
-#: ../rencontre.php:414
-msgid "Export members in CSV"
-msgstr "Export des membres en CSV"
-
-#: ../rencontre.php:416
-msgid "Export in CSV"
-msgstr "Exporter en CSV"
-
-#: ../rencontre.php:419
-msgid "Get back photos by FTP in wp-content/uploads/tmp/"
-msgstr "R&eacute;cup&eacute;rer les photos en FTP dans wp-content/uploads/tmp/"
-
-#: ../rencontre.php:422
-msgid "Import members in CSV"
-msgstr "Import des membres en CSV"
-
-#: ../rencontre.php:423
-msgid "Put members photos in wp-content/uploads/tmp/photo_import/ by FTP before the start (right RW - no sub folder)."
-msgstr "D&eacute;poser les photos des membres en FTP dans wp-content/uploads/tmp/photo_import/ avant de commencer (accessible RW - pas de sous-dossier)."
-
-#: ../rencontre.php:424
-msgid "Make an export and look at it to get the right format (The first line is not treated)."
-msgstr "Pour conna&icirc;tre le format &agrave; respecter, faire un export et s'inspirer du fichier (la premi&egrave;re ligne avec le titre des colonnes n'est pas trait&eacute;e)."
-
-#: ../rencontre.php:425
-msgid "In case of interruption during the import of photos, restart the procedure. Doubloons are killed."
-msgstr "En cas d'interruption durant l'import des photos, recommencer la proc&eacute;dure. Les doublons sont supprim&eacute;s."
-
-#: ../rencontre.php:428
-msgid "CSV File"
-msgstr "Fichier CSV"
-
-#: ../rencontre.php:434
-msgid "Import in CSV"
-msgstr "Importer en CSV"
-
-#: ../rencontre.php:435
-msgid "File loaded"
-msgstr "Fichier charg&eacute;"
-
-#: ../rencontre.php:436
-msgid "Error !"
-msgstr "Erreur !"
-
-#: ../rencontre.php:437
-msgid "Import data completed"
-msgstr "Import donn&eacute;es termin&eacute;"
-
-#: ../rencontre.php:438
-msgid "Photos Import"
-msgstr "Import Photos"
-
-#: ../rencontre.php:440
-msgid "Import completed"
-msgstr "Import termin&eacute;"
-
-#: ../rencontre.php:470
-msgid "Number of registered members"
-msgstr "Nombre de membres inscrits"
-
-#: ../rencontre.php:471
-msgid "Number of members with profile and photo"
-msgstr "Nombre de membres avec profil et photo"
-
-#: ../rencontre.php:477
-msgid "Alias or email"
-msgstr "Pseudo ou email"
-
-#: ../rencontre.php:479
-#: ../inc/rencontre_widget.php:585
-#: ../inc/rencontre_widget.php:1561
-msgid "Find"
-msgstr "Cherche"
-
-#: ../rencontre.php:488
-#: ../rencontre.php:1088
-#: ../inc/rencontre_widget.php:1918
+#: ../rencontre.php:239
+#: ../inc/base.php:855
+#: ../inc/rencontre_widget.php:2063
 msgid "Account deletion"
 msgstr "Suppression du compte"
 
-#: ../rencontre.php:489
-#: ../rencontre.php:1089
+#: ../rencontre.php:240
+#: ../inc/base.php:856
 msgid "Your account has been deleted"
 msgstr "Votre compte a &eacute;t&eacute; supprim&eacute;"
 
-#: ../rencontre.php:525
-#: ../rencontre.php:527
-#: ../rencontre.php:529
-#: ../rencontre.php:534
-#: ../rencontre.php:535
-#: ../rencontre.php:536
-#: ../rencontre.php:537
-#: ../rencontre.php:733
-#: ../rencontre.php:734
-#: ../rencontre.php:735
-msgid "Sort"
-msgstr "Trier"
-
-#: ../rencontre.php:526
-msgid "Photo"
-msgstr "Photo"
-
-#: ../rencontre.php:527
-#: ../inc/rencontre_widget.php:1555
-msgid "Alias"
-msgstr "Pseudo"
-
-#: ../rencontre.php:528
-msgid "Sex"
-msgstr "Sex"
-
-#: ../rencontre.php:529
-#: ../inc/rencontre_widget.php:539
-#: ../inc/rencontre_widget.php:559
-#: ../inc/rencontre_widget.php:1420
-msgid "Age"
-msgstr "Age"
-
-#: ../rencontre.php:530
-#: ../inc/rencontre_widget.php:1437
-msgid "Size"
-msgstr "Taille"
-
-#: ../rencontre.php:531
-#: ../inc/rencontre_widget.php:1454
-msgid "Weight"
-msgstr "Poids"
-
-#: ../rencontre.php:532
-#: ../inc/rencontre_widget.php:54
-#: ../inc/rencontre_widget.php:1412
-msgid "Search"
-msgstr "Recherche"
-
-#: ../rencontre.php:533
-msgid "Hang"
-msgstr "Accroche"
-
-#: ../rencontre.php:535
-msgid "Ad (change)"
-msgstr "Annonce (modif)"
-
-#: ../rencontre.php:536
-#: ../rencontre.php:735
-msgid "IP address"
-msgstr "Adresse IP"
-
-#: ../rencontre.php:537
-msgid "Reporting"
-msgstr "Signalement"
-
-#: ../rencontre.php:538
-#: ../lang/rencontre-js-admin-lang.php:6
-msgid "Del"
-msgstr "Supp"
-
-#: ../rencontre.php:546
-#: ../rencontre.php:547
-msgid "See"
-msgstr "Voir"
-
-#: ../rencontre.php:549
-#: ../inc/rencontre_widget.php:139
-#: ../inc/rencontre_widget.php:221
-#: ../inc/rencontre_widget.php:305
-#: ../inc/rencontre_widget.php:1796
-#: ../inc/rencontre_widget.php:1885
-msgid "Man"
-msgstr "Homme"
-
-#: ../rencontre.php:549
-#: ../inc/rencontre_widget.php:140
-#: ../inc/rencontre_widget.php:222
-#: ../inc/rencontre_widget.php:305
-#: ../inc/rencontre_widget.php:1797
-#: ../inc/rencontre_widget.php:1886
-msgid "Woman"
-msgstr "Femme"
-
-#: ../rencontre.php:553
+#: ../rencontre.php:367
+#: ../inc/rencontre_filter.php:291
+#: ../inc/rencontre_widget.php:233
 #: ../inc/rencontre_widget.php:237
-#: ../inc/rencontre_widget.php:314
-#: ../inc/rencontre_widget.php:542
-#: ../inc/rencontre_widget.php:880
-#: ../inc/rencontre_widget.php:1660
-#: ../inc/rencontre_widget.php:1907
-msgid "Serious relationship"
-msgstr "Relation s&eacute;rieuse"
-
-#: ../rencontre.php:553
-#: ../inc/rencontre_widget.php:238
-#: ../inc/rencontre_widget.php:314
-#: ../inc/rencontre_widget.php:542
-#: ../inc/rencontre_widget.php:880
-#: ../inc/rencontre_widget.php:1660
-#: ../inc/rencontre_widget.php:1908
-msgid "Open relationship"
-msgstr "Relation libre"
-
-#: ../rencontre.php:553
-#: ../inc/rencontre_widget.php:239
-#: ../inc/rencontre_widget.php:314
-#: ../inc/rencontre_widget.php:542
-#: ../inc/rencontre_widget.php:880
-#: ../inc/rencontre_widget.php:1660
-#: ../inc/rencontre_widget.php:1909
-msgid "Friendship"
-msgstr "Amiti&eacute;"
-
-#: ../rencontre.php:555
-#: ../inc/rencontre_widget.php:565
-#: ../inc/rencontre_widget.php:1427
-#: ../inc/rencontre_widget.php:1444
-#: ../inc/rencontre_widget.php:1462
-msgid "to"
-msgstr "&agrave;"
-
-#: ../rencontre.php:569
-#: ../rencontre.php:881
-#: ../rencontre.php:910
-#: ../rencontre.php:934
-#: ../rencontre.php:1046
-#: ../rencontre.php:1057
-#: ../lang/rencontre-js-admin-lang.php:7
-msgid "Remove"
-msgstr "Supprimer"
-
-#: ../rencontre.php:610
-msgid "Change My Profile"
-msgstr "Modifier un profil"
-
-#: ../rencontre.php:611
-#: ../inc/rencontre_widget.php:896
-#: ../inc/rencontre_widget.php:1674
-msgid "Previous page"
-msgstr "Page pr&eacute;c&eacute;dente"
-
-#: ../rencontre.php:612
-msgid "Back Members"
-msgstr "Retour Membres"
-
-#: ../rencontre.php:616
-#: ../inc/rencontre_widget.php:467
-msgid "Save profile"
-msgstr "Sauvegarde du profil"
-
-#: ../rencontre.php:625
-#: ../inc/rencontre_widget.php:438
-msgid "Click to delete"
-msgstr "Cliquer pour supprimer"
-
-#: ../rencontre.php:628
-#: ../inc/rencontre_widget.php:441
-msgid "Click to add a photo"
-msgstr "Cliquer pour ajouter une photo"
-
-#: ../rencontre.php:632
-#: ../inc/rencontre_widget.php:446
-msgid "Delete all photos"
-msgstr "Supprimer toutes les photos"
-
-#: ../rencontre.php:643
-#: ../inc/rencontre_widget.php:460
-msgid "My attention-catcher"
-msgstr "Mon accroche"
-
-#: ../rencontre.php:645
-#: ../inc/rencontre_widget.php:462
-msgid "My ad"
-msgstr "Mon annonce"
-
-#: ../rencontre.php:685
-#: ../inc/rencontre_widget.php:453
-msgid "Done"
-msgstr "Effectu&eacute;e"
-
-#: ../rencontre.php:733
-#: ../inc/rencontre_widget.php:1294
-#: ../inc/rencontre_widget.php:1319
-#: ../inc/rencontre_widget.php:1362
-msgid "Date"
-msgstr "Date"
-
-#: ../rencontre.php:734
-msgid "Email address"
-msgstr "Adresse mail"
-
-#: ../rencontre.php:736
-msgid "End"
-msgstr "Fin"
-
-#: ../rencontre.php:746
-msgid "Release"
-msgstr "Lib&eacute;rer"
-
-#: ../rencontre.php:796
-msgid "It does not appear to be any profile. You can load the default profile if you wish."
-msgstr "Il ne semble pas y avoir de profil. Vous pouvez charger les profils par d&eacute;faut si vous le souhaitez."
-
-#: ../rencontre.php:797
-msgid "Load profiles"
-msgstr "Charger profils"
-
-#: ../rencontre.php:802
-#: ../rencontre.php:996
-msgid "The country table is empty. You can load the countries and regions by default if you wish."
-msgstr "La table des pays est vide. Vous pouvez charger les pays et r&eacute;gions par d&eacute;faut si vous le souhaitez."
-
-#: ../rencontre.php:803
-#: ../rencontre.php:997
-msgid "Load countries"
-msgstr "Charger pays"
-
-#: ../rencontre.php:807
-msgid "Update member profile"
-msgstr "Mettre &agrave; jour le profil des membres"
-
-#: ../rencontre.php:808
-msgid "You have made changes. Remember to update when you're done."
-msgstr "Vous avez fait des modifications. Pensez &agrave; mettre &agrave; jour lorsque vous aurez termin&eacute;."
-
-#: ../rencontre.php:811
-msgid "You can create, rename and delete items from the profile."
-msgstr "Vous pouvez cr&eacute;er, renommer et supprimer les diff&eacute;rents items du profil."
-
-#: ../rencontre.php:813
-msgid "Warning, this is not without consequences. The changes will be applied to the member profiles that can offend. Caution !"
-msgstr "Attention, ce n'est pas sans cons&eacute;quences. Les changements seront appliqu&eacute;s sur les profils des membres ce qui peut choquer. Prudence !"
-
-#: ../rencontre.php:815
-#: ../rencontre.php:1001
-msgid "Ref language"
-msgstr "Langue de r&eacute;f&eacute;rence"
-
-#: ../rencontre.php:815
-#: ../rencontre.php:1001
-msgid "Other"
-msgstr "Autres"
-
-#: ../rencontre.php:828
-#: ../rencontre.php:1014
-msgid "Add Language (2 lowercase letters comply with country code)"
-msgstr "Ajouter une langue (2 lettres minuscules conformes au code du pays)"
-
-#: ../rencontre.php:830
-#: ../rencontre.php:1016
-msgid "Add a language"
-msgstr "Ajouter une langue"
-
-#: ../rencontre.php:833
-#: ../rencontre.php:1019
-msgid "Remove a language and all related content"
-msgstr "Supprimer une langue et tout le contenu associ&eacute;"
-
-#: ../rencontre.php:837
-#: ../rencontre.php:1023
-msgid "Remove a language"
-msgstr "Supprimer une langue"
-
-#: ../rencontre.php:844
-msgid "Add category"
-msgstr "Ajouter une cat&eacute;gorie"
-
-#: ../rencontre.php:864
-msgid "Change the name"
-msgstr "Modifier le nom"
-
-#: ../rencontre.php:865
-msgid "Remove the category"
-msgstr "Supprimer toute la cat&eacute;gorie"
-
-#: ../rencontre.php:869
-#: ../rencontre.php:870
-msgid "Add value to this category"
-msgstr "Ajouter une valeur &agrave; cette cat&eacute;gorie"
-
-#: ../rencontre.php:880
-#: ../rencontre.php:1045
-msgid "Change the name or type"
-msgstr "Modifier le nom ou le type"
-
-#: ../rencontre.php:888
-msgid "A line of text (TEXT)"
-msgstr "Une ligne de texte (TEXT)"
-
-#: ../rencontre.php:891
-msgid "Large text box (TEXTAREA)"
-msgstr "Grande zone de texte (TEXTAREA)"
-
-#: ../rencontre.php:895
-#: ../rencontre.php:919
-#: ../rencontre.php:1051
-msgid "Add Value"
-msgstr "Ajouter une valeur"
-
-#: ../rencontre.php:896
-msgid "Single choice list (SELECT)"
-msgstr "Liste &agrave; choix unique (SELECT)"
-
-#: ../rencontre.php:909
-#: ../rencontre.php:933
-#: ../rencontre.php:1056
-#: ../inc/rencontre_widget.php:1779
-msgid "Change"
-msgstr "Modifier"
-
-#: ../rencontre.php:920
-msgid "Multiple choice list (CHECKBOX)"
-msgstr "Liste &agrave; choix multiples (CHECKBOX)"
-
-#: ../rencontre.php:992
-msgid "Countries and Regions"
-msgstr "Pays et R&eacute;gions"
-
-#: ../rencontre.php:1000
-msgid "You can create, rename and delete countries and regions."
-msgstr "Vous pouvez cr&eacute;er, renommer et supprimer les pays et r&eacute;gions."
-
-#: ../rencontre.php:1030
-msgid "Add a country"
-msgstr "Ajouter un pays"
-
-#: ../rencontre.php:1052
-msgid "Regions"
-msgstr "R&eacute;gions"
-
-#: ../rencontre.php:1214
-#: ../inc/rencontre_filter.php:288
-#: ../inc/rencontre_widget.php:227
-#: ../inc/rencontre_widget.php:231
-#: ../inc/rencontre_widget.php:305
-#: ../inc/rencontre_widget.php:313
-#: ../inc/rencontre_widget.php:539
-#: ../inc/rencontre_widget.php:561
-#: ../inc/rencontre_widget.php:567
-#: ../inc/rencontre_widget.php:569
-#: ../inc/rencontre_widget.php:879
-#: ../inc/rencontre_widget.php:1223
-#: ../inc/rencontre_widget.php:1251
-#: ../inc/rencontre_widget.php:1423
-#: ../inc/rencontre_widget.php:1429
-#: ../inc/rencontre_widget.php:1431
-#: ../inc/rencontre_widget.php:1659
-#: ../inc/rencontre_widget.php:1891
-#: ../inc/rencontre_widget.php:1895
+#: ../inc/rencontre_widget.php:311
+#: ../inc/rencontre_widget.php:321
+#: ../inc/rencontre_widget.php:585
+#: ../inc/rencontre_widget.php:607
+#: ../inc/rencontre_widget.php:613
+#: ../inc/rencontre_widget.php:615
+#: ../inc/rencontre_widget.php:939
+#: ../inc/rencontre_widget.php:1298
+#: ../inc/rencontre_widget.php:1326
+#: ../inc/rencontre_widget.php:1501
+#: ../inc/rencontre_widget.php:1507
+#: ../inc/rencontre_widget.php:1509
+#: ../inc/rencontre_widget.php:1787
+#: ../inc/rencontre_widget.php:2036
+#: ../inc/rencontre_widget.php:2040
 msgid "years"
 msgstr "ans"
 
@@ -674,6 +113,596 @@ msgstr "ans"
 #: ../inc/base.php:332
 msgid "TO CHANGE"
 msgstr "A MODIFIER"
+
+#: ../inc/base.php:619
+msgid "Framework for the Facebook Like button"
+msgstr "Framework pour le bouton J'aime de Facebook"
+
+#: ../inc/base.php:623
+msgid "AppID for Facebook connection (empty if not installed)"
+msgstr "AppID pour connexion par Facebook (vide si pas install&eacute;)"
+
+#: ../inc/base.php:628
+msgid "Page where is settled the plugin"
+msgstr "Page o&ugrave; est install&eacute; le plugin"
+
+#: ../inc/base.php:640
+msgid "Country selected by default"
+msgstr "Pays s&eacute;l&eacute;ctionn&eacute; par d&eacute;faut"
+
+#: ../inc/base.php:649
+msgid "Number of portrait homepage unconnected"
+msgstr "Nombre de portrait en page d'accueil non connect&eacute;"
+
+#: ../inc/base.php:653
+msgid "Number of days to wait before presence homepage"
+msgstr "Nombre de jours d'attente avant pr&eacute;sence en page d'accueil"
+
+#: ../inc/base.php:657
+msgid "Number of days in jail (deleted account)"
+msgstr "Dur&eacute;e de la prison en jour (compte supprim&eacute;)"
+
+#: ../inc/base.php:661
+msgid "Max number of results per search"
+msgstr "Nombre max de r&eacute;sultats par recherche"
+
+#: ../inc/base.php:665
+#: ../inc/rencontre_widget.php:670
+msgid "Today's birthday"
+msgstr "Anniversaires du jour"
+
+#: ../inc/base.php:669
+msgid "Profiles currently online"
+msgstr "Profils actuellement en ligne"
+
+#: ../inc/base.php:673
+msgid "Enable chat"
+msgstr "Activer le chat"
+
+#: ../inc/base.php:677
+msgid "Enable Google-Map"
+msgstr "Activer Google-Map"
+
+#: ../inc/base.php:681
+msgid "Number of photos"
+msgstr "Nombre de photos"
+
+#: ../inc/base.php:693
+msgid "View a discrete copyright on photos"
+msgstr "Afficher un copyright discret sur les photos"
+
+#: ../inc/base.php:696
+#: ../inc/base.php:718
+msgid "No"
+msgstr "Non"
+
+#: ../inc/base.php:697
+msgid "Upwardly inclined"
+msgstr "Inclin&eacute; vers le haut"
+
+#: ../inc/base.php:698
+msgid "Downwardly inclined"
+msgstr "Inclin&eacute; vers le bas"
+
+#: ../inc/base.php:703
+msgid "Copyright text on pictures. Empty => Site URL."
+msgstr "Texte du copyright sur les photos. Vide => URL du site."
+
+#: ../inc/base.php:707
+msgid "Members without photo less visible"
+msgstr "Membres sans photo moins visibles"
+
+#: ../inc/base.php:711
+msgid "Send an email to the user whose account is deleted"
+msgstr "Envoyer un mail &agrave; l'utilisateur dont le compte est supprim&eacute;"
+
+#: ../inc/base.php:715
+msgid "Automatic sending a summary email to members (shared daily)"
+msgstr "Envoi automatique d'un mail de synth&egrave;se aux membres (r&eacute;parti chaque jour)"
+
+#: ../inc/base.php:719
+msgid "Monthly"
+msgstr "Mensuel"
+
+#: ../inc/base.php:720
+msgid "Fortnightly"
+msgstr "Bimensuel"
+
+#: ../inc/base.php:721
+msgid "Weekly"
+msgstr "Hebdomadaire"
+
+#: ../inc/base.php:725
+#: ../inc/base.php:755
+msgid "Up this week"
+msgstr "Maximum cette semaine"
+
+#: ../inc/base.php:725
+#: ../inc/base.php:755
+msgid "mail/hour"
+msgstr "mail/h"
+
+#: ../inc/base.php:725
+msgid "sent during maintenance"
+msgstr "envoy&eacute;s lors de la maintenance"
+
+#: ../inc/base.php:730
+msgid "Hour maintenance tasks (off peak)"
+msgstr "Heure des t&acirc;ches de maintenance (heures creuses)"
+
+#: ../inc/base.php:733
+msgid "hours"
+msgstr "heures"
+
+#: ../inc/base.php:738
+msgid "Introductory text for the monthly email (After hello login - Before the smiles and contact requests)"
+msgstr "Texte d'introduction pour le mail mensuel (Apr&egrave;s bonjour login - Avant les sourires et demandes de contact)"
+
+#: ../inc/base.php:742
+msgid "Automatically sending an email happy birthday members"
+msgstr "Envoi automatique d'un mail de bon anniversaire aux membres"
+
+#: ../inc/base.php:746
+msgid "Full text for the birthday mail (After hello pseudo)"
+msgstr "Texte complet pour le mail de bon anniversaire (Apr&egrave;s bonjour login)"
+
+#: ../inc/base.php:750
+msgid "Max number of mails sent per hour"
+msgstr "Nombre max de mail envoy&eacute;s par heure"
+
+#: ../inc/base.php:755
+msgid "except during maintenance"
+msgstr "hors p&eacute;riode de maintenance"
+
+#: ../inc/base.php:761
+#: ../inc/rencontre_widget.php:2058
+#: ../lang/rencontre-js-admin-lang.php:4
+msgid "Save"
+msgstr "Sauvegarde"
+
+#: ../inc/base.php:765
+msgid "Export members in CSV"
+msgstr "Export des membres en CSV"
+
+#: ../inc/base.php:767
+msgid "Export in CSV"
+msgstr "Exporter en CSV"
+
+#: ../inc/base.php:770
+msgid "Get back photos by FTP in wp-content/uploads/tmp/"
+msgstr "R&eacute;cup&eacute;rer les photos en FTP dans wp-content/uploads/tmp/"
+
+#: ../inc/base.php:773
+msgid "Import members in CSV"
+msgstr "Import des membres en CSV"
+
+#: ../inc/base.php:774
+msgid "Put members photos in wp-content/uploads/tmp/photo_import/ by FTP before the start (right RW - no sub folder)."
+msgstr "D&eacute;poser les photos des membres en FTP dans wp-content/uploads/tmp/photo_import/ avant de commencer (accessible RW - pas de sous-dossier)."
+
+#: ../inc/base.php:775
+msgid "Make an export and look at it to get the right format (The first line is not treated)."
+msgstr "Pour conna&icirc;tre le format &agrave; respecter, faire un export et s'inspirer du fichier (la premi&egrave;re ligne avec le titre des colonnes n'est pas trait&eacute;e)."
+
+#: ../inc/base.php:776
+msgid "In case of interruption during the import of photos, restart the procedure. Doubloons are killed."
+msgstr "En cas d'interruption durant l'import des photos, recommencer la proc&eacute;dure. Les doublons sont supprim&eacute;s."
+
+#: ../inc/base.php:779
+msgid "CSV File"
+msgstr "Fichier CSV"
+
+#: ../inc/base.php:785
+msgid "Import in CSV"
+msgstr "Importer en CSV"
+
+#: ../inc/base.php:786
+msgid "File loaded"
+msgstr "Fichier charg&eacute;"
+
+#: ../inc/base.php:787
+msgid "Error !"
+msgstr "Erreur !"
+
+#: ../inc/base.php:788
+msgid "Import data completed"
+msgstr "Import donn&eacute;es termin&eacute;"
+
+#: ../inc/base.php:789
+msgid "Photos Import"
+msgstr "Import Photos"
+
+#: ../inc/base.php:791
+msgid "Import completed"
+msgstr "Import termin&eacute;"
+
+#: ../inc/base.php:797
+msgid "Images names"
+msgstr "Nom des images"
+
+#: ../inc/base.php:798
+msgid "Be careful, all pictures of the members will have another name."
+msgstr "Soyez prudent, toutes les photos des membres vont changer de nom."
+
+#: ../inc/base.php:804
+msgid "Images names are encoded"
+msgstr "Le nom des images est codé"
+
+#: ../inc/base.php:805
+msgid "Images names are not encoded"
+msgstr "Le nom des images n'est pas codé"
+
+#: ../inc/base.php:806
+msgid "I don't know if it's encoded or not"
+msgstr "Je ne sais pas si c'est codé ou pas"
+
+#: ../inc/base.php:809
+msgid "Encode all images names"
+msgstr "Coder le nom de toutes les images"
+
+#: ../inc/base.php:810
+msgid "Decode all images names"
+msgstr "Décoder le nom des images"
+
+#: ../inc/base.php:837
+msgid "Number of registered members"
+msgstr "Nombre de membres inscrits"
+
+#: ../inc/base.php:838
+msgid "Number of members with profile and photo"
+msgstr "Nombre de membres avec profil et photo"
+
+#: ../inc/base.php:844
+msgid "Alias or email"
+msgstr "Pseudo ou email"
+
+#: ../inc/base.php:846
+#: ../inc/rencontre_widget.php:631
+#: ../inc/rencontre_widget.php:1657
+msgid "Find"
+msgstr "Cherche"
+
+#: ../inc/base.php:893
+#: ../inc/base.php:895
+#: ../inc/base.php:897
+#: ../inc/base.php:902
+#: ../inc/base.php:903
+#: ../inc/base.php:904
+#: ../inc/base.php:905
+#: ../inc/base.php:1103
+#: ../inc/base.php:1104
+#: ../inc/base.php:1105
+msgid "Sort"
+msgstr "Trier"
+
+#: ../inc/base.php:894
+msgid "Photo"
+msgstr "Photo"
+
+#: ../inc/base.php:895
+#: ../inc/rencontre_widget.php:1651
+msgid "Alias"
+msgstr "Pseudo"
+
+#: ../inc/base.php:896
+msgid "Sex"
+msgstr "Sex"
+
+#: ../inc/base.php:897
+#: ../inc/rencontre_widget.php:585
+#: ../inc/rencontre_widget.php:605
+#: ../inc/rencontre_widget.php:1498
+msgid "Age"
+msgstr "Age"
+
+#: ../inc/base.php:898
+#: ../inc/rencontre_widget.php:1515
+msgid "Size"
+msgstr "Taille"
+
+#: ../inc/base.php:899
+#: ../inc/rencontre_widget.php:1532
+msgid "Weight"
+msgstr "Poids"
+
+#: ../inc/base.php:900
+#: ../inc/rencontre_widget.php:57
+#: ../inc/rencontre_widget.php:58
+#: ../inc/rencontre_widget.php:1490
+msgid "Search"
+msgstr "Recherche"
+
+#: ../inc/base.php:901
+msgid "Hang"
+msgstr "Accroche"
+
+#: ../inc/base.php:903
+msgid "Ad (change)"
+msgstr "Annonce (modif)"
+
+#: ../inc/base.php:904
+#: ../inc/base.php:1105
+msgid "IP address"
+msgstr "Adresse IP"
+
+#: ../inc/base.php:905
+msgid "Reporting"
+msgstr "Signalement"
+
+#: ../inc/base.php:906
+#: ../lang/rencontre-js-admin-lang.php:6
+msgid "Del"
+msgstr "Supp"
+
+#: ../inc/base.php:915
+#: ../inc/base.php:916
+msgid "See"
+msgstr "Voir"
+
+#: ../inc/base.php:918
+#: ../inc/rencontre_widget.php:145
+#: ../inc/rencontre_widget.php:227
+#: ../inc/rencontre_widget.php:311
+#: ../inc/rencontre_widget.php:1941
+#: ../inc/rencontre_widget.php:2030
+msgid "Man"
+msgstr "Homme"
+
+#: ../inc/base.php:918
+#: ../inc/rencontre_widget.php:146
+#: ../inc/rencontre_widget.php:228
+#: ../inc/rencontre_widget.php:311
+#: ../inc/rencontre_widget.php:1942
+#: ../inc/rencontre_widget.php:2031
+msgid "Woman"
+msgstr "Femme"
+
+#: ../inc/base.php:922
+#: ../inc/rencontre_widget.php:243
+#: ../inc/rencontre_widget.php:322
+#: ../inc/rencontre_widget.php:588
+#: ../inc/rencontre_widget.php:940
+#: ../inc/rencontre_widget.php:1788
+#: ../inc/rencontre_widget.php:2052
+msgid "Serious relationship"
+msgstr "Relation s&eacute;rieuse"
+
+#: ../inc/base.php:922
+#: ../inc/rencontre_widget.php:244
+#: ../inc/rencontre_widget.php:322
+#: ../inc/rencontre_widget.php:588
+#: ../inc/rencontre_widget.php:940
+#: ../inc/rencontre_widget.php:1788
+#: ../inc/rencontre_widget.php:2053
+msgid "Open relationship"
+msgstr "Relation libre"
+
+#: ../inc/base.php:922
+#: ../inc/rencontre_widget.php:245
+#: ../inc/rencontre_widget.php:322
+#: ../inc/rencontre_widget.php:588
+#: ../inc/rencontre_widget.php:940
+#: ../inc/rencontre_widget.php:1788
+#: ../inc/rencontre_widget.php:2054
+msgid "Friendship"
+msgstr "Amiti&eacute;"
+
+#: ../inc/base.php:924
+#: ../inc/rencontre_widget.php:611
+#: ../inc/rencontre_widget.php:1505
+#: ../inc/rencontre_widget.php:1522
+#: ../inc/rencontre_widget.php:1540
+msgid "to"
+msgstr "&agrave;"
+
+#: ../inc/base.php:938
+#: ../inc/base.php:1251
+#: ../inc/base.php:1280
+#: ../inc/base.php:1304
+#: ../inc/base.php:1416
+#: ../inc/base.php:1427
+#: ../lang/rencontre-js-admin-lang.php:7
+msgid "Remove"
+msgstr "Supprimer"
+
+#: ../inc/base.php:980
+msgid "Change My Profile"
+msgstr "Modifier un profil"
+
+#: ../inc/base.php:981
+#: ../inc/rencontre_widget.php:967
+#: ../inc/rencontre_widget.php:1815
+msgid "Previous page"
+msgstr "Page pr&eacute;c&eacute;dente"
+
+#: ../inc/base.php:982
+msgid "Back Members"
+msgstr "Retour Membres"
+
+#: ../inc/base.php:986
+#: ../inc/rencontre_widget.php:513
+msgid "Save profile"
+msgstr "Sauvegarde du profil"
+
+#: ../inc/base.php:995
+#: ../inc/rencontre_widget.php:478
+msgid "Click to delete"
+msgstr "Cliquer pour supprimer"
+
+#: ../inc/base.php:998
+#: ../inc/rencontre_widget.php:484
+msgid "Click to add a photo"
+msgstr "Cliquer pour ajouter une photo"
+
+#: ../inc/base.php:1002
+#: ../inc/rencontre_widget.php:492
+msgid "Delete all photos"
+msgstr "Supprimer toutes les photos"
+
+#: ../inc/base.php:1013
+#: ../inc/rencontre_widget.php:506
+msgid "My attention-catcher"
+msgstr "Mon accroche"
+
+#: ../inc/base.php:1015
+#: ../inc/rencontre_widget.php:508
+msgid "My ad"
+msgstr "Mon annonce"
+
+#: ../inc/base.php:1055
+#: ../inc/rencontre_widget.php:499
+msgid "Done"
+msgstr "Effectu&eacute;e"
+
+#: ../inc/base.php:1103
+#: ../inc/rencontre_widget.php:1369
+#: ../inc/rencontre_widget.php:1394
+#: ../inc/rencontre_widget.php:1437
+msgid "Date"
+msgstr "Date"
+
+#: ../inc/base.php:1104
+msgid "Email address"
+msgstr "Adresse mail"
+
+#: ../inc/base.php:1106
+msgid "End"
+msgstr "Fin"
+
+#: ../inc/base.php:1116
+msgid "Release"
+msgstr "Lib&eacute;rer"
+
+#: ../inc/base.php:1166
+msgid "It does not appear to be any profile. You can load the default profile if you wish."
+msgstr "Il ne semble pas y avoir de profil. Vous pouvez charger les profils par d&eacute;faut si vous le souhaitez."
+
+#: ../inc/base.php:1167
+msgid "Load profiles"
+msgstr "Charger profils"
+
+#: ../inc/base.php:1172
+#: ../inc/base.php:1366
+msgid "The country table is empty. You can load the countries and regions by default if you wish."
+msgstr "La table des pays est vide. Vous pouvez charger les pays et r&eacute;gions par d&eacute;faut si vous le souhaitez."
+
+#: ../inc/base.php:1173
+#: ../inc/base.php:1367
+msgid "Load countries"
+msgstr "Charger pays"
+
+#: ../inc/base.php:1177
+msgid "Update member profile"
+msgstr "Mettre &agrave; jour le profil des membres"
+
+#: ../inc/base.php:1178
+msgid "You have made changes. Remember to update when you're done."
+msgstr "Vous avez fait des modifications. Pensez &agrave; mettre &agrave; jour lorsque vous aurez termin&eacute;."
+
+#: ../inc/base.php:1181
+msgid "You can create, rename and delete items from the profile."
+msgstr "Vous pouvez cr&eacute;er, renommer et supprimer les diff&eacute;rents items du profil."
+
+#: ../inc/base.php:1183
+msgid "Warning, this is not without consequences. The changes will be applied to the member profiles that can offend. Caution !"
+msgstr "Attention, ce n'est pas sans cons&eacute;quences. Les changements seront appliqu&eacute;s sur les profils des membres ce qui peut choquer. Prudence !"
+
+#: ../inc/base.php:1185
+#: ../inc/base.php:1371
+msgid "Ref language"
+msgstr "Langue de r&eacute;f&eacute;rence"
+
+#: ../inc/base.php:1185
+#: ../inc/base.php:1371
+msgid "Other"
+msgstr "Autres"
+
+#: ../inc/base.php:1198
+#: ../inc/base.php:1384
+msgid "Add Language (2 lowercase letters comply with country code)"
+msgstr "Ajouter une langue (2 lettres minuscules conformes au code du pays)"
+
+#: ../inc/base.php:1200
+#: ../inc/base.php:1386
+msgid "Add a language"
+msgstr "Ajouter une langue"
+
+#: ../inc/base.php:1203
+#: ../inc/base.php:1389
+msgid "Remove a language and all related content"
+msgstr "Supprimer une langue et tout le contenu associ&eacute;"
+
+#: ../inc/base.php:1207
+#: ../inc/base.php:1393
+msgid "Remove a language"
+msgstr "Supprimer une langue"
+
+#: ../inc/base.php:1214
+msgid "Add category"
+msgstr "Ajouter une cat&eacute;gorie"
+
+#: ../inc/base.php:1234
+msgid "Change the name"
+msgstr "Modifier le nom"
+
+#: ../inc/base.php:1235
+msgid "Remove the category"
+msgstr "Supprimer toute la cat&eacute;gorie"
+
+#: ../inc/base.php:1239
+#: ../inc/base.php:1240
+msgid "Add value to this category"
+msgstr "Ajouter une valeur &agrave; cette cat&eacute;gorie"
+
+#: ../inc/base.php:1250
+#: ../inc/base.php:1415
+msgid "Change the name or type"
+msgstr "Modifier le nom ou le type"
+
+#: ../inc/base.php:1258
+msgid "A line of text (TEXT)"
+msgstr "Une ligne de texte (TEXT)"
+
+#: ../inc/base.php:1261
+msgid "Large text box (TEXTAREA)"
+msgstr "Grande zone de texte (TEXTAREA)"
+
+#: ../inc/base.php:1265
+#: ../inc/base.php:1289
+#: ../inc/base.php:1421
+msgid "Add Value"
+msgstr "Ajouter une valeur"
+
+#: ../inc/base.php:1266
+msgid "Single choice list (SELECT)"
+msgstr "Liste &agrave; choix unique (SELECT)"
+
+#: ../inc/base.php:1279
+#: ../inc/base.php:1303
+#: ../inc/base.php:1426
+#: ../inc/rencontre_widget.php:1924
+msgid "Change"
+msgstr "Modifier"
+
+#: ../inc/base.php:1290
+msgid "Multiple choice list (CHECKBOX)"
+msgstr "Liste &agrave; choix multiples (CHECKBOX)"
+
+#: ../inc/base.php:1362
+msgid "Countries and Regions"
+msgstr "Pays et R&eacute;gions"
+
+#: ../inc/base.php:1370
+msgid "You can create, rename and delete countries and regions."
+msgstr "Vous pouvez cr&eacute;er, renommer et supprimer les pays et r&eacute;gions."
+
+#: ../inc/base.php:1400
+msgid "Add a country"
+msgstr "Ajouter un pays"
+
+#: ../inc/base.php:1422
+msgid "Regions"
+msgstr "R&eacute;gions"
 
 #: ../inc/rencontre_don.php:4
 msgid "Help Improve This Plugin!"
@@ -703,120 +732,120 @@ msgstr "Vous pouvez aussi nous aider en"
 msgid "rating this plugin"
 msgstr "notant ce plugin"
 
-#: ../inc/rencontre_filter.php:170
-#: ../inc/rencontre_filter.php:264
-#: ../inc/rencontre_filter.php:435
-#: ../inc/rencontre_widget.php:72
-#: ../inc/rencontre_widget.php:94
+#: ../inc/rencontre_filter.php:173
+#: ../inc/rencontre_filter.php:267
+#: ../inc/rencontre_filter.php:438
+#: ../inc/rencontre_widget.php:77
+#: ../inc/rencontre_widget.php:100
 msgid "Hello"
 msgstr "Bonjour"
 
-#: ../inc/rencontre_filter.php:267
+#: ../inc/rencontre_filter.php:270
 msgid "Your profile has been visited"
 msgstr "Votre profil a &eacute;t&eacute; visit&eacute;"
 
-#: ../inc/rencontre_filter.php:267
+#: ../inc/rencontre_filter.php:270
 msgid "time"
 msgstr "fois"
 
-#: ../inc/rencontre_filter.php:277
+#: ../inc/rencontre_filter.php:280
 msgid "Here's a selection of members that may interest you"
 msgstr "Voici une s&eacute;lection de membres qui pourraient vous int&eacute;resser"
 
-#: ../inc/rencontre_filter.php:298
+#: ../inc/rencontre_filter.php:301
 msgid "You have received a smile from"
 msgstr "Vous avez re&ccedil;u un sourire de"
 
-#: ../inc/rencontre_filter.php:318
-#: ../inc/rencontre_filter.php:439
+#: ../inc/rencontre_filter.php:321
+#: ../inc/rencontre_filter.php:442
 msgid "You have received a contact request from"
 msgstr "Vous avez re&ccedil;u une demande de contact de"
 
-#: ../inc/rencontre_filter.php:337
-#: ../inc/rencontre_filter.php:454
-#: ../inc/rencontre_widget.php:1293
+#: ../inc/rencontre_filter.php:340
+#: ../inc/rencontre_filter.php:457
+#: ../inc/rencontre_widget.php:1368
 msgid "You have"
 msgstr "Vous avez"
 
-#: ../inc/rencontre_filter.php:337
-#: ../inc/rencontre_filter.php:454
+#: ../inc/rencontre_filter.php:340
+#: ../inc/rencontre_filter.php:457
 msgid "messages"
 msgstr "messages"
 
-#: ../inc/rencontre_filter.php:337
-#: ../inc/rencontre_filter.php:454
-#: ../inc/rencontre_widget.php:1293
+#: ../inc/rencontre_filter.php:340
+#: ../inc/rencontre_filter.php:457
+#: ../inc/rencontre_widget.php:1368
 msgid "message"
 msgstr "message"
 
-#: ../inc/rencontre_filter.php:337
-#: ../inc/rencontre_filter.php:454
+#: ../inc/rencontre_filter.php:340
+#: ../inc/rencontre_filter.php:457
 msgid "in your inbox."
 msgstr "dans votre boite de r&eacute;ception."
 
-#: ../inc/rencontre_filter.php:339
+#: ../inc/rencontre_filter.php:342
 msgid "Do not hesitate to send us your comments."
 msgstr "N'h&eacute;sitez pas &agrave; nous faire part de vos remarques."
 
-#: ../inc/rencontre_filter.php:339
-#: ../inc/rencontre_filter.php:456
+#: ../inc/rencontre_filter.php:342
+#: ../inc/rencontre_filter.php:459
 msgid "Regards,"
 msgstr "Cordialement,"
 
-#: ../inc/rencontre_filter.php:466
+#: ../inc/rencontre_filter.php:469
 msgid "A member contact you"
 msgstr "Un membre vous contacte"
 
-#: ../inc/rencontre_filter.php:524
-#: ../inc/rencontre_widget.php:1180
-#: ../inc/rencontre_widget.php:1193
+#: ../inc/rencontre_filter.php:527
+#: ../inc/rencontre_widget.php:1255
+#: ../inc/rencontre_widget.php:1268
 msgid "Immaterial"
 msgstr "Indiff&eacute;rent"
 
-#: ../inc/rencontre_filter.php:561
+#: ../inc/rencontre_filter.php:564
 msgid "Someone requested a new password for this account."
 msgstr "Une personne a demand&eacute; un nouveau mot de passe pour ce compte."
 
-#: ../inc/rencontre_filter.php:563
+#: ../inc/rencontre_filter.php:566
 #, php-format
 msgid "Login : %s"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:564
+#: ../inc/rencontre_filter.php:567
 msgid "The password has been changed. You can log in and change it from your interface if you want."
 msgstr "Le mot de passe a &eacute;t&eacute; chang&eacute;. Vous pouvez maintenant vous connecter et le changer &agrave; nouveau depuis votre interface si vous le souhaitez."
 
-#: ../inc/rencontre_filter.php:565
+#: ../inc/rencontre_filter.php:568
 msgid "New password :"
 msgstr "Nouveau mot de passe :"
 
-#: ../inc/rencontre_filter.php:645
+#: ../inc/rencontre_filter.php:648
 #, php-format
 msgid "New user registration on your site %s:"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:646
-#: ../inc/rencontre_filter.php:650
+#: ../inc/rencontre_filter.php:649
+#: ../inc/rencontre_filter.php:653
 #, php-format
 msgid "Username: %s"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:647
+#: ../inc/rencontre_filter.php:650
 #, php-format
 msgid "E-mail: %s"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:648
+#: ../inc/rencontre_filter.php:651
 #, php-format
 msgid "[%s] New User Registration"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:651
+#: ../inc/rencontre_filter.php:654
 #, php-format
 msgid "Password: %s"
 msgstr ""
 
-#: ../inc/rencontre_filter.php:652
+#: ../inc/rencontre_filter.php:655
 #, php-format
 msgid "[%s] Your username and password"
 msgstr ""
@@ -825,513 +854,544 @@ msgstr ""
 msgid "Widget to integrate the dating website"
 msgstr "Widget pour int&eacute;grer le site de rencontre"
 
-#: ../inc/rencontre_widget.php:50
+#: ../inc/rencontre_widget.php:51
 msgid "My homepage"
 msgstr "Ma page d'accueil"
 
-#: ../inc/rencontre_widget.php:51
+#: ../inc/rencontre_widget.php:52
 msgid "My card"
 msgstr "Ma fiche"
 
-#: ../inc/rencontre_widget.php:52
-#: ../inc/rencontre_widget.php:426
-#: ../inc/rencontre_widget.php:543
+#: ../inc/rencontre_widget.php:53
+#: ../inc/rencontre_widget.php:466
+#: ../inc/rencontre_widget.php:589
 msgid "Edit My Profile"
 msgstr "Modifier mon profil"
 
-#: ../inc/rencontre_widget.php:53
+#: ../inc/rencontre_widget.php:54
 msgid "Messaging"
 msgstr "Messagerie"
 
-#: ../inc/rencontre_widget.php:55
-#: ../inc/rencontre_widget.php:1785
+#: ../inc/rencontre_widget.php:60
+#: ../inc/rencontre_widget.php:1930
 msgid "My Account"
 msgstr "Mon compte"
 
-#: ../inc/rencontre_widget.php:85
+#: ../inc/rencontre_widget.php:91
 msgid "Your email address is currently in quarantine. Sorry"
 msgstr "Votre adresse mail est actuellement en quarantaine. D&eacute;sol&eacute;"
 
-#: ../inc/rencontre_widget.php:94
+#: ../inc/rencontre_widget.php:100
 msgid "welcome to the site"
 msgstr "bienvenue sur le site"
 
-#: ../inc/rencontre_widget.php:96
+#: ../inc/rencontre_widget.php:102
 msgid "You will access all the possibilities offered by the site in few minutes."
 msgstr "Vous pourrez acc&eacute;der &agrave; l'ensemble des possibilit&eacute;s offertes par le site dans quelques minutes."
 
-#: ../inc/rencontre_widget.php:97
+#: ../inc/rencontre_widget.php:103
 msgid "Before that, you need to provide some information requested below."
 msgstr "Avant cela, vous devez fournir quelques &eacute;l&eacute;ments demand&eacute;s ci-dessous."
 
-#: ../inc/rencontre_widget.php:100
+#: ../inc/rencontre_widget.php:106
 msgid "We would like to inform you that we do not use your personal data outside of this site."
 msgstr "Nous tenons &agrave; vous pr&eacute;ciser que nous n'utilisons pas vos donn&eacute;es personnelles en dehors de ce site."
 
-#: ../inc/rencontre_widget.php:101
+#: ../inc/rencontre_widget.php:107
 msgid "Deleting your account on your part or ours, causes the deletion of all your data."
 msgstr "La suppression de votre compte, de votre part ou de la notre, entra&icirc;ne l'effacement de l'ensemble des donn&eacute;es vous concernants."
 
-#: ../inc/rencontre_widget.php:102
+#: ../inc/rencontre_widget.php:108
 msgid "This also applies to messages that you have sent to other members as well as those they have sent to you."
 msgstr "Ceci est &eacute;galement valable pour les mails que vous avez envoy&eacute;s aux autres membres ainsi que ceux qu'ils vous ont envoy&eacute;s."
 
-#: ../inc/rencontre_widget.php:105
+#: ../inc/rencontre_widget.php:111
 msgid "We wish you nice encounters."
 msgstr "Nous vous souhaitons de belles rencontres fructueuses."
 
-#: ../inc/rencontre_widget.php:110
+#: ../inc/rencontre_widget.php:116
 msgid "Change nickname (after, it will not be possible)"
 msgstr "Changer de pseudo (apr&egrave;s, ce ne sera plus possible)"
 
-#: ../inc/rencontre_widget.php:114
+#: ../inc/rencontre_widget.php:120
 msgid "New password (6 min)"
 msgstr "Nouveau mot de passe (minimum 6)"
 
-#: ../inc/rencontre_widget.php:115
+#: ../inc/rencontre_widget.php:121
 msgid "New password (again)"
 msgstr "Nouveau mot de passe (confirmation)"
 
-#: ../inc/rencontre_widget.php:127
+#: ../inc/rencontre_widget.php:133
 msgid "Changing the password is required for this first connection"
 msgstr "Le changement du mot de passe est obligatoire pour cette premi&egrave;re connexion"
 
-#: ../inc/rencontre_widget.php:131
-#: ../inc/rencontre_widget.php:1790
+#: ../inc/rencontre_widget.php:137
+#: ../inc/rencontre_widget.php:1935
 msgid "I am"
 msgstr "Je suis"
 
-#: ../inc/rencontre_widget.php:132
-#: ../inc/rencontre_widget.php:1791
+#: ../inc/rencontre_widget.php:138
+#: ../inc/rencontre_widget.php:1936
 msgid "Born"
 msgstr "N&eacute; le"
 
-#: ../inc/rencontre_widget.php:133
-#: ../inc/rencontre_widget.php:1816
+#: ../inc/rencontre_widget.php:139
+#: ../inc/rencontre_widget.php:1961
 msgid "My country"
 msgstr "Mon pays"
 
-#: ../inc/rencontre_widget.php:134
-#: ../inc/rencontre_widget.php:1817
+#: ../inc/rencontre_widget.php:140
+#: ../inc/rencontre_widget.php:1962
 msgid "My region"
 msgstr "Ma r&eacute;gion"
 
-#: ../inc/rencontre_widget.php:174
-#: ../inc/rencontre_widget.php:1861
+#: ../inc/rencontre_widget.php:180
+#: ../inc/rencontre_widget.php:2006
 msgid "My size"
 msgstr "Ma taille"
 
-#: ../inc/rencontre_widget.php:175
-#: ../inc/rencontre_widget.php:1862
+#: ../inc/rencontre_widget.php:181
+#: ../inc/rencontre_widget.php:2007
 msgid "My weight"
 msgstr "Mon poids"
 
-#: ../inc/rencontre_widget.php:176
-#: ../inc/rencontre_widget.php:1836
+#: ../inc/rencontre_widget.php:182
+#: ../inc/rencontre_widget.php:1981
 msgid "My city"
 msgstr "Ma ville"
 
-#: ../inc/rencontre_widget.php:182
-#: ../inc/rencontre_widget.php:1440
-#: ../inc/rencontre_widget.php:1446
-#: ../inc/rencontre_widget.php:1448
-#: ../inc/rencontre_widget.php:1867
+#: ../inc/rencontre_widget.php:188
+#: ../inc/rencontre_widget.php:1518
+#: ../inc/rencontre_widget.php:1524
+#: ../inc/rencontre_widget.php:1526
+#: ../inc/rencontre_widget.php:2012
 msgid "cm"
 msgstr "cm"
 
-#: ../inc/rencontre_widget.php:188
-#: ../inc/rencontre_widget.php:1457
-#: ../inc/rencontre_widget.php:1458
-#: ../inc/rencontre_widget.php:1464
-#: ../inc/rencontre_widget.php:1466
-#: ../inc/rencontre_widget.php:1873
+#: ../inc/rencontre_widget.php:194
+#: ../inc/rencontre_widget.php:1535
+#: ../inc/rencontre_widget.php:1536
+#: ../inc/rencontre_widget.php:1542
+#: ../inc/rencontre_widget.php:1544
+#: ../inc/rencontre_widget.php:2018
 msgid "kg"
 msgstr "kg"
 
-#: ../inc/rencontre_widget.php:200
-#: ../inc/rencontre_widget.php:1494
-#: ../inc/rencontre_widget.php:1517
-#: ../inc/rencontre_widget.php:1845
+#: ../inc/rencontre_widget.php:206
+#: ../inc/rencontre_widget.php:1575
+#: ../inc/rencontre_widget.php:1600
+#: ../inc/rencontre_widget.php:1990
 msgid "Adjust the location by moving / zooming the map."
 msgstr "Ajuster le lieu en d&eacute;pla&ccedil;ant / zoomant la carte."
 
-#: ../inc/rencontre_widget.php:201
-#: ../inc/rencontre_widget.php:1495
-#: ../inc/rencontre_widget.php:1518
-#: ../inc/rencontre_widget.php:1846
+#: ../inc/rencontre_widget.php:207
+#: ../inc/rencontre_widget.php:1576
+#: ../inc/rencontre_widget.php:1601
+#: ../inc/rencontre_widget.php:1991
 msgid "Clicking on the map will place the cursor."
 msgstr "Un clic sur la carte repositionne le curseur."
 
-#: ../inc/rencontre_widget.php:202
-#: ../inc/rencontre_widget.php:1496
-#: ../inc/rencontre_widget.php:1519
-#: ../inc/rencontre_widget.php:1847
+#: ../inc/rencontre_widget.php:208
+#: ../inc/rencontre_widget.php:1577
+#: ../inc/rencontre_widget.php:1602
+#: ../inc/rencontre_widget.php:1992
 msgid "Validate the position"
 msgstr "Valider la position"
 
-#: ../inc/rencontre_widget.php:213
-#: ../inc/rencontre_widget.php:311
-#: ../inc/rencontre_widget.php:542
-#: ../inc/rencontre_widget.php:878
-#: ../inc/rencontre_widget.php:1658
-#: ../inc/rencontre_widget.php:1879
+#: ../inc/rencontre_widget.php:219
+#: ../inc/rencontre_widget.php:319
+#: ../inc/rencontre_widget.php:588
+#: ../inc/rencontre_widget.php:938
+#: ../inc/rencontre_widget.php:1786
+#: ../inc/rencontre_widget.php:2024
 msgid "I'm looking for"
 msgstr "Je recherche"
 
-#: ../inc/rencontre_widget.php:214
-#: ../inc/rencontre_widget.php:1880
+#: ../inc/rencontre_widget.php:220
+#: ../inc/rencontre_widget.php:2025
 msgid "Age min/max"
 msgstr "Age min/max"
 
-#: ../inc/rencontre_widget.php:215
-#: ../inc/rencontre_widget.php:1901
+#: ../inc/rencontre_widget.php:221
+#: ../inc/rencontre_widget.php:2046
 msgid "For"
 msgstr "Pour"
 
-#: ../inc/rencontre_widget.php:243
-#: ../inc/rencontre_widget.php:974
+#: ../inc/rencontre_widget.php:249
+#: ../inc/rencontre_widget.php:1048
 msgid "Send"
 msgstr "Envoi"
 
-#: ../inc/rencontre_widget.php:296
-#: ../inc/rencontre_widget.php:316
-#: ../inc/rencontre_widget.php:872
-#: ../inc/rencontre_widget.php:1214
-#: ../inc/rencontre_widget.php:1652
+#: ../inc/rencontre_widget.php:302
+#: ../inc/rencontre_widget.php:324
+#: ../inc/rencontre_widget.php:932
+#: ../inc/rencontre_widget.php:1289
+#: ../inc/rencontre_widget.php:1776
 msgid "online"
 msgstr "en ligne"
 
-#: ../inc/rencontre_widget.php:296
-#: ../inc/rencontre_widget.php:1214
+#: ../inc/rencontre_widget.php:302
+#: ../inc/rencontre_widget.php:1289
 msgid "offline"
 msgstr "hors-ligne"
 
-#: ../inc/rencontre_widget.php:299
+#: ../inc/rencontre_widget.php:305
 msgid "(blocked)"
 msgstr "(bloqu&eacute;)"
 
-#: ../inc/rencontre_widget.php:311
-#: ../inc/rencontre_widget.php:542
-#: ../inc/rencontre_widget.php:878
-#: ../inc/rencontre_widget.php:1658
+#: ../inc/rencontre_widget.php:316
+#: ../inc/rencontre_widget.php:1642
+#: ../inc/rencontre_widget.php:1781
+msgid "Astrological affinity"
+msgstr "Affinité astrologique"
+
+#: ../inc/rencontre_widget.php:319
+#: ../inc/rencontre_widget.php:588
+#: ../inc/rencontre_widget.php:938
+#: ../inc/rencontre_widget.php:1786
 msgid "a woman"
 msgstr "une femme"
 
-#: ../inc/rencontre_widget.php:311
-#: ../inc/rencontre_widget.php:542
-#: ../inc/rencontre_widget.php:878
-#: ../inc/rencontre_widget.php:1658
+#: ../inc/rencontre_widget.php:319
+#: ../inc/rencontre_widget.php:588
+#: ../inc/rencontre_widget.php:938
+#: ../inc/rencontre_widget.php:1786
 msgid "a man"
 msgstr "un homme"
 
-#: ../inc/rencontre_widget.php:312
+#: ../inc/rencontre_widget.php:320
 msgid "gay"
 msgstr "homo"
 
-#: ../inc/rencontre_widget.php:313
-#: ../inc/rencontre_widget.php:879
-#: ../inc/rencontre_widget.php:1659
+#: ../inc/rencontre_widget.php:321
+#: ../inc/rencontre_widget.php:939
+#: ../inc/rencontre_widget.php:1787
 msgid "between"
 msgstr "entre"
 
-#: ../inc/rencontre_widget.php:313
-#: ../inc/rencontre_widget.php:879
-#: ../inc/rencontre_widget.php:1659
+#: ../inc/rencontre_widget.php:321
+#: ../inc/rencontre_widget.php:939
+#: ../inc/rencontre_widget.php:1787
 msgid "and"
 msgstr "et"
 
-#: ../inc/rencontre_widget.php:314
-#: ../inc/rencontre_widget.php:542
-#: ../inc/rencontre_widget.php:880
-#: ../inc/rencontre_widget.php:1660
+#: ../inc/rencontre_widget.php:322
+#: ../inc/rencontre_widget.php:588
+#: ../inc/rencontre_widget.php:940
+#: ../inc/rencontre_widget.php:1788
 msgid "for"
 msgstr "pour"
 
-#: ../inc/rencontre_widget.php:322
-#: ../inc/rencontre_widget.php:325
-#: ../inc/rencontre_widget.php:884
-#: ../inc/rencontre_widget.php:886
-#: ../inc/rencontre_widget.php:1663
+#: ../inc/rencontre_widget.php:334
+#: ../inc/rencontre_widget.php:335
+#: ../inc/rencontre_widget.php:349
+#: ../inc/rencontre_widget.php:947
+#: ../inc/rencontre_widget.php:948
+#: ../inc/rencontre_widget.php:957
+#: ../inc/rencontre_widget.php:1795
+#: ../inc/rencontre_widget.php:1796
+#: ../inc/rencontre_widget.php:1805
 msgid "Send a message"
 msgstr "Envoyer un message"
 
-#: ../inc/rencontre_widget.php:323
-#: ../inc/rencontre_widget.php:325
-#: ../inc/rencontre_widget.php:544
-#: ../inc/rencontre_widget.php:885
-#: ../inc/rencontre_widget.php:886
-#: ../inc/rencontre_widget.php:1664
+#: ../inc/rencontre_widget.php:339
+#: ../inc/rencontre_widget.php:340
+#: ../inc/rencontre_widget.php:349
+#: ../inc/rencontre_widget.php:590
+#: ../inc/rencontre_widget.php:952
+#: ../inc/rencontre_widget.php:953
+#: ../inc/rencontre_widget.php:957
+#: ../inc/rencontre_widget.php:1800
+#: ../inc/rencontre_widget.php:1801
+#: ../inc/rencontre_widget.php:1805
 msgid "Smile"
 msgstr "Sourire"
 
-#: ../inc/rencontre_widget.php:324
-#: ../inc/rencontre_widget.php:325
+#: ../inc/rencontre_widget.php:344
+#: ../inc/rencontre_widget.php:345
+#: ../inc/rencontre_widget.php:349
 msgid "Ask for a contact"
 msgstr "Demander un contact"
 
-#: ../inc/rencontre_widget.php:326
-#: ../inc/rencontre_widget.php:327
+#: ../inc/rencontre_widget.php:352
+#: ../inc/rencontre_widget.php:353
 msgid "Chat"
 msgstr "Tchater"
 
-#: ../inc/rencontre_widget.php:328
+#: ../inc/rencontre_widget.php:355
 msgid "Block"
 msgstr "Bloquer"
 
-#: ../inc/rencontre_widget.php:328
+#: ../inc/rencontre_widget.php:355
 msgid "Unblock"
 msgstr "D&eacute;bloquer"
 
-#: ../inc/rencontre_widget.php:329
+#: ../inc/rencontre_widget.php:356
 msgid "Report a fake profile or inappropriate content"
 msgstr "Signaler un faux profil ou un contenu inadapt&eacute;"
 
-#: ../inc/rencontre_widget.php:329
+#: ../inc/rencontre_widget.php:356
 msgid "Report"
 msgstr "Signaler"
 
-#: ../inc/rencontre_widget.php:330
+#: ../inc/rencontre_widget.php:357
 msgid "You are blocked !"
 msgstr "Vous &ecirc;tes bloqu&eacute; !"
 
-#: ../inc/rencontre_widget.php:340
+#: ../inc/rencontre_widget.php:372
 msgid "Message sent"
 msgstr "Message envoy&eacute;"
 
-#: ../inc/rencontre_widget.php:445
+#: ../inc/rencontre_widget.php:375
+msgid "Not sent"
+msgstr "Non envoyé"
+
+#: ../inc/rencontre_widget.php:485
+msgid "You are limited"
+msgstr "Vous êtes limités"
+
+#: ../inc/rencontre_widget.php:491
 msgid "Click the photo"
 msgstr "Cliquer la vignette"
 
-#: ../inc/rencontre_widget.php:531
+#: ../inc/rencontre_widget.php:577
 msgid "Password changed !"
 msgstr "Mot de passe chang&eacute; !"
 
-#: ../inc/rencontre_widget.php:540
-#: ../inc/rencontre_widget.php:1489
-#: ../inc/rencontre_widget.php:1510
-#: ../inc/rencontre_widget.php:1533
+#: ../inc/rencontre_widget.php:586
+#: ../inc/rencontre_widget.php:1570
+#: ../inc/rencontre_widget.php:1593
+#: ../inc/rencontre_widget.php:1618
 msgid "City"
 msgstr "Ville"
 
-#: ../inc/rencontre_widget.php:545
+#: ../inc/rencontre_widget.php:591
 msgid "Look"
 msgstr "Regard"
 
-#: ../inc/rencontre_widget.php:546
+#: ../inc/rencontre_widget.php:592
 msgid "Contact requests"
 msgstr "Demandes de contact"
 
-#: ../inc/rencontre_widget.php:549
+#: ../inc/rencontre_widget.php:595
 msgid "Who I smiled ?"
 msgstr "A qui j'ai souri ?"
 
-#: ../inc/rencontre_widget.php:550
+#: ../inc/rencontre_widget.php:596
 msgid "Who I asked for a contact ?"
 msgstr "A qui j'ai demand&eacute; un contact ?"
 
-#: ../inc/rencontre_widget.php:551
+#: ../inc/rencontre_widget.php:597
 msgid "Who I've blocked ?"
 msgstr "Qui j'ai bloqu&eacute; ?"
 
-#: ../inc/rencontre_widget.php:554
+#: ../inc/rencontre_widget.php:600
 msgid "Quick Search"
 msgstr "Recherche rapide"
 
-#: ../inc/rencontre_widget.php:559
-#: ../inc/rencontre_widget.php:1421
-#: ../inc/rencontre_widget.php:1438
-#: ../inc/rencontre_widget.php:1455
+#: ../inc/rencontre_widget.php:605
+#: ../inc/rencontre_widget.php:1499
+#: ../inc/rencontre_widget.php:1516
+#: ../inc/rencontre_widget.php:1533
 msgid "from"
 msgstr "de"
 
-#: ../inc/rencontre_widget.php:579
-#: ../inc/rencontre_widget.php:1480
+#: ../inc/rencontre_widget.php:625
+#: ../inc/rencontre_widget.php:1558
 #: ../lang/rencontre-js-admin-lang.php:13
 msgid "Region"
 msgstr "R&eacute;gion"
 
-#: ../inc/rencontre_widget.php:610
+#: ../inc/rencontre_widget.php:656
 msgid "Selected portraits"
 msgstr "Portraits s&eacute;lectionn&eacute;s"
 
-#: ../inc/rencontre_widget.php:640
+#: ../inc/rencontre_widget.php:687
+#: ../inc/rencontre_widget.php:688
+#: ../inc/rencontre_widget.php:919
 msgid "Online now"
 msgstr "Actuellement en ligne"
 
-#: ../inc/rencontre_widget.php:653
+#: ../inc/rencontre_widget.php:702
 msgid "New entrants"
 msgstr "Nouveaux inscrits"
 
-#: ../inc/rencontre_widget.php:706
+#: ../inc/rencontre_widget.php:757
 msgid "I smiled at"
 msgstr "J'ai souri &agrave;"
 
-#: ../inc/rencontre_widget.php:733
+#: ../inc/rencontre_widget.php:784
 msgid "I got a smile from"
 msgstr "J'ai re&ccedil;u un sourire de"
 
-#: ../inc/rencontre_widget.php:760
+#: ../inc/rencontre_widget.php:811
 msgid "I asked a contact"
 msgstr "J'ai demand&eacute; un contact &agrave;"
 
-#: ../inc/rencontre_widget.php:787
+#: ../inc/rencontre_widget.php:838
 msgid "I had a contact request from"
 msgstr "J'ai eu une demande de contact de"
 
-#: ../inc/rencontre_widget.php:814
+#: ../inc/rencontre_widget.php:865
 msgid "I was watched by"
 msgstr "J'ai &eacute;t&eacute; regard&eacute; par"
 
-#: ../inc/rencontre_widget.php:841
+#: ../inc/rencontre_widget.php:892
 msgid "I locked"
 msgstr "J'ai bloqu&eacute;"
 
-#: ../inc/rencontre_widget.php:871
+#: ../inc/rencontre_widget.php:931
 msgid "The"
 msgstr "Le"
 
-#: ../inc/rencontre_widget.php:902
-#: ../inc/rencontre_widget.php:1680
+#: ../inc/rencontre_widget.php:973
+#: ../inc/rencontre_widget.php:1821
 msgid "Next Page"
 msgstr "Page suivante"
 
-#: ../inc/rencontre_widget.php:948
+#: ../inc/rencontre_widget.php:1022
 msgid "Send a message to"
 msgstr "Envoyer un message &agrave;"
 
-#: ../inc/rencontre_widget.php:963
-#: ../inc/rencontre_widget.php:964
-#: ../inc/rencontre_widget.php:966
-#: ../inc/rencontre_widget.php:971
-#: ../inc/rencontre_widget.php:1294
-#: ../inc/rencontre_widget.php:1319
+#: ../inc/rencontre_widget.php:1037
+#: ../inc/rencontre_widget.php:1038
+#: ../inc/rencontre_widget.php:1040
+#: ../inc/rencontre_widget.php:1045
+#: ../inc/rencontre_widget.php:1369
+#: ../inc/rencontre_widget.php:1394
 msgid "Subject"
 msgstr "Sujet"
 
-#: ../inc/rencontre_widget.php:968
-#: ../inc/rencontre_widget.php:972
-#: ../inc/rencontre_widget.php:1353
+#: ../inc/rencontre_widget.php:1042
+#: ../inc/rencontre_widget.php:1046
+#: ../inc/rencontre_widget.php:1428
 msgid "Message"
 msgstr "Message"
 
-#: ../inc/rencontre_widget.php:997
+#: ../inc/rencontre_widget.php:1071
 msgid "Your profile is empty. You are invisible to other members. To take advantage of the site, thank you edit your profile."
 msgstr "Votre profil est vide. Vous &ecirc;tes invisible des autres membres. Pour b&eacute;n&eacute;ficier des avantages du site, merci de modifier votre profil."
 
-#: ../inc/rencontre_widget.php:998
+#: ../inc/rencontre_widget.php:1072
 msgid "Close"
 msgstr "Fermer"
 
-#: ../inc/rencontre_widget.php:1287
-#: ../inc/rencontre_widget.php:1314
-#: ../inc/rencontre_widget.php:1346
+#: ../inc/rencontre_widget.php:1362
+#: ../inc/rencontre_widget.php:1389
+#: ../inc/rencontre_widget.php:1421
 msgid "Inbox"
 msgstr "Boite de r&eacute;ception"
 
-#: ../inc/rencontre_widget.php:1289
-#: ../inc/rencontre_widget.php:1316
-#: ../inc/rencontre_widget.php:1349
+#: ../inc/rencontre_widget.php:1364
+#: ../inc/rencontre_widget.php:1391
+#: ../inc/rencontre_widget.php:1424
 msgid "Messages sent"
 msgstr "Messages envoy&eacute;s"
 
-#: ../inc/rencontre_widget.php:1293
+#: ../inc/rencontre_widget.php:1368
 msgid "unread"
 msgstr "non lu"
 
-#: ../inc/rencontre_widget.php:1294
+#: ../inc/rencontre_widget.php:1369
 msgid "Sender"
 msgstr "Emetteur"
 
-#: ../inc/rencontre_widget.php:1319
+#: ../inc/rencontre_widget.php:1394
 msgid "Receiver"
 msgstr "Destinataire"
 
-#: ../inc/rencontre_widget.php:1356
+#: ../inc/rencontre_widget.php:1431
 msgid "From"
 msgstr "De"
 
-#: ../inc/rencontre_widget.php:1364
+#: ../inc/rencontre_widget.php:1439
 msgid "To"
 msgstr "A"
 
-#: ../inc/rencontre_widget.php:1368
+#: ../inc/rencontre_widget.php:1444
+#: ../inc/rencontre_widget.php:1445
 msgid "Answer"
 msgstr "R&eacute;pondre"
 
-#: ../inc/rencontre_widget.php:1504
-#: ../inc/rencontre_widget.php:1527
+#: ../inc/rencontre_widget.php:1585
+#: ../inc/rencontre_widget.php:1610
 msgid "Max range (km)"
 msgstr "Distance max (km)"
 
-#: ../inc/rencontre_widget.php:1536
+#: ../inc/rencontre_widget.php:1621
 msgid "Incomplete account: no GoogleMap"
 msgstr "Compte incomplet : GoogleMap impossible"
 
-#: ../inc/rencontre_widget.php:1543
+#: ../inc/rencontre_widget.php:1629
 msgid "Only with picture"
 msgstr "Uniquement avec photo"
 
-#: ../inc/rencontre_widget.php:1547
+#: ../inc/rencontre_widget.php:1635
+#: ../inc/rencontre_widget.php:1782
 msgid "Affinity with my profile"
 msgstr "Affinit&eacute; avec mon profil"
 
-#: ../inc/rencontre_widget.php:1551
+#: ../inc/rencontre_widget.php:1647
 msgid "Word in the ad"
 msgstr "Mot dans l'annonce"
 
-#: ../inc/rencontre_widget.php:1758
+#: ../inc/rencontre_widget.php:1782
+msgid "points"
+msgstr "points"
+
+#: ../inc/rencontre_widget.php:1903
 msgid "Change password"
 msgstr "Changement du mot de passe"
 
-#: ../inc/rencontre_widget.php:1763
+#: ../inc/rencontre_widget.php:1908
 msgid "Former"
 msgstr "Ancien"
 
-#: ../inc/rencontre_widget.php:1764
+#: ../inc/rencontre_widget.php:1909
 msgid "New"
 msgstr "Nouveau"
 
-#: ../inc/rencontre_widget.php:1765
+#: ../inc/rencontre_widget.php:1910
 msgid "Retype the new"
 msgstr "Retaper le nouveau"
 
-#: ../inc/rencontre_widget.php:1922
+#: ../inc/rencontre_widget.php:2067
 msgid "This action will result in the complete deletion of your account and everything about you from our server. We do not keep historical accounts."
 msgstr "Cette action provoquera la suppression compl&egrave;te de votre compte et de tout ce qui vous concerne de notre serveur. Nous ne conservons aucun historique des comptes supprim&eacute;s."
 
-#: ../inc/rencontre_widget.php:1925
+#: ../inc/rencontre_widget.php:2070
 msgid "Please note that this action is irreversible !"
 msgstr "Attention, cette action est irr&eacute;versible !"
 
-#: ../inc/rencontre_widget.php:1926
+#: ../inc/rencontre_widget.php:2071
 msgid "Delete Account"
 msgstr "Supprimer le compte"
 
-#: ../inc/rencontre_widget.php:1941
+#: ../inc/rencontre_widget.php:2086
 msgid "Smile already sent"
 msgstr "Sourire d&eacute;j&agrave; envoy&eacute;"
 
-#: ../inc/rencontre_widget.php:1955
+#: ../inc/rencontre_widget.php:2100
 msgid "Smile sent"
 msgstr "Sourire envoy&eacute;"
 
-#: ../inc/rencontre_widget.php:1975
+#: ../inc/rencontre_widget.php:2120
 msgid "Contact already requested"
 msgstr "Contact d&eacute;j&agrave; demand&eacute;"
 
-#: ../inc/rencontre_widget.php:1992
+#: ../inc/rencontre_widget.php:2137
 msgid "Contact request sent"
 msgstr "Demande de contact envoy&eacute;e"
 
-#: ../inc/rencontre_widget.php:2003
+#: ../inc/rencontre_widget.php:2148
 msgid "Reporting already done"
 msgstr "Signalement d&eacute;j&agrave; effectu&eacute;"
 
-#: ../inc/rencontre_widget.php:2008
+#: ../inc/rencontre_widget.php:2153
 msgid "Thank you for your report"
 msgstr "Merci pour votre signalement"
 
-#: ../inc/rencontre_widget.php:2088
+#: ../inc/rencontre_widget.php:2234
 msgid "from my position"
 msgstr "de ma position"
 

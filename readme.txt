@@ -3,8 +3,8 @@ Contributors: jacques malgrange
 Donate link: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
 Tags: date, dating, meet, love, chat, webcam, rencontres
 Requires at least: 3.0.1
-Tested up to: 4.1
-Stable tag: 1.5
+Tested up to: 4.2
+Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,6 +33,7 @@ This WordPress plugin allows you to create a real dating website with Wordpress.
 * Easy administration with filtering members ;
 * Import/Export members in CSV with photos ;
 * Standalone, not depend on other services ;
+* Full payment system, search by profil and astrological affinity with [Kit Premium](http://www.boiteasite.fr/fiches/rencontre-premium.html).
 
 = Internationalization =
 
@@ -187,6 +188,15 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 7. Proximity search on GoogleMap.
 
 == Changelog ==
+
+= 1.6 =
+06/05/2015 : 
+
+* Add hook for the Premium Kit.
+* Add online link on main page.
+* Add search by relation.
+* 15% speed improvement.
+* Fix some bugs.
 
 = 1.5 =
 16/03/2015 : Change main language from French to English
