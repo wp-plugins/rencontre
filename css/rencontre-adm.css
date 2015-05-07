@@ -4,6 +4,8 @@
 a.rencSupp {display:inline-block; background:transparent url("../images/sprite.png") no-repeat scroll -5px -7px; width:12px; height:12px;margin:0 3px;}
 a.rencPlus {display:inline-block; background:transparent url("../images/sprite.png") no-repeat scroll -5px -31px; width:12px; height:12px;margin:0 3px;}
 a.rencEdit {display:inline-block; background:transparent url("../images/sprite.png") no-repeat scroll -5px -57px; width:12px; height:12px;margin:0 3px;}
+a.rencBlockon {display:inline-block; background:transparent url("../images/eyeVert16.png") no-repeat scroll 0 0; width:16px; height:16px;margin:0 3px;}
+a.rencBlockoff {display:inline-block; background:transparent url("../images/eyeRouge16.png") no-repeat scroll 0 0; width:16px; height:16px;margin:0 3px;}
 table.membre, table.prison {text-align:center;}
 table.membre tr:nth-child(2n+2), table.prison tr:nth-child(2n+2)  {background-color:#e5d4ac;}
 table.membre td {max-width:100px; padding:4px 10px 0;}
