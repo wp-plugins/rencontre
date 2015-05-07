@@ -26,6 +26,9 @@
 		<tr>
 			<td><?php _e('You can also help us by', 'rencontre') ?>&nbsp;<a href="https://wordpress.org/support/view/plugin-reviews/rencontre" target="_blank"><?php _e('rating this plugin','rencontre') ?></a>.</td>
 		</tr>
+		<tr>
+			<td><?php _e('You want a sophisticated payment system and more ?', 'rencontre') ?>&nbsp;<a href="http://www.boiteasite.fr/fiches/rencontre-premium.html" target="_blank"><?php _e('Add this kit Premium','rencontre') ?></a>.</td>
+		</tr>
 	</tbody>
 </table>
 </div>
