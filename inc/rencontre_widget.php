@@ -277,9 +277,11 @@ class RencontreWidget extends WP_widget
 				$bl = RencontreWidget::f_etat_bloque($id); // je l ai bloque ? - lecture de MID
 				}
 			global $wpdb;
-			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_region, R.c_ville, R.i_sex, R.d_naissance, R.i_taille, R.i_poids, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, R.e_lat, R.e_lon, R.d_session, P.t_titre, P.t_annonce, P.t_profil, P.t_action FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$id." and R.user_id=P.user_id and R.user_id=U.ID");
-			$bl1= RencontreWidget::f_etat_bloque1($id,$s->t_action); // je suis bloque ?
-			?>
+			$s = $wpdb->get_row("SELECT U.ID, U.display_name, R.c_pays, R.c_region, R.c_ville, R.i_sex, R.d_naissance, R.i_taille, R.i_poids, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, R.e_lat, R.e_lon, R.d_session, P.t_titre, P.t_annonce, P.t_profil, P.t_action FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$id." and R.user_id=P.user_id and R.user_id=U.ID and U.user_status=0");
+			if($s)
+				{
+				$bl1= RencontreWidget::f_etat_bloque1($id,$s->t_action); // je suis bloque ?
+				?>
 			
 			<div class="rencPortrait">
 				<div class="petiteBox left">
@@ -439,6 +441,7 @@ class RencontreWidget extends WP_widget
 				</div>
 			</div>
 		<?php }
+		}
 		//
 		// 3. Partie Changement du portrait
 		else if (strstr($_SESSION['rencontre'],'change'))
@@ -656,7 +659,7 @@ class RencontreWidget extends WP_widget
 				?>
 				
 				<div class="grandeBox left">
-				<?php $q = $wpdb->get_results("SELECT DISTINCT(R.user_id) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=P.user_id AND R.i_sex=".$zsex." AND R.i_zsex".(($homo)?'='.$zsex:'!='.$zsex)." AND R.d_naissance>'".$zmax."' AND R.d_naissance<'".$zmin."'".(($rencOpt['onlyphoto'])?" AND R.i_photo>0 ":" ")."AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30 AND R.user_id!=".$mid." ORDER BY RAND() LIMIT 8"); ?>
+				<?php $q = $wpdb->get_results("SELECT DISTINCT(R.user_id) FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=U.ID AND U.user_status=0 AND R.user_id=P.user_id AND R.i_sex=".$zsex." AND R.i_zsex".(($homo)?'='.$zsex:'!='.$zsex)." AND R.d_naissance>'".$zmax."' AND R.d_naissance<'".$zmin."'".(($rencOpt['onlyphoto'])?" AND R.i_photo>0 ":" ")."AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30 AND R.user_id!=".$mid." ORDER BY RAND() LIMIT 8"); ?>
 				
 					<div class="rencBox">
 						<h3><?php _e('Selected portraits','rencontre');?></h3>
@@ -702,7 +705,7 @@ class RencontreWidget extends WP_widget
 						<div class="clear"></div>
 					</div><!-- .rencBox -->
 				<?php } ?>
-				<?php $q = $wpdb->get_results("SELECT DISTINCT(R.user_id) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=U.ID AND R.user_id=P.user_id AND R.i_zsex".(($homo)?'='.$zsex:'!='.$zsex)." AND R.i_sex=".$zsex.(($rencOpt['onlyphoto'])?" AND R.i_photo>0 ":" ")."AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30 AND R.user_id!=".$mid." ORDER BY U.ID DESC LIMIT 12"); ?>
+				<?php $q = $wpdb->get_results("SELECT DISTINCT(R.user_id) FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=U.ID AND U.user_status=0 AND R.user_id=P.user_id AND R.i_zsex".(($homo)?'='.$zsex:'!='.$zsex)." AND R.i_sex=".$zsex.(($rencOpt['onlyphoto'])?" AND R.i_photo>0 ":" ")."AND CHAR_LENGTH(P.t_titre)>4 AND CHAR_LENGTH(P.t_annonce)>30 AND R.user_id!=".$mid." ORDER BY U.ID DESC LIMIT 12"); ?>
 				
 					<div class="rencBox">
 						<h3><?php _e('New entrants','rencontre');?></h3>
@@ -741,8 +744,8 @@ class RencontreWidget extends WP_widget
 				if (isset($_GET['sex']) && $_GET['sex']!='' && (!isset($_GET['obj']) || $_GET['obj']==''))
 					{
 					$s="SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.d_session, P.t_annonce, P.t_action
-						FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
-						WHERE P.user_id=R.user_id";
+						FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."users U 
+						WHERE P.user_id=R.user_id and U.ID=R.user_id and U.user_status=0";
 					if ($_GET['region']) $s.=" and R.c_region LIKE '".addslashes($wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE id='".strip_tags($_GET['region'])."'"))."'";
 					if ($_GET['pays']) $s.=" and R.c_pays='".$_GET['pays']."'";
 					$s.=" and R.i_sex='".strip_tags($_GET['sex'])."'";
@@ -1289,7 +1292,8 @@ class RencontreWidget extends WP_widget
 		// sortie : code HTML avec le mini portrait
 		global $wpdb; global $drap; global $drapNom; global $rencDiv;
 		$ho = false; if(has_filter('rencHighlightP', 'f_rencHighlightP')) $ho = apply_filters('rencHighlightP', $f);
-		$s = $wpdb->get_row("SELECT U.display_name, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id=".$f." and R.user_id=P.user_id and R.user_id=U.ID");
+		$s = $wpdb->get_row("SELECT U.display_name, R.c_pays, R.c_ville, R.d_naissance, R.i_photo, P.t_titre FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE U.user_status=0 and R.user_id=".$f." and R.user_id=P.user_id and R.user_id=U.ID");
+		if($s!=false) {
 		?>
 		
 				<div class="miniPortrait miniBox <?php if($ho) echo 'highlight'; ?>">
@@ -1310,7 +1314,7 @@ class RencontreWidget extends WP_widget
 					if($s->c_pays!="") echo '<img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$drap[$s->c_pays].'" alt="'.$drapNom[$s->c_pays].'" title="'.$drapNom[$s->c_pays].'" />'; ?>
 					
 				</div><!-- .miniPortrait -->
-		<?php
+		<?php }
 		}
 	//
 	static function f_miniPortrait2($f)
@@ -1719,12 +1723,12 @@ class RencontreWidget extends WP_widget
 		$hoprofil = false; $hoastro = false;
 		if ($_GET['pseudo']) $s="SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action 
 			FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."users U 
-			WHERE U.user_login LIKE '%".strip_tags($_GET['pseudo'])."%' and R.i_sex=".strip_tags($_GET['zsex'])." and U.ID=R.user_id and P.user_id=R.user_id";
+			WHERE U.user_login LIKE '%".strip_tags($_GET['pseudo'])."%' and R.i_sex=".strip_tags($_GET['zsex'])." and U.ID=R.user_id and P.user_id=R.user_id and U.user_status=0";
 		else
 			{
 			$s="SELECT U.user_login, R.user_id, ".((isset($_GET['astro']) && strip_tags($_GET['astro']))?'R.d_naissance, ':'')."R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, R.e_lat, R.e_lon, R.d_session, P.t_annonce, ".((isset($_GET['profil']) && strip_tags($_GET['profil']))?'P.t_profil, ':'')."P.t_action 
 				FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."rencontre_users R 
-				WHERE U.ID=R.user_id and P.user_id=R.user_id and R.i_sex=".strip_tags($_GET['zsex'])." and R.i_zsex".((strip_tags($_GET['homo']))?'=':'!=').strip_tags($_GET['zsex']);
+				WHERE U.ID=R.user_id and U.user_status=0 and P.user_id=R.user_id and R.i_sex=".strip_tags($_GET['zsex'])." and R.i_zsex".((strip_tags($_GET['homo']))?'=':'!=').strip_tags($_GET['zsex']);
 			if ($_GET['ageMin']>18) {$zmin=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d"), date("Y")-strip_tags($_GET['ageMin']))); $s.=" and R.d_naissance<'".$zmin."'";}
 			if ($_GET['ageMax']<99) {$zmax=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d"), date("Y")-strip_tags($_GET['ageMax'])));  $s.=" and R.d_naissance>'".$zmax."'";}
 			if(strip_tags($_GET['homo'])) $s.=" and R.user_id!=".strip_tags($_GET['id']);
