@@ -2101,7 +2101,7 @@ class RencontreWidget extends WP_widget
 	static function f_sourire($f)
 		{
 		// envoi un sourire a ID=$f
-		global $wpdb; global $current_user;
+		global $wpdb; global $current_user; global $rencOpt;
 		// 1. mon compte : sourireOut
 		$q = $wpdb->get_var("SELECT t_action FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$current_user->ID."'");
 		$action= json_decode($q,true);
@@ -2121,6 +2121,9 @@ class RencontreWidget extends WP_widget
 		$action['sourireIn'][$c]['d'] = date("Y-m-d");
 		$out = json_encode($action);
 		$wpdb->update($wpdb->prefix.'rencontre_users_profil', array('t_action'=>$out), array('user_id'=>$f));
+		// memo pour mail CRON
+		if (!is_dir(dirname(__FILE__).'/cron_liste/')) mkdir(dirname(__FILE__).'/cron_liste/');
+		if (!file_exists(dirname(__FILE__).'/cron_liste/'.$f.'.txt') && isset($rencOpt['mailsmile']) && $rencOpt['mailsmile']){ $t=fopen(dirname(__FILE__).'/cron_liste/'.$f.'.txt', 'w'); fclose($t); }
 		_e('Smile sent','rencontre');
 //	[	{"a":"sourireIn","v":[{"i":10,"d":"2013-12-15"},{"i":32,"d":"2013-12-15"}]},
 //		{"a":"sourireOut","v":[{"i":15,"d":"2013-12-15"},{"i":28,"d":"2013-12-15"},{"i":41,"d":"2013-12-15"}]},

@@ -573,6 +573,7 @@ function update_rencontre_options($f)
 	if (isset($f['hcron'])) $rencOpt['hcron'] = $f['hcron']; else $rencOpt['hcron'] = 3;
 	if (isset($f['mailmois'])) $rencOpt['mailmois'] =  $f['mailmois']; else $rencOpt['mailmois'] = 0;
 	if (isset($f['textmail'])) $rencOpt['textmail'] = $f['textmail']; else $rencOpt['textmail'] = '';
+	if (isset($f['mailsmile'])) $rencOpt['mailsmile'] = 1; else $rencOpt['mailsmile'] = 0;
 	if (isset($f['mailanniv'])) $rencOpt['mailanniv'] = 1; else $rencOpt['mailanniv'] = 0;
 	if (isset($f['textanniv'])) $rencOpt['textanniv'] = $f['textanniv']; else $rencOpt['textanniv'] = '';
 	if (isset($f['qmail'])) $rencOpt['qmail'] = $f['qmail']; else $rencOpt['qmail'] = 25;
@@ -610,7 +611,7 @@ function rencMenuGeneral()
 	?>
 	<div class='wrap'>
 		<div class='icon32' id='icon-options-general'><br/></div>
-		<?php if(file_exists(dirname(__FILE__).'/inc/rencontre_don.php')) include(dirname(__FILE__).'/inc/rencontre_don.php'); ?>
+		<?php if(file_exists(dirname(__FILE__).'/rencontre_don.php')) include(dirname(__FILE__).'/rencontre_don.php'); ?>
 		<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $rencVersion; ?></span></h2>
 		<h2><?php _e('General', 'rencontre'); ?></h2>
 		<form method="post" name="rencontre_options" action="admin.php?page=rencontre.php">
@@ -737,6 +738,10 @@ function rencMenuGeneral()
 				<tr valign="top">
 					<th scope="row"><label><?php _e('Introductory text for the monthly email (After hello login - Before the smiles and contact requests)', 'rencontre'); ?></label></th>
 					<td><textarea name="textmail"><?php echo stripslashes($rencOpt['textmail']); ?></textarea></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Also send an email for a smile', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="mailsmile" value="1" <?php if(isset($rencOpt['mailsmile']) && $rencOpt['mailsmile'])echo 'checked'; ?>></td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label><?php _e('Automatically sending an email happy birthday members', 'rencontre'); ?></label></th>
