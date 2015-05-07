@@ -198,6 +198,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * 15% speed improvement.
 * Fix some bugs.
 
+07/05/2015 : Update 1 : Admin can now block a member.
+
 = 1.5 =
 16/03/2015 : Change main language from French to English
 

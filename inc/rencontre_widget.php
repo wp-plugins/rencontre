@@ -16,10 +16,11 @@ class RencontreWidget extends WP_widget
 		if(current_user_can("administrator")) return;
 		wp_enqueue_style('rencontre', plugins_url('rencontre/css/rencontre.css'));
 		wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre.js?r='.rand()));
-		global $current_user; global $wpdb;
+		global $current_user; global $wpdb; global $rencBlock;
 		global $drap; global $drapNom; global $rencOpt; global $rencDiv; global $rencidfm;
 		$rencidfm = ((isset($_SESSION["rencidfm"])&&!isset($_GET["rencidfm"]))?$_SESSION["rencidfm"]:''); // lien direct vers la fiche d un membre depuis un mail
-		$mid=$current_user->ID; // Mon id
+		$mid = $current_user->ID; // Mon id
+		$rencBlock = ($current_user->user_status==1?1:0);
 	if(!isset($rencOpt['imnb'])) $rencOpt['imnb']=4;
 		$r = $rencDiv['basedir'].'/portrait';if(!is_dir($r)) mkdir($r);
 		$q = $wpdb->get_results("SELECT c_liste_categ, c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' or (c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."') ");
@@ -74,8 +75,12 @@ class RencontreWidget extends WP_widget
 						</ul>
 					</div>
 				</form>
-				<div class="rencBonjour"><?php _e('Hello','rencontre'); echo '&nbsp;'.($current_user->user_login); ?></div>
+				<div class="rencBonjour">
+					<?php _e('Hello','rencontre'); echo '&nbsp;'.($current_user->user_login); ?>
+				</div>
 			</div>
+			<?php if($rencBlock) echo '<div class="rencBlock">'.__('Your account is blocked. You are invisible. Change your profile.','rencontre').'</div>'; ?>
+
 		<?php 
 		if(isset($_SESSION['rencontre']) && $_SESSION['rencontre']=='gate') self::rencGate(); // Entry screening
 		//
@@ -332,17 +337,17 @@ class RencontreWidget extends WP_widget
 							{ ?>
 							<?php
 							$ho = false; if(has_filter('rencSendP', 'f_rencSendP')) $ho = apply_filters('rencSendP', $ho);
-							if(!$ho) { ?><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Send a message','rencontre');?></li></a><?php }
+							if(!$ho && !$rencBlock) { ?><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Send a message','rencontre');?></li></a><?php }
 							else echo '<li class="rencLiOff">'.__('Send a message','rencontre').'</li>';
 							?>
 							<?php
 							$ho = false; if(has_filter('rencSmileP', 'f_rencSmileP')) $ho = apply_filters('rencSmileP', $ho);
-							if(!$ho) { ?><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Smile','rencontre');?></li></a><?php }
+							if(!$ho && !$rencBlock) { ?><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Smile','rencontre');?></li></a><?php }
 							else echo '<li class="rencLiOff">'.__('Smile','rencontre').'</li>';
 							?>
 							<?php
 							$ho = false; if(has_filter('rencContactReqP', 'f_rencContactReqP')) $ho = apply_filters('rencContactReqP', $ho);
-							if(!$ho) { ?><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='demcont';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Ask for a contact','rencontre');?></li></a><?php }
+							if(!$ho && !$rencBlock) { ?><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='demcont';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php _e('Ask for a contact','rencontre');?></li></a><?php }
 							else echo '<li class="rencLiOff">'.__('Ask for a contact','rencontre').'</li>';
 							?>
 							<?php 
@@ -350,7 +355,7 @@ class RencontreWidget extends WP_widget
 							else echo '<li class="rencLiOff">'.__('Send a message','rencontre').'</li><li class="rencLiOff">'.__('Smile','rencontre').'</li><li class="rencLiOff">'.__('Ask for a contact','rencontre').'</li>'; ?>
 							<?php 
 							$ho = false; if(has_filter('rencChatP', 'f_rencChatP')) $ho = apply_filters('rencChatP', $ho);
-							if (!$ho && $line && !$bl1 && $rencOpt['tchat']==1) echo '<a href="javascript:void(0)" onClick="f_tchat('.$mid.','.$id.',\''.plugins_url('rencontre/inc/rencontre_tchat.php').'\',1,\''.$s->display_name.'\')"><li>'.__('Chat','rencontre').'</li></a>';
+							if (!$ho && !$rencBlock && $line && !$bl1 && $rencOpt['tchat']==1) echo '<a href="javascript:void(0)" onClick="f_tchat('.$mid.','.$id.',\''.plugins_url('rencontre/inc/rencontre_tchat.php').'\',1,\''.$s->display_name.'\')"><li>'.__('Chat','rencontre').'</li></a>';
 							else if ($rencOpt['tchat']==1) echo '<li class="rencLiOff">'.__('Chat','rencontre').'</li>'; 
 							?>
 							<a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='bloque';document.forms['rencMenu'].elements['id'].value='<?php echo $s->ID; ?>';document.forms['rencMenu'].submit();"><li><?php echo (!$bl)?__('Block','rencontre'):__('Unblock','rencontre'); ?></li></a>
@@ -945,12 +950,12 @@ class RencontreWidget extends WP_widget
 								{ ?>
 								<?php
 								$ho = false; if(has_filter('rencSendP', 'f_rencSendP')) $ho = apply_filters('rencSendP', $ho);
-								if(!$ho){ ?><div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Send a message','rencontre');?></a></div><?php }
+								if(!$ho && !$rencBlock){ ?><div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Send a message','rencontre');?></a></div><?php }
 								else echo '<div class="button right rencLiOff">'.__('Send a message','rencontre').'</div>';
 								?>
 								<?php
 								$ho = false; if(has_filter('rencSmileP', 'f_rencSmileP')) $ho = apply_filters('rencSmileP', $ho);
-								if(!$ho){ ?><div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Smile','rencontre');?></a></div><?php }
+								if(!$ho && !$rencBlock){ ?><div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Smile','rencontre');?></a></div><?php }
 								else echo '<div class="button right rencLiOff">'.__('Smile','rencontre').'</div>';
 								?>
 								<?php 
@@ -994,7 +999,7 @@ class RencontreWidget extends WP_widget
 			<?php }
 			//
 			// 8. Messagerie
-			if (strstr($_SESSION['rencontre'],'msg'))
+			if (strstr($_SESSION['rencontre'],'msg') && !$rencBlock)
 				{ ?>
 				
 				<div class="grandeBox left">
@@ -1012,7 +1017,7 @@ class RencontreWidget extends WP_widget
 			<?php }
 			//
 			// 9. Envoi message
-			if (strstr($_SESSION['rencontre'],'ecrire'))
+			if (strstr($_SESSION['rencontre'],'ecrire') && !$rencBlock)
 				{ 
 				global $wpdb;
 				$q = $wpdb->get_row("SELECT U.user_login, R.i_photo FROM ".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R WHERE U.ID='".strip_tags($_GET["id"])."' and R.user_id=U.ID");
@@ -1681,7 +1686,7 @@ class RencontreWidget extends WP_widget
 	static function f_trouver()
 		{
 		// Resultat de la recherche plus
-		global $wpdb; global $rencOpt; global $rencDiv;
+		global $wpdb; global $rencOpt; global $rencDiv; global $rencBlock;
 		$pagine = (isset($_GET['pagine'])?$_GET['pagine']:0);
 		$suiv = 1;
 		?> 
@@ -1807,12 +1812,12 @@ class RencontreWidget extends WP_widget
 						{ ?>
 						<?php
 						$ho = false; if(has_filter('rencSendP', 'f_rencSendP')) $ho = apply_filters('rencSendP', $ho);
-						if(!$ho){ ?><div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Send a message','rencontre');?></a></div><?php }
+						if(!$ho && !$rencBlock){ ?><div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='ecrire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Send a message','rencontre');?></a></div><?php }
 						else echo '<div class="button right rencLiOff">'.__('Send a message','rencontre').'</div>';
 						?>
 						<?php
 						$ho = false; if(has_filter('rencSmileP', 'f_rencSmileP')) $ho = apply_filters('rencSmileP', $ho);
-						if(!$ho){ ?><div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Smile','rencontre');?></a></div><?php }
+						if(!$ho && !$rencBlock){ ?><div class="button right"><a href="javascript:void(0)" onClick="document.forms['rencMenu'].elements['page'].value='sourire';document.forms['rencMenu'].elements['id'].value='<?php echo $r->user_id; ?>';document.forms['rencMenu'].submit();"><?php _e('Smile','rencontre');?></a></div><?php }
 						else echo '<div class="button right rencLiOff">'.__('Smile','rencontre').'</div>';
 						?>
 						<?php 

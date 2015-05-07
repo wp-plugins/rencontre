@@ -848,13 +848,18 @@ function rencMenuMembres()
 			<?php
 			if (isset($_POST["a1"]) && $_POST["a1"] && $_POST["a2"]) 
 				{
-				f_userSupp($_POST["a1"],$_POST["a2"],1);
-				if ($rencOpt['mailsupp'])
+				if($_POST["a2"]=='b0') $wpdb->update($wpdb->prefix.'users', array('user_status'=>1), array('ID'=>$_POST["a1"]));
+				else if($_POST["a2"]=='b1') $wpdb->update($wpdb->prefix.'users', array('user_status'=>0), array('ID'=>$_POST["a1"]));
+				else
 					{
-					$q = $wpdb->get_var("SELECT user_email FROM ".$wpdb->prefix."users WHERE ID='".$_POST["a1"]."'");
-					$objet  = wp_specialchars_decode($rencDiv['blogname'], ENT_QUOTES).' - '.__('Account deletion','rencontre');
-					$message  = __('Your account has been deleted','rencontre');
-					@wp_mail($q, $objet, $message);
+					f_userSupp($_POST["a1"],$_POST["a2"],1);
+					if ($rencOpt['mailsupp'])
+						{
+						$q = $wpdb->get_var("SELECT user_email FROM ".$wpdb->prefix."users WHERE ID='".$_POST["a1"]."'");
+						$objet  = wp_specialchars_decode($rencDiv['blogname'], ENT_QUOTES).' - '.__('Account deletion','rencontre');
+						$message  = __('Your account has been deleted','rencontre');
+						@wp_mail($q, $objet, $message);
+						}
 					}
 				}
 			$tri="";
@@ -903,14 +908,16 @@ function rencMenuMembres()
 					<td><a href="admin.php?page=rencmembers&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='modif') echo 'R'; ?>modif" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Ad (change)','rencontre');?></a></td>
 					<td><a href="admin.php?page=rencmembers&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Sort','rencontre'); ?>"><?php _e('IP address','rencontre');?></a></td>
 					<td><a href="admin.php?page=rencmembers&tri=signal" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Reporting','rencontre');?></a></td>
-					<td><?php _e('Del','rencontre');?></td>
+					<td><?php _e('Action','rencontre');?></td>
 					<?php if($ho) echo '<td>'.$ho[2].'</td>'; ?>
 				</tr>
 			<?php
 			$categ="";
 			foreach($q as $s)
 				{
-				$q = $wpdb->get_var("SELECT t_signal FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$s->ID."'"); $signal=json_decode($q,true);
+				$q = $wpdb->get_row("SELECT P.t_signal, U.user_status FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U  WHERE P.user_id='".$s->ID."' and P.user_id=U.ID");
+				$signal = ($q?json_decode($q->t_signal,true):0);
+				$block = ($q?$q->user_status:0);
 				echo '<tr>';
 				echo '<td><a href="admin.php?page=rencmembers&id='.$s->ID.'" title="'.__('See','rencontre').'">'.$s->ID.'</a></td>';
 				echo '<td><a href="admin.php?page=rencmembers&id='.$s->ID.'" title="'.__('See','rencontre').'"><img class="tete" src="'.($s->i_photo!=0?get_bloginfo('url').'/wp-content/uploads/portrait/'.floor(($s->ID)/1000).'/'.Rencontre::f_img((($s->ID)*10).'-mini').'.jpg" alt="" /></a></td>':plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" /></td>');
@@ -935,7 +942,9 @@ function rencMenuMembres()
 				else $ipays=null;
 				echo '<td>'.$s->c_ip.(($ipays)?'<br/><img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$ipays.'" alt="'.$geoip->country_name.'" title="'.$geoip->country_name.'" />':'').'</td>';
 				echo '<td>'.((count($signal))?count($signal):'').'</td>';
-				echo '<td><a href="javascript:void(0)" class="rencSupp" onClick="f_fin('.$s->ID.',\''.$s->user_login.'\')" title="'.__('Remove','rencontre').'"></a></td>';
+				echo '<td><a href="javascript:void(0)" class="rencBlock'.($block?'off':'on').'" onClick="f_block('.$s->ID.',\'b'.$block.'\')" title="'.($block?__('Unblock this member','rencontre'):__('Block this member','rencontre')).'"></a>';
+				echo '<hr /><a href="javascript:void(0)" class="rencSupp" onClick="f_fin('.$s->ID.',\''.$s->user_login.'\')" title="'.__('Remove','rencontre').'"></a>';
+				echo '</td>';
 				if($ho) echo '<td>'.(($s->$ho[3]!='')?$ho[4][$s->$ho[3]]:'').'</td>';
 				echo '</tr>';
 				}
