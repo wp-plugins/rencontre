@@ -878,6 +878,7 @@ function rencMenuMembres()
 					else if ($_GET['tri']=='ip') $tri='ORDER BY R.c_ip ASC';
 					else if ($_GET['tri']=='Rip') $tri='ORDER BY R.c_ip DESC';
 					else if ($_GET['tri']=='signal') $tri='ORDER BY length(P.t_signal) DESC';
+					else if ($_GET['tri']=='action') $tri='ORDER BY U.user_status DESC';
 					}
 				else $tri='ORDER BY P.d_modif DESC';
 				if(isset($_POST['pseu']) && $_POST['pseu']!="") $tri = "and (U.user_login='".$_POST['pseu']."' or U.user_email='".$_POST['pseu']."') ".$tri;
@@ -908,7 +909,8 @@ function rencMenuMembres()
 					<td><a href="admin.php?page=rencmembers&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='modif') echo 'R'; ?>modif" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Ad (change)','rencontre');?></a></td>
 					<td><a href="admin.php?page=rencmembers&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Sort','rencontre'); ?>"><?php _e('IP address','rencontre');?></a></td>
 					<td><a href="admin.php?page=rencmembers&tri=signal" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Reporting','rencontre');?></a></td>
-					<td><?php _e('Action','rencontre');?></td>
+					<td><a href="admin.php?page=rencmembers&tri=action" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Action','rencontre');?></a></td>
+					<td></td>
 					<?php if($ho) echo '<td>'.$ho[2].'</td>'; ?>
 				</tr>
 			<?php
