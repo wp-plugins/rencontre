@@ -39,7 +39,7 @@ class RencontreWidget extends WP_widget
 		$fantome = $wpdb->get_var("SELECT user_id FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."' and CHAR_LENGTH(t_titre)>4 and CHAR_LENGTH(t_annonce)>30 ");
 		?>
 
-		<div id="widgRenc">
+		<div id="widgRenc" class="widgRenc">
 			<div id="rencTchat"></div>
 			<?php
 			$ho = false; if(has_filter('rencCamP', 'f_rencCamP')) $ho = apply_filters('rencCamP', $ho);
@@ -72,12 +72,12 @@ class RencontreWidget extends WP_widget
 								} ?>
 								
 							</span>
+							<div class="rencBonjour">
+								<?php _e('Hello','rencontre'); echo '&nbsp;'.($current_user->user_login); ?>
+							</div>
 						</ul>
 					</div>
 				</form>
-				<div class="rencBonjour">
-					<?php _e('Hello','rencontre'); echo '&nbsp;'.($current_user->user_login); ?>
-				</div>
 			</div>
 			<?php if($rencBlock) echo '<div class="rencBlock">'.__('Your account is blocked. You are invisible. Change your profile.','rencontre').'</div>'; ?>
 
@@ -686,6 +686,9 @@ class RencontreWidget extends WP_widget
 						<div class="clear"></div>
 					</div><!-- .rencBox -->
 				<?php } ?>
+				
+				<?php $ho = false; if(has_filter('rencAddBox', 'f_rencAddBox')) $ho = apply_filters('rencAddBox', $mid); if($ho) echo $ho; ?>
+				
 				<?php if ($rencOpt['ligne']==1)
 					{
 					$tab=''; $d=$rencDiv['basedir'].'/session/';
@@ -1577,7 +1580,7 @@ class RencontreWidget extends WP_widget
 							$ho = false; if(has_filter('rencMapP', 'f_rencMapP')) $ho = apply_filters('rencMapP', $ho);
 							if (!$ho && $rencOpt['map'] && function_exists('wpGeonames') && $q->e_lon!=0 && $q->e_lat!=0 && $rencOpt['pays']!='')
 							{ ?>
-							<tr>
+							<tr  class="renctrMap">
 								<td colspan="2"><?php _e('City','rencontre');?>&nbsp;:<br />
 									<input id="rencVille" name="ville" type="text" size="12" value="" onkeyup="f_city(this.value,'<?php echo admin_url('admin-ajax.php'); ?>',document.getElementById('rencPays').options[document.getElementById('rencPays').selectedIndex].value,1);" />
 									<input id="gps" name="gps" type="hidden" />
@@ -1592,7 +1595,7 @@ class RencontreWidget extends WP_widget
 									<div id="rencMap" style="display:block"></div>
 								</td>
 							</tr>
-							<tr>
+							<tr class="renctrMap">
 								<td colspan="2"><?php _e('Max range (km)','rencontre');?>&nbsp;:<br />
 									<input id="rencKm" name="km" type="text" size="5" value="60" onkeyup="f_cityKm(this.value);" />
 								</td>
@@ -1600,7 +1603,7 @@ class RencontreWidget extends WP_widget
 							<?php }
 							else if (!$ho && $rencOpt['map'] && $q->e_lon!=0 && $q->e_lat!=0 && $rencOpt['pays']!='') 
 							{ ?>
-							<tr>
+							<tr class="renctrMap">
 								<td colspan="2"><?php _e('City','rencontre');?>&nbsp;:<br />
 									<input id="rencVille" name="ville" type="text" size="12" value="" <?php
 										echo 'onkeyup="if(!rmap)f_cityMap(this.value,document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].text,\'0\',1);"'; 
@@ -1617,7 +1620,7 @@ class RencontreWidget extends WP_widget
 									<div id="rencMap" style="display:block"></div>
 								</td>
 							</tr>
-							<tr>
+							<tr class="renctrMap">
 								<td colspan="2"><?php _e('Max range (km)','rencontre');?>&nbsp;:<br />
 									<input id="rencKm" name="km" type="text" size="5" value="60" onkeyup="f_cityKm(this.value);" />
 								</td>
@@ -2001,11 +2004,11 @@ class RencontreWidget extends WP_widget
 				</tr>
 			</table>
 			<table style="border-bottom:none;margin-bottom:0;border-top:none;margin-top:0;">
-				<tr>
+				<tr class="renctrMap">
 					<th><?php _e('My city','rencontre');?></th>
 					<th></th>
 				</tr>
-				<tr>
+				<tr  class="renctrMap">
 					<td>
 						<input id="rencVille" name="ville" type="text" size="18" value="<?php echo $q->c_ville; ?>" <?php if (function_exists('wpGeonames')) echo 'onkeyup="f_city(this.value,\''.admin_url('admin-ajax.php').'\',document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].value,0);"'; ?> />
 						<input id="gps" name="gps" type="hidden" value="<?php echo $q->e_lat.'|'.$q->e_lon; ?>" />

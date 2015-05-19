@@ -288,7 +288,7 @@ class Rencontre
 			{
 			$out = '<link rel="stylesheet" type="text/css" href="'.plugins_url('rencontre/css/rencontre.css').'" media="all" />'."\r\n";
 		//	$out .= '<script type="text/javascript" src="'.plugins_url('rencontre/js/rencontre-libre.js').'"></script>'."\r\n"; // Zoom automatique sur chaque personne
-			$out .= '<div id="widgRenc">'."\r\n";
+			$out .= '<div id="widgRenc" class="widgRenc ficheLibre">'."\r\n";
 			global $wpdb; global $rencOpt; global $rencDiv;
 			if (!is_dir($rencDiv['basedir'].'/portrait/')) mkdir($rencDiv['basedir'].'/portrait/');
 			if (!is_dir($rencDiv['basedir'].'/portrait/libre/')) mkdir($rencDiv['basedir'].'/portrait/libre/');
@@ -353,7 +353,7 @@ class Rencontre
 				if($r->i_sex==0 && $r->i_zsex==1) $genre='men';
 				else if($r->i_sex==1 && $r->i_zsex==1) $genre='gaygirl';
 				else if($r->i_sex==0 && $r->i_zsex==0) $genre='gaymen';
-				$out.='<div class="rencBox '.$genre.'" style="float:left;width:31.32%;padding:1px;margin:0.5%;max-height:109px;overflow:hidden;">';
+				$out.='<div class="rencBox '.$genre.'">';
 				$out.='<div class="miniPortrait miniBox"><a href="wp-login.php?action=register">';
 				if ($r->i_photo!=0)
 					{
