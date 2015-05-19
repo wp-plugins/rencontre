@@ -33,7 +33,7 @@ This WordPress plugin allows you to create a real dating website with Wordpress.
 * Easy administration with filtering members ;
 * Import/Export members in CSV with photos ;
 * Standalone, not depend on other services ;
-* Full payment system, search by profil and astrological affinity with [Kit Premium](http://www.boiteasite.fr/fiches/rencontre-premium.html).
+* Option full payment system, search by profil and astrological affinity : [Kit Premium](http://www.boiteasite.fr/fiches/rencontre-premium.html).
 
 = Internationalization =
 
@@ -201,6 +201,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 07/05/2015 : Update 1 : Admin can now block a member.
 
 08/05/2015 : Update 2 : Option to send an email for a smile.
+
+19/05/2015 : Update 3 : CSS responsive and homogeneous.
 
 = 1.5 =
 16/03/2015 : Change main language from French to English
