@@ -585,14 +585,15 @@ function retrieve_password_message2($old_message, $key)
 //
 function f_iniPass()
 	{
-	wp_set_password($_POST['nouv'],$_POST['id']);
 	global $wpdb;
 	$wpdb->update($wpdb->prefix.'users', array(
 		'user_login'=>strip_tags($_POST['pseudo']),
 		'user_nicename'=>strip_tags($_POST['pseudo']),
 		'display_name'=>strip_tags($_POST['pseudo'])), 
 		array('ID'=>strip_tags($_POST['id'])));
-	wp_set_auth_cookie($_POST['id']);
+	$wpdb->insert($wpdb->prefix.'rencontre_users_profil', array('user_id'=>strip_tags($_POST['id']),'d_modif'=>date("Y-m-d H:i:s")));
+	$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>strip_tags($_POST['id']))); // suppression si existe deja
+	wp_logout();
 	}
 //
 function f_fbok() // connexion via Facebook

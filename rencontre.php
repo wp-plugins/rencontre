@@ -217,7 +217,7 @@ class Rencontre
 		global $rencOpt;
 		if (is_user_logged_in())
 			{
-			global $current_user; global $rencOpt; global $rencDiv; global $RencMid;
+			global $current_user; global $wpdb; global $rencDiv; global $RencMid;
 			get_currentuserinfo();
 			$rol = $current_user->roles;
 			$rencMid['id'] = $current_user->ID;
@@ -227,7 +227,23 @@ class Rencontre
 				$_SESSION["rencidfm"] = preg_replace("/[^0-9]+/","",$_GET["rencidfm"]);
 				echo "<script language='JavaScript'>document.location.href='".$rencOpt['home']."';</script>"; 
 				}
-			if (array_shift($rol)=="subscriber" && (!isset($_POST['nouveau']) || !$_POST['nouveau'])) $_SESSION['rencontre']='nouveau';
+			if (array_shift($rol)=="subscriber" && (!isset($_POST['nouveau']) || $_POST['nouveau']!='OK'))
+				{
+				if(!isset($_POST['nouveau']))
+					{
+					$q = $wpdb->get_row("SELECT c_pays, i_taille, i_zage_max FROM ".$wpdb->prefix."rencontre_users WHERE user_id='".$rencMid['id']."'");
+					if($q && $q->i_zage_max) $_SESSION['rencontre']='nouveau3';
+					else if($q && $q->c_pays) $_SESSION['rencontre']='nouveau2';
+					else if($q && $q->i_taille) $_SESSION['rencontre']='nouveau1';
+					else $_SESSION['rencontre']='nouveau';
+					}
+				else
+					{
+					if($_POST['nouveau']=='1') $_SESSION['rencontre']='nouveau1';
+					else if($_POST['nouveau']=='2') $_SESSION['rencontre']='nouveau2';
+					else if($_POST['nouveau']=='3') $_SESSION['rencontre']='nouveau3';
+					}
+				}
 			else if (!isset($_SESSION['rencontre']) || ((!isset($_POST['page']) || !$_POST['page']) && (!isset($_GET['page']) || !$_GET['page']))) $_SESSION['rencontre']='mini,accueil,menu';
 			else if (isset($_POST['page']) && $_POST['page']=='password') $_SESSION['rencontre']='mini,accueil,menu,password';
 			else if (isset($_POST['page']) && $_POST['page']=='fin')

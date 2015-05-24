@@ -3,7 +3,7 @@ Contributors: jacques malgrange
 Donate link: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
 Tags: date, dating, meet, love, chat, webcam, rencontres
 Requires at least: 3.0.1
-Tested up to: 4.2
+Tested up to: 4.2.2
 Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -66,14 +66,14 @@ In your theme folder, in the page used for the dating part (index.php or page.ph
 `&lt;?php if(is_user_logged_in()) {
 $renc=new RencontreWidget; $renc->widget(0,0);} ?&gt;`
 
-Method 2 : With a Widget :
+Method 2 : With a Widget (more complicated) :
 
 * Create a widget area that uses the entire width of the page if it doesn't exist. See register_sidebar in 'functions.php' or in WP Support.
 * Active this area in the page of your theme :
 `&lt;?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('my-area-name')) : endif; ?&gt;`
 * In admin panel, move the 'rencontre' widget to 'my-area-name' area.
 
-Method 3 : Shortcode - The simplest way :
+Method 3 : Shortcode (the simplest way for beginners) :
 
 add shortcode [rencontre] in your page.
 
@@ -203,6 +203,13 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 08/05/2015 : Update 2 : Option to send an email for a smile.
 
 19/05/2015 : Update 3 : CSS responsive and homogeneous.
+
+24/05/2015 : Update 4
+
+* Add link to the recipient in sent message.
+* Fix bug when user delete account.
+* Cut the admission form in four part with progress bar.
+
 
 = 1.5 =
 16/03/2015 : Change main language from French to English
