@@ -100,6 +100,9 @@ tr.renctrMap td:first-child,tr.renctrMap th:first-child{width:200px;}
 .rencPagine span{color:#777;font-size:1.1em;}
 .rencPagine a:hover{color:#444;}
 .rencInfo{color:#aaa;}
+.rencEvol{position:relative;width:100%;border:1px solid #e0cdbf;margin:10px 0;}
+.rencEvol25,.rencEvol50,.rencEvol75,.rencEvol100{float:left;background-color:green;border-radius:6px;height:30px;margin:1px;font-size:1.2em;text-align:center;font-weight:700;}
+.rencEvol25{width:25%}.rencEvol50{width:50%}.rencEvol75{width:75%}.rencEvol100{width:100%}
 #rencMsg{line-height:1.4em;}
 #rencMsg table tr:hover{background-color:#fcfcfa;}
 #rencMsg table td, #rencMsg table th{padding:5px 0 5px 10px;}
