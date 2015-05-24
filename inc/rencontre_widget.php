@@ -30,7 +30,7 @@ class RencontreWidget extends WP_widget
 			if($r->c_liste_categ=='d') $drap[$r->c_liste_iso] = $r->c_liste_valeur;
 			else if($r->c_liste_categ=='p')$drapNom[$r->c_liste_iso] = $r->c_liste_valeur;
 			}
-		if (isset($_POST['nouveau']) && $_POST['nouveau']==$mid) RencontreWidget::f_nouveauMembre($mid);
+		if (isset($_POST['nouveau']) && isset($_POST['a1']) && $_POST['a1']==$mid) RencontreWidget::f_nouveauMembre($mid,strip_tags($_POST['nouveau']));
 		// *****************************************************************************************************************
 		// 0. Partie menu
 		require(dirname (__FILE__) . '/../lang/rencontre-js-lang.php');
@@ -97,8 +97,11 @@ class RencontreWidget extends WP_widget
 					</div>
 				</div>
 			</div>
-				<?php }
-			else { ?>
+				<?php
+				}
+			else if($_SESSION['rencontre']=='nouveau')
+				{ ?>
+			
 			<div class="pleineBox">
 				<div class="rencBox">
 					<div class="rencNouveau">
@@ -116,33 +119,15 @@ class RencontreWidget extends WP_widget
 						<?php _e('We wish you nice encounters.','rencontre'); ?>
 						</p>
 						<div id="rencAlert"></div>
+						<div class="rencEvol"><div class="rencEvol25">1 / 4</div><div style="clear:left;"></div></div>
 						<form name="formNouveau" method='post' action=''>
-						<input type='hidden' name='nouveau' value='' /><input type='hidden' name='a1' value='' />
-						<label><?php _e('Change nickname (after, it will not be possible)','rencontre');?></label>&nbsp;:&nbsp;
-						<input name="pseudo" type="text" size="12" value="<?php echo $current_user->user_login; ?>"> 
+						<input type='hidden' name='nouveau' value='1' /><input type='hidden' name='a1' value='' />
 						<table>
-							<tr>
-								<th colspan="2"><?php _e('New password (6 min)','rencontre');?></th>
-								<th colspan="2"><?php _e('New password (again)','rencontre');?></th>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<input name="pass1" type="password" size="12">
-								</td>
-								<td colspan="2">
-									<input name="pass2" type="password" size="12">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4" style="font-style:italic;padding-top:0;">
-									<?php _e('Changing the password is required for this first connection','rencontre');?>
-								</td>
-							</tr>
 							<tr>
 								<th><?php _e('I am','rencontre');?></th>
 								<th><?php _e('Born','rencontre');?></th>
-								<th><?php _e('My country','rencontre');?></th>
-								<th><?php _e('My region','rencontre');?></th>
+								<th><?php _e('My size','rencontre');?></th>
+								<th><?php _e('My weight','rencontre');?></th>
 							</tr>
 							<tr>
 								<td>
@@ -166,6 +151,45 @@ class RencontreWidget extends WP_widget
 									</select>
 								</td>
 								<td>
+									<select name="taille" size=6>
+										<?php for ($v=140;$v<220;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('cm','rencontre').'</option>';}?>
+										
+									</select>
+								</td>
+								<td>
+									<select name="poids" size=6>
+										<?php for ($v=40;$v<140;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('kg','rencontre').'</option>';}?>
+										
+									</select>
+								</td>
+							</tr>
+						</table>
+						<div id="buttonPass" class="button"><a href="javascript:void(0)" onClick="f_nouveau(<?php echo $mid; ?>,'<?php echo admin_url('admin-ajax.php'); ?>',0)"><?php _e('Send','rencontre');?></a></div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<?php
+				}
+			else if($_SESSION['rencontre']=='nouveau1')
+				{ ?>
+			
+			<div class="pleineBox">
+				<div class="rencBox">
+					<div class="rencNouveau">
+						<h3><?php _e('Hello','rencontre'); echo '&nbsp;'.($current_user->user_login); echo ", ".__('welcome to the site','rencontre').'&nbsp;'; bloginfo( 'name' ); ?></h3>
+						<div id="rencAlert"></div>
+						<div class="rencEvol"><div class="rencEvol50">2 / 4</div><div style="clear:left;"></div></div>
+						<form name="formNouveau" method='post' action=''>
+						<input type='hidden' name='nouveau' value='2' /><input type='hidden' name='a1' value='' />
+						<table>
+							<tr>
+								<th><?php _e('My country','rencontre');?></th>
+								<th><?php _e('My region','rencontre');?></th>
+								<th><?php _e('My city','rencontre');?></th>
+							</tr>
+							<tr>
+								<td>
 									<select id="rencPays" name="pays" size=6 onChange="f_region_select(this.options[this.selectedIndex].value,'<?php echo admin_url('admin-ajax.php'); ?>','regionSelect1');">
 										<?php RencontreWidget::f_pays($rencOpt['pays']); ?>
 										
@@ -177,54 +201,46 @@ class RencontreWidget extends WP_widget
 										
 									</select>
 								</td>
+								<td>
+									<input id="rencVille" name="ville" type="text" size="12" <?php
+										if (function_exists('wpGeonames')) echo 'onkeyup="f_city(this.value,\''.admin_url('admin-ajax.php').'\',document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].value,0);"'; 
+										else echo 'onkeyup="if(!rmap)f_cityMap(this.value,document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].text,\'0\',1);"'; 
+										?> />
+									<input id="gps" name="gps" type="hidden" />
+									<div class="rencCity" id="rencCity"></div>
+									<div class="rencTMap" id="rencTMap">
+										<?php _e('Adjust the location by moving / zooming the map.','rencontre');?><br />
+										<?php _e('Clicking on the map will place the cursor.','rencontre');?><br /><br />
+										<div class="button" onClick="f_cityOk();"><?php _e('Validate the position','rencontre');?></div>
+									</div>
+								</td>
 							</tr>
-							<tr>
-								<th colspan="4" style="padding-top:0;">
-									<table style="border-bottom:none;margin-bottom:0;border-top:none;margin-top:-2px;text-transform:none;">
-									<tr>
-										<th><?php _e('My size','rencontre');?></th>
-										<th><?php _e('My weight','rencontre');?></th>
-										<th><?php _e('My city','rencontre');?></th>
-										<th></th>
-									</tr>
-									<tr>
-										<td>
-											<select name="taille" size=6>
-												<?php for ($v=140;$v<220;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('cm','rencontre').'</option>';}?>
-												
-											</select>
-										</td>
-										<td>
-											<select name="poids" size=6>
-												<?php for ($v=40;$v<140;++$v) {echo '<option value="'.$v.'">'.$v.'&nbsp;'.__('kg','rencontre').'</option>';}?>
-												
-											</select>
-										</td>
-										<td>
-											<input id="rencVille" name="ville" type="text" size="12" <?php
-												if (function_exists('wpGeonames')) echo 'onkeyup="f_city(this.value,\''.admin_url('admin-ajax.php').'\',document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].value,0);"'; 
-												else echo 'onkeyup="if(!rmap)f_cityMap(this.value,document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].text,\'0\',1);"'; 
-												?> />
-											<input id="gps" name="gps" type="hidden" />
-											<div class="rencCity" id="rencCity"></div>
-											<div class="rencTMap" id="rencTMap">
-												<?php _e('Adjust the location by moving / zooming the map.','rencontre');?><br />
-												<?php _e('Clicking on the map will place the cursor.','rencontre');?><br /><br />
-												<div class="button" onClick="f_cityOk();"><?php _e('Validate the position','rencontre');?></div>
-											</div>
-										</td>
-										<td>
-											<div id="rencMap"></div>
-										</td>
-									</tr>
-									</table>
-								</th>
-							</tr>
+						</table>
+						<div id="rencMap"></div>
+						<div id="buttonPass" class="button"><a href="javascript:void(0)" onClick="f_nouveau(<?php echo $mid; ?>,'<?php echo admin_url('admin-ajax.php'); ?>',1)"><?php _e('Send','rencontre');?></a></div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+			<?php
+				}
+			else if($_SESSION['rencontre']=='nouveau2')
+				{ ?>
+			
+			<div class="pleineBox">
+				<div class="rencBox">
+					<div class="rencNouveau">
+						<h3><?php _e('Hello','rencontre'); echo '&nbsp;'.($current_user->user_login); echo ", ".__('welcome to the site','rencontre').'&nbsp;'; bloginfo( 'name' ); ?></h3>
+						<div id="rencAlert"></div>
+						<div class="rencEvol"><div class="rencEvol75">3 / 4</div><div style="clear:left;"></div></div>
+						<form name="formNouveau" method='post' action=''>
+						<input type='hidden' name='nouveau' value='3' /><input type='hidden' name='a1' value='' />
+						<table>
 							<tr>
 								<th><?php _e('I\'m looking for','rencontre');?></th>
 								<th><?php _e('Age min/max','rencontre');?></th>
 								<th><?php _e('For','rencontre');?></th>
-								<th></th>
 							</tr>
 							<tr>
 								<td>
@@ -250,17 +266,52 @@ class RencontreWidget extends WP_widget
 										<option value="2"><?php _e('Friendship','rencontre');?></option>
 									</select>
 								</td>
-								<td>
-									<div id="buttonPass" class="button"><a href="javascript:void(0)" onClick="f_nouveau(<?php echo $mid; ?>,'<?php echo admin_url('admin-ajax.php'); ?>')"><?php _e('Send','rencontre');?></a></div>
-								</td>
 							</tr>
 						</table>
+						<div id="buttonPass" class="button"><a href="javascript:void(0)" onClick="f_nouveau(<?php echo $mid; ?>,'<?php echo admin_url('admin-ajax.php'); ?>',2)"><?php _e('Send','rencontre');?></a></div>
 						</form>
 					</div>
 				</div>
 			</div>
-			<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-			<?php }
+			<?php
+				}
+			else if($_SESSION['rencontre']=='nouveau3')
+				{ ?>
+			
+			<div class="pleineBox">
+				<div class="rencBox">
+					<div class="rencNouveau">
+						<h3><?php _e('Hello','rencontre'); echo '&nbsp;'.($current_user->user_login); echo ", ".__('welcome to the site','rencontre').'&nbsp;'; bloginfo( 'name' ); ?></h3>
+						<div id="rencAlert"></div>
+						<div class="rencEvol"><div class="rencEvol100">4 / 4</div><div style="clear:left;"></div></div>
+						<form name="formNouveau" method='post' action=''>
+						<input type='hidden' name='nouveau' value='OK' /><input type='hidden' name='a1' value='' />
+						<table>
+							<tr>
+								<th><?php _e('Change nickname (after, it will not be possible)','rencontre');?></th>
+								<th><?php _e('New password (6 min)','rencontre');?></th>
+								<th><?php _e('New password (again)','rencontre');?></th>
+							</tr>
+							<tr>
+								<td>
+									<input name="pseudo" type="text" size="12" value="<?php echo $current_user->user_login; ?>" /> 
+								</td>
+								<td>
+									<input name="pass1" type="password" size="12" />
+								</td>
+								<td>
+									<input name="pass2" type="password" size="12" />
+								</td>
+							</tr>
+						</table>
+						<span><?php _e('You will have to reconnect, do not worry.','rencontre');?></span>
+						<div id="buttonPass" class="button"><a href="javascript:void(0)" onClick="f_nouveau(<?php echo $mid; ?>,'<?php echo admin_url('admin-ajax.php'); ?>',3)"><?php _e('Send','rencontre');?></a></div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<?php
+				}
 			}
 		//
 		// 2. Partie portrait
@@ -1418,12 +1469,12 @@ class RencontreWidget extends WP_widget
 	//
 	static function f_voirMsg($f,$a,$hoAns=false) // retour AJAX
 		{
-		// entree : $f = id message - $a = alias
+		// entree : $f = id message - $a = mon alias
 		global $wpdb; global $rencDiv;
 		$q = $wpdb->get_row("SELECT M.subject, M.content, M.sender, M.recipient, M.date, M.read FROM ".$wpdb->prefix."rencontre_msg M WHERE M.id='".$f."' ");
 		if ($q)
 			{
-			$id = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE user_login='".$q->sender."'");
+			$id = $wpdb->get_var("SELECT ID FROM ".$wpdb->prefix."users WHERE user_login='".($q->sender!=$a?$q->sender:$q->recipient)."'");
 			$p = $wpdb->get_var("SELECT i_photo FROM ".$wpdb->prefix."rencontre_users WHERE user_id='".$id."'");
 			echo '<a href="javascript:void(0)" onClick="document.forms[\'rencMenu\'].elements[\'page\'].value=\'portrait\';document.forms[\'rencMenu\'].elements[\'id\'].value=\''. $id.'\';document.forms[\'rencMenu\'].submit();">';
 			if($p!=0) echo '<img class="tete" src="'.$rencDiv['baseurl'].'/portrait/'.floor(($p)/10000).'/'.Rencontre::f_img((floor(($p)/10)*10).'-mini').'.jpg" alt="" />';
@@ -1443,15 +1494,29 @@ class RencontreWidget extends WP_widget
 			<div style="width:87%;">
 				<div class="left">
 					<?php _e('From','rencontre'); echo '&nbsp;:&nbsp;';
-					echo '<a href="javascript:void(0)" onClick="document.forms[\'rencMenu\'].elements[\'page\'].value=\'portrait\';document.forms[\'rencMenu\'].elements[\'id\'].value=\''. $id.'\';document.forms[\'rencMenu\'].submit();">';
-					echo $q->sender; 
-					echo '</a>'; ?>
+					if($q->sender!=$a)
+						{
+						echo '<a href="javascript:void(0)" onClick="document.forms[\'rencMenu\'].elements[\'page\'].value=\'portrait\';document.forms[\'rencMenu\'].elements[\'id\'].value=\''. $id.'\';document.forms[\'rencMenu\'].submit();">';
+						echo $q->sender; 
+						echo '</a>';
+						}
+					else echo $q->sender;
+					?>
 					
 				</div>
 				<div class="right"><?php _e('Date','rencontre'); echo '&nbsp;:&nbsp;'.$q->date; ?></div>
 			</div>
-			<div class="clear"><?php _e('To','rencontre'); echo '&nbsp;:&nbsp;'.$q->recipient; ?></div>
-			
+			<div class="clear"><?php _e('To','rencontre'); echo '&nbsp;:&nbsp;';
+				if($q->sender==$a)
+					{
+					echo '<a href="javascript:void(0)" onClick="document.forms[\'rencMenu\'].elements[\'page\'].value=\'portrait\';document.forms[\'rencMenu\'].elements[\'id\'].value=\''. $id.'\';document.forms[\'rencMenu\'].submit();">';
+					echo $q->recipient; 
+					echo '</a>';
+					}
+				else echo $q->recipient;
+				?>
+				
+			</div>
 			<h4><?php echo stripslashes($q->subject); ?></h4>
 			<div class="rencBox"><?php echo stripslashes($q->content); ?></div>
 			<?php
@@ -1851,43 +1916,52 @@ class RencontreWidget extends WP_widget
 
 		}
 	//
-	static function f_nouveauMembre($f)
+	static function f_nouveauMembre($f,$g)
 		{
-		// entree : ID
-		$nais = $_POST['annee'].'-'.((strlen($_POST['mois'])<2)?'0'.$_POST['mois']:$_POST['mois']).'-'.((strlen($_POST['jour'])<2)?'0'.$_POST['jour']:$_POST['jour']);
+		// $f : ID
+		// $g : 1, 2, 3, OK
 		global $wpdb;
-		wp_set_current_user($f, $_POST['pseudo']);
-	//	wp_set_auth_cookie($f); // deja envoye en ajax en validation du formulaire
-		do_action('wp_login', $_POST['pseudo']); // connexion
-		$region=$wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE id='".strip_tags($_POST['region'])."'");
-		$gps=explode("|",strip_tags($_POST['gps']."|0|0"));
-		if($_POST['a1']!='update')
+		if($g=="1")
 			{
+			$nais = $_POST['annee'].'-'.((strlen($_POST['mois'])<2)?'0'.$_POST['mois']:$_POST['mois']).'-'.((strlen($_POST['jour'])<2)?'0'.$_POST['jour']:$_POST['jour']);
 			$wpdb->delete($wpdb->prefix.'rencontre_users', array('user_id'=>$f)); // suppression si existe deja
 			$wpdb->delete($wpdb->prefix.'rencontre_users_profil', array('user_id'=>$f)); // suppression si existe deja
 			$wpdb->insert($wpdb->prefix.'rencontre_users', array(
 				'user_id'=>$f,
 				'c_ip'=>$_SERVER['REMOTE_ADDR'],
-				'c_pays'=>$_POST['pays'],
-				'c_region'=>$region,
-				'c_ville'=>strip_tags($_POST['ville']),
-				'e_lat'=>round($gps[0],5),
-				'e_lon'=>round($gps[1],5),
 				'i_sex'=>strip_tags($_POST['sex']),
 				'd_naissance'=>strip_tags($nais),
 				'i_taille'=>strip_tags($_POST['taille']),
 				'i_poids'=>strip_tags($_POST['poids']),
+				'd_session'=>date("Y-m-d H:i:s"),
+				'i_photo'=>0));
+			}
+		else if($g=="2")
+			{
+			$region=$wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE id='".strip_tags($_POST['region'])."'");
+			$gps=explode("|",strip_tags($_POST['gps']."|0|0"));
+			$wpdb->update($wpdb->prefix.'rencontre_users', array(
+				'c_pays'=>$_POST['pays'],
+				'c_region'=>$region,
+				'c_ville'=>strip_tags($_POST['ville']),
+				'e_lat'=>round($gps[0],5),
+				'e_lon'=>round($gps[1],5)),
+				array('user_id'=>$f));
+			}
+		else if($g=="3")
+			{
+			$wpdb->update($wpdb->prefix.'rencontre_users', array(
 				'i_zsex'=>strip_tags($_POST['zsex']),
 				'i_zage_min'=>strip_tags($_POST['zageMin']),
 				'i_zage_max'=>strip_tags($_POST['zageMax']),
-				'i_zrelation'=>strip_tags($_POST['zrelation']),
-				'd_session'=>date("Y-m-d H:i:s"),
-				'i_photo'=>0));
-			$wpdb->insert($wpdb->prefix.'rencontre_users_profil', array('user_id'=>$f,'d_modif'=>date("Y-m-d H:i:s")));
-			$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$f)); // suppression si existe deja
+				'i_zrelation'=>strip_tags($_POST['zrelation'])),
+				array('user_id'=>$f));
 			}
-		else
+		else if($g=='update')
 			{
+			$nais = $_POST['annee'].'-'.((strlen($_POST['mois'])<2)?'0'.$_POST['mois']:$_POST['mois']).'-'.((strlen($_POST['jour'])<2)?'0'.$_POST['jour']:$_POST['jour']);
+			$region=$wpdb->get_var("SELECT c_liste_valeur FROM ".$wpdb->prefix."rencontre_liste WHERE id='".strip_tags($_POST['region'])."'");
+			$gps=explode("|",strip_tags($_POST['gps']."|0|0"));
 			$wpdb->update($wpdb->prefix.'rencontre_users', array(
 				'c_pays'=>$_POST['pays'],
 				'c_region'=>$region,
@@ -1956,7 +2030,7 @@ class RencontreWidget extends WP_widget
 			<div id="rencAlert"></div>
 			<h2><?php _e('My Account','rencontre'); ?><span style="font-size:16px;font-weight:400;margin-left:10px;">(<?php echo $q->user_email; ?>)</span></h2>
 			<form name="formNouveau" method='post' action=''>
-			<input type='hidden' name='nouveau' value='' /><input type='hidden' name='a1' value='' /><input type='hidden' name='pseudo' value='<?php echo $q->user_login; ?>' />
+			<input type='hidden' name='nouveau' value='update' /><input type='hidden' name='a1' value='' /><input type='hidden' name='pseudo' value='<?php echo $q->user_login; ?>' />
 			<table style="border-bottom:none;margin-bottom:0;">
 				<tr>
 					<th><?php _e('I am','rencontre');?></th>
@@ -2082,7 +2156,7 @@ class RencontreWidget extends WP_widget
 						</select>
 					</td>
 					<td>
-						<div class="button"><a href="javascript:void(0)" onClick="document.forms['formNouveau'].elements['a1'].value='update';f_mod_nouveau(<?php echo $mid; ?>)"><?php _e('Save','rencontre');?></a></div>
+						<div class="button"><a href="javascript:void(0)" onClick="f_mod_nouveau(<?php echo $mid; ?>)"><?php _e('Save','rencontre');?></a></div>
 					</td>
 				</tr>
 			</table>
