@@ -304,7 +304,7 @@ class RencontreWidget extends WP_widget
 								</td>
 							</tr>
 						</table>
-						<span><?php _e('You will have to reconnect, do not worry.','rencontre');?></span>
+						<span><?php // _e('You will have to reconnect, do not worry.','rencontre');?></span>
 						<div id="buttonPass" class="button"><a href="javascript:void(0)" onClick="f_nouveau(<?php echo $mid; ?>,'<?php echo admin_url('admin-ajax.php'); ?>',3)"><?php _e('Send','rencontre');?></a></div>
 						</form>
 					</div>
