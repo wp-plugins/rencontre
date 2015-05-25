@@ -165,7 +165,7 @@ a.rencPlus{display:inline-block;background:transparent url("../images/sprite.png
 .zoombox .zoombox_close{background:url(../images/close.png) no-repeat;width:30px;height:30px;/*+placement:anchor-top-right -15px -15px;*/ position:absolute;right:-15px;top:-15px;}
 #zoombox.zoombox .zoombox_next{background:url(../images/next.png) no-repeat right center;}
 #zoombox.zoombox .zoombox_prev{background:url(../images/prev.png) no-repeat left center;}
-.ficheLibre .rencBox{float:left;width:31.32%;min-width:315px;padding:1px;margin:0.5%;max-height:109px;overflow:hidden;}
+.ficheLibre .rencBox{float:left;width:31.32%;min-width:300px;padding:1px;margin:0.5%;max-height:109px;overflow:hidden;}
 @media screen and (max-width:980px){
 	.rencNouveau table tr td, .rencCompte table tr td{padding:5px 0 5px 5px;}
 	.widgRenc{font-size:15px;}
