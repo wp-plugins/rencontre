@@ -593,7 +593,11 @@ function f_iniPass()
 		array('ID'=>strip_tags($_POST['id'])));
 	$wpdb->insert($wpdb->prefix.'rencontre_users_profil', array('user_id'=>strip_tags($_POST['id']),'d_modif'=>date("Y-m-d H:i:s")));
 	$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>strip_tags($_POST['id']))); // suppression si existe deja
-	wp_logout();
+	wp_set_password($_POST['pass1'],strip_tags($_POST['id'])); // changement MdP
+	wp_clear_auth_cookie();
+	wp_set_current_user(strip_tags($_POST['id']), strip_tags($_POST['pseudo']));
+	wp_set_auth_cookie(strip_tags($_POST['id']));
+	do_action('wp_login', strip_tags($_POST['pseudo'])); // connexion
 	}
 //
 function f_fbok() // connexion via Facebook
