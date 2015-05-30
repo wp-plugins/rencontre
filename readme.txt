@@ -210,6 +210,7 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix bug when user delete account.
 * Cut the admission form in four part with progress bar.
 
+30/05/2015 : Update 5 : Fix bug in Chat when WordPress is not at the site root : Change relative URL to absolute in Chat
 
 = 1.5 =
 16/03/2015 : Change main language from French to English
