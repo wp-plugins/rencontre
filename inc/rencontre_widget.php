@@ -39,7 +39,7 @@ class RencontreWidget extends WP_widget
 		$fantome = $wpdb->get_var("SELECT user_id FROM ".$wpdb->prefix."rencontre_users_profil WHERE user_id='".$mid."' and CHAR_LENGTH(t_titre)>4 and CHAR_LENGTH(t_annonce)>30 ");
 		?>
 
-		<div id="widgRenc" class="widgRenc">
+		<div id="widgRenc" class="widgRenc"><script type="text/javascript">var siteUrl='<?php echo $rencDiv['siteurl']; ?>';</script>
 			<div id="rencTchat"></div>
 			<?php
 			$ho = false; if(has_filter('rencCamP', 'f_rencCamP')) $ho = apply_filters('rencCamP', $ho);
