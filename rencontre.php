@@ -154,7 +154,7 @@ class Rencontre
 		$rencDiv['baseurl'] = $upl['baseurl'];
 		$rencDiv['blogname'] = get_option('blogname');
 		$rencDiv['admin_email'] = get_option('admin_email');
-		$rencDiv['siteurl'] = get_option('siteurl');
+		$rencDiv['siteurl'] = site_url();
 		$rencDiv['lang'] = ((defined('WPLANG')&&WPLANG)?WPLANG:get_locale());
 		$q = $wpdb->get_var("SELECT id FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_lang='".substr($rencDiv['lang'],0,2)."' ");
 		if(!$q) $rencDiv['lang'] = "en_US";
