@@ -12,28 +12,29 @@ A free powerful and exhaustive dating plugin with private messaging, webcam chat
 
 == Description ==
 
-This WordPress plugin allows you to create a real dating website with Wordpress. It is simple to install and administer. The features are as follows:
+This WordPress plugin allows you to create a real **dating website** with Wordpress. It is simple to install and administer. The features are as follows:
 
 * Login Required to access functionality ;
 * Home unconnected with overview of the latest registered members ;
-* Private messaging between members ;
-* Extended profiles ;
-* Private Members chat with webcam ;
+* **Private messaging** between members ;
+* **Extended and customizable profile** ;
+* Private Members **chat with webcam** ;
 * Sending smiles and contact requests ;
-* Advanced Search ;
-* Proximity search on GoogleMap ;
+* **Advanced Search** ;
+* Proximity search on **GoogleMap** ;
 * Reporting of non-compliant member profiles ;
-* Connecting with a FaceBook account ;
-* Sending regular emails to members in accordance with the quota server ;
+* Connecting with a **FaceBook** account ;
+* **Sending regular emails to members** in accordance with the quota server ;
 * Using the wp_users table for members to benefit of WordPress functions ;
 * Daily cleaning to maintain the level of performance ;
-* Low resource, optimized for shared web server ;
+* **Low resource**, optimized for shared web server ;
 * Unlimited number of members ;
 * Multilingual ;
-* Easy administration with filtering members ;
+* Easy **administration with filtering members** ;
+* Blacklist ;
 * Import/Export members in CSV with photos ;
-* Standalone, not depend on other services ;
-* Option full payment system, search by profil and astrological affinity : [Kit Premium](http://www.boiteasite.fr/fiches/rencontre-premium.html).
+* **Standalone**, not depend on other services ;
+* Option sophisticated **payment system**, search by profil and astrological affinity : [**Kit Premium**](http://www.boiteasite.fr/fiches/rencontre-premium.html).
 
 = Internationalization =
 
