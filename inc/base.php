@@ -1497,6 +1497,7 @@ function renc_encodeImg($f=1)
 				if(copy($rencDiv['basedir'].'/portrait/'.$r, $rencDiv['basedir'].'/portrait/'.$r0.$r2.'.jpg')) unlink($rencDiv['basedir'].'/portrait/'.$r);
 				}
 			}
+		$rencOpt['imcode'] = 1;
 		}
 	else // DECODE
 		{
@@ -1524,18 +1525,20 @@ function renc_encodeImg($f=1)
 					else break;
 					}
 				}
+			$rencOpt['imcode'] = 0;
 			}
 		}
-	$rencOpt['imcode'] = rencImEncoded();
+	$e = rencImEncoded();
+	if($e!==false) $rencOpt['imcode'] = $e; // false = no photo (no member ?) to check
 	update_rencontre_options($rencOpt);
 	}
 function rencImEncoded()
 	{
 	global $wpdb; global $rencDiv;
 	$i = $wpdb->get_var("SELECT user_id FROM ".$wpdb->prefix."rencontre_users WHERE i_photo>0");
-	if(file_exists($rencDiv['basedir'].'/portrait/'.floor($i/1000).'/'.Rencontre::f_img(($i*10),1).'.jpg')) return 1;
-	else if(file_exists($rencDiv['basedir'].'/portrait/'.floor($i/1000).'/'.($i*10).'.jpg')) return 0;
-	else return false;
+	if($i!==null && file_exists($rencDiv['basedir'].'/portrait/'.floor($i/1000).'/'.Rencontre::f_img(($i*10),1).'.jpg')) return 1;
+	else if($i!==null && file_exists($rencDiv['basedir'].'/portrait/'.floor($i/1000).'/'.($i*10).'.jpg')) return 0;
+	else return false; // no image, no member ?
 	}
 function renc_list_files($dir)
 	{
