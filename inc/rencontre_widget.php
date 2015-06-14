@@ -829,7 +829,7 @@ class RencontreWidget extends WP_widget
 							{
 							if($c<=$rencOpt['limit'])
 								{
-								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id and P.user_id=U.ID and U.user_status=0");
 								if($q[$c]) ++$n;
 								if($q[$c] && $n>$pagine*$rencOpt['limit'])
 									{
@@ -856,7 +856,7 @@ class RencontreWidget extends WP_widget
 							{
 							if($c<=$rencOpt['limit'])
 								{
-								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id and P.user_id=U.ID and U.user_status=0");
 								if($q[$c]) ++$n;
 								if($q[$c] && $n>$pagine*$rencOpt['limit'])
 									{
@@ -883,7 +883,7 @@ class RencontreWidget extends WP_widget
 							{
 							if($c<=$rencOpt['limit'])
 								{
-								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id and P.user_id=U.ID and U.user_status=0");
 								if($q[$c]) ++$n;
 								if($q[$c] && $n>$pagine*$rencOpt['limit'])
 									{
@@ -910,7 +910,7 @@ class RencontreWidget extends WP_widget
 							{
 							if($c<=$rencOpt['limit'])
 								{
-								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id and P.user_id=U.ID and U.user_status=0");
 								if($q[$c]) ++$n;
 								if($q[$c] && $n>$pagine*$rencOpt['limit'])
 									{
@@ -937,7 +937,7 @@ class RencontreWidget extends WP_widget
 							{
 							if($c<=$rencOpt['limit'])
 								{
-								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action,U.user_status FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id and P.user_id=U.ID and U.user_status=0");
 								if($q[$c]) ++$n;
 								if($q[$c] && $n>$pagine*$rencOpt['limit'])
 									{
@@ -964,7 +964,7 @@ class RencontreWidget extends WP_widget
 							{
 							if($c<=$rencOpt['limit'])
 								{
-								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id");
+								$q[$c]=$wpdb->get_row("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U WHERE R.user_id='".$r['i']."' and P.user_id=R.user_id and P.user_id=U.ID and U.user_status=0");
 								if($q[$c]) ++$n;
 								if($q[$c] && $n>$pagine*$rencOpt['limit'])
 									{
@@ -982,7 +982,7 @@ class RencontreWidget extends WP_widget
 					echo '<h3 style="text-align:center;">'.__('Online now','rencontre').'</h3>';
 					$tab=''; $d=$rencDiv['basedir'].'/session/';
 					if ($dh=opendir($d)){while (($file = readdir($dh))!==false) { if ($file!='.' && $file!='..' && (filemtime($d.$file)>time()-180)) $tab.="'".basename($file, ".txt")."',"; }closedir($dh);}
-					$q = $wpdb->get_results("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P WHERE R.user_id IN (".substr($tab,0,-1).") AND R.i_sex='".strip_tags($_GET['sex'])."' AND R.i_zsex".((strip_tags($_GET['homo']))?'=':'!=')."'".strip_tags($_GET['sex'])."' AND R.user_id!=".$mid." AND P.user_id=R.user_id LIMIT ".($pagine*$rencOpt['limit']).", ".($rencOpt['limit']+1)); // LIMIT indice du premier, nombre de resultat
+					$q = $wpdb->get_results("SELECT R.user_id, R.i_zsex, R.i_zage_min, R.i_zage_max, R.i_zrelation, P.t_annonce, P.t_action FROM ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U WHERE R.user_id IN (".substr($tab,0,-1).") AND R.i_sex='".strip_tags($_GET['sex'])."' AND R.i_zsex".((strip_tags($_GET['homo']))?'=':'!=')."'".strip_tags($_GET['sex'])."' AND R.user_id!=".$mid." AND P.user_id=R.user_id AND P.user_id=U.ID AND U.user_status=0 LIMIT ".($pagine*$rencOpt['limit']).", ".($rencOpt['limit']+1)); // LIMIT indice du premier, nombre de resultat
 					if($wpdb->num_rows<=$rencOpt['limit']) $suiv=0;
 					else array_pop($q); // supp le dernier ($rencOpt['limit']+1) qui sert a savoir si page suivante
 					}

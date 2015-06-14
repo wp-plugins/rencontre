@@ -406,7 +406,7 @@ class Rencontre
 		else include(plugin_dir_path( __FILE__ ).'/cache/cache_portraits_accueil.html');
 		}
 	//
-	static function f_nbMembre($f=0) // Nombre de membres inscrits sur le site
+	static function f_nbMembre($f='all') // Nombre de membres inscrits sur le site
 		{
 		global $wpdb;
 		if($f=='girl') $nm = $wpdb->get_var("SELECT COUNT(*) FROM ".$wpdb->prefix."rencontre_users WHERE i_sex=1");
