@@ -278,7 +278,7 @@ function profil_edit($a2,$a3,$a4,$a5,$a6)
 						{
 						$a = $qr->t_valeur;
 						if ($a=="") $a = '["*** '. __('TO CHANGE','rencontre').' ***"]';
-						$wpdb->query("UPDATE ".$wpdb->prefix."rencontre_profil SET c_label='".$c4[$v]['b']."', t_valeur='".$a."', i_type='".$a6."', i_poids='".(($q->i_poids<5)?($q->i_poids+5):$q->i_poids)."' WHERE id='".$a2."' AND c_lang='".$c4[$v]['a']."' ");
+						$wpdb->query("UPDATE ".$wpdb->prefix."rencontre_profil SET c_label='".$c4[$v]['b']."', t_valeur='".$a."', i_type='".$a6."', i_poids='".(($qr->i_poids<5)?($qr->i_poids+5):$qr->i_poids)."' WHERE id='".$a2."' AND c_lang='".$c4[$v]['a']."' ");
 						}
 					}
 				}

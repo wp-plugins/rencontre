@@ -215,6 +215,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 09/06/2015 : Update 6 : Change the image encoding detection.
 
+14/06/2015 : Update 7 : Hide better a blocked member.
+
 = 1.5 =
 16/03/2015 : Change main language from French to English
 
