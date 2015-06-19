@@ -853,8 +853,15 @@ function rencMenuMembres()
 			<?php
 			if (isset($_POST["a1"]) && $_POST["a1"] && $_POST["a2"]) 
 				{
-				if($_POST["a2"]=='b0') $wpdb->update($wpdb->prefix.'users', array('user_status'=>1), array('ID'=>$_POST["a1"]));
-				else if($_POST["a2"]=='b1') $wpdb->update($wpdb->prefix.'users', array('user_status'=>0), array('ID'=>$_POST["a1"]));
+				if($_POST["a2"]=='b0' || $_POST["a2"]=='b1' || $_POST["a2"]=='m0' || $_POST["a2"]=='m1')
+					{
+					$st = $wpdb->get_var("SELECT user_status FROM ".$wpdb->prefix."users WHERE ID='".$_POST["a1"]."'");
+					if($_POST["a2"]=='b1') $st = ($st>1?2:0);
+					else if($_POST["a2"]=='b0') $st = ($st>1?3:1);
+					else if($_POST["a2"]=='m1') $st = (($st==1||$st==3)?1:0);
+					else if($_POST["a2"]=='m0') $st = (($st==1||$st==3)?3:2);
+					$wpdb->update($wpdb->prefix.'users', array('user_status'=>$st), array('ID'=>$_POST["a1"]));
+					}
 				else
 					{
 					f_userSupp($_POST["a1"],$_POST["a2"],1);
@@ -924,7 +931,8 @@ function rencMenuMembres()
 				{
 				$q = $wpdb->get_row("SELECT P.t_signal, U.user_status FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U  WHERE P.user_id='".$s->ID."' and P.user_id=U.ID");
 				$signal = ($q?json_decode($q->t_signal,true):0);
-				$block = ($q?$q->user_status:0);
+				$block = ($q?(($q->user_status==1||$q->user_status==3)?1:0):0); // weight : 1
+				$blockmail = ($q?(($q->user_status==2||$q->user_status==3)?1:0):0); // weight : 2
 				echo '<tr>';
 				echo '<td><a href="admin.php?page=rencmembers&id='.$s->ID.'" title="'.__('See','rencontre').'">'.$s->ID.'</a></td>';
 				echo '<td><a href="admin.php?page=rencmembers&id='.$s->ID.'" title="'.__('See','rencontre').'"><img class="tete" src="'.($s->i_photo!=0?get_bloginfo('url').'/wp-content/uploads/portrait/'.floor(($s->ID)/1000).'/'.Rencontre::f_img((($s->ID)*10).'-mini').'.jpg" alt="" /></a></td>':plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" /></td>');
@@ -950,7 +958,8 @@ function rencMenuMembres()
 				echo '<td>'.$s->c_ip.(($ipays)?'<br/><img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$ipays.'" alt="'.$geoip->country_name.'" title="'.$geoip->country_name.'" />':'').'</td>';
 				echo '<td>'.((count($signal))?count($signal):'').'</td>';
 				echo '<td><a href="javascript:void(0)" class="rencBlock'.($block?'off':'on').'" onClick="f_block('.$s->ID.',\'b'.$block.'\')" title="'.($block?__('Unblock this member','rencontre'):__('Block this member','rencontre')).'"></a>';
-				echo '<hr /><a href="javascript:void(0)" class="rencSupp" onClick="f_fin('.$s->ID.',\''.$s->user_login.'\')" title="'.__('Remove','rencontre').'"></a>';
+				echo '<a href="javascript:void(0)" class="rencMail'.($blockmail?'off':'on').'" onClick="f_blockMail('.$s->ID.',\'m'.$blockmail.'\')" title="'.($blockmail?__('Allow sending message','rencontre'):__('Prohibit contact','rencontre')).'"></a>';
+				echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_fin('.$s->ID.',\''.$s->user_login.'\')" title="'.__('Remove','rencontre').'"></a>';
 				echo '</td>';
 				if($ho) echo '<td>'.(($s->$ho[3]!='')?$ho[4][$s->$ho[3]]:'').'</td>';
 				echo '</tr>';
