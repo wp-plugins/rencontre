@@ -217,6 +217,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 14/06/2015 : Update 7 : Hide better a blocked member. Sort countries and regions by alphabetical order.
 
+19/06/2015 : Update 8 : Option in Admin part to block sending messages by a specific member.
+
 = 1.5 =
 16/03/2015 : Change main language from French to English
 

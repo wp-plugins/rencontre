@@ -20,7 +20,7 @@ class RencontreWidget extends WP_widget
 		global $drap; global $drapNom; global $rencOpt; global $rencDiv; global $rencidfm;
 		$rencidfm = ((isset($_SESSION["rencidfm"])&&!isset($_GET["rencidfm"]))?$_SESSION["rencidfm"]:''); // lien direct vers la fiche d un membre depuis un mail
 		$mid = $current_user->ID; // Mon id
-		$rencBlock = ($current_user->user_status==1?1:0);
+		$rencBlock = (($current_user->user_status==1||$current_user->user_status==3)?1:0); // blocked
 	if(!isset($rencOpt['imnb'])) $rencOpt['imnb']=4;
 		$r = $rencDiv['basedir'].'/portrait';if(!is_dir($r)) mkdir($r);
 		$q = $wpdb->get_results("SELECT c_liste_categ, c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' or (c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."') ");
@@ -426,11 +426,12 @@ class RencontreWidget extends WP_widget
 								else if (isset($_GET["sujet"]) && $_GET["sujet"]!="")
 									{
 									$ho = false; if(has_filter('rencAnswerP', 'f_rencAnswerP')) $ho = apply_filters('rencAnswerP', $ho);
-									if (!$ho)
+									if (!$ho && $current_user->user_status<2)
 										{
 										echo __('Message sent','rencontre')."&nbsp";
 										RencontreWidget::f_envoiMsg($current_user->user_login);
 										}
+									else if($current_user->user_status>1) echo __('Not sent','rencontre').'.&nbsp;'.__('You are no longer allowed to send messages.','rencontre'); 
 									else _e('Not sent','rencontre'); 
 									}
 								?>

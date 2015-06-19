@@ -350,6 +350,11 @@ function f_block(f,g){
 	document.forms['listUser'].elements['a2'].value=g;
 	document.forms['listUser'].submit();
 }
+function f_blockMail(f,g){
+	document.forms['listUser'].elements['a1'].value=f;
+	document.forms['listUser'].elements['a2'].value=g;
+	document.forms['listUser'].submit();
+}
 function f_liberte(f){
 	if (confirm(rencobjet.libre_mail)){
 		document.forms['listPrison'].elements['a1'].value=f;
