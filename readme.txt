@@ -219,6 +219,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 19/06/2015 : Update 8 : Option in Admin part to block sending messages by a specific member.
 
+09/07/2015 : Update 9 : Fix V1.6 bug when change profil in admin : synchro button is now visible.
+
 = 1.5 =
 16/03/2015 : Change main language from French to English
 

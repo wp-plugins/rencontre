@@ -915,7 +915,7 @@ msgstr "Mon compte"
 
 #: ../inc/rencontre_widget.php:82
 msgid "Your account is blocked. You are invisible. Change your profile."
-msgstr "Votre compte est bloqué. Vous êtes invisible. Modifiez votre profil."
+msgstr "Votre compte est bloqué. Vous êtes invisibles. Modifiez votre profil."
 
 #: ../inc/rencontre_widget.php:96
 msgid "Your email address is currently in quarantine. Sorry"
