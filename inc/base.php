@@ -1197,7 +1197,7 @@ function rencMenuProfil()
 			echo "<p>".__('The country table is empty. You can load the countries and regions by default if you wish.', 'rencontre')."</p>";
 			echo "<a href='javascript:void(0)' class='button-primary' onClick='document.forms[\"menu_profil\"].elements[\"a1\"].value=\"pays\";document.forms[\"menu_profil\"].elements[\"a2\"].value=\"pays\";document.forms[\"menu_profil\"].submit();'>". __('Load countries', 'rencontre')."</a>";
 			}
-		if(file_exists(dirname(__FILE__).'/inc/rencontre_synchronise.txt')) { ?>
+		if(file_exists(dirname(__FILE__).'/rencontre_synchronise.txt')) { ?>
 		<p>
 			<a href='javascript:void(0)' class='button-primary' onClick='f_synchronise();'><?php _e('Update member profile', 'rencontre'); ?></a>
 			&nbsp;:&nbsp;<span style="color:red;font-weight:700;"><?php _e('You have made changes. Remember to update when you\'re done.', 'rencontre'); ?></span>
