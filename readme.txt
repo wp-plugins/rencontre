@@ -29,6 +29,7 @@ This WordPress plugin allows you to create a real **dating website** with Wordpr
 * Daily cleaning to maintain the level of performance ;
 * **Low resource**, optimized for shared web server ;
 * Unlimited number of members ;
+* **Modularity** to fit many projects ;
 * Multilingual ;
 * Easy **administration with filtering members** ;
 * Blacklist ;

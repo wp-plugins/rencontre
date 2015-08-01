@@ -1583,7 +1583,7 @@ function rencMenuCustom()
 						</select>
 					</td>
 				</tr>
-				<?php $ho = false; if(has_filter('rencProfilSaP', 'f_rencProfilSaP')) $ho = apply_filters('rencProfilSaP', $p3); if($ho) echo $ho; ?>
+				<?php $ho = false; if(has_filter('rencProfilSaP', 'f_rencProfilSaP')) $ho = apply_filters('rencProfilSaP', $p3); if($ho) echo $ho; else echo '<tr><td colspan=2><em>'.__('Add also numerous profile elements in search ? Get the kit Premium.', 'rencontre').'</em></td></tr>'; ?>
 				<tr valign="top">
 					<th scope="row"><label><?php _e('Change welcome text for new user', 'rencontre'); ?></label></th>
 					<td>
