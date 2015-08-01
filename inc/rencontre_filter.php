@@ -7,9 +7,13 @@ add_action('wp_logout', 'rencOutLine'); // session
 add_filter('random_password', 'f_length_pass'); function f_length_pass($pass) {$pass = substr($pass,0,3); return $pass;}
 add_action('admin_bar_menu', 'f_admin_menu', 999);
 add_shortcode('rencontre_libre', 'f_shortcode_rencontre_libre');
+add_shortcode('rencontre_search', 'f_shortcode_rencontre_search');
 add_shortcode('rencontre', 'f_shortcode_rencontre');
+add_shortcode('rencontre_login', 'f_shortcode_rencontre_login');
 function f_shortcode_rencontre_libre() {if(!is_user_logged_in()) return Rencontre::f_ficheLibre(0,1);} // shortcode : [rencontre_libre]
+function f_shortcode_rencontre_search() {if(!is_user_logged_in()) return Rencontre::f_rencontreSearch(1);} // shortcode : [rencontre_search]
 function f_shortcode_rencontre() {if(is_user_logged_in()) {$renc=new RencontreWidget; $renc->widget(0,0);}} // shortcode : [rencontre]
+function f_shortcode_rencontre_login() {return Rencontre::f_login(0,1);} // shortcode : [rencontre_login]
 if (isset($_COOKIE['lang']) && strlen($_COOKIE['lang'])==5) add_filter('locale', 'set_locale2'); function set_locale2() { return $_COOKIE['lang']; }
 // Mail
 add_filter ('retrieve_password_message', 'retrieve_password_message2', 10, 2);
@@ -20,15 +24,15 @@ add_action('wp_ajax_voirMsg', 'f_voirMsg'); function f_voirMsg() {RencontreWidge
 add_action('wp_ajax_suppMsg', 'f_suppMsg'); function f_suppMsg() {RencontreWidget::f_suppMsg($_POST['msg'],$_POST['alias'],(isset($_POST['ho'])?$_POST['ho']:false));}
 add_action('wp_ajax_boiteEnvoi', 'f_boiteEnvoi'); function f_boiteEnvoi() {RencontreWidget::f_boiteEnvoi($_POST['alias'],(isset($_POST['ho'])?$_POST['ho']:false));}
 add_action('wp_ajax_boiteReception', 'f_boiteReception'); function f_boiteReception() {RencontreWidget::f_boiteReception($_POST['alias'],(isset($_POST['ho'])?$_POST['ho']:false));}
-add_action('wp_ajax_pseudo', 'f_pseudo');
-add_action('wp_ajax_iniPass', 'f_iniPass'); // premiere connexion - changement mot de passe initial et pseudo
-add_action('wp_ajax_testPass', 'f_testPass'); // changement du mot de passe
-add_action('wp_ajax_fbok', 'f_fbok'); add_action('wp_ajax_nopriv_fbok', 'f_fbok'); // connexion via FB
+add_action('wp_ajax_testPseudo', 'rencTestPseudo');
+add_action('wp_ajax_iniUser', 'rencIniUser'); // premiere connexion - changement eventuel pseudo
+add_action('wp_ajax_testPass', 'rencTestPass'); // changement du mot de passe
+add_action('wp_ajax_fbok', 'rencFbok'); add_action('wp_ajax_nopriv_fbok', 'rencFbok'); // connexion via FB
 add_action('wp_ajax_miniPortrait2', 'f_miniPortrait2'); function f_miniPortrait2() {RencontreWidget::f_miniPortrait2($_POST['id']);}
 if (is_admin())
 	{
-	add_action('wp_ajax_iso', 'f_iso'); // Test si le code ISO est libre (Partie ADMIN)
-	add_action('wp_ajax_drap', 'f_drap'); // SELECT avec la liste des fichiers drapeaux (Partie ADMIN)
+	add_action('wp_ajax_iso', 'rencontreIso'); // Test si le code ISO est libre (Partie ADMIN)
+	add_action('wp_ajax_drap', 'rencontreDrap'); // SELECT avec la liste des fichiers drapeaux (Partie ADMIN)
 	add_action('wp_ajax_exportCsv', 'f_exportCsv'); // Export CSV (Partie ADMIN)
 	add_action('wp_ajax_importCsv', 'f_importCsv'); // Import CSV (Partie ADMIN)
 	}
@@ -36,7 +40,7 @@ if (is_admin())
 add_action('plugins_loaded', 'f_cron');
 function f_cron()
 	{
-	if (function_exists('wpGeonames')) add_action('wp_ajax_city', 'f_city'); // ici pour le "plugins_loaded" - plugin WP-GeoNames
+	if (function_exists('wpGeonames')) add_action('wp_ajax_city', 'rencontreCity'); // ici pour le "plugins_loaded" - plugin WP-GeoNames
 	$d = dirname(__FILE__).'/rencontre_cron.txt';
 	$d1 = dirname(__FILE__).'/rencontre_cronOn.txt';
 	$d2 = dirname(__FILE__).'/rencontre_cronListe.txt'; if (!file_exists($d2)) {$t=@fopen($d2,'w'); @fwrite($t,'0'); @fclose($t);}
@@ -96,9 +100,21 @@ function f_cron_on($cronBis=0)
 		{
 		// 1. Efface les _transient dans wp_option
 		$wpdb->query("DELETE FROM ".$wpdb->prefix."options WHERE option_name like '\_transient\_namespace\_%' OR option_name like '\_transient\_timeout\_namespace\_%' ");
-		// 2. Supprime le cache portraits page d'accueil. Remise a jour a la premiere visite (fiches libre)
+		// 2. Suppression fichiers anciens dans UPLOADS/PORTRAIT/LIBRE/ : > 2.9 jours
+		if (!is_dir($rencDiv['basedir'].'/portrait/libre/')) @mkdir($rencDiv['basedir'].'/portrait/libre/');
+		else
+			{
+			$tab=''; $d=$rencDiv['basedir'].'/portrait/libre/';
+			if ($dh=opendir($d))
+				{
+				while (($file = readdir($dh))!==false) { if ($file!='.' && $file!='..') $tab[]=$d.$file; }
+				closedir($dh);
+				if ($tab!='') foreach ($tab as $r){if (filemtime($r)<time()-248400) unlink($r);} // 69 heures
+				}
+			}
+		// 3. Supprime le cache portraits page d'accueil. Remise a jour a la premiere visite (fiches libre)
 		if (file_exists(plugin_dir_path( __FILE__ ).'../cache/cache_portraits_accueil.html')) @unlink(plugin_dir_path( __FILE__ ).'../cache/cache_portraits_accueil.html');
-		// 3. Suppression des utilisateur sans compte rencontre
+		// 4. Suppression des utilisateur sans compte rencontre
 		$d = date("Y-m-d H:i:s", mktime(0,0,0,date("m"),date("d"),date("Y"))-100000); // ~30 heures
 		$q = $wpdb->get_results("SELECT U.ID FROM ".$wpdb->prefix."users U LEFT OUTER JOIN ".$wpdb->prefix."rencontre_users R ON U.ID=R.user_id WHERE R.user_id IS NULL");
 		if ($q) foreach($q as $r)
@@ -110,7 +126,7 @@ function f_cron_on($cronBis=0)
 				$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$r->ID));
 				}
 			}
-		// 4. Suppression fichiers anciens dans UPLOADS/SESSION/ et UPLOADS/TCHAT/ et des exports CSV UPLOADS/TMP
+		// 5. Suppression fichiers anciens dans UPLOADS/SESSION/ et UPLOADS/TCHAT/ et des exports CSV UPLOADS/TMP
 		if (!is_dir($rencDiv['basedir'].'/session/')) mkdir($rencDiv['basedir'].'/session/');
 		else
 			{
@@ -148,18 +164,6 @@ function f_cron_on($cronBis=0)
 				}
 			// ************************
 			if(is_array($a)) array_map('unlink', $a);
-			}
-		// 5. Suppression fichiers anciens dans UPLOADS/PORTRAIT/LIBRE/ : > 3 jours
-		if (!is_dir($rencDiv['basedir'].'/portrait/libre/')) @mkdir($rencDiv['basedir'].'/portrait/libre/');
-		else
-			{
-			$tab=''; $d=$rencDiv['basedir'].'/portrait/libre/';
-			if ($dh=opendir($d))
-				{
-				while (($file = readdir($dh))!==false) { if ($file!='.' && $file!='..') $tab[]=$d.$file; }
-				closedir($dh);
-				if ($tab!='') foreach ($tab as $r){if (filemtime($r)<time()-288000) unlink($r);} // 80 heures
-				}
 			}
 		// 6. Sortie de prison
 		$free=date("Y-m-d",mktime(0, 0, 0, date("m"), date("d")-$rencOpt['prison'], date("Y")));
@@ -436,7 +440,7 @@ function f_cron_liste($d2)
 			$b = 0;
 			$action= json_decode($r->t_action,true);
 			$s = "<div style='text-align:left;margin:5px 5px 5px 10px;color:#000;'>".__('Hello','rencontre')."&nbsp;".$r->user_login.","."\r\n";
-			if (count($action['contactIn']))
+			if (isset($action['contactIn']) && count($action['contactIn']))
 				{
 				$b = 1;
 				$s .= "<p>".__('You have received a contact request from','rencontre')."</p><table><tr>";
@@ -450,11 +454,11 @@ function f_cron_liste($d2)
 					}
 				$s .= "</tr></table>"."\r\n";
 				}
-			if (count($action['sourireIn']))
+			if (isset($action['sourireIn']) && count($action['sourireIn']))
 				{
 				$b = 1;
 				$s .= "<p>".__('You have received a smile from','rencontre')."</p><table><tr>";
-				$v = count($action['contactIn'])-1;
+				$v = count($action['sourireIn'])-1;
 				$q1 = $wpdb->get_var("SELECT U.user_login FROM ".$wpdb->prefix."users U WHERE ID='".$action['sourireIn'][$v]['i']."'");
 				if ($q1)
 					{
@@ -545,28 +549,6 @@ function f_regionBDD()
 	foreach($q as $r) { echo '<option value="'.$r->id.'">'.$r->c_liste_valeur.'</option>'; }
 	}
 //
-function f_pseudo()
-	{ // test si pseudo libre (premiere connexion)
-	$user = wp_get_current_user();
-	global $wpdb; 
-	$q = $wpdb->get_var("SELECT U.ID FROM ".$wpdb->prefix."users U WHERE user_login='".strip_tags($_POST['name'])."' and user_email!='".$user->user_email."' ");
-	if (!$q) echo true;
-	else echo false; // already exist
-	}
-//
-function f_testPass()
-	{
-	global $wpdb;
-	$q = $wpdb->get_var("SELECT user_pass FROM ".$wpdb->prefix."users WHERE ID='".strip_tags($_POST['id'])."'");
-	if (wp_check_password($_POST['pass'],$q,$_POST['id']))
-		{
-		wp_set_password($_POST['nouv'],$_POST['id']); // changement MdP
-		wp_set_auth_cookie($_POST['id']); // cookie pour rester connecte
-		echo 'ok';
-		}
-	else echo '';
-	}
-//
 function retrieve_password_message2($old_message, $key)
 	{
 	// 1. changement du mot de passe
@@ -583,24 +565,47 @@ function retrieve_password_message2($old_message, $key)
 	return $message;
 	}
 //
-function f_iniPass()
-	{
-	global $wpdb;
-	$wpdb->update($wpdb->prefix.'users', array(
-		'user_login'=>strip_tags($_POST['pseudo']),
-		'user_nicename'=>strip_tags($_POST['pseudo']),
-		'display_name'=>strip_tags($_POST['pseudo'])), 
-		array('ID'=>strip_tags($_POST['id'])));
-	$wpdb->insert($wpdb->prefix.'rencontre_users_profil', array('user_id'=>strip_tags($_POST['id']),'d_modif'=>date("Y-m-d H:i:s")));
-	$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>strip_tags($_POST['id']))); // suppression si existe deja
-	wp_set_password($_POST['pass1'],strip_tags($_POST['id'])); // changement MdP
-	wp_clear_auth_cookie();
-	wp_set_current_user(strip_tags($_POST['id']), strip_tags($_POST['pseudo']));
-	wp_set_auth_cookie(strip_tags($_POST['id']));
-	do_action('wp_login', strip_tags($_POST['pseudo'])); // connexion
+function rencTestPseudo()
+	{ // test si pseudo libre (premiere connexion)
+	global $current_user; global $wpdb;
+	$q = $wpdb->get_var("SELECT U.ID FROM ".$wpdb->prefix."users U WHERE user_login='".strip_tags($_POST['name'])."' and user_email!='".$current_user->user_email."' ");
+	if (!$q) echo 'ok';
+	else return; // already exist
 	}
 //
-function f_fbok() // connexion via Facebook
+function rencTestPass()
+	{
+	global $wpdb;
+	$q = $wpdb->get_var("SELECT user_pass FROM ".$wpdb->prefix."users WHERE ID='".strip_tags($_POST['id'])."'");
+	if (wp_check_password($_POST['pass'],$q,$_POST['id']))
+		{
+		wp_set_password($_POST['nouv'],$_POST['id']); // changement MdP
+		wp_set_auth_cookie($_POST['id']); // cookie pour rester connecte
+		echo 'ok';
+		}
+	else return; // bad password
+	}
+//
+function rencIniUser()
+	{
+	global $wpdb; global $current_user;
+	$q = $wpdb->get_var("SELECT U.ID FROM ".$wpdb->prefix."users U WHERE user_login='".strip_tags($_POST['pseudo'])."' and user_email!='".$current_user->user_email."' ");
+	if(!$q)
+		{
+		$wpdb->update($wpdb->prefix.'users', array(
+			'user_login'=>strip_tags($_POST['pseudo']),
+			'user_nicename'=>strip_tags($_POST['pseudo']),
+			'display_name'=>strip_tags($_POST['pseudo'])), 
+			array('ID'=>$current_user->ID));
+		$wpdb->delete($wpdb->prefix.'usermeta', array('user_id'=>$current_user->ID)); // suppression des roles WP
+		wp_clear_auth_cookie();
+		wp_set_current_user($current_user->ID, strip_tags($_POST['pseudo']));
+		wp_set_auth_cookie($current_user->ID);
+		do_action('wp_login', strip_tags($_POST['pseudo'])); // connexion
+		}
+	}
+//
+function rencFbok() // connexion via Facebook
 	{
 	if (!is_user_logged_in())
 		{
@@ -613,7 +618,6 @@ function f_fbok() // connexion via Facebook
 			$pw = wp_generate_password($length=5, $include_standard_special_chars=false);
 			$user_id = wp_create_user($u,$pw,$m['email']);
 			}
-	//	$user = get_userdatabylogin($u); // This pluggable function has been deprecated.
 		$user = get_user_by('login',$u);
 		wp_set_current_user($user->ID, $u);
 		wp_set_auth_cookie($user->ID);
@@ -621,7 +625,7 @@ function f_fbok() // connexion via Facebook
 		}
 	}
 //
-function f_iso()
+function rencontreIso()
 	{
 	if ($_POST && isset($_POST['iso']))
 		{
@@ -632,7 +636,7 @@ function f_iso()
 		}
 	}
 //
-function f_drap()
+function rencontreDrap()
 	{
 	if ($_POST && isset($_POST['action']) && $_POST['action']=='drap')
 		{
@@ -647,7 +651,7 @@ function f_drap()
 		}
 	}
 //
-function f_city() // plugin WP-GeoNames
+function rencontreCity() // plugin WP-GeoNames
 	{
 	global $wpdb;
 	$s = $wpdb->get_results("SELECT name, latitude, longitude FROM ".$wpdb->prefix."geonames WHERE country_code='".strip_tags($_POST["iso"])."' and feature_class='P' and name LIKE '".strip_tags($_POST["city"])."%' ORDER BY name LIMIT 10");

@@ -563,9 +563,11 @@ function update_rencontre_options($f)
 	global $rencOpt;
 	if (isset($f['facebook'])) $rencOpt['facebook'] = stripslashes($f['facebook']); else $rencOpt['facebook'] = '';
 	if (isset($f['fblog'])) $rencOpt['fblog'] = $f['fblog']; else $rencOpt['fblog'] = '';
+	if (isset($f['passw'])) $rencOpt['passw'] = $f['passw']; else $rencOpt['passw'] = 0;
 	if (isset($f['home'])) $rencOpt['home'] = $f['home']; else $rencOpt['home'] = "";
 	if (isset($f['pays'])) $rencOpt['pays'] = $f['pays']; else $rencOpt['pays'] = "";
 	if (isset($f['limit'])) $rencOpt['limit'] = $f['limit']; else $rencOpt['limit'] = 20;
+	if (isset($f['rlibre'])) $rencOpt['rlibre'] = $f['rlibre']; else $rencOpt['rlibre'] = 0;
 	if (isset($f['jlibre'])) $rencOpt['jlibre'] = $f['jlibre']; else $rencOpt['jlibre'] = 0;
 	if (isset($f['prison'])) $rencOpt['prison'] = $f['prison']; else $rencOpt['prison'] = 30;
 	if (isset($f['tchat'])) $rencOpt['tchat'] = 1; else $rencOpt['tchat'] = 0;
@@ -586,12 +588,15 @@ function update_rencontre_options($f)
 	if (isset($f['ligne'])) $rencOpt['ligne'] = 1; else $rencOpt['ligne'] = 0;
 	if (isset($f['mailsupp'])) $rencOpt['mailsupp'] = 1; else $rencOpt['mailsupp'] = 0;
 	if (isset($f['onlyphoto'])) $rencOpt['onlyphoto'] = 1; else $rencOpt['onlyphoto'] = 0;
+	if(isset($rencOpt['for'])) unset($rencOpt['for']);
+	if(!isset($rencOpt['custom'])) $rencOpt['custom'] = '';
 	update_option('rencontre_options',$rencOpt);
 	}
 //
 function rencMenuGeneral()
 	{
 	wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre-adm.js'));
+	wp_enqueue_style( 'rencontre', plugins_url('rencontre/css/rencontre-adm.css'));
 	if (isset($_POST['facebook']) || isset($_POST['npa'])) update_rencontre_options($_POST);
 	global $rencOpt; global $rencDiv; global $rencVersion;
 	$a=array();
@@ -609,13 +614,13 @@ function rencMenuGeneral()
 	// ************************
 	if(is_array($a)) array_map('unlink', $a);
 	?>
-	<div class='wrap'>
+	<?php if(file_exists(dirname(__FILE__).'/rencontre_don.php')) include(dirname(__FILE__).'/rencontre_don.php'); ?>
+	<div class='wrap' style="max-width:600px;">
 		<div class='icon32' id='icon-options-general'><br/></div>
-		<?php if(file_exists(dirname(__FILE__).'/rencontre_don.php')) include(dirname(__FILE__).'/rencontre_don.php'); ?>
 		<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $rencVersion; ?></span></h2>
 		<h2><?php _e('General', 'rencontre'); ?></h2>
 		<form method="post" name="rencontre_options" action="admin.php?page=rencontre.php">
-			<table class="form-table" style="max-width:600px;clear:none;">
+			<table class="form-table" style="max-width:600px;clear:none;z-index:5;">
 				<tr valign="top">
 					<th scope="row"><label><?php _e('Framework for the Facebook Like button', 'rencontre'); ?></label></th>
 					<td><textarea  name="facebook"><?php echo $rencOpt['facebook']; ?></textarea></td>
@@ -624,7 +629,10 @@ function rencMenuGeneral()
 					<th scope="row"><label><?php _e('AppID for Facebook connection (empty if not installed)', 'rencontre'); ?></label></th>
 					<td><input type="text" class="regular-text" name="fblog" value="<?php echo $rencOpt['fblog']; ?>" /></td>
 				</tr>
-				
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Do not request a new password after registration', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="passw" value="1" <?php if (isset($rencOpt['passw'])&&$rencOpt['passw'])echo 'checked'; ?>></td>
+				</tr>
 				<tr valign="top">
 					<th scope="row"><label><?php _e('Page where is settled the plugin', 'rencontre'); ?></label></th>
 					<td>
@@ -645,10 +653,23 @@ function rencMenuGeneral()
 						</select>
 					</td>
 				</tr>
-			
 				<tr valign="top">
-					<th scope="row"><label><?php _e('Number of portrait homepage unconnected', 'rencontre'); ?></label></th>
+					<th scope="row"><label><?php _e('Number of portrait in unconnected homepage', 'rencontre'); ?></label></th>
 					<td><input type="text" class="regular-text" name="npa" value="<?php echo $rencOpt['npa']; ?>" /></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Reload unconnected homepage', 'rencontre'); ?></label></th>
+					<td>
+						<select name="rlibre">
+							<option value="0" <?php if(isset($rencOpt['rlibre']) && !$rencOpt['rlibre']) echo 'selected'; echo '>'.__('24h (recommended)', 'rencontre'); ?></option>
+							<option value="43200" <?php if(isset($rencOpt['rlibre']) && $rencOpt['rlibre']=='10800') echo 'selected'; echo '>12'.__('h', 'rencontre'); ?></option>
+							<option value="21600" <?php if(isset($rencOpt['rlibre']) && $rencOpt['rlibre']=='10800') echo 'selected'; echo '>6'.__('h', 'rencontre'); ?></option>
+							<option value="10800" <?php if(isset($rencOpt['rlibre']) && $rencOpt['rlibre']=='10800') echo 'selected'; echo '>3'.__('h', 'rencontre'); ?></option>
+							<option value="3600" <?php if(isset($rencOpt['rlibre']) && $rencOpt['rlibre']=='3600') echo 'selected'; echo '>1'.__('h', 'rencontre'); ?></option>
+							<option value="1800" <?php if(isset($rencOpt['rlibre']) && $rencOpt['rlibre']=='10800') echo 'selected'; echo '>30'.__('min', 'rencontre'); ?></option>
+							<option value="900" <?php if(isset($rencOpt['rlibre']) && $rencOpt['rlibre']=='900') echo 'selected'; echo '>15'.__('min', 'rencontre'); ?></option>
+						</select>
+					</td>
 				</tr>
 				<tr valign="top">
 					<th scope="row"><label><?php _e('Number of days to wait before presence homepage', 'rencontre'); ?></label></th>
@@ -823,7 +844,7 @@ function rencMenuMembres()
 	wp_enqueue_style( 'rencontre', plugins_url('rencontre/css/rencontre-adm.css'));
 	require(dirname (__FILE__) . '/../lang/rencontre-js-admin-lang.php');
 	wp_localize_script('rencontre', 'rencobjet', $lang);
-	global $wpdb; global $rencOpt; global $rencDiv; global $rencVersion;
+	global $wpdb; global $rencOpt; global $rencDiv; global $rencVersion; global $rencCustom;
 	$q = $wpdb->get_results("SELECT c_liste_categ, c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='d' or (c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."') ");
 	$drap=''; $drapNom='';
 	foreach($q as $r)
@@ -877,14 +898,17 @@ function rencMenuMembres()
 			$tri="";
 				if (isset($_GET['tri']))
 					{
+					$p = 'c_pays';
+					if(isset($rencCustom['pays']) && isset($rencCustom['region'])) $p = 'c_ville';
+					else if(isset($rencCustom['pays'])) $p = 'c_region';
 					if ($_GET['tri']=='id') $tri='ORDER BY R.user_id ASC';
 					else if ($_GET['tri']=='Rid') $tri='ORDER BY R.user_id DESC';
 					else if ($_GET['tri']=='pseudo') $tri='ORDER BY U.user_login ASC';
 					else if ($_GET['tri']=='Rpseudo') $tri='ORDER BY U.user_login DESC';
 					else if ($_GET['tri']=='age') $tri='ORDER BY R.d_naissance DESC';
 					else if ($_GET['tri']=='Rage') $tri='ORDER BY R.d_naissance ASC';
-					else if ($_GET['tri']=='pays') $tri='ORDER BY R.c_pays ASC';
-					else if ($_GET['tri']=='Rpays') $tri='ORDER BY R.c_pays DESC';
+					else if ($_GET['tri']=='pays') $tri='ORDER BY R.'.$p.' ASC';
+					else if ($_GET['tri']=='Rpays') $tri='ORDER BY R.'.$p.' DESC';
 					else if ($_GET['tri']=='modif') $tri='ORDER BY P.d_modif ASC';
 					else if ($_GET['tri']=='Rmodif') $tri='ORDER BY P.d_modif DESC';
 					else if ($_GET['tri']=='ip') $tri='ORDER BY R.c_ip ASC';
@@ -897,9 +921,11 @@ function rencMenuMembres()
 				$pagenum = isset($_GET['pagenum'])?absint($_GET['pagenum']):1;
 				$limit = 100;
 				$ho = false; if(has_filter('rencMemP', 'f_rencMemP')) $ho = apply_filters('rencMemP', $ho); // ouput : array()
-				$q = $wpdb->get_results("SELECT U.ID, U.user_login, U.display_name, R.c_ip, R.c_pays, R.c_region, R.c_ville, R.d_naissance, R.i_taille, R.i_poids, R.i_sex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, P.d_modif, P.t_titre, P.t_annonce".($ho?', '.$ho[0].'':'')." 
-					FROM (".$wpdb->prefix . "users U, ".$wpdb->prefix . "rencontre_users R, ".$wpdb->prefix . "rencontre_users_profil P) ".($ho?$ho[1]:'')." 
-					WHERE R.user_id=P.user_id and R.user_id=U.ID ".$tri."
+				$q = $wpdb->get_results("SELECT U.ID, U.user_login, U.display_name, U.user_registered, R.c_ip, R.c_pays, R.c_region, R.c_ville, R.d_naissance, R.i_taille, R.i_poids, R.i_sex, R.i_zage_min, R.i_zage_max, R.i_zrelation, R.i_photo, P.d_modif, P.t_titre, P.t_annonce".($ho?', '.$ho[0].'':'')." 
+					FROM (".$wpdb->prefix."users U, ".$wpdb->prefix."rencontre_users R, ".$wpdb->prefix."rencontre_users_profil P) ".($ho?$ho[1]:'')." 
+					WHERE 
+						R.user_id=P.user_id 
+						and R.user_id=U.ID ".$tri."
 					LIMIT ".(($pagenum-1)*$limit).",".$limit);
 				$total = $wpdb->get_var("SELECT COUNT(user_id) FROM ".$wpdb->prefix . "rencontre_users");
 				$page_links = paginate_links(array('base'=>add_query_arg('pagenum','%#%'),'format'=>'','prev_text'=>'&laquo;','next_text'=>'&raquo;','total'=>ceil($total/$limit),'current'=>$pagenum,'mid_size'=>5));
@@ -913,42 +939,45 @@ function rencMenuMembres()
 					<td><a href="admin.php?page=rencmembers&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='pseudo') echo 'R'; ?>pseudo" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Alias','rencontre');?></a></td>
 					<td><?php _e('Sex','rencontre');?></td>
 					<td><a href="admin.php?page=rencmembers&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='age') echo 'R'; ?>age" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Age','rencontre');?><a></td>
-					<td><?php _e('Size','rencontre');?></td>
-					<td><?php _e('Weight','rencontre');?></td>
+					<?php if(!isset($rencCustom['size'])) echo '<td>'.__('Size','rencontre').'</td>'; ?>
+					<?php if(!isset($rencCustom['weight'])) echo '<td>'.__('Weight','rencontre').'</td>'; ?>
 					<td><?php _e('Search','rencontre');?></td>
 					<td><?php _e('Hang','rencontre');?></td>
-					<td><a href="admin.php?page=rencmembers&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='pays') echo 'R'; ?>pays" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Country','rencontre');?></a></td>
-					<td><a href="admin.php?page=rencmembers&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='modif') echo 'R'; ?>modif" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Ad (change)','rencontre');?></a></td>
+					<?php if(!isset($rencCustom['place'])) echo '<td><a href="admin.php?page=rencmembers&tri='.((isset($_GET['tri']) && $_GET['tri']=='pays')?'R':'').'pays" title="'.__('Sort','rencontre').'">'.__('Place','rencontre').'</a></td>'; ?>
+					<td><a href="admin.php?page=rencmembers&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='modif') echo 'R'; ?>modif" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Ad (change)','rencontre');?></a><br /><em style="font-size:.9em;color:#777;"><?php _e('Registered','rencontre');?></em></td>
 					<td><a href="admin.php?page=rencmembers&tri=<?php if (isset($_GET['tri']) && $_GET['tri']=='ip') echo 'R'; ?>ip" title="<?php _e('Sort','rencontre'); ?>"><?php _e('IP address','rencontre');?></a></td>
 					<td><a href="admin.php?page=rencmembers&tri=signal" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Reporting','rencontre');?></a></td>
 					<td><a href="admin.php?page=rencmembers&tri=action" title="<?php _e('Sort','rencontre'); ?>"><?php _e('Action','rencontre');?></a></td>
-					<td></td>
 					<?php if($ho) echo '<td>'.$ho[2].'</td>'; ?>
 				</tr>
 			<?php
 			$categ="";
 			foreach($q as $s)
 				{
-				$q = $wpdb->get_row("SELECT P.t_signal, U.user_status FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U  WHERE P.user_id='".$s->ID."' and P.user_id=U.ID");
-				$signal = ($q?json_decode($q->t_signal,true):0);
-				$block = ($q?(($q->user_status==1||$q->user_status==3)?1:0):0); // weight : 1
-				$blockmail = ($q?(($q->user_status==2||$q->user_status==3)?1:0):0); // weight : 2
+				$q1 = $wpdb->get_row("SELECT P.t_signal, U.user_status FROM ".$wpdb->prefix."rencontre_users_profil P, ".$wpdb->prefix."users U  WHERE P.user_id='".$s->ID."' and P.user_id=U.ID");
+				$signal = ($q1?json_decode($q1->t_signal,true):0);
+				$block = ($q1?(($q1->user_status==1||$q1->user_status==3)?1:0):0); // weight : 1
+				$blockmail = ($q1?(($q1->user_status==2||$q1->user_status==3)?1:0):0); // weight : 2
 				echo '<tr>';
 				echo '<td><a href="admin.php?page=rencmembers&id='.$s->ID.'" title="'.__('See','rencontre').'">'.$s->ID.'</a></td>';
 				echo '<td><a href="admin.php?page=rencmembers&id='.$s->ID.'" title="'.__('See','rencontre').'"><img class="tete" src="'.($s->i_photo!=0?get_bloginfo('url').'/wp-content/uploads/portrait/'.floor(($s->ID)/1000).'/'.Rencontre::f_img((($s->ID)*10).'-mini').'.jpg" alt="" /></a></td>':plugins_url('rencontre/images/no-photo60.jpg').'" alt="'.$s->display_name.'" /></td>');
 				echo '<td>'.$s->user_login.'</td>';
-				echo '<td>'.(($s->i_sex==0)?__('Man','rencontre').'</td>':__('Woman','rencontre').'</td>');
+				if(isset($rencOpt['iam'][$s->i_sex])) echo '<td>'.$rencOpt['iam'][$s->i_sex].'</td>'; else echo '<td></td>';
 				echo '<td>'.Rencontre::f_age($s->d_naissance).'</td>';
-				echo '<td>'.$s->i_taille.' cm</td>';
-				echo '<td>'.$s->i_poids.' kg</td>';
-				if ($s->i_zrelation==0) echo '<td>'.__('Serious relationship','rencontre'); elseif ($s->i_zrelation==1) echo '<td>'.__('Open relationship','rencontre'); elseif ($s->i_zrelation==2) echo '<td>'.__('Friendship','rencontre');
-				else echo '<td>'.$s->i_zrelation;
-				echo '<br />'.$s->i_zage_min.' '. __('to','rencontre').' '.$s->i_zage_max.'</td>';
+				if(!isset($rencCustom['size'])) echo '<td>'.$s->i_taille.' '.__('cm','rencontre').'</td>';
+				if(!isset($rencCustom['weight'])) echo '<td>'.$s->i_poids.' '.__('kg','rencontre').'</td>';
+				if(isset($rencOpt['for'][$s->i_zrelation])) echo '<td>'.$rencOpt['for'][$s->i_zrelation]; else echo '<td>'.$s->i_zrelation;
+				if($s->i_zage_min) echo '<br />'.$s->i_zage_min.' '. __('to','rencontre').' '.$s->i_zage_max.'</td>'; else echo '</td>';
 				echo '<td>'.$s->t_titre.'</td>';
-				if(isset($drapNom[$s->c_pays]) && $s->c_pays!="") echo '<td><img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$drap[$s->c_pays].'" alt="'.$drapNom[$s->c_pays].'" title="'.$drapNom[$s->c_pays].'" />';
-				else echo '<td>'.$s->c_pays;
-				echo '<br />'.$s->c_region.'<br />'.$s->c_ville.'</td>';
-				echo '<td>'.$s->d_modif.'</td>';
+				if(!isset($rencCustom['place']))
+					{
+					echo '<td>';
+					if(!isset($rencCustom['country']) && isset($drapNom[$s->c_pays]) && $s->c_pays!="") echo '<img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$drap[$s->c_pays].'" alt="'.$drapNom[$s->c_pays].'" title="'.$drapNom[$s->c_pays].'" /><br />';
+					else if(!isset($rencCustom['country'])) echo $s->c_pays.'<br />';
+					if(!isset($rencCustom['region'])) echo $s->c_region.'<br />';
+					echo $s->c_ville.'</td>';
+					}
+				echo '<td>'.$s->d_modif.'<br /><em style="font-size:.9em;color:#777;">'.substr($s->user_registered,0,10).'</em></td>';
 				if (function_exists('geoip_detect_get_info_from_ip')) // PLUGIN GEOIP-DETECT
 					{
 					$geoip = geoip_detect_get_info_from_ip($s->c_ip);
@@ -957,8 +986,8 @@ function rencMenuMembres()
 				else $ipays=null;
 				echo '<td>'.$s->c_ip.(($ipays)?'<br/><img class="flag" src="'.plugins_url('rencontre/images/drapeaux/').$ipays.'" alt="'.$geoip->country_name.'" title="'.$geoip->country_name.'" />':'').'</td>';
 				echo '<td>'.((count($signal))?count($signal):'').'</td>';
-				echo '<td><a href="javascript:void(0)" class="rencBlock'.($block?'off':'on').'" onClick="f_block('.$s->ID.',\'b'.$block.'\')" title="'.($block?__('Unblock this member','rencontre'):__('Block this member','rencontre')).'"></a>';
-				echo '<a href="javascript:void(0)" class="rencMail'.($blockmail?'off':'on').'" onClick="f_blockMail('.$s->ID.',\'m'.$blockmail.'\')" title="'.($blockmail?__('Allow sending message','rencontre'):__('Prohibit contact','rencontre')).'"></a>';
+				echo '<td><a href="javascript:void(0)" class="rencBlock'.($block?'off':'on').'" onClick="f_block('.$s->ID.',\'b'.$block.'\')" title="'.($block?__('Unblock this member','rencontre'):__('Block this member','rencontre')).'"></a><br />';
+				echo '<a href="javascript:void(0)" class="rencMail'.($blockmail?'off':'on').'" onClick="f_blockMail('.$s->ID.',\'m'.$blockmail.'\')" title="'.($blockmail?__('Allow sending message','rencontre'):__('Prohibit contact','rencontre')).'"></a><br />';
 				echo '<a href="javascript:void(0)" class="rencSupp" onClick="f_fin('.$s->ID.',\''.$s->user_login.'\')" title="'.__('Remove','rencontre').'"></a>';
 				echo '</td>';
 				if($ho) echo '<td>'.(($s->$ho[3]!='')?$ho[4][$s->$ho[3]]:'').'</td>';
@@ -1007,13 +1036,19 @@ function rencMenuMembres()
 			<div class="bouton"><a href="<?php echo admin_url(); ?>admin.php?page=rencmembers"><?php _e('Back Members','rencontre');?></a></div>
 			<div class="rencPortrait">
 				<form name='portraitChange' method='post' enctype="multipart/form-data" action=''>
-					<input type='hidden' name='a1' value='' /><input type='hidden' name='a2' value='' /><input type='hidden' name='page' value='' />
+					<input type='hidden' name='a1' value='' />
+					<input type='hidden' name='a2' value='' />
+					<input type='hidden' name='page' value='' />
 					<div id="portraitSauv"><span onClick="f_sauv_profil(<?php echo $id; ?>)"><?php _e('Save profile','rencontre');?></span></div>
 					<div class="petiteBox portraitPhoto left">
 						<div class="rencBox">
 							<img id="portraitGrande" src="<?php if(($s->i_photo)!=0) echo $rencDiv['baseurl'].'/portrait/'.floor($id/1000).'/'.Rencontre::f_img(($id*10).'-grande').'.jpg?r='.rand(); else echo plugins_url('rencontre/images').'/no-photo600.jpg'; ?>" width=250 height=250 alt="" />
 							<div class="rencBlocimg">
-							<?php for ($v=0;$v<$rencOpt['imnb'];++$v)
+							<?php for($v=$id*10;$v<=$s->i_photo;++$v) // cleaning
+								{
+								if(!file_exists($rencDiv['basedir'].'/portrait/'.floor($id/1000).'/'.Rencontre::f_img(($v).'-mini').'.jpg')) RencontreWidget::suppImg($v,$id);
+								}
+							for ($v=0;$v<$rencOpt['imnb'];++$v)
 								{
 								if ($s->i_photo>=$id*10+$v)
 									{
@@ -1100,6 +1135,7 @@ function rencMenuPrison()
 		<div class='icon32' id='icon-options-general'><br/></div>
 		<h2>Rencontre&nbsp;<span style='font-size:60%;'>v<?php echo $rencVersion; ?></span></h2>
 		<h2><?php _e('Jail', 'rencontre'); ?></h2>
+		<p><?php _e('List of members removed by Admin. They are blacklisted (mail & IP). Subscription blocked', 'rencontre'); ?>&nbsp;<span style='color:#111;font-weight:700;'><?php echo $rencOpt['prison']; ?></span>&nbsp;<?php _e('days', 'rencontre'); ?>.</p>
 		<?php 
 		if (isset($_POST["a1"])) 
 			{
@@ -1158,7 +1194,7 @@ function rencMenuProfil()
 	$loc = substr(get_locale(),0,2); $loc2 = $loc."&";
 	$q2 = $wpdb->get_var("SELECT c_lang FROM ".$wpdb->prefix."rencontre_profil WHERE c_lang='".$loc."' ");
 	if(!$q2) {$loc = "en"; $loc2 = "en&";}
-	if (isset($_POST["a1"]) && !($_SESSION['a2']==$_POST["a2"] && $_SESSION['a4']==$_POST["a4"]) || (isset($_POST["a6"]) && $_POST["a6"]!=''))
+	if (isset($_POST["a1"]) && isset($_POST["a2"]) && isset($_POST["a4"]) && !($_SESSION['a2']==$_POST["a2"] && $_SESSION['a4']==$_POST["a4"]) || (isset($_POST["a6"]) && $_POST["a6"]!=''))
 		{
 		if ($_POST["a1"]=="supp") profil_supp($_POST["a2"],$_POST["a3"],$_POST["a4"]);
 		else if ($_POST["a1"]=="edit") profil_edit($_POST["a2"],$_POST["a3"],$_POST["a4"],$_POST["a5"],$_POST["a6"]);
@@ -1360,7 +1396,7 @@ function rencMenuPays()
 	$loc = substr(get_locale(),0,2); $loc2 = $loc."&";
 	$q2 = $wpdb->get_var("SELECT c_liste_lang FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_lang='".$loc."' ");
 	if(!$q2) {$loc = "en"; $loc2 = "en&";}
-	if (isset($_POST["a1"]) && !($_SESSION['a2']==$_POST["a2"] && $_SESSION['a4']==$_POST["a4"]) || (isset($_POST["a6"]) && $_POST["a6"]!=''))
+	if(isset($_POST["a1"]) && (!isset($_SESSION['a2']) || !($_SESSION['a2']==$_POST["a2"] && $_SESSION['a4']==$_POST["a4"])) || (isset($_POST["a6"]) && $_POST["a6"]!=''))
 		{
 		if ($_POST["a1"]=="supp") liste_supp($_POST["a2"],$_POST["a3"],$_POST["a4"]);
 		else if ($_POST["a1"]=="edit") liste_edit($_POST["a2"],$_POST["a3"],$_POST["a4"],$_POST["a5"],$_POST["a6"]);
@@ -1459,9 +1495,230 @@ function rencMenuPays()
 	<?php
 	}
 //
+function rencMenuCustom()
+	{
+	wp_enqueue_script('rencontre', plugins_url('rencontre/js/rencontre-adm.js'));
+	wp_enqueue_style( 'rencontre', plugins_url('rencontre/css/rencontre-adm.css'));
+	require(dirname (__FILE__) . '/../lang/rencontre-js-admin-lang.php');
+	wp_localize_script('rencontre', 'rencobjet', $lang);
+	global $wpdb; global $rencOpt; global $rencDiv; global $rencVersion; global $rencCustom;
+	if((isset($_POST['a1']) && $_POST['a1']=='custom')) f_update_custom($_POST);
+	?>
+	<div class="wrap">
+		<div class="icon32" id="icon-options-general"><br/></div>
+		<h2>Rencontre&nbsp;<span style="font-size:60%;">v<?php echo $rencVersion; ?></span></h2>
+		<h2><?php _e('Custom', 'rencontre'); ?></h2>
+		<form id="customForm" name="customForm" method="post" action="?page=renccustom">
+			<input type="hidden" name="a1" value="custom" />
+			<input type="hidden" name="a2" value="" />
+			<table class="form-table" style="max-width:600px;clear:none;">
+				<tr valign="top">
+					<th scope="row"><label><?php _e('No country', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="country" value="1" <?php if (isset($rencCustom['country']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('No region', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="region" value="1" <?php if (isset($rencCustom['region']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('No localisation', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="place" value="1" <?php if (isset($rencCustom['place']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('No birth date', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="born" value="1" <?php if (isset($rencCustom['born']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('No smiles', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="smile" value="1" <?php if (isset($rencCustom['smile']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('No weight', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="weight" value="1" <?php if (isset($rencCustom['weight']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('No size', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="size" value="1" <?php if (isset($rencCustom['size']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('No report', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="report" value="1" <?php if (isset($rencCustom['report']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Add relation type in quick search', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="relationQ" value="1" <?php if (isset($rencCustom['relationQ']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('No ad in unconnected homepage', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="libreAd" value="1" <?php if (isset($rencCustom['libreAd']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Only photo in unconnected homepage', 'rencontre'); ?></label></th>
+					<td><input type="checkbox" name="librePhoto" value="1" <?php if (isset($rencCustom['librePhoto']))echo 'checked'; ?>></td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Add a profile element in quick search', 'rencontre'); ?> - 1</label></th>
+					<td>
+						<select name="profilQS1">
+							<?php echo '<option value="" '.((isset($rencCustom['profilQS1']) && $rencCustom['profilQS1']=='')?'selected':'').'>-&nbsp;'.__('No', 'rencontre').'&nbsp;-</option>';
+							$p3 = $wpdb->get_results("SELECT id, c_categ, c_label FROM ".$wpdb->prefix."rencontre_profil WHERE c_lang='".substr($rencDiv['lang'],0,2)."' and i_type=3 ");
+							if($p3) foreach($p3 as $r)
+								{
+								echo '<option value="'.$r->id.'" '.((isset($rencCustom['profilQS1']) && $rencCustom['profilQS1']==$r->id)?' selected':'').'>'.$r->c_categ.' : '.$r->c_label.'</option>';
+								}
+							?>
+						</select>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Add a profile element in quick search', 'rencontre'); ?> - 2</label></th>
+					<td>
+						<select name="profilQS2">
+							<?php echo '<option value="" '.((isset($rencCustom['profilQS2']) && $rencCustom['profilQS2']=='')?'selected':'').'>-&nbsp;'.__('No', 'rencontre').'&nbsp;-</option>';
+							if($p3) foreach($p3 as $r)
+								{
+								echo '<option value="'.$r->id.'" '.((isset($rencCustom['profilQS2']) && $rencCustom['profilQS2']==$r->id)?' selected':'').'>'.$r->c_categ.' : '.$r->c_label.'</option>';
+								}
+							?>
+						</select>
+					</td>
+				</tr>
+				<?php $ho = false; if(has_filter('rencProfilSaP', 'f_rencProfilSaP')) $ho = apply_filters('rencProfilSaP', $p3); if($ho) echo $ho; ?>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Change welcome text for new user', 'rencontre'); ?></label></th>
+					<td>
+						<input type="checkbox" name="new" onChange="if(this.checked){document.getElementById('newText').style.display='inline';document.getElementById('newT').style.display='none';}else{document.getElementById('newText').style.display='none';document.getElementById('newT').style.display='block';}" value="1" <?php if (isset($rencCustom['new'])) echo 'checked'; ?>><br />
+						<p id="newT" style="font-size:.8em;<?php if (isset($rencCustom['new']))echo 'display:none'; ?>">
+							<?php echo __('You will access all the possibilities offered by the site in few minutes.','rencontre').' ';
+							echo __('Before that, you need to provide some information requested below.','rencontre').'<br />';
+							echo __('We would like to inform you that we do not use your personal data outside of this site.','rencontre').' ';
+							echo __('Deleting your account on your part or ours, causes the deletion of all your data.','rencontre').' ';
+							echo __('This also applies to messages that you have sent to other members as well as those they have sent to you.','rencontre').'<br />';
+							echo __('We wish you nice encounters.','rencontre'); ?>
+						</p>
+						<textarea id="newText" name="newText" <?php if (!isset($rencCustom['new'])) echo 'style="display:none"'; ?>><?php if (isset($rencCustom['newText']) && $rencCustom['newText']!='') echo stripslashes($rencCustom['newText']); ?></textarea>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Change warning account blocked', 'rencontre'); ?></label></th>
+					<td>
+						<input type="checkbox" name="blocked" onChange="if(this.checked){document.getElementById('blockedText').style.display='inline';document.getElementById('blockedT').style.display='none';}else{document.getElementById('blockedText').style.display='none';document.getElementById('blockedT').style.display='block';}" value="1" <?php if (isset($rencCustom['blocked'])) echo 'checked'; ?>><br />
+						<p id="blockedT" style="font-size:.8em;<?php if (isset($rencCustom['blocked'])) echo 'display:none'; ?>">
+							<?php echo __('Your account is blocked. You are invisible. Change your profile.','rencontre'); ?>
+						</p>
+						<input type="text" id="blockedText" name="blockedText" value="<?php if (isset($rencCustom['blockedText']) && $rencCustom['blockedText']!='') echo stripslashes($rencCustom['blockedText']); ?>" <?php if (!isset($rencCustom['blocked'])) echo 'style="display:none"'; ?> />
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Change warning empty profile', 'rencontre'); ?></label></th>
+					<td>
+						<input type="checkbox" name="empty" onChange="if(this.checked){document.getElementById('emptyText').style.display='inline';document.getElementById('emptyT').style.display='none';}else{document.getElementById('emptyText').style.display='none';document.getElementById('emptyT').style.display='block';}" value="1" <?php if (isset($rencCustom['empty'])) echo 'checked'; ?>><br />
+						<p id="emptyT" style="font-size:.8em;<?php if (isset($rencCustom['empty'])) echo 'display:none'; ?>">
+							<?php echo __('Your profile is empty. To take advantage of the site and being more visible, thank you to complete it.','rencontre'); ?>
+						</p>
+						<input type="text" id="emptyText" name="emptyText" value="<?php if (isset($rencCustom['emptyText']) && $rencCustom['emptyText']!='') echo stripslashes($rencCustom['emptyText']); ?>" <?php if (!isset($rencCustom['empty'])) echo 'style="display:none"'; ?> />
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Change the quarantine warning', 'rencontre'); ?></label></th>
+					<td>
+						<input type="checkbox" name="jail" onChange="if(this.checked){document.getElementById('jailText').style.display='inline';document.getElementById('jailT').style.display='none';}else{document.getElementById('jailText').style.display='none';document.getElementById('jailT').style.display='block';}" value="1" <?php if (isset($rencCustom['jail'])) echo 'checked'; ?>><br />
+						<p id="jailT" style="font-size:.8em;<?php if (isset($rencCustom['jail'])) echo 'display:none'; ?>">
+							<?php echo __('Your email address is currently in quarantine. Sorry','rencontre'); ?>
+						</p>
+						<input type="text" id="jailText" name="jailText" value="<?php if (isset($rencCustom['jailText']) && $rencCustom['jailText']!='') echo stripslashes($rencCustom['jailText']); ?>" <?php if (!isset($rencCustom['jail'])) echo 'style="display:none"'; ?> />
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Change relation type', 'rencontre'); ?></label></th>
+					<td>
+						<input type="checkbox" name="relation" onChange="if(this.checked){document.getElementById('relationU').style.display='block';document.getElementById('relationT').style.display='none';}else{document.getElementById('relationU').style.display='none';document.getElementById('relationT').style.display='block';}" value="1" <?php if (isset($rencCustom['relation'])) echo 'checked'; ?>><br />
+						<p id="relationT" style="font-size:.8em;<?php if (isset($rencCustom['relation'])) echo 'display:none'; ?>">
+							<?php for($v=0;$v<3;++$v) echo '-&nbsp;'.$rencOpt['for'][$v].(($v!=(isset($rencCustom['relation'])?count($rencOpt['for']):3)-1)?'<br />':'') ;?>
+						</p>
+						<p id="relationU" <?php if (!isset($rencCustom['relation'])) echo 'style="display:none"'; ?>>
+						<?php
+						$c = 0;
+						while(isset($rencCustom['relationL'.$c]) || $c==0)
+							{
+							echo '<input type="text" id="relationL'.$c.'" name="relationL'.$c.'" value="'.(isset($rencCustom['relationL'.$c])?stripslashes($rencCustom['relationL'.$c]):'').'" />';
+							if(isset($rencCustom['relationL'.$c]) && $rencCustom['relationL'.$c]) echo '<span class="rencSupp" onClick="document.forms[\'customForm\'].elements[\'a2\'].value=\'relationS'.$c.'\';document.forms[\'customForm\'].submit();" title="'.__('Remove','rencontre').'"></span>';
+							if(!isset($rencCustom['relationL'.($c+1)]) && isset($rencCustom['relationL'.$c]) && $rencCustom['relationL'.$c]) echo '<span class="rencPlus" onClick="document.forms[\'customForm\'].elements[\'a2\'].value=\'relationP\';document.forms[\'customForm\'].submit();" title="'.__('Add Value','rencontre').'"></span>';
+							++$c;
+							}
+						?>
+						</p>
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label><?php _e('Change sex values', 'rencontre'); ?></label></th>
+					<td>
+						<input type="checkbox" name="sex" onChange="if(this.checked){document.getElementById('sexU').style.display='block';document.getElementById('sexT').style.display='none';}else{document.getElementById('sexU').style.display='none';document.getElementById('sexT').style.display='block';}" value="1" <?php if (isset($rencCustom['sex'])) echo 'checked'; ?>><br />
+						<p id="sexT" style="font-size:.8em;<?php if (isset($rencCustom['sex'])) echo 'display:none'; ?>">
+							<?php for($v=0;$v<2;++$v) echo '-&nbsp;'.$rencOpt['iam'][$v].(($v!=(isset($rencCustom['sex'])?count($rencOpt['iam']):2)-1)?'<br />':'') ;?>
+						</p>
+						<p id="sexU" <?php if (!isset($rencCustom['sex'])) echo 'style="display:none"'; ?>>
+						<?php
+						$c = 0;
+						while(isset($rencCustom['sexL'.$c]) || $c==0)
+							{
+							echo '<input type="text" id="sexL'.$c.'" name="sexL'.$c.'" value="'.(isset($rencCustom['sexL'.$c])?stripslashes($rencCustom['sexL'.$c]):'').'" />';
+							if(isset($rencCustom['sexL'.$c]) && $rencCustom['sexL'.$c]) echo '<span class="rencSupp" onClick="document.forms[\'customForm\'].elements[\'a2\'].value=\'sexS'.$c.'\';document.forms[\'customForm\'].submit();" title="'.__('Remove','rencontre').'"></span>';
+							if(!isset($rencCustom['sexL'.($c+1)]) && isset($rencCustom['sexL'.$c]) && $rencCustom['sexL'.$c]) echo '<span class="rencPlus" onClick="document.forms[\'customForm\'].elements[\'a2\'].value=\'sexP\';document.forms[\'customForm\'].submit();" title="'.__('Add Value','rencontre').'"></span>';
+							++$c;
+							}
+						?>
+						</p>
+					</td>
+				</tr>
+			</table>
+			<p class="submit">
+				<input type="submit" class="button-primary" value="<?php _e('Save','rencontre') ?>" />
+			</p>
+		</form>
+		<hr />
+	</div>
+	<?php
+	}
+//
 // *****************************************
 // **** AUTRES
 // *****************************************
+function f_update_custom($f)
+	{
+	global $rencOpt; global $rencCustom;
+	$a = array(); $profilS = 0; $relationL = 0; $sexL = 0;
+	foreach($f as $k=>$v)
+		{
+		if($v && $k!='a1' && $k!='a2')
+			{
+			if(strpos($k,'profilS')!==false) 
+				{
+				if(!(substr($f['a2'],0,7)=='profilS' && $k=='profilS'.substr($f['a2'],7))) { $a['profilS'.$profilS] = $v; ++$profilS; } // REMOVE
+				}
+			else if(strpos($k,'relationL')!==false) 
+				{
+				if(!(substr($f['a2'],0,9)=='relationS' && $k=='relationL'.substr($f['a2'],9))) { $a['relationL'.$relationL] = $v; ++$relationL; } // REMOVE
+				}
+			else if(strpos($k,'sexL')!==false) 
+				{
+				if(!(substr($f['a2'],0,4)=='sexS' && $k=='sexL'.substr($f['a2'],4))) { $a['sexL'.$sexL] = $v; ++$sexL; } // REMOVE
+				}
+			else $a[$k] = $v;
+			}
+		}
+	if($f['a2']=='profilP') $a['profilS'.$profilS] = ''; // ADD
+	if($f['a2']=='relationP') $a['relationL'.$relationL] = '';
+	if($f['a2']=='sexP') $a['sexL'.$sexL] = '';
+	if(!isset($a['relationL0'])) unset($a['relation']);
+	if(!isset($a['sexL0'])) unset($a['sex']);
+	$rencOpt['custom'] = json_encode($a);
+	$for = $rencOpt['for']; $iam = $rencOpt['iam'];
+	unset($rencOpt['for']); unset($rencOpt['iam']);
+	update_option('rencontre_options',$rencOpt);
+	$rencOpt['for'] = $for; $rencOpt['iam'] = $iam;
+	$rencCustom = json_decode($rencOpt['custom'],true);
+	}
 function f_userPrison($f)
 	{
 	// $f : id table rencontre_prison
@@ -1486,7 +1743,40 @@ function sauvProfilAdm($in,$id)
 			}
 		}
 	global $wpdb;
-	$wpdb->update($wpdb->prefix.'rencontre_users_profil', array('d_modif'=>date("Y-m-d H:i:s"),'t_titre'=>strip_tags(stripslashes($_POST['titre'])),'t_annonce'=>strip_tags(stripslashes($_POST['annonce'])),'t_profil'=>'['.substr($u, 0, -1).']'), array('user_id'=>$id));
+	$wpdb->update($wpdb->prefix.'rencontre_users_profil', 
+		array('d_modif'=>date("Y-m-d H:i:s"),
+			't_titre'=>strip_tags(stripslashes($_POST['titre'])),
+			't_annonce'=>strip_tags(stripslashes($_POST['annonce'])),
+			't_profil'=>'['.substr($u, 0, -1).']'), 
+		array('user_id'=>$id)
+		);
+	// *********** Patch install before V1.7 : Remove double (miss UNIQUE in table creation) *************
+	$q = $wpdb->get_results("SELECT user_id FROM ".$wpdb->prefix."rencontre_users WHERE user_id=".$id);
+	if(count($q)>1)
+		{
+		$q = $wpdb->get_row("SELECT * FROM ".$wpdb->prefix."rencontre_users WHERE user_id=".$id);
+		$wpdb->delete($wpdb->prefix.'rencontre_users', array('user_id'=>$id));
+		$wpdb->insert($wpdb->prefix.'rencontre_users', array(
+			'user_id'=>$id,
+			'c_ip'=>$q->c_ip,
+			'c_pays'=>$q->c_pays,
+			'c_region'=>$q->c_region,
+			'c_ville'=>$q->c_ville,
+			'e_lat'=>$q->e_lat,
+			'e_lon'=>$q->e_lon,
+			'i_sex'=>$q->i_sex,
+			'd_naissance'=>$q->d_naissance,
+			'i_taille'=>$q->i_taille,
+			'i_poids'=>$q->i_poids,
+			'i_zsex'=>$q->i_zsex,
+			'i_zage_min'=>$q->i_zage_min,
+			'i_zage_max'=>$q->i_zage_max,
+			'i_zrelation'=>$q->i_zrelation,
+			'i_photo'=>$q->i_photo,
+			'd_session'=>$q->d_session)
+			);
+		}
+	// ****************************************************************
 	}
 function renc_encodeImg($f=1)
 	{

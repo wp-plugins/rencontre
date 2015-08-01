@@ -24,12 +24,16 @@ if ($_POST && isset($_POST['tchat']))
 			if (is_file('../../../uploads/session/'.$fm.'.txt') && time()-filemtime('../../../uploads/session/'.$fm.'.txt')<150)
 				{ // confirme en ligne (180 secondes d inactivite max. voir f_en_ligne() rencontre_widget.php)
 				$t=fopen('../../../uploads/session/'.$fm.'.txt', 'w'); fclose($t);
+				session_start();
+				if(isset($_SESSION["tchat"])) unset($_SESSION["tchat"]);
 				}
 			}
 		else if (time()-filemtime($d.$fm.'.txt')>150)
 			{ // trop ancien
 			echo null;
 			$t=fopen($d.$fm.'.txt', 'w'); fclose($t);
+			session_start();
+			if(isset($_SESSION["tchat"])) unset($_SESSION["tchat"]);
 			}
 		else
 			{
@@ -45,6 +49,8 @@ if ($_POST && isset($_POST['tchat']))
 			{
 			$t=fopen($d.$fm.'.txt', 'wb'); fwrite($t,'['.$fm.']',15); fclose($t);
 			$t=fopen($d.$to.'.txt', 'wb'); fwrite($t,'['.$fm.']',15); fclose($t);
+			session_start();  // active session cote demandeur
+			$_SESSION["tchat"] = $to;
 			}
 		clearstatcache();
 		}
@@ -53,13 +59,17 @@ if ($_POST && isset($_POST['tchat']))
 		{
 		$t=fopen($d.$to.'.txt', 'w'); fclose($t);
 		$t=fopen($d.$fm.'.txt', 'w'); fclose($t);
+		session_start();
+		if(isset($_SESSION["tchat"])) unset($_SESSION["tchat"]);
 		clearstatcache();
 		}
 	// **************************
 	else if ($tc=='tchatOk') // accepte le tchat - mon ID dans txt du demandeur
 		{
 		$t=fopen('../../../uploads/session/'.$fm.'.txt', 'w'); fclose($t);
-		$t=fopen($d.$to.'.txt', 'wb'); fwrite($t,'['.$fm.']-',15); fclose($t);
+		$t=fopen($d.$to.'.txt', 'wb'); fwrite($t,'['.$fm.']-',15); fclose($t); // '-' pour > size (scrute)
+		session_start(); // active session cote invite
+		$_SESSION["tchat"] = $to;
 		clearstatcache();
 		}
 	// **************************
@@ -70,8 +80,13 @@ if ($_POST && isset($_POST['tchat']))
 			{
 			$t=fopen('../../../uploads/session/'.$fm.'.txt', 'w'); fclose($t); // raffraichissement de ma session 5 sec
 			}
-		if (!file_exists($d.$fm.'.txt') || filesize($d.$fm.'.txt')===0) echo "::".$fm."::"; // fin du chat =>JS f_tchat_off()
-		else if (time()-filemtime('../../../uploads/session/'.$to.'.txt')>15) // sa session >15 sec : fin sauf demande
+		if (!file_exists($d.$fm.'.txt') || filesize($d.$fm.'.txt')===0)
+			{
+			echo "::".$fm."::"; // fin du chat =>JS f_tchat_off()
+			session_start();
+			if(isset($_SESSION["tchat"])) unset($_SESSION["tchat"]);
+			}
+		else if (!file_exists('../../../uploads/session/'.$to.'.txt') || time()-filemtime('../../../uploads/session/'.$to.'.txt')>15) // sa session >15 sec : fin sauf demande
 			{
 			$t=fopen($d.$fm.'.txt', 'r'); $r=fread($t, 15); fclose($t);
 			$r=substr($r,1,(strpos($r,']')-1));
@@ -79,6 +94,8 @@ if ($_POST && isset($_POST['tchat']))
 				{
 				echo "::".$fm."::"; // fin du chat sauf si demande en cours (fm dans mon fichier fm)
 				$t=fopen($d.$fm.'.txt', 'w');fclose($t);
+				session_start();
+				if(isset($_SESSION["tchat"])) unset($_SESSION["tchat"]);
 				}
 			else echo null;
 			clearstatcache();
@@ -90,7 +107,8 @@ if ($_POST && isset($_POST['tchat']))
 			if (substr($r,1,(strpos($r,']')-1))!=$fm)
 				{ // vide ma boite
 				$t=fopen($d.$fm.'.txt', 'w'); fwrite($t,'['.$to.']',15); fclose($t);
-				echo stripslashes($r);
+				if(file_exists('../../../uploads/tchat/cam'.$to.'-'.$fm.'.jpg') && $r!='['.$to.']-') echo stripslashes($r.chr(127)); // cam chez autre
+				else echo stripslashes($r);
 				}
 			else echo null;
 			clearstatcache();

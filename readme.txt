@@ -3,8 +3,8 @@ Contributors: jacques malgrange
 Donate link: http://www.boiteasite.fr/fiches/site_rencontre_wordpress.html
 Tags: date, dating, meet, love, chat, webcam, rencontres
 Requires at least: 3.0.1
-Tested up to: 4.2.2
-Stable tag: 1.6
+Tested up to: 4.2.3
+Stable tag: 1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,7 +61,7 @@ If you have translated the plugin in your language or want to, please let me kno
 
 **Primo**
 
-Method 1 : In your theme (recommended) :
+Method 1 : PHP in your theme (recommended) :
 
 In your theme folder, in the page used for the dating part (index.php or page.php if you want to use the home page - see F.A.Q.), add the content :
 `&lt;?php if(is_user_logged_in()) {
@@ -76,14 +76,35 @@ Method 2 : With a Widget (more complicated) :
 
 Method 3 : Shortcode (the simplest way for beginners) :
 
-add shortcode [rencontre] in your page.
+add shortcode [rencontre] in your page content (not in the template).
 
 **Secundo**
 
+You need to add the WP connection link.
+
+Method 1 : PHP in your theme (recommended):
+
+Add this small code in your header.php file (or other one...), next to the menu for example :
+
+`&lt;?php Rencontre::f_login(); ?&gt;`
+
+You can also add the *Facebook* connection link with the WP connection link :
+
+`&lt;?php Rencontre::f_login('fb'); ?&gt;`
+
+Method 2 : Shortcode :
+
+Add the shortcode [rencontre_login] in your page content. No Facebook option.
+
+**Tertio (not required)**
+
 For visitors not connected, you can view thumbnails and small profile of the last registered members using one of this two methods :
 
-* The simplest way without options : the shortcode [rencontre_libre].
-* More options : php code in your theme :
+Method 1 : Shortcode :
+
+Add the shortcode [rencontre_libre] in your page content. You can add it next the other one : [rencontre] [rencontre_libre].
+
+Method 2 : PHP in your theme :
 
 `&lt;?php if(!is_user_logged_in()) Rencontre::f_ficheLibre(); ?&gt;`
 If you write f_ficheLibre(1), there will be as many men as women.
@@ -91,21 +112,25 @@ If you write f_ficheLibre(1), there will be as many men as women.
 You can also get the number of members in base with this php and ('girl'), ('men'), ('girlPhoto'), ('menPhoto') or () for all :
 `&lt;?php if(!is_user_logged_in()) echo Rencontre::f_nbMembre('girlPhoto'); ?&gt;`
 
-**Tertio**
+**Quarto (not required)**
 
-You need to add the WP connection link. You can add this in the header.php to have the WP and the Facebook connections links :
-`&lt;?php Rencontre::f_loginFB(); 
-	wp_loginout(home_url()); if (!is_user_logged_in()) { ?&gt;
-		&lt;a href="wp-login.php?action=register"&gt;&lt;?php _e('Register'); ?&gt;&lt;/a&gt;
-&lt;?php } ?&gt;`
+For visitors not connected, you can add a quick search form :
 
-**Quarto**
+Method 1 : Shortcode :
+
+Add the shortcode [rencontre_search] in your page content.
+
+Method 2 : PHP in your theme :
+
+`&lt;?php if(!is_user_logged_in()) Rencontre::f_rencontreSearch(); ?&gt;`
+
+**Quinto**
 
 When ready, go to admin panel and load the countries, load the profiles, set all parameters of the plugin and don't forget to save.
 
 In Settings / General, check the box 'Anyone can register' with role 'Subscriber'.
 
-**Quinto**
+**Sexto**
 
 Register as a member : Click Register, add login and email.
 
@@ -170,6 +195,13 @@ Add little flags in the header of your theme. On click, you create cookie with t
 	&lt;/a&gt;
 &lt;/div&gt;`
 
+= User role & user removed =
+All WordPress roles for the new Rencontre members are removed by this plugin to improve security and speed. That can be a conflict with other plugin.
+The members without Rencontre account are automaticaly removed after two days if they can't "edit_posts".
+
+= How to add profil search in search tab (like quick search) =
+This is a Premium option. The number of items that can be added is unlimited.
+
 = What to include with WP-GeoNames =
 * Columns : minimum is name, latitude, longitude, country code, feature class & code.
 * Type of data : only P (city).
@@ -189,6 +221,15 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 7. Proximity search on GoogleMap.
 
 == Changelog ==
+
+= 1.7 =
+01/08/2015 : 
+
+* Add an Admin tab with numerous options to customize the plugin.
+* Add quick search in un-logged homepage.
+* Improve plugin installation.
+* Fix an important security issue that can give admin access to a member.
+* Fix bugs.
 
 = 1.6 =
 06/05/2015 : 

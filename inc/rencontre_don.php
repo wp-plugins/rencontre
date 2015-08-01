@@ -1,5 +1,5 @@
-<div style="float:right;width:200px;">
-<table cellpadding="0" class="widefat donation" style="margin-bottom:10px; border:solid 2px #0074a2;">
+<div id="rencDonation" style="float:right;width:250px;z-index:-1;margin:20px;">
+<table cellpadding="0" class="widefat" style="margin-bottom:10px; border:solid 2px #0074a2;">
 	<thead>
 		<th style="text-align:center;color:#0074a2;"><strong><?php _e('Help Improve This Plugin!', 'rencontre') ?></strong></th>
 	</thead>
@@ -8,7 +8,7 @@
 			<td><?php _e('Enjoyed this free dating plugin?  A donation will help us to spend more time to make it evolve. Thanks for your contribution.','rencontre') ?></td>
 		</tr>
 		<tr>
-			<td style="text-align:center;">
+			<td style="text-align:center;position:relative;">
 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
 					<input type="hidden" name="cmd" value="_donations" />
 					<input type="hidden" name="business" value="J5R558LZ7FQ7L" />
@@ -19,15 +19,18 @@
 					<input type="hidden" name="src" value="0" />
 					<input type="hidden" name="currency_code" value="EUR" />
 					<input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest" />
-					<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="<?php _e('PayPal - The most secure online payment solution !','rencontre') ?>" />
+					<input type="image" style="max-width:180px;" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="<?php _e('PayPal - The most secure online payment solution !','rencontre') ?>" />
 				</form>
 			</td>
+		</tr>
+		<tr>
+			<td><?php _e('You saw an error in this plugin ?', 'rencontre') ?>&nbsp;<a href="http://www.wordpress.org/support/plugin/rencontre" target="_blank"><?php _e('Thanks to report it','rencontre') ?></a>.</td>
 		</tr>
 		<tr>
 			<td><?php _e('You can also help us by', 'rencontre') ?>&nbsp;<a href="https://wordpress.org/support/view/plugin-reviews/rencontre" target="_blank"><?php _e('rating this plugin','rencontre') ?></a>.</td>
 		</tr>
 		<tr>
-			<td><?php _e('You want a sophisticated payment system and more ?', 'rencontre') ?>&nbsp;<a href="http://www.boiteasite.fr/fiches/rencontre-premium.html" target="_blank"><?php _e('Add this kit Premium','rencontre') ?></a>.</td>
+			<td><?php _e('Want to add a payment system adapted to this plugin and more features ?', 'rencontre') ?><br />=>&nbsp;<a href="http://www.boiteasite.fr/fiches/rencontre-premium.html" target="_blank"><?php _e('Add this kit PREMIUM','rencontre') ?></a></td>
 		</tr>
 	</tbody>
 </table>
