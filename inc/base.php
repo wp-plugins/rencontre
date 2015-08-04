@@ -649,7 +649,7 @@ function rencMenuGeneral()
 					<th scope="row"><label><?php _e('Country selected by default', 'rencontre'); ?></label></th>
 					<td>
 						<select name="pays">
-						<?php RencontreWidget::f_pays($rencOpt['pays']); ?>
+						<?php RencontreWidget::f_pays($rencOpt['pays'],1); ?>
 						</select>
 					</td>
 				</tr>

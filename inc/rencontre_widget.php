@@ -1480,9 +1480,9 @@ class RencontreWidget extends WP_widget
 		return $imc;
 		}
 	//
-	static function f_pays($f='fr')
+	static function f_pays($f='FR',$indif=0)
 		{
-		echo '<option value="">- '.__('Immaterial','rencontre').' -</option>';
+		if(!$indif) echo '<option value="">- '.__('Immaterial','rencontre').' -</option>';
 		global $wpdb; global $rencDiv;
 		$q = $wpdb->get_results("SELECT c_liste_valeur, c_liste_iso FROM ".$wpdb->prefix."rencontre_liste WHERE c_liste_categ='p' and c_liste_lang='".substr($rencDiv['lang'],0,2)."' ORDER BY c_liste_valeur");
 		foreach($q as $r)

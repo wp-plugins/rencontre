@@ -232,6 +232,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 * Fix an important security issue that can give admin access to a member.
 * Fix bugs.
 
+05/08/2015 : Update 1 : Set a country by default on a new install (needed for google-map).
+
 = 1.6 =
 06/05/2015 : 
 
