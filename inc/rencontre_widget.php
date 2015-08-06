@@ -1838,11 +1838,12 @@ class RencontreWidget extends WP_widget
 							</tr>
 							<?php }
 							$ho = false; if(has_filter('rencMapP', 'f_rencMapP')) $ho = apply_filters('rencMapP', $ho);
+							// With WP_GEONAMES plugin
 							if (!$ho && $rencOpt['map'] && function_exists('wpGeonames') && (($q->e_lon!=0 && $q->e_lat!=0) || isset($rencCustom['country'])) && $rencOpt['pays']!='')
 								{ ?>
 							<tr  class="renctrMap">
 								<td colspan="2"><?php _e('City','rencontre');?>&nbsp;:<br />
-									<input id="rencVille" name="ville" type="text" size="12" value="" onkeyup="f_city(this.value,'<?php echo admin_url('admin-ajax.php'); ?>',<?php if(isset($rencCustom['country'])) echo "'".$rencOpt['pays']."'"; else echo "document.getElementById('rencPays').options[document.getElementById('rencPays').selectedIndex].value"; ?>,1);" />
+									<input id="rencVille" name="ville" type="text" size="12" value="" onkeyup="<?php echo 'if(!rmap)f_cityMap(this.value,'.(isset($rencCustom['country'])?"'".$rencOpt['pays']."'":'document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].text').',\'0\',1);'; ?>f_city(this.value,'<?php echo admin_url('admin-ajax.php'); ?>',<?php if(isset($rencCustom['country'])) echo "'".$rencOpt['pays']."'"; else echo "document.getElementById('rencPays').options[document.getElementById('rencPays').selectedIndex].value"; ?>,1);" />
 									<input id="gps" name="gps" type="hidden" />
 									<div class="rencCity" id="rencCity"></div>
 									<div class="rencTMap" id="rencTMap">
@@ -1861,6 +1862,7 @@ class RencontreWidget extends WP_widget
 								</td>
 							</tr>
 								<?php }
+								// No WP_GEONAMES
 								else if (!$ho && $rencOpt['map'] && (($q->e_lon!=0 && $q->e_lat!=0) || isset($rencCustom['country'])) && $rencOpt['pays']!='') 
 								{ ?>
 							<tr class="renctrMap">
@@ -1887,6 +1889,7 @@ class RencontreWidget extends WP_widget
 							</tr>
 								<?php }
 								else
+								// NO MAP
 								{ ?>
 							<tr>
 								<td><?php _e('City','rencontre');?>&nbsp;:</td>

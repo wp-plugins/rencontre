@@ -234,6 +234,8 @@ More details in french [here](http://www.boiteasite.fr/fiches/site_rencontre_wor
 
 05/08/2015 : Update 1 : Set a country by default on a new install (needed for google-map).
 
+06/08/2015 : Update 2 : Fix a bug in search on Google-Map when WP_Geonames is installed without country.
+
 = 1.6 =
 06/05/2015 : 
 
