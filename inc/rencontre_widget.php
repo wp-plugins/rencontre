@@ -230,7 +230,7 @@ class RencontreWidget extends WP_widget
 							<?php } ?>
 								<td>
 									<input id="rencVille" name="ville" type="text" size="12" <?php
-										if (function_exists('wpGeonames')) echo 'onkeyup="f_city(this.value,\''.admin_url('admin-ajax.php').'\',document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].value,0);"'; 
+										if (function_exists('wpGeonames')) echo 'onkeyup="if(!rmap)f_cityMap(this.value,'.(isset($rencCustom['country'])?"'".$rencOpt['pays']."'":'document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].text').',\'0\',1);f_city(this.value,\''.admin_url('admin-ajax.php').'\',document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].value,0);"'; 
 										else echo 'onkeyup="if(!rmap)f_cityMap(this.value,document.getElementById(\'rencPays\').options[document.getElementById(\'rencPays\').selectedIndex].text,\'0\',1);"'; 
 										?> />
 									<input id="gps" name="gps" type="hidden" />
